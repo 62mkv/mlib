@@ -1,0 +1,33 @@
+<command>
+<name>rename columns</name>
+<description>Rename one or more columns in a result set.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>renameColumns</method>
+<argument name="resultset" alias="res" datatype="results">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command renames the given columns to the given new column names.  If
+ a result set argument is passed, the columns in the given result set are
+ renamed and the columns in the result set are published.  If a result set
+ argument is not passed, the result set published from the last command is used instead.
+]]>
+</remarks>
+<retrows>The number of rows returned is dependent on the result set being referenced.</retrows>
+<example>publish data where a=1 and b=2 | rename columns where a='c' and b='d'
+
+   c d
+   - -
+   1 2</example>
+<example>publish data where a=1 and b=2 &gt;&gt;res | rename columns where res=@res and a='c' and b='d'
+
+   c d
+   - -
+   1 2</example>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+</documentation>
+</command>

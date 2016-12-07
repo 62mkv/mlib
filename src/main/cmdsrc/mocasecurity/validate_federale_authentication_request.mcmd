@@ -1,0 +1,21 @@
+<command>
+    <name>validate federale authentication request</name>
+    <description>Login for a trusted federation host.</description>
+    <type>Java Method</type>
+    <class>FederatedSecurityComponents</class>
+    <method>validateFederaleAuthenticationRequest</method>
+    <argument name="token" required="yes" datatype="string" />
+    <argument name="session_id" required="yes" datatype="string" />
+    <insecure>yes</insecure>
+    <documentation>
+        <remarks>
+            <![CDATA[
+              This component will initiate the authentication process
+              with a federated host.  This component assumes that a 
+              valid moca session has not be created and will create
+              a valid session once all validation steps have completed 
+              correctly.
+            ]]>
+        </remarks>
+    </documentation>
+</command>

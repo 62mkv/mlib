@@ -1,0 +1,6 @@
+<component-level>
+<name>MOCAdbupgrade</name>
+<description>MOCA Database Upgrade Components</description>
+<package>com.redprairie.moca.components.databaseupgrade</package>
+<sort-sequence>10</sort-sequence>
+</component-level>

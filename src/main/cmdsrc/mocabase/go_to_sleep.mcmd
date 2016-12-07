@@ -1,0 +1,23 @@
+<command>
+<name>go to sleep</name>
+<description>Go to sleep for a given number of seconds.</description>
+<type>Local Syntax</type>
+<local-syntax>
+[[
+    def sleepTime = (time != null) ? time : (sleeptime != null) ? sleeptime : 1;
+
+    Thread.sleep(sleepTime * 1000);
+]]
+</local-syntax>
+<argument name="time" alias="sleeptime" datatype="integer">
+</argument>
+<documentation>
+<retrows>None.  This command just returns a status.</retrows>
+<remarks>
+<![CDATA[
+ This command puts the server process to sleep for the given number of seconds.  The default behavior if no sleep time is given is to go to sleep for 1 second.
+]]>
+</remarks>
+<exception value="eOK">Completed successfully.</exception>
+</documentation>
+</command>

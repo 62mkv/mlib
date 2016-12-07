@@ -1,0 +1,21 @@
+<command>
+<name>move file</name>
+<description>Move a file.</description>
+<type>Java Method</type>
+<class>FileDirectoryService</class>
+<method>moveFile</method>
+<argument name="from" alias="filename" required="yes" datatype="string">
+</argument>
+<argument name="to" alias="new_filename" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command moves/renames the given filename.
+]]>
+</remarks>
+<retrows>None.  This command just returns a status.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+</documentation>
+</command>

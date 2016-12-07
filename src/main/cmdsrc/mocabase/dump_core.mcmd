@@ -1,0 +1,14 @@
+<command>
+<name>dump core</name>
+<description>Dump a core image of the executable.</description>
+<type>C Function</type>
+<function>mocaDumpCore</function>
+<documentation>
+<remarks>
+<![CDATA[
+ This command dumps the core of the currently running process.  It's a useful
+ tool for forcing a core dump when debugging a component.
+]]>
+</remarks>
+</documentation>
+</command>

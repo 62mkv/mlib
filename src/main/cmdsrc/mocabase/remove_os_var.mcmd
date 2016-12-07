@@ -1,0 +1,21 @@
+<command>
+<name>remove os var</name>
+<description>Remove an o/s variable.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>removeOsVariable</method>
+<argument name="var" alias="variable" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command removes the given o/s variable. 
+]]>
+</remarks>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="get os var">
+</seealso>
+<seealso cref="put os var">
+</seealso>
+</documentation>
+</command>

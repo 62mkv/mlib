@@ -1,0 +1,6 @@
+<component-level>
+<name>MOCAxml</name>
+<description>MOCA XML Components</description>
+<library>MOCAxml</library>
+<sort-sequence>50</sort-sequence>
+</component-level>

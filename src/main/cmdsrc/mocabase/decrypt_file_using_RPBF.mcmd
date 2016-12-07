@@ -1,0 +1,89 @@
+<command>
+<name>decrypt file using RPBF</name>
+<description>Decrypt file using RPBF</description>
+<type>Local Syntax</type>
+<argument  name="filnam" alias="filename" required="yes" datatype="string">
+   Filename you wish to decrypt using RPBF.
+</argument>
+<argument  name="block_size" datatype="integer">
+   Block size used to decrypt file
+</argument>
+<argument  name="bkup_filnam" alias="backup_filename" datatype="string">
+   Save original file in a backup file.
+</argument>
+<local-syntax>
+<![CDATA[
+publish data where save_filename = nvl(@filnam, @filename) 
+   and backup_filename = nvl(@bkup_filnam, @backup_filename)
+|
+if(@backup_filename)
+{
+   publish data where size = null
+   |
+   /* May need to delete file */
+   get file size where filnam = @backup_filename catch(@?)
+   |
+   if(@size)
+   {
+      remove file where filnam = @backup_filename
+   }
+   |
+   /* Move original encrypted file to persisted file */
+   move file where from = @save_filename and to = @backup_filename
+}
+|
+try
+{
+   get file where filename = nvl(@backup_filename, @save_filename)
+   |
+   decrypt data using RPBF
+     where data_bin = @data
+       and data = null
+       and block_size = decode(nvl(@block_size,0),0,null,nvl(@block_size,0)) 
+   | 
+   /* filename is overwritten by get file so use save_filename */
+   write output file
+     where filename = @save_filename
+       and mode = 'w'
+       and data_bin = @decrypted_data
+       and data = null
+}
+catch(@?)
+{
+   publish data where st = @? and er = @!
+   |
+   if(@backup_filename)
+   {
+      publish data where size = null
+      |
+      get file size where filnam = @save_filename catch(@?)
+      |
+      if(@size)
+      {
+         remove file where filnam = @save_filename
+      }
+      |
+      /* Move file back */
+      move file where to = @save_filename and from = @backup_filename catch(@?)
+   }
+   |
+   set return status where status = @st and message = @er
+}
+]]>
+</local-syntax>
+<insecure>yes</insecure>
+<documentation>
+<private>
+</private>
+<remarks>
+<![CDATA[
+<p>
+This component is used to decrypt a file while saving off original file, so it can be restored.
+</p>
+]]>
+</remarks>
+<retcol name="filnam" type="COMTYP_STRING">
+</retcol>
+<exception value="eOK">Normal successful completion</exception>
+</documentation>
+</command>

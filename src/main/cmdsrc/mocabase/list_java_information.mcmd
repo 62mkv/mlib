@@ -1,0 +1,25 @@
+<command>
+<name>list java information</name>
+<description>List java VM information.</description>
+<type>Java Method</type>
+<class>JavaInformation</class>
+<method>listJavaInformation</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets a file from another host via sftp.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="java_version" type="string">The Java JRE version.</retcol>
+<retcol name="java_vendor" type="string">The Java JRE vendor.</retcol>
+<retcol name="java_home" type="string">The path to the Java home directory.</retcol>
+<retcol name="classpath" type="string">The current java classpath.</retcol>
+<retcol name="os_name" type="string">The OS this JVM is running on.</retcol>
+<retcol name="processors" type="integer">The number of processors.</retcol>
+<retcol name="max_memory" type="string">The maximum amount of memory available to java.</retcol>
+<retcol name="free_memory" type="string">The free memory currently available to java.</retcol>
+<retcol name="total_memory" type="string">The total memory available to java.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

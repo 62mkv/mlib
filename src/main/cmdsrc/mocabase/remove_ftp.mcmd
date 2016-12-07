@@ -1,0 +1,41 @@
+<command>
+<name>remove ftp</name>
+<description>Remove a file via ftp.</description>
+<type>Java Method</type>
+<class>FTPService</class>
+<method>removeFile</method>
+<argument name="ftp"  datatype="object">
+</argument>
+<argument name="host" datatype="string">
+</argument>
+<argument name="port" default-value="21" datatype="integer">
+</argument>
+<argument name="user" datatype="string">
+</argument>
+<argument name="pass" datatype="string">
+</argument>
+<argument name="targetdir" datatype="string">
+</argument>
+<argument name="targetfile" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command removes a file on another host via ftp.
+ The target directory path supports environment variables.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="result" type="string">A string describing the file removed.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_FTP_COM_FAILURE">An FTP communication failure occurred.</exception>
+<seealso cref="list ftp">
+</seealso>
+<seealso cref="put ftp">
+</seealso>
+<seealso cref="remove ftp">
+</seealso>
+<seealso cref="rename ftp">
+</seealso>
+</documentation>
+</command>

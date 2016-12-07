@@ -1,0 +1,25 @@
+<command>
+<name>list active triggers</name>
+<description>List active triggers.</description>
+<type>Java Method</type>
+<class>RepositoryService</class>
+<method>listActiveTriggers</method>
+<argument name="command" alias="cmd_nam" datatype="string">
+Command name
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists information about the given active trigger.
+]]>
+</remarks>
+<retrows>One row is returned for every trigger installed.</retrows>
+<retcol name="name" type="COMTYP_STRING">Trigger name.</retcol>
+<retcol name="command" type="COMTYP_STRING">Command name.</retcol>
+<retcol name="trgseq" type="COMTYP_LONG">The sequence of the trigger on this command.</retcol>
+<retcol name="syntax" type="COMTYP_STRING">The local syntax that implements this trigger.</retcol>
+<retcol name="filename" type="COMTYP_STRING">The name of the file where the trigger is stored.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

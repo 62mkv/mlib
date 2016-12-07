@@ -1,0 +1,19 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAmcc
+
+LIBPART=yes
+
+OFILES=mccClose.obj \
+       mccDisableAutoCommit.obj \
+       mccEnableAutoCommit.obj \
+       mccError.obj \
+       mccExecStr.obj \
+       mccInit.obj \
+       mccLogin.obj \
+       mccLogout.obj \
+       mccSetApplicationID.obj \
+       mccSetupEnvironment.obj 
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

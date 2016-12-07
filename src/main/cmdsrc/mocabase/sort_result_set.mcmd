@@ -1,0 +1,46 @@
+<command>
+<name>sort result set</name>
+<description>Sort the rows in a result set.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>sortResultSet</method>
+<argument name="result_set" alias="rs" datatype="results" required="yes">
+</argument>
+<argument name="sort_list" datatype="string" required="yes">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+<p>
+This command is used to perform a sort on the rows of the  
+passed in result set. The returned result set will contain 
+all of the columns of the original result set sorted by the
+colums specified in the sort_list. Each column on the sort 
+list can have an optional sort direction to indicate an 
+ascending or descending sort. Only the first character of 
+the sort order is used to determine the direction. If the 
+first letter is a "d" or a "D" then the sort will be 
+descending. Any other value (including no value) will result 
+in an ascending sort. 
+</p>
+]]>
+</remarks>
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eMOCA_MISSING_ARG">Required argument is missing</exception>
+<exception value="eMOCA_INVALID_COLUMN">Specified column not found in input result set</exception>
+<example>
+<![CDATA[
+command syntax:
+sort result set where rs = @rs
+                   and sort_list = '<column> [d|D][,<column> [d|D][..]]'
+
+
+list inventory >> rs 
+| 
+sort result set 
+    where rs = @rs 
+      and sort_list = 'prtnum desc,lotnum D,locnum'
+]]>
+</example>
+</documentation>
+</command>

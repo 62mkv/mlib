@@ -1,0 +1,16 @@
+<command>
+<name>clear moca cache</name>
+<description>This will clear the cached data in the server</description>
+<type>Java Method</type>
+<class>CacheService</class>
+<method>clearCaches</method>
+<documentation>
+<retrows>None.</retrows>
+<remarks>
+<![CDATA[
+  This command will clear the caches registered with MOCA's CacheManager utility.
+]]>
+</remarks>
+<exception value="eOK">Completed successfully.</exception>
+</documentation>
+</command>

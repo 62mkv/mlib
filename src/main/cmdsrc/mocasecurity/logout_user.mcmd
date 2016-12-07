@@ -1,0 +1,16 @@
+<command>
+<name>logout user</name>
+<description>Logout a user.</description>
+<type>Java Method</type>
+<class>AuthService</class>
+<method>logoutUser</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command logs out a user. 
+]]>
+</remarks>
+<retrows>One</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

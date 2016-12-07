@@ -1,0 +1,17 @@
+<command>
+<name>create record</name>
+<description>Creates a new record in the specified table. Automatically fills the insert user/time fields.</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>createRecord</method>
+<argument name="table" alias="table_name" required="yes" datatype="string">
+The table in which to insert the date.
+</argument>
+<argument name="pkUpperCase" alias="pk_upper_case" required="no" datatype="flag" default="false">
+If true, PK values are wrapped in UPPER() functions.
+</argument> 
+<documentation>
+<private>
+</private>
+</documentation>
+</command>

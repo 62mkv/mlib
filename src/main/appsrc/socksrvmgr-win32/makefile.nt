@@ -1,0 +1,29 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+APPNAME=socksrvmgr
+
+OFILES=cons_Echo.obj \
+       cons_KillAllServers.obj \
+       cons_KillConn.obj \
+       cons_KillServer.obj \
+       cons_List.obj \
+       cons_Password.obj \
+       cons_Quit.obj \
+       cons_SetMinServers.obj \
+       cons_SetMaxCommands.obj \
+       cons_SetMaxServers.obj \
+       cons_SetTraceLevel.obj \
+       cons_ShowOptions.obj \
+       cons_Shutdown.obj \
+       cons_command.obj \
+       console.obj \
+       environment.obj \
+       init.obj \
+       list.obj \
+       server.obj \
+       signal.obj \
+       socksrvmgr.obj \
+       thread.obj 
+
+!include $(MOCADIR)\makefiles\Application.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

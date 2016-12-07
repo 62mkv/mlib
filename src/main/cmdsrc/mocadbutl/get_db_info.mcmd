@@ -1,0 +1,31 @@
+<command>
+<name>get db info</name>
+<description>Get database information</description>
+<type>Java Method</type>
+<class>DatabaseUtilService</class>
+<method>getDatabaseInfo</method>
+<documentation>
+<private>
+</private>
+<remarks>
+<![CDATA[
+<p>
+This component is used to get database information.
+</p>
+<p>
+NOTE: If we do not have permission to select from any of the sytem tables that this component requires an error will be returned.
+</p>
+]]>
+</remarks>
+<retcol name="db_name" type="COMTYP_STRING">
+</retcol>
+<retcol name="db_version" type="COMTYP_STRING">
+</retcol>
+<retcol name="db_instance" type="COMTYP_STRING">
+</retcol>
+<retcol name="db_user" type="COMTYP_STRING">
+</retcol>
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eSRV_DB_ERROR">There was an error when processing the database</exception>
+</documentation>
+</command>

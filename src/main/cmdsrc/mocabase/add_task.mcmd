@@ -1,0 +1,58 @@
+<command>
+  <name>add task</name>
+  <description>Add a task to the server.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+/* Check required arguments */
+[[
+  if (!task_id)
+      throw new RequiredArgumentException('task_id')
+  if (!cmd_line)
+      throw new RequiredArgumentException('cmd_line')
+  if (!name)
+      throw new RequiredArgumentException('name')
+  if (!task_typ)
+      task_typ = 'P'
+  if (!run_dir && task_type == 'P')
+      throw new RequiredArgumentException('run_dir')
+  if (restart == null)
+      restart = true
+  if (auto_start == null)
+      auto_start = true
+]] |
+[
+    insert into task_definition
+      (task_id, role_id, name, task_typ, cmd_line,
+       run_dir, log_file, trace_level, restart, auto_start,
+       start_delay, grp_nam)
+    values
+      (@task_id, @role_id, @name, @task_typ, @cmd_line,
+      @run_dir, @log_file, @trace_level, @restart, @auto_start,
+      @start_delay, @grp_nam)
+]
+]]>
+  </local-syntax>
+  <argument name="task_id" datatype="string"/>
+  <argument name="role_id" datatype="string"/>
+  <argument name="name" datatype="string"/>
+  <argument name="task_typ" datatype="string"/>
+  <argument name="cmd_line" datatype="string"/>
+  <argument name="run_dir" datatype="string"/>
+  <argument name="log_file" datatype="string"/>
+  <argument name="trace_level" datatype="string"/>
+  <argument name="auto_start" datatype="string"/>
+  <argument name="restart" datatype="string"/>
+  <argument name="start_delay" datatype="int"/>
+  <argument name="grp_nam" datatype="string"/>
+  <documentation>
+  <remarks>This command adds the given task to the configuration, using the
+   given task name, program, arguments, directory to start the task in, log
+   file, auto start flag, and auto restart flag.</remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+  <seealso cref="list task"/>
+  <seealso cref="remove task"/>
+  </documentation>
+</command>

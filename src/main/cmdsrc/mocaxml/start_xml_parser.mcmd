@@ -1,0 +1,51 @@
+<command>
+<name>start xml parser</name>
+<description>Start a parsing session.</description>
+<type>C Function</type>
+<function>mocaStartXMLParser</function>
+<documentation>
+<remarks>
+<![CDATA[
+ This command starts a parsing session.  This command must be called once 
+ before calling any other XML commands.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="mxml_ctxt" type="pointer">New context</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+<seealso cref="add xml attribute">
+</seealso>
+<seealso cref="add xml element">
+</seealso>
+<seealso cref="add xml text node">
+</seealso>
+<seealso cref="convert result set to xml">
+</seealso>
+<seealso cref="convert xml to result set">
+</seealso>
+<seealso cref="create xml document">
+</seealso>
+<seealso cref="get xml">
+</seealso>
+<seealso cref="get xml child nodes">
+</seealso>
+<seealso cref="get xml elements by tagname">
+</seealso>
+<seealso cref="get xml info">
+</seealso>
+<seealso cref="get xml node values">
+</seealso>
+<seealso cref="normalize xml">
+</seealso>
+<seealso cref="parse xml">
+</seealso>
+<seealso cref="remove xml child">
+</seealso>
+<seealso cref="stop xml parser">
+</seealso>
+<seealso cref="write xml file">
+</seealso>
+</documentation>
+</command>

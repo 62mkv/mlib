@@ -1,0 +1,37 @@
+<command>
+  <name>list task</name>
+  <description>list tasks in the system.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+if (@cmd_line)
+{
+    [select * from task_definition where cmd_line like @cmd_line and @*]
+}
+else
+{
+    [select * from task_definition where @*]
+}
+]]>
+  </local-syntax>
+  <documentation>
+  <remarks>
+   This command lists all configured tasks in the system, taking an
+   optional argument of task_id to list a single task.
+  </remarks>
+  <retcol name="task_id" type="string">Task name</retcol>
+  <retcol name="node_id" type="string">System node for task</retcol>
+  <retcol name="name" type="string">Task description</retcol>
+  <retcol name="task_typ" type="string">Task type</retcol>
+  <retcol name="cmd_line" type="string">Command line associated with the task</retcol>
+  <retcol name="run_dir" type="string">The directory to change to before starting the executable</retcol>
+  <retcol name="log_file" type="string">The file to direct standard input and error to.</retcol>
+  <retcol name="auto_start" type="string">A flag specifying if the task will be started when the MOCA process starts</retcol>
+  <retcol name="start_delay" type="int">An integer specifying how long the task will wait before auto starting.  If auto_start is false, the start delay is ignored.</retcol>
+  <retcol name="restart" type="string">A flag specifying if the task will be restarted if it exits.</retcol>
+  <retcol name="grp_nam" type="string">An identifier for the group that owns this task defintion.</retcol>
+  <exception value="eOK">The command completed successfully.</exception>
+  <seealso cref="add task"/>
+  <seealso cref="remove task"/>
+  </documentation>
+</command>

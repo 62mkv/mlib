@@ -1,0 +1,26 @@
+HKCR
+{
+	MOCASrvObj.MOCAServerAccess.1 = s 'MOCA Server Access'
+	{
+		CLSID = s '{c8b8c9e3-b4c8-46e3-b2ef-de24e4359d7b}'
+	}
+	MOCASrvObj.MOCAServerAccess = s 'MOCA Server Access'
+	{
+		CLSID = s '{c8b8c9e3-b4c8-46e3-b2ef-de24e4359d7b}'
+		CurVer = s 'MOCASrvObj.MOCAServerAccess.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {c8b8c9e3-b4c8-46e3-b2ef-de24e4359d7b} = s 'MOCA Server Access'
+		{
+			ProgID = s 'MOCASrvObj.MOCAServerAccess.1'
+			VersionIndependentProgID = s 'MOCASrvObj.MOCAServerAccess'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{e401f9e5-e6b6-483f-a740-f4256043958f}'
+		}
+	}
+}

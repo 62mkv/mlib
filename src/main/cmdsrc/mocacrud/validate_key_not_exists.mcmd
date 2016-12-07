@@ -1,0 +1,92 @@
+<command>
+<name>validate key not exists</name>
+<description>Validates that the specified key not exist.  It could be used to 
+validate the uniqueness of a new record.  It could also be used validate if 
+child tables are still using a key before deleting the parent table record.
+</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+
+if (@key = '')
+{
+    /* key is a required argument */
+    set return status 
+      where status = 2958
+}
+|
+if (@table = '')
+{
+    /* table table name is a required argument */
+    set return status 
+      where status = 2959
+}
+|
+validate data
+  where tblnam = @table
+    and fldnam = @key
+    and val_type = 'RES'
+
+]]>
+
+</local-syntax>
+
+<argument name="key" datatype="string" required="yes">
+    comma seperated list of columns that make up the key.
+</argument>
+<argument name="table" datatype="string" required="yes">
+    The name of the table into which the presence of the key is to be
+    checked.  For instance, If the specified key exists in this table then
+    it may not be safe to delete the key.
+</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+<p>
+    Command checks if the specified key is being used in a table.
+    It is an error if the a record with a matching key exists in the
+    table.
+
+    The command would first check the stack for each of the key field
+    variables.  Then it would check if a key with those values
+    exists in the specified table.
+
+    It can be used to check for uniqueness of key values.  It could
+    also be used to check if child tables are using a particular key
+    before deleting a parent record.
+</p>
+]]>
+</remarks>
+
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED (510)">No data found</exception>
+<example>
+    In TM wh_id and dock_id are required argument for the dds_remove dock
+    command in ddslib.  A dock door with the specified
+    (wh_id, dock_id) cannot be deleted if there is a door for that
+    (wh_id, dock_id) value.  This logic be implemented as follows:
+
+    validate key not exists
+      where key = 'wh_id, dock_id'
+        and table = 'dds_door'
+
+    First component checks that the key variables are available on the
+    stack.  Next it checks if a dock with the specified key exists in 
+    the table table (dds_door).  An error is returned to the user if
+    a row still exists in the table table.
+
+    Note that you do not need to do the following checks:
+
+    check stack variable not null 
+      where name = 'wh_id'
+    |
+    check stack variable no null 
+      where name = 'dock_id'
+
+    Because they will implicitly be performed for you by this component.
+</example>
+
+</documentation>
+</command>
+

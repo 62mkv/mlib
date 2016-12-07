@@ -1,0 +1,47 @@
+<command>
+<name>reseed sequence</name>
+<description>Reseed a database sequence.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where sequence_name = upper(nvl(@sequence_name, @sequence))
+|
+if (dbtype = 'ORACLE')
+{
+    [
+     select increment_by inc,
+            max_value    max
+       from user_sequences
+      where sequence_name = @sequence_name
+    ]
+    |
+    [drop sequence @sequence_name:raw]
+    |
+    [
+     create sequence @sequence_name:raw
+         start with   @seed:raw
+         increment by @inc:raw
+         maxvalue     @max:raw
+         cycle
+         cache 10
+         order
+    ]
+}
+else if (dbtype = 'MSSQL')
+{
+    [select incval inc, maxval max from @sequence_name:raw]
+    |
+    [/*NOCONV*/dbcc checkident(@sequence_name, reseed, @seed)]
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command reseeds the given database sequence with the given seed value.
+]]>
+</remarks>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+</documentation>
+</command>

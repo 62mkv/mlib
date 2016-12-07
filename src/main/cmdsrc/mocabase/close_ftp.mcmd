@@ -1,0 +1,32 @@
+<command>
+<name>close ftp</name>
+<description>closes a connection to a ftp server.</description>
+<type>Java Method</type>
+<class>FTPService</class>
+<method>disconnectFTP</method>
+<argument name="ftp" required="yes" datatype="object">
+</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+ This command closes the ftp connection
+]]>
+</remarks>
+<retrows>One</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_FTP_COM_FAILURE">An FTP communication failure occurred.</exception>
+<seealso cref="list ftp">
+</seealso>
+<seealso cref="put ftp">
+</seealso>
+<seealso cref="get ftp">
+</seealso>
+<seealso cref="remove ftp">
+</seealso>
+<seealso cref="rename ftp">
+</seealso>
+<seealso cref="connect ftp">
+</seealso>
+</documentation>
+</command>

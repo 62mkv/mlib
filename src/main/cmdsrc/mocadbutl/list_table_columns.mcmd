@@ -1,0 +1,29 @@
+<command>
+<name>list table columns</name>
+<description>List database table columns.</description>
+<type>Java Method</type>
+<class>DatabaseUtilService</class>
+<method>listTableColumns</method>
+<argument name="table_name" alias="table" required="yes" datatype="string">
+</argument>
+<argument name="show_dtls" default-value="1" datatype="integer">
+</argument>
+<argument name="show_pks" default-value="1" datatype="integer">
+</argument>
+<argument name="use_cache" default-value="0" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists all the columns for the given database table.
+]]>
+</remarks>
+<retrows>One row for each column in the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+<exception value="Some other error code">A command executed from within this command returned an error.</exception>
+</documentation>
+</command>

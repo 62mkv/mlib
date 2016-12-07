@@ -1,0 +1,68 @@
+<command>
+<name>list user sequences</name>
+<description>List a user&apos;s database sequences.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+if (dbtype = 'ORACLE')
+{
+    [
+     select sequence_name,
+            min_value,
+            max_value,
+            decode(cycle_flag, 'Y', 'TRUE', 'FALSE') cycle_flg,
+            decode(order_flag, 'Y', 'TRUE', 'FALSE') order_flg,
+            cache_size
+       from user_sequences
+      order by sequence_name
+    ]
+    |
+    publish data
+        where sequence_name = @sequence_name
+          and min_value = @min_value
+          and max_value = @max_value
+          and cycle_flg = @cycle_flg
+          and order_flg = @order_flg
+          and cache_size = @cache_size
+}
+else if (dbtype = 'MSSQL')
+{
+    [
+     select table_name
+       from information_schema.columns
+      where column_name in ('currval', 'nextval', 'seedval', 'incval', 'maxval')
+      group by table_name having count(*) = 5
+    ]
+    |
+    [
+     select seedval, incval, maxval
+       from @table_name:raw
+      where currval = -1
+    ] catch(@?)
+    |
+    if (@? = 0)
+    {
+    publish data
+        where sequence_name = upper(@table_name)
+          and min_value = @seedval
+          and max_value = @maxval
+          and cycle_flg = 'TRUE'
+          and order_flg = 'TRUE'
+          and cache_size = 0
+    }
+}
+ 
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists all the user's database seqeuences.
+]]>
+</remarks>
+<retrows>One row for each index on the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

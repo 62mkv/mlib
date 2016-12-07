@@ -1,0 +1,23 @@
+<command>
+<name>process db unicode conversion</name>
+<description>Converts all tables to unicode supported types</description>
+<type>Java Method</type>
+<class>DatabaseUpgradeService</class>
+<method>processDBUnicodeConversion</method>
+<argument name="table_name" alias="table" required="no" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command handles the upgrade of databases to support unicode for the 2009.2 release.
+]]>
+</remarks>
+<retrows>One row for each column in the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+<exception value="Some other error code">A command executed from within this command returned an error.</exception>
+</documentation>
+</command>

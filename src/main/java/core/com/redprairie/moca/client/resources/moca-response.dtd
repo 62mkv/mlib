@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT moca-response (checkpoint*, session-id?, status, message?, moca-results)>
+
+<!ELEMENT checkpoint EMPTY>
+
+<!ELEMENT session-id (#PCDATA)>
+
+<!ELEMENT status (#PCDATA)>
+
+<!ELEMENT message (#PCDATA)>
+
+<!ELEMENT moca-results (metadata, data)>
+<!ELEMENT metadata (column*)>
+
+<!ELEMENT column EMPTY>
+<!ATTLIST column 
+    name CDATA #REQUIRED
+    type (I|F|S|D|O|V|R|J|G) #REQUIRED
+    length CDATA #IMPLIED
+    nullable (true|false) "true" >
+
+<!ELEMENT data (row*)>
+
+<!ELEMENT row (field*)>
+
+<!ELEMENT field (#PCDATA|moca-results)* >
+<!ATTLIST field
+    type (string|integer|double|boolean|binary|results|datetime) #IMPLIED
+    null (true|false) "false" >

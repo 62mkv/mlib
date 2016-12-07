@@ -1,0 +1,16 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAbase
+
+OFILES=mocaDumpCore.obj \
+       mocaEncryptRPBF.obj \
+       mocaExecuteOsCommand.obj \
+       mocaGetFileInfo.obj \
+       mocaGetTraceLevels.obj \
+       mocaListDiskDrives.obj \
+       mocaPrintFile.obj \
+       mocaSetProcessPriority.obj \
+       mocaSprintfData.obj
+
+!include $(MOCADIR)\makefiles\Component.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

@@ -1,0 +1,28 @@
+<command>
+<name>write log message</name>
+<description>Write a log message to the log file.</description>
+<type>Java Method</type>
+<class>TraceService</class>
+<method>writeLogMessage</method>
+<argument name="message" alias="msg" required="yes" datatype="string">
+</argument>
+<argument name="level" alias="lvl" default-value="E" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command writes the given log message to the log file using the 
+ given log level.  Valid log levels are as follows:
+
+     E - Error
+     W - Warning
+     I - Informational
+
+ The default log level is 'E'.
+]]>
+</remarks>
+<retrows>None.  This command just returns a status.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+</documentation>
+</command>

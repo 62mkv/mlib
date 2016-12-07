@@ -1,0 +1,8 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+APPNAME=wsdeploy
+
+OFILES=wsdeploy.obj
+
+!include $(MOCADIR)\makefiles\Application.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

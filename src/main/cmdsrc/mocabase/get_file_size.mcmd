@@ -1,0 +1,26 @@
+<command>
+<name>get file size</name>
+<description>Get a file size.</description>
+<type>Java Method</type>
+<class>FileDirectoryService</class>
+<method>getFileSize</method>
+<argument name="filnam" alias="filename" required="yes" datatype="string">
+</argument>
+<argument name="mode" datatype="string">
+</argument>
+<argument name="encoding" datatype="string">
+This argument is only used when not using binary.  This should be used to tell the system what encoding the file is encoded in, if the file is not in the default system encoding.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the size of the given file.  If executing this on a binary file make sure to set the mode to 'b' or 'B'.  ]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="filename" type="pointer">The filename.</retcol>
+<retcol name="num_lines" type="integer">The number of lines in the file.</retcol>
+<retcol name="size" type="integer">The size of the file in bytes.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eFILE_OPENING_ERROR">The given filename could ould not be opened.</exception>
+</documentation>
+</command>

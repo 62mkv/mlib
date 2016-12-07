@@ -1,0 +1,19 @@
+!include $(MOCADIR)\makefiles\StandardDirHeader.mk.win32
+
+SUBDIR=dblib \
+       evtlib \
+       jnilib \
+       madlib \
+       mcclib \
+       mislib \
+       mxmllib \
+       oslib \
+       sqllib \
+       srvlib \
+       mocalib \
+       mocabase \
+       mocaxml \
+       mocasrvobj-nt \
+       moca.net
+
+!include $(MOCADIR)\makefiles\StandardDirFooter.mk.win32

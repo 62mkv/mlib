@@ -1,0 +1,59 @@
+<command>
+<name>list table row counts</name>
+<description>List the number of rows in each database table.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+if (dbtype = 'ORACLE')
+{
+    [
+     select table_name
+       from user_tables
+      order by table_name
+    ]
+    |
+    [
+     select @table_name table_name,
+	    count(*)    row_count
+       from @table_name:raw
+    ]
+    |
+    publish data 
+	where table_name = @table_name
+	  and row_count = @row_count
+}
+else if (dbtype = 'MSSQL')
+{
+    [
+     select name table_name
+       from sysobjects
+      where xtype in ('U', 'V')
+      order by name
+    ]
+    |
+    [
+     select @table_name table_name,
+            count(1)    row_count
+       from @table_name:raw
+    ]
+    |
+    publish data
+        where table_name = upper(@table_name)
+          and row_count = @row_count
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the total number of rows each table in the database
+ contains.
+]]>
+</remarks>
+<retrows>One row for each table in the database.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+<exception value="Some other error code">A command executed from within this command returned an error.</exception>
+</documentation>
+</command>

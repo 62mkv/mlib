@@ -1,0 +1,29 @@
+<command>
+<name>get os var</name>
+<description>Get the value of an o/s variable.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>getOsVariable</method>
+<argument name="var" alias="variable" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the value of the given o/s variable.  The variable is 
+ searched for using the following precedence:
+ <ol>
+  <li>Variables set via the 'put os var' command.</li>
+  <li>Variables set in the environment.</li>
+  <li>Variables set in the environment section of the registry.</li>
+ </ol>
+]]>
+</remarks>
+<retcol name="value" type="string">The value of the variable.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<seealso cref="put os var">
+</seealso>
+<seealso cref="remove os var">
+</seealso>
+</documentation>
+</command>

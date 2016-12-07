@@ -1,0 +1,37 @@
+<command>
+<name>decrypt data using RPBF</name>
+<description>Decrypt data using RPBF</description>
+<type>JAVA Method</type>
+<class>CoreService</class>
+<method>decryptDataUsingRPBF</method>
+<argument name="data" datatype="string">
+</argument>
+<argument name="charset" datatype="string">
+</argument>
+<argument name="data_bin" datatype="binary">
+</argument>
+<argument name="block_size" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command decrypts data using RPBF method.
+ <br/>
+ NOTE: If data argument is passed in data_ptr is ignored.
+]]>
+</remarks>
+<retrows>A single row will be returned</retrows>
+<retcol name="decyrpted_data" type="binary">The data is decrypted</retcol>
+<example>
+get file where filename = 'help.rpz'
+|
+decrypt data using RPBF where data_bin=@data and data = null
+
+decrypted_data
+-------------
+
+
+</example>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

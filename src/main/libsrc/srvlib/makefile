@@ -1,0 +1,45 @@
+include $(MOCADIR)/makefiles/StandardHeader.mk
+
+OFILES=srvAddColumn.o \
+       srvAddColumnWithValue.o \
+       srvAddRow.o \
+       srvAddSQLResults.o \
+       srvBuildResultsList.o \
+       srvCombineResults.o \
+       srvCompileCommand.o \
+       srvCommit.o \
+       srvConcatenateResults.o \
+       srvConcatenateRow.o \
+       srvEnumerateArgList.o \
+       srvErrorResults.o \
+       srvExecuteAfterCommitRollback.o \
+       srvFreeMemory.o \
+       srvFreeReturnStruct.o \
+       srvGetNeededElement.o \
+       srvInitialize.o \
+       srvInitiateCommand.o \
+       srvInitiateCompiled.o \
+       srvInitiateInline.o \
+       srvMakeSessionKey.o \
+       srvMoca.o \
+       srvRegisterData.o \
+       srvResults.o \
+       srvResultsAdd.o \
+       srvResultsAddList.o \
+       srvResultsErrorArg.o \
+       srvResultsInit.o \
+       srvResultsInitList.o \
+       srvResultsList.o \
+       srvResultsMessage.o \
+       srvResultsNull.o \
+       srvReturn.o \
+       srvRollback.o \
+       srvSortResultSet.o \
+       srvSwapColumns.o \
+       srv_AppHooks.o \
+       srv_FormatCommand.o \
+       srvlib.o \
+
+include $(MOCADIR)/makefiles/Library.mk
+include $(MOCADIR)/makefiles/StandardFooter.mk
+

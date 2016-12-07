@@ -1,0 +1,24 @@
+<command>
+<name>get file info</name>
+<description>Get file information.</description>
+<type>C Function</type>
+<function>mocaGetFileInfo</function>
+<argument name="pathname" alias="filnam" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets various information about the given file.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="pathname" type="string">The pathname of the file.</retcol>
+<retcol name="type" type="string">The type of the file.</retcol>
+<retcol name="size" type="integer">The size of the file in bytes.</retcol>
+<retcol name="created" type="string">The creation date/time of the file.</retcol>
+<retcol name="accessed" type="string">The access date/time of the file.</retcol>
+<retcol name="modified" type="string">The modified date/time of the file.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+</documentation>
+</command>

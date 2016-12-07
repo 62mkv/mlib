@@ -1,0 +1,95 @@
+<command>
+<name>list foreign keys</name>
+<description>List foreign keys for database table.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where table_name = upper(nvl(@table_name, @table))
+|
+if (dbtype = 'ORACLE')
+{
+    [select
+        cc.constraint_name as fk_name,
+        decode(status, 'ENABLED', 1, 0) as is_enabled,
+        cc.delete_rule as on_delete_action,
+        col.table_name fktable_name,
+        col.column_name as fkcolumn_name,
+        cc.r_constraint_name as pk_name,
+        rel.table_name as pktable_name,
+        rel.column_name as pkcolumn_name,
+        rel.position as column_position
+    from
+        user_tab_columns col
+        join user_cons_columns con
+          on col.table_name = con.table_name
+         and col.column_name = con.column_name
+        join user_constraints cc
+          on con.constraint_name = cc.constraint_name
+        join user_cons_columns rel
+          on cc.r_constraint_name = rel.constraint_name
+         and con.position = rel.position
+    where
+        cc.constraint_type = 'R'
+        and @+cc.constraint_name^fk_name
+    order by fk_name, column_position
+    ]
+    
+    |
+    publish data
+        where fk_name = upper(@fk_name)
+          and is_disabled = @is_disabled
+          and on_delete_action = @on_delete_action
+          and on_update_action = @on_update_action
+          and pk_name = upper(@pk_name)
+          and pktable_name = upper(@pktable_name)
+          and pkcolumn_name = upper(@pkcolumn_name)
+          and fktable_name = upper(@fktable_name)
+          and fkcolumn_name = upper(@fkcolumn_name)
+          and column_position = @column_position
+}
+else if (dbtype = 'MSSQL')
+{
+    [SELECT f.name AS fk_name,
+            f.is_disabled is_disabled,
+            f.delete_referential_action_desc as on_delete_action,
+            f.update_referential_action_desc as on_update_action,
+            OBJECT_NAME(f.parent_object_id) AS fktable_name,
+            COL_NAME(fc.parent_object_id,
+                     fc.parent_column_id) AS fkcolumn_name,
+            OBJECT_NAME (f.referenced_object_id) AS pktable_name,
+            COL_NAME(fc.referenced_object_id,
+                     fc.referenced_column_id) AS pkcolumn_name,
+            fc.constraint_column_id AS column_position
+       FROM sys.foreign_keys AS f
+            INNER JOIN sys.foreign_key_columns AS fc
+                ON f.OBJECT_ID = fc.constraint_object_id
+    ORDER BY fk_name, column_position
+    ]
+    |
+    publish data
+        where fk_name = upper(@fk_name)
+          and is_disabled = @is_disabled
+          and on_delete_action = @on_delete_action
+          and on_update_action = @on_update_action
+          and pk_name = upper(@pk_name)
+          and pktable_name = upper(@pktable_name)
+          and pkcolumn_name = upper(@pkcolumn_name)
+          and fktable_name = upper(@fktable_name)
+          and fkcolumn_name = upper(@fkcolumn_name)
+          and column_position = @column_position
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the primary key for the given database table.
+ This command additionally handles Oracle synonyms.
+]]>
+</remarks>
+<retrows>One row if a primary key exists on the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

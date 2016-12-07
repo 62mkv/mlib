@@ -1,0 +1,53 @@
+<command>
+<name>describe object</name>
+<description>Describe a database object or MOCA command.</description>
+<type>Local Syntax</type>
+<local-syntax>
+[[
+    def realObject = object ? object : name;
+    MocaResults res = null;
+    try {
+        res = moca.executeCommand("list table columns " +
+                                  "  where table = '" + realObject + "'");
+    }
+    catch (MocaException ignore) {}
+
+    if (res == null) {
+        try {
+            res = moca.executeCommand("list active command arguments " +
+                                      "  where cmd_nam = '" + realObject + "'");
+        }
+        catch (MocaException ignore) {}
+    }
+
+    if (res == null) {
+        throw new NotFoundException();
+    }
+    res;
+]]
+
+</local-syntax>
+<argument name="object" alias="name" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command describes the given database object or MOCA command. The
+ description of the object are returned to the caller in a result set. 
+ <br/>
+ If the object is a database table, the 'list table columns' command is
+ executed.
+ <br/>
+ If the object is a command, the 'list active command arguments' command is
+ executed.
+]]>
+</remarks>
+<retrows>The number of rows returned is dependent on the object being referenced.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+<seealso cref="list active command arguments">
+</seealso>
+<seealso cref="list table columns">
+</seealso>
+</documentation>
+</command>

@@ -1,0 +1,39 @@
+<command>
+<name>expand statement variables</name>
+<description>Expand the given argument names into a string that can be used in a
+ where-clause, pulling the values of the arguments from the stack.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>expandStatementVariables</method>
+<argument name="string" alias="columns" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command expands the given list of one or more comma-separated arguments 
+ into a string that can be used in a where-clause.  The values of the arguments
+ are taken from the stack.  
+ <br/>
+ If the argument name to be used in the where-clause is different from the 
+ argument name as it exists on the stack, an alias can be provided using special notation.  For example, if the argument name you want to place into
+ the output string is 'foo' and the argument name as it exists on the stack
+ is 'bar', then the argument name should be passed into this component is
+ 'foo.bar'.  An example below also illustrates this.
+]]>
+</remarks>
+<example>publish data where a=1 and b=2 | expand statement variables where columns='a,b'
+
+    a b
+    - -
+    1 2</example>
+<example>publish data where a=1 and b=2 | expand statement variables where columns = 'c.a,b'
+
+    c b
+    - -
+    1 2</example>
+<retrows>One</retrows>
+<retcol name="exdstr" type="string">The expanded string.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+</documentation>
+</command>

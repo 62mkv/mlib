@@ -1,0 +1,38 @@
+<command>
+  <name>list job</name>
+  <description>list jobs in the system.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+if (@command)
+{
+    [select * from job_definition where command like @command and @*]
+}
+else
+{
+    [select * from job_definition where @*]
+}
+]]>
+  </local-syntax>
+  <documentation>
+  <remarks>
+   This command lists all configured jobs in the system, taking an
+   optional argument of job_id to list a single job.
+  </remarks>
+  <retcol name="job_id" type="string">Task name</retcol>
+  <retcol name="node_id" type="string">System node for job</retcol>
+  <retcol name="name" type="string">Task description</retcol>
+  <retcol name="command" type="string">Command associated with the job</retcol>
+  <retcol name="enabled" type="flag">if true, the job is enabled</retcol>
+  <retcol name="overlap" type="flag">Whether to allow overlapping executions of this job</retcol>
+  <retcol name="log_file" type="string">The file to direct logging to for this job.</retcol>
+  <retcol name="trace_level" type="string">The trace level to set for this job.</retcol>
+  <retcol name="schedule" type="string">The cron/quartz-style schedule</retcol>
+  <retcol name="timer" type="integer">A value specifying the delay between job executions in seconds.</retcol>
+  <retcol name="start_delay" type="integer">A value specifying the delay (in seconds) before starting the job for the first time upon system startup.</retcol>
+  <retcol name="grp_nam" type="integer">An identifier indicating who owns this job definition.</retcol>
+  <exception value="eOK">The command completed successfully.</exception>
+  <seealso cref="add job"/>
+  <seealso cref="remove job"/>
+  </documentation>
+</command>

@@ -1,0 +1,31 @@
+<command>
+<name>decode from base64</name>
+<description>Decode encoded binary data.</description>
+<type>Local Syntax</type>
+<local-syntax>
+publish data 
+  where base64_decoded = b64decode(nvl(@str, @string)) 
+</local-syntax>
+<argument name="str" alias="string" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command decodes binary data that is encoded as a string.  It is important
+ to note that the base64_decoded column is published as type binary.  If 
+ you want the representation of the data in another type, you must coerce the
+ binary data to the new type.  See the example below for how to do this.
+]]>
+</remarks>
+<example>
+    decode from base64
+        where str = @base64_encoded
+    |
+    publish data where a = string(@base64_decoded)</example>
+<retrows>One</retrows>
+<retcol name="base64_decoded" type="binary">Decoded binary data.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="encode to base64">
+</seealso>
+</documentation>
+</command>

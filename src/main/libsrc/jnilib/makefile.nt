@@ -1,0 +1,37 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAjni
+
+LIBPART=yes
+
+OFILES=argmap.obj \
+       dbcalls.obj \
+       executeCOM.obj \
+       extract.obj \
+       initialize.obj \
+       jnilib.obj \
+       mcccalls.obj \
+       miscalls.obj \
+       native.obj \
+       oscalls.obj \
+       results.obj \
+       server.obj \
+       srvcalls.obj
+
+results.obj: results.c results.h
+	$(CC) $(CFLAGS) -c results.c -Fo$@
+
+native.obj: native.c native.h
+	$(CC) $(CFLAGS) -c native.c -Fo$@
+
+javalib.obj: javalib.c
+	$(CC) $(CFLAGS) -c javalib.c -Fo$@
+
+results.h: $(MOCADIR)\lib\moca-server.jar
+	"$(JAVA_HOME)\bin\javah" -classpath "$(MOCADIR)\build\core\classes;$(MOCADIR)\build\server\classes;$(MOCADIR)\build\native\classes;$(MOCADIR)\lib\moca-core.jar;$(MOCADIR)\lib\moca-native.jar;$(MOCADIR)\lib\moca-server.jar" -jni -o results.h com.redprairie.moca.server.legacy.WrappedResults
+
+native.h: $(MOCADIR)\lib\moca-server.jar
+	"$(JAVA_HOME)\bin\javah" -classpath "$(MOCADIR)\build\core\classes;$(MOCADIR)\build\native\classes;$(MOCADIR)\build\server\classes;$(MOCADIR)\lib\moca-core.jar;$(MOCADIR)\lib\moca-native.jar;$(MOCADIR)\lib\moca-server.jar" -jni -o native.h com.redprairie.moca.server.legacy.InternalNativeProcess
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

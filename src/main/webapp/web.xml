@@ -1,0 +1,38 @@
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+    
+<web-app>
+  <servlet>
+    <servlet-name>MocaServlet</servlet-name>
+    <display-name>MOCA Servlet</display-name>
+    <servlet-class>
+        com.redprairie.moca.servlet.MocaServlet
+    </servlet-class>
+
+    <init-param>
+        <param-name>registry</param-name>
+        <param-value>/registry</param-value>
+        <description>The MOCA registry location</description>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>MocaConsoleServlet</servlet-name>
+    <display-name>MOCA Console Servlet</display-name>
+    <servlet-class>
+        com.redprairie.moca.servlet.MocaConsoleServlet
+    </servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>MocaServlet</servlet-name>
+    <url-pattern>/service</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>MocaConsoleServlet</servlet-name>
+    <url-pattern>/cds</url-pattern>
+  </servlet-mapping>
+</web-app>
+

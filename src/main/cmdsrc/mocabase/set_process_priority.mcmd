@@ -1,0 +1,48 @@
+<command>
+<name>set process priority</name>
+<description>Set a process' priority.</description>
+<type>C Function</type>
+<function>mocaSetProcessPriority</function>
+<insecure>yes</insecure>
+<argument name="priority" default-value="normal" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sets the process' priority for the execution of the current 
+ command.  The process' original priority is reset after the commit or rollback of the command occurs.
+ <br/> 
+
+ The following priorities are valid: "low", "normal", "high".
+ <br/> 
+
+ On Win32 platforms, these priorities equate to the following priority classes:
+ <br/>
+
+ <ul>
+  <li> IDLE_PRIORITY_CLASS   </li>
+  <li> NORMAL_PRIORITY_CLASS </li>
+  <li> HIGH_PRIORITY_CLASS   </li>
+ </ul>
+
+ On UNIX platforms, these priorities equate to the following nice values:
+ <br/>
+
+ <ul>
+  <li> 30 </li>
+  <li> 20 </li>
+  <li> 10 </li>
+ </ul>
+
+ Exercise extreme caution when setting a process' priority to "high", because
+ the process can consume all available CPU resources.
+ <br/>
+
+ A process' priority can not be increased on UNIX systems unless the process
+ is running as the root user.
+]]>
+</remarks>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="Some error code">An error occurred changing the process' priority.</exception>
+</documentation>
+</command>

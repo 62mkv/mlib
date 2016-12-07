@@ -1,0 +1,19 @@
+!include $(MOCADIR)\makefiles\StandardDirHeader.mk.win32
+
+SUBDIR=createctl \
+       dbupgrade \
+       installsql \
+       mbuild \
+       mgendoc \
+       mload \
+       mloadall \
+       mocaserver \
+       mpasswd \
+       msql \
+       servicemgr \
+       socksrvmgr-win32 \
+       socksrvprc \
+       runtask \
+       wsdeploy
+
+!include $(MOCADIR)\makefiles\StandardDirFooter.mk.win32

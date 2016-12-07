@@ -1,0 +1,17 @@
+<command>
+<name>get ldap server information</name>
+<description>Get information about an LDAP server.</description>
+<type>Java Method</type>
+<class>LDAPClientService</class>
+<method>getLDAPServerInformation</method>
+<argument name="ldap_client" required="yes" datatype="object"> </argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the important attributes associated with the given LDAP server.
+]]>
+</remarks>
+<retrows>One row for each attribute.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

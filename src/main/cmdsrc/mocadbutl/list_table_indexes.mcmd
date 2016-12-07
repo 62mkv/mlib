@@ -1,0 +1,84 @@
+<command>
+<name>list table indexes</name>
+<description>List database indexes.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where table_name = upper(nvl(@table_name, @table))
+|
+if (dbtype = 'ORACLE')
+{
+    [select ui.table_name, ui.index_name,  
+            ui.uniqueness index_description
+       from user_indexes ui
+      where ui.table_name = upper(@table_name)
+      order by decode(ui.uniqueness, 'UNIQUE', 0, 1)]
+    |
+    [select uic.column_name, e.column_expression, uic.descend 
+           from user_ind_columns uic
+      left outer join user_ind_expressions e
+        on e.table_name = uic.table_name
+       and e.index_name = uic.index_name
+       and e.column_position = uic.column_position
+     where uic.table_name = @table_name
+       and uic.index_name = @index_name
+   order by uic.column_position]  >> indres
+|
+[[
+    index_key = "";
+    while (indres.next() ) {
+        if (index_key.isEmpty() == false)
+            index_key += ",";
+        if (indres.isNull("column_expression") == false) {    
+            index_key += 
+               indres.getString("column_expression").replace('"', ' ').trim();
+        }
+        else {
+            index_key += indres.getString("column_name");
+        }
+        if (indres.getString("descend").equals("DESC"))
+        {
+            index_key += " DESC";
+        }
+    }
+    index_key;
+]]
+|
+
+    publish data 
+      where table_name = @table_name
+        and index_name = lower(@index_name)
+        and index_description = lower(@index_description)
+        and index_keys = lower(@index_key)
+}
+else if (dbtype = 'MSSQL')
+{
+    [exec sp_helpindex @table_name] >> resIdx |
+    if (rowcount(@resIdx) = 0)
+    {
+         set return status where status = -1403
+    }
+    else
+    {
+        publish data combination where res = @resIdx | 
+        publish data 
+           where table_name = @table_name
+             and index_name = lower(@index_name)
+             and index_description = lower(@index_description)
+             and index_keys = lower(@index_keys)
+    }
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists all indexes for the given database table.
+]]>
+</remarks>
+<retrows>One row for each index on the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

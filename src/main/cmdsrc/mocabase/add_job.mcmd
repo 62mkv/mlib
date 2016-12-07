@@ -1,0 +1,58 @@
+<command>
+  <name>add job</name>
+  <description>Add a job to the server.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+/* Check required arguments */
+[[
+  if (!job_id) throw new RequiredArgumentException('job_id')
+  if (!command) throw new RequiredArgumentException('command')
+  if (!name) throw new RequiredArgumentException('name')
+  if (enabled == null) enabled = true
+  if (overlap == null) overlap = false
+
+  if (schedule == null && timer == null) {
+      throw new RequiredArgumentException("timer or schedule");
+  }
+  if (timer != null && start_delay == null) {
+      start_delay = 0;
+  }
+
+  if (timer != null) type = 'timer'
+  if (schedule != null) type = 'cron'
+]] |
+[
+    insert into job_definition
+      (job_id, role_id, name, command,
+       type, enabled, log_file, trace_level, overlap,
+       schedule, start_delay, timer, grp_nam)
+    values
+      (@job_id, @role_id, @name, @command,
+       @type, @enabled, @log_file, @trace_level, @overlap,
+       @schedule, @start_delay, @timer, @grp_nam)
+]
+]]>
+  </local-syntax>
+  <argument name="job_id" datatype="string"/>
+  <argument name="role_id" datatype="string"/>
+  <argument name="name" datatype="string"/>
+  <argument name="command" datatype="string"/>
+  <argument name="enabled" datatype="flag"/>
+  <argument name="overlap" datatype="flag"/>
+  <argument name="log_file" datatype="string"/>
+  <argument name="timer" datatype="integer"/>
+  <argument name="start_delay" datatype="integer"/>
+  <argument name="schedule" datatype="string"/>
+  <argument name="grp_nam" datatype="string"/>
+  <documentation>
+  <remarks>This command adds the given job to the configuration, using the
+   given job name, command, and node to start the job in, log
+   file, auto start flag, and auto restart flag.</remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+  <seealso cref="list job"/>
+  <seealso cref="remove job"/>
+  </documentation>
+</command>

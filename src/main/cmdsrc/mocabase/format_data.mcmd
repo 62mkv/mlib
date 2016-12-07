@@ -1,0 +1,39 @@
+<command>
+<name>format data</name>
+<description>Format data for an mload data file.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>formatData</method>
+<insecure>yes</insecure>
+<argument name="command" datatype="string">
+</argument>
+<argument name="tag" datatype="string">
+</argument>
+<argument name="column_names" datatype="string">
+</argument>
+<argument name="table_name" datatype="string">
+</argument>
+<argument name="where_clause" datatype="string">
+</argument>
+<argument name="order_by" datatype="string">
+</argument>
+<argument name="format_mode" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command formats a data file for use by mload.  The type can be 'CSV',
+ 'XML', 'XMLSTAG' or 'XMLETAG'.
+ <br/>
+ Important: This command is meant to be called from unload control files in
+            tandem with the "dump data" command.  Its use outside of this
+            context is limited.
+]]>
+</remarks>
+<seealso cref="dump data"></seealso>
+<retrows>One row is returned for every row in the given table that satisfies the
+ where-clause.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+</documentation>
+</command>

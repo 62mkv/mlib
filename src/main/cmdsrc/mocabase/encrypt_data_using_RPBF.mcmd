@@ -1,0 +1,41 @@
+<command>
+<name>encrypt data using RPBF</name>
+<description>Encrypt data using RPBF</description>
+<type>JAVA Method</type>
+<class>CoreService</class>
+<method>encryptDataUsingRPBF</method>
+<argument name="data" datatype="string">
+</argument>
+<argument name="charset" datatype="string">
+</argument>
+<argument name="data_bin" datatype="binary">
+</argument>
+<argument name="block_size" datatype="integer">
+</argument>
+<argument name="data_ptr" datatype="pointer">
+</argument>
+<argument name="data_len" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command encrypts data using RPBF method.
+ <br/>
+ NOTE: If data argument is passed in data_ptr is ignored.
+]]>
+</remarks>
+<retrows>A single row will be returned</retrows>
+<retcol name="encyrpted_data" type="binary">The data is encrypted</retcol>
+<example>
+get file where filename = 'help.xml'
+|
+encrypt data using RPBF where data_bin = @data and data = null
+
+ecrypted_data
+-------------
+
+
+</example>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

@@ -1,0 +1,73 @@
+<command>
+<name>connect ftp</name>
+<description>Connect to a ftp server.</description>
+<type>Java Method</type>
+<class>FTPService</class>
+<method>connectFTP</method>
+<argument name="host" required="yes" datatype="string">
+</argument>
+<argument name="port" default-value="21" datatype="integer">
+</argument>
+<argument name="user" datatype="string">
+</argument>
+<argument name="pass" datatype="string">
+</argument>
+<argument name="proxyHost" datatype="string">
+</argument>
+<argument name="proxyPort" datatype="Integer">
+</argument>
+<argument name="proxyUser" datatype="string">
+</argument>
+<argument name="proxyPass" datatype="string">
+</argument>
+<argument name="proxyType" datatype="string">
+</argument>
+<argument name="connTimeout" default-value="30000" datatype="integer">
+</argument>
+<argument name="local_dir" datatype="string">
+The destination directory on the LOCAL machine.
+</argument>
+<argument name="remote_dir" datatype="string">
+The source directory on the REMOTE machine.
+</argument>
+<argument name="mode" datatype="string">
+</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+ This command connects to a ftp server.  This will return a ftp connection object. 
+ This connect ftp command supports a proxy connection.  
+ Directory paths support environment variables.
+ 
+The supported proxy types are HTTP, SOCKS5
+
+An example use of the ftp connection:
+connect ftp where host='hostname' and user='username' and pass='password' and remote_dir='~/' 
+|
+get ftp where srcfile='log.txt'
+|
+close ftp
+ 
+ 
+ 
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="ftp" type="object">Returns the ftp connection object.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_FTP_COM_FAILURE">An FTP communication failure occurred.</exception>
+<seealso cref="list ftp">
+</seealso>
+<seealso cref="put ftp">
+</seealso>
+<seealso cref="get ftp">
+</seealso>
+<seealso cref="remove ftp">
+</seealso>
+<seealso cref="rename ftp">
+</seealso>
+<seealso cref="close ftp">
+</seealso>
+</documentation>
+</command>

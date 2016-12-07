@@ -1,0 +1,12 @@
+/**
+ *  This example demonstrates connecting to a server, uploading a directory recursively
+ *  and then disconnecting.
+ */
+
+prompt hostname "Enter hostname: "
+prompt username "Enter username: "
+prompt password "Enter password: "
+connect
+prompt localdir "Enter directory path to upload e.g. (c:/tmp/icons): "
+putdir "${localdir}"
+disconnect

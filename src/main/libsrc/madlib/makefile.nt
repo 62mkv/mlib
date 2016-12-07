@@ -1,0 +1,21 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAmad
+
+LIBPART=yes
+
+OFILES=mad.obj \
+       mad_msg.obj \
+       mad_queue.obj \
+       mad_async_queue.obj \
+       mad_thread_pool.obj \
+       mad_async_send.obj \
+       mad_send.obj \
+       mad_buffered_writer.obj \
+       mad_byte_buffer.obj \
+       mad_mutex.obj \
+       mad_time.obj \
+       mad_interval.obj 
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

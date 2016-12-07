@@ -1,0 +1,27 @@
+<command>
+  <name>remove task</name>
+  <description>remove a task from the registry.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+/* Check required arguments */
+[[
+  if (!task_id) throw new RequiredArgumentException('task_id')
+]];
+    [delete from task_definition where task_id = @task_id];
+    remove task env where task_id = @task_id catch(-1403)
+]]>
+  </local-syntax>
+  <argument name="task_id" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command removes a given task from the configuration, using the
+   task ID as the key.  With this command, it is only possible to remove a
+   single task from the configuration
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+  <seealso cref="list task"/>
+  </documentation>
+</command>

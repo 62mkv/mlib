@@ -1,0 +1,81 @@
+<command>
+<name>validate key exists</name>
+<description>Check if specified key exists</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+
+if (@key = '')
+{
+    /* key is a required argument */
+    set return status 
+      where status = 2958
+}
+|
+if (@table = '')
+{
+    /* table is a required argument */
+    set return status 
+      where status = 2959
+}
+|
+validate data 
+  where fldnam = @key 
+    and tblnam = @table
+
+]]>
+
+</local-syntax>
+
+<argument name="key" datatype="string" required="yes">
+    comma seperated list of columns that make up the key.
+</argument>
+<argument name="table" datatype="string" required="yes">
+    The name of the table in which the presence of the key is to be checked.
+</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+    <p>
+    Command checks if the specified key exists in the table.
+    It is an error if the a record with a matching key cannot be 
+    found in the table.
+                
+    The command would first check the stack for each of the key field
+    variables.  Then it would ensure that a key with those values
+    exists in the specified table.
+    </p>
+]]>
+</remarks>
+
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED (510)">No data found</exception>
+<example>
+    In TM wh_id and dock_id are required argument for the dds_create door in
+    ddslib.  Also a Dock door with the specified (wh_id, dock_id) must
+    exist.  This can be implemented as follows:
+
+    validate key exists
+      where key = 'wh_id, dock_id'
+        and table = 'dds_dock'
+
+    First the component checks that the key variables are available on
+    the stack.  Next it checks if a dock with the specified key exists
+    in the table (dds_dock).  An error is returned to the user if
+    a row does not exists in the table.
+
+    Note that you do not need to do the following checks:
+
+    validate stack variable not null 
+      where name = 'wh_id
+    |
+    validate stack variable no null 
+      where name = 'dock_id'
+
+    Because they will implicitly be performed for you by this component.
+</example>
+
+</documentation>
+</command>
+

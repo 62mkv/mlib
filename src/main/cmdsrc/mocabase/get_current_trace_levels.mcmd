@@ -1,0 +1,36 @@
+<command>
+<name>get current trace levels</name>
+<description>Get the current trace levels.</description>
+<type>Local Syntax</type>
+<insecure>yes</insecure>
+<local-syntax>
+<![CDATA[
+[[
+    import com.redprairie.moca.server.log.TraceUtils;
+
+    levels = TraceUtils.getSessionTraceLevel();
+]]
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the current trace levels that the server process that
+ you are connected to is running with.  The trace levels is a bit set.  In
+ general, this command should only be used to determine if tracing is
+ currently turned on.
+]]>
+</remarks>
+<retcol name="levels" type="integer">If tracing is currently turned on, this value will be an integer representing
+ which trace levels are turned on.  Otherwise, this value will be a 0.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="get trace file">
+</seealso>
+<seealso cref="get trace levels">
+</seealso>
+<seealso cref="set trace">
+</seealso>
+<seealso cref="write trace message">
+</seealso>
+</documentation>
+</command>

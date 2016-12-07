@@ -1,0 +1,36 @@
+<command>
+<name>clear bit</name>
+<description>Clears a bit in a bitset.</description>
+<type>Java Method</type>
+<class>BitArithmetic</class>
+<method>clearBit</method>
+<argument name="bit" required="yes" datatype="integer">
+</argument>
+<argument name="bitset" required="yes" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command clears the given 1-based bit in the given bitset is clear.  A
+ total of 32 bits are stored within a bitset, so the given bit, so the given
+ bit must be a number between 1 and 32.
+]]>
+</remarks>
+<retcol name="bit" type="integer">The bit number that was cleared.</retcol>
+<retcol name="bitset" type="integer">Bitset after the bit was cleared.</retcol>
+<seealso cref="bit is clear">
+</seealso>
+<seealso cref="bit is set">
+</seealso>
+<seealso cref="clear all bits">
+</seealso>
+<seealso cref="dump bitset">
+</seealso>
+<seealso cref="set all bits">
+</seealso>
+<seealso cref="set bit">
+</seealso>
+<seealso cref="set bits from bitmask">
+</seealso>
+</documentation>
+</command>

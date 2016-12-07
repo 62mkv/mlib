@@ -1,0 +1,15 @@
+<command>
+<name>get compress version</name>
+<description>Get compress version.</description>
+<type>C Function</type>
+<function>mocaCompressVersion</function>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the current version of the compression engine.
+]]>
+</remarks>
+<retcol name="mzlib_version" type="string">Version of the compression engine.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

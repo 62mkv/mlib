@@ -1,0 +1,21 @@
+<command>
+<name>get text file</name>
+<description>Get text file contents.</description>
+<type>Java Method</type>
+<class>FileDirectoryService</class>
+<method>getTextFile</method>
+<argument name="filnam" alias="filename" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the contents of the given file.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="filename" type="string">The filename.</retcol>
+<retcol name="data" type="data">The contents of the file.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+</documentation>
+</command>

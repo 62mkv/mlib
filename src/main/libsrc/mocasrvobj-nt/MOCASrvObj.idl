@@ -1,0 +1,109 @@
+// MOCASrvObj.idl : IDL source for MOCASrvObj.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (MOCASrvObj.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	typedef // [ uuid(eeaf0efd-91ae-4263-83e6-8dfc860e619a), helpstring("MOCA Data Types")]
+	enum MOCADataTypes {
+	    MOCAUnknown = 0,
+	    MOCAInt,
+	    MOCAFloat,
+	    MOCAString,
+	    MOCADateTime,
+	    MOCABoolean,
+    	    MOCAResults,
+	    MOCABinary
+	} MOCADataTypes;
+
+	[
+		object,
+		uuid(270ac420-3c89-40da-9987-7cc1d48e43f1),
+		dual,
+		helpstring("IMOCAResults Interface"),
+		pointer_default(unique)
+	]
+	interface IMOCAResults : IDispatch
+	{
+		[propget, id(1), helpstring("property Results")] HRESULT Results([out, retval] long *pVal);
+		[propput, id(1), helpstring("property Results")] HRESULT Results([in] long newVal);
+		[propget, id(2), helpstring("property Status")] HRESULT Status([out, retval] long *pVal);
+		[propput, id(2), helpstring("property Status")] HRESULT Status([in] long newVal);
+		[propget, id(3), helpstring("property ResultsEOF")] HRESULT ResultsEOF([out, retval] BOOL *pVal);
+		[id(4), helpstring("method MoveFirst")] HRESULT MoveFirst();
+		[id(5), helpstring("method MoveNext")] HRESULT MoveNext();
+		[propget, id(6), helpstring("property Value")] HRESULT Value([in] VARIANT Index, [out, retval] VARIANT *pVal);
+		[propput, id(6), helpstring("property Value")] HRESULT Value([in] VARIANT Index, [in] VARIANT newVal);
+		[id(7), helpstring("method AddColumn")] HRESULT AddColumn([in]BSTR ColumnName, [in]MOCADataTypes DataType);
+		[id(8), helpstring("method Open")] HRESULT Open([in, optional, defaultvalue(0)]long Status, [in, optional,defaultvalue("")]BSTR DefaultErrorText);
+		[id(9), helpstring("method Close")] HRESULT Close();
+		[id(10), helpstring("method AddRow")] HRESULT AddRow();
+		[propget, id(11), helpstring("property DataType")] HRESULT DataType([in]VARIANT Index, [out, retval] MOCADataTypes *pVal);
+		[propget, id(12), helpstring("property Rows")] HRESULT Rows([out, retval] long *pVal);
+		[propget, id(13), helpstring("property Columns")] HRESULT Columns([out, retval] long *pVal);
+		[propget, id(14), helpstring("property ColNum")] HRESULT ColNum([in]BSTR ColName, [out, retval] long *pVal);
+		[propget, id(15), helpstring("property ColName")] HRESULT ColName([in]long ColNum, [out, retval] BSTR *pVal);
+		[id(16), helpstring("method AddErrorArg")] HRESULT AddErrorArg([in]BSTR Name, [in]VARIANT Value, [in, optional, defaultvalue(FALSE)]BOOL DoLookup);
+		[id(17), helpstring("method AddColumn2")] HRESULT AddColumn2([in] BSTR ColumnName, [in] MOCADataTypes DataType, [in] long ColumnLength);
+		[propget, id(18), helpstring("property DefinedLength")] HRESULT DefinedLength(VARIANT Index, [out, retval] long *pVal);
+		
+	};
+	[
+		object,
+		uuid(5086aa22-caff-4569-8620-38423555f1dc),
+		dual,
+		helpstring("IMOCAServerAccess Interface"),
+		pointer_default(unique)
+	]
+	interface IMOCAServerAccess : IDispatch
+	{
+		[id(1), helpstring("method SQLExecute")] HRESULT SQLExecute([in]BSTR SqlCommand, [out, retval] IMOCAResults **Results);
+		[id(2), helpstring("method Initiate")] HRESULT Initiate([in]BSTR ServerCommand, [out, retval] IMOCAResults **Results);
+		[id(3), helpstring("method Commit")] HRESULT Commit([out, retval] long *Status);
+		[id(4), helpstring("method Rollback")] HRESULT Rollback([out, retval] long *Status);
+		[id(5), helpstring("method GetNeededElement")] HRESULT GetNeededElement([in] BSTR Name, [in, optional] BSTR AltName, [out, retval] VARIANT *pVal);
+		[id(6), helpstring("method LogError")] HRESULT LogError([in]BSTR Message);
+		[id(7), helpstring("method LogWarning")] HRESULT LogWarning([in]BSTR Message);
+		[id(8), helpstring("method LogInfo")] HRESULT LogInfo([in]BSTR Message);
+		[id(9), helpstring("method Trace")] HRESULT TraceFlow([in]BSTR Message);
+		[id(10), helpstring("method GetVariable")] HRESULT GetVariable([in]BSTR VarName, [out, retval]BSTR *Value);
+		[id(11), helpstring("method InitiateClean")] HRESULT InitiateClean([in]BSTR ServerCommand, [out, retval] IMOCAResults **Results);
+	};
+	
+
+[
+	uuid(e401f9e5-e6b6-483f-a740-f4256043958f),
+	version(1.0),
+	helpstring("MOCA Server Objects Library NG")
+]
+library MOCASrvObjLibNG
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+
+cpp_quote("#ifndef MOCAERR_H")
+cpp_quote("#define MOCAERR_H")
+// #define MOCAERR_ATTRIBUTES [public, uuid(2335FB10-CDB1-11d3-972F-0008C749AC57), helpstring("MOCA Error Codes")]
+#include <mocaerr.h>
+cpp_quote("#endif")
+
+	[
+		uuid(1208d54e-193c-44b1-ab58-e08f736cc17b),
+		helpstring("MOCA Server Results")
+	]
+	coclass MOCAResults
+	{
+		[default] interface IMOCAResults;
+	};
+	[
+		uuid(c8b8c9e3-b4c8-46e3-b2ef-de24e4359d7b),
+		helpstring("MOCA Server Access")
+	]
+	coclass MOCAServerAccess
+	{
+		[default] interface IMOCAServerAccess;
+	};
+};

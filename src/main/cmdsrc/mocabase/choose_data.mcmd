@@ -1,0 +1,31 @@
+<command>
+<name>choose data</name>
+<description>Choose columns to populate.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>chooseData</method>
+<argument name="columns" datatype="string" required="yes">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command provides a simple way to strip columns from a result set.  The
+ columns names from the given comma-separated list are published in the result
+ set and all other columns are dropped from the result set.  
+ <br/>
+ This command will use the previous result if possible.  If the columns are not
+ found in the last resultset, the command will pull them from the 
+ stack.
+ <br/>
+ Column names can be aliased using the following format: newcol=oldcol. 
+]]>
+</remarks>
+<retrows>The number of rows returned is dependent on the result set being referenced.</retrows>
+<example>publish data where a=1 and b=2 and c=3 | choose data where columns='a, d=c'
+
+    a d
+    - -
+    1 3</example>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

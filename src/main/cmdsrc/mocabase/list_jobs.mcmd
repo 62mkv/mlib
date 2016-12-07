@@ -1,0 +1,21 @@
+<command>
+<name>list jobs</name>
+<description>List the given jobs in the registry.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+list job where @*
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command just wraps the 'list job' command.  Please see the documentation
+ for 'list job'.
+]]>
+</remarks>
+<seealso cref="list job">
+</seealso>
+</documentation>
+</command>
+

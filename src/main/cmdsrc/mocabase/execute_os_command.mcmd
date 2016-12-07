@@ -1,0 +1,27 @@
+<command>
+<name>execute os command</name>
+<description>Execute an o/s command.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+execute os command in directory
+  where cmd = nvl(@cmd, @command)
+    and directory = @@cwd
+]]>
+</local-syntax>
+<argument name="cmd" alias="command" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command executes an o/s command from Local Syntax and returns each line
+ of the output from the command as a row in the result set.
+ <br/>
+ The implementation of the command assumes that each line of output from the 
+ command will be no longer than 1024 bytes.]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="result" type="string">Result from command.</retcol>
+<exception value="Status">The status of the executed o/s command is returned.</exception>
+</documentation>
+</command>

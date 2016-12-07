@@ -1,0 +1,6 @@
+<component-level>
+<name>MOCAdbutl</name>
+<description>MOCA Database Utility Components</description>
+<package>com.redprairie.moca.components.databaseutil</package>
+<sort-sequence>10</sort-sequence>
+</component-level>

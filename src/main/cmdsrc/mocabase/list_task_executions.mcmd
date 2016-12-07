@@ -1,0 +1,32 @@
+<command>
+<name>list task executions</name>
+<description>List the given task executions.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+if (!@orderByClause) {
+    publish data where orderByClause = 'start_dte DESC'
+}
+|
+[
+/*#limit=@start_row,@row_limit,@calculate_total */
+ select * from task_definition_exec
+   where @+task_id
+     and @+node_url
+     and @+start_dte
+     and @+end_dte
+     and @+status
+     and @+start_cause
+   order by @orderByClause:raw
+]
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command returns all the stored task executions from the database.
+ ]]>
+</remarks>
+</documentation>
+</command>
+

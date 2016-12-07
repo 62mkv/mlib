@@ -1,0 +1,17 @@
+<command>
+<name>hide stack variable</name>
+<description>Hide an existing variable on the stack.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>hideStackVariable</method>
+<argument name="name" datatype="string">
+</argument>
+<documentation>
+<remarks>This command hides the given variable name on the stack so that it won't
+ be available for downstream commands.</remarks>
+<retrows>None.  This command just returns a status.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+<example>publish data where a=1 and b=2 | hide stack variable where name = 'a'</example>
+</documentation>
+</command>

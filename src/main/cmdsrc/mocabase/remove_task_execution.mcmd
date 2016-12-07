@@ -1,0 +1,26 @@
+<command>
+  <name>remove task execution</name>
+  <description>remove a task execution from the database.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+[
+   delete from task_definition_exec
+     where @+start_dte:date
+       and @+end_dte:date
+       and @*
+]
+]]>
+  </local-syntax>
+  <documentation>
+  <remarks>
+   This command removes all task executions from the database given the values 
+   in the where clause.  An example of common usage is to remove all executions
+   that have a start date older than a certain time (ie. 1 week)
+   remove task execution where start_dte &lt; sysdate - 7
+ </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <seealso cref="list task executions"/>
+  </documentation>
+</command>

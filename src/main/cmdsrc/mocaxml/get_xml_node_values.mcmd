@@ -1,0 +1,45 @@
+<command>
+<name>get xml node values</name>
+<type>C Function</type>
+<function>mocaGetXMLNodeValues</function>
+<argument name="mxml_ctxt" required="yes" datatype="pointer">
+</argument>
+<argument name="mxml_node" datatype="pointer">
+</argument>
+<argument name="cat_this_sibling" datatype="string">
+</argument>
+<documentation>
+<seealso cref="add xml attribute">
+</seealso>
+<seealso cref="add xml element">
+</seealso>
+<seealso cref="add xml text node">
+</seealso>
+<seealso cref="convert result set to xml">
+</seealso>
+<seealso cref="convert xml to result set">
+</seealso>
+<seealso cref="create xml document">
+</seealso>
+<seealso cref="get xml">
+</seealso>
+<seealso cref="get xml child nodes">
+</seealso>
+<seealso cref="get xml elements by tagname">
+</seealso>
+<seealso cref="get xml info">
+</seealso>
+<seealso cref="normalize xml">
+</seealso>
+<seealso cref="parse xml">
+</seealso>
+<seealso cref="remove xml child">
+</seealso>
+<seealso cref="start xml parser">
+</seealso>
+<seealso cref="stop xml parser">
+</seealso>
+<seealso cref="write xml file">
+</seealso>
+</documentation>
+</command>

@@ -1,0 +1,17 @@
+<command>
+    <name>validate federation token</name>
+    <description>Validates a Federation token.</description>
+    <type>Java Method</type>
+    <class>FederatedSecurityComponents</class>
+    <method>validateFederationToken</method>
+    <argument name="token" required="yes" datatype="string" />
+    <documentation>
+        <remarks>
+            <![CDATA[
+              This component will validate a generated token
+              used to verify the user's authentication
+              with federated hosts.
+            ]]>
+        </remarks>
+    </documentation>
+</command>

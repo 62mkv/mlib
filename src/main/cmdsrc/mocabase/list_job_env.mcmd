@@ -1,0 +1,34 @@
+<command>
+  <name>list job env</name>
+  <description>list job envronments in the system.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+[[
+  name = (name != null) ? name : var_nam;
+  if (name != null)
+    name
+]]
+|
+[
+  select job_id,
+         name as var_nam,
+         value
+    from job_env_definition
+   where @*
+]
+]]>
+  </local-syntax>
+  <documentation>
+  <remarks>
+   This command lists all configured job environments in the system, taking an
+   optional argument of job_id to list a single job's environment.
+  </remarks>
+  <retcol name="job_id" type="string">Job name</retcol>
+  <retcol name="var_nam" type="string">Job environment variable name</retcol>
+  <retcol name="value" type="string">Job environment variable value</retcol>
+  <exception value="eOK">The command completed successfully.</exception>
+  <seealso cref="add job env"/>
+  <seealso cref="remove job env"/>
+  </documentation>
+</command>

@@ -1,0 +1,21 @@
+<command>
+<name>get server information</name>
+<description>Retrieve the server information</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    url = moca.getRegistryValue(MocaRegistry.REGKEY_SERVER_URL);
+]]
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This will return the server url of the system as defined in the registry.  
+]]>
+</remarks>
+<retrows>1</retrows>
+<retcol name="url" type="STRING">The server url.</retcol>
+</documentation>
+</command>

@@ -1,0 +1,20 @@
+<command>
+<name>get encryption information</name>
+<description>Get encryption information</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>getEncryptionInformation</method>
+<security-level>open</security-level>
+<documentation>
+<private>
+</private>
+<remarks>
+<![CDATA[
+ This command gets various information regarding the encryption method
+ being used to encrypt the line protocol.
+]]>
+</remarks>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>
+

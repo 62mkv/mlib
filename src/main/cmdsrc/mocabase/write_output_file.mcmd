@@ -1,0 +1,46 @@
+<command>
+<name>write output file</name>
+<description>Write an output file.</description>
+<type>JAVA Method</type>
+<class>FileDirectoryService</class>
+<method>writeOutputFile</method>
+<argument name="filnam" alias="filename" required="yes" datatype="string">
+</argument>
+<argument name="path" datatype="string">
+</argument>
+<argument name="mode" datatype="string">
+</argument>
+<argument name="data" datatype="string">
+</argument>
+<argument name="charset" datatype="string">
+</argument>
+<argument name="newline" alias="append_newline" default-value="N" datatype="string">
+</argument>
+<argument name="newline_character" alias="newline_char" datatype="string">
+</argument>
+<argument name="data_bin" datatype="binary">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command writes the given data to the given file.  
+ <br/>
+ The pathname argument can be used to specify the directory to write the 
+ file to.  
+ If the newline argument is 'Y', a newline character is appended after the data.
+ The mode argument should match the mode argument to the fopen(3) system call.
+ <br/>
+ NOTE: data_ptr and data_len are only used when data argument is not passed.
+ <br/>
+ NOTE: data_ptr and data_len are both required when data argument is not specfied.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="filnam" type="string">Filename that was written.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eFILE_OPENING_ERROR">The given file could not be opened.</exception>
+<seealso cref="read file">
+</seealso>
+</documentation>
+</command>

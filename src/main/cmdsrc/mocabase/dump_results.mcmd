@@ -1,0 +1,18 @@
+<command>
+<name>dump results</name>
+<description>Dump a result set.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>dumpResults</method>
+<argument name="resultset" alias="res" required="yes" datatype="results">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command dumps the given result set to the trace file.  
+]]>
+</remarks>
+<retrows>None.  This command just returns a status.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

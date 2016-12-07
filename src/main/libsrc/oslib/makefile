@@ -1,0 +1,52 @@
+include $(MOCADIR)/makefiles/StandardHeader.mk
+
+OFILES=osAccess.o \
+       osAsyncIO.o \
+       osAtexit.o \
+       osAuthenticateUser.o \
+       osBaseFile.o \
+       osCodePages.o \
+       osCopyFile.o \
+       osDirectory.o \
+       osDirName.o \
+       osDumpCore.o \
+       osEncodeDescriptor.o \
+       osError.o \
+       osFilterTCP.o \
+       osFileInfo.o \
+       osFindFile.o \
+       osFopen.o \
+       osGetHostSerialNumber.o \
+       osGetLogin.o \
+       osGetProcessId.o \
+       osGetTime.o \
+       osGetopt.o \
+       osIniFile.o \
+       osInit.o \
+       osLaunchJavaApplication.o \
+       osLibrary.o \
+       osLocal.o \
+       osLockMem.o \
+       osLogEvent.o \
+       osMBX.o \
+       osMapFile.o \
+       osMutex.o \
+       osPanic.o \
+       osPipe.o \
+       osPrintFile.o \
+       osProcessPriority.o \
+       osRecvFile.o \
+       osRegistry.o \
+       osSendFile.o \
+       osSignal.o \
+       osSleep.o \
+       osSockError.o \
+       osSocket.o \
+       osTCP.o \
+       osThread.o \
+       osVar.o \
+       os_MapInfo.o 
+
+include $(MOCADIR)/makefiles/Library.mk
+include $(MOCADIR)/makefiles/StandardFooter.mk
+

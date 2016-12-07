@@ -1,0 +1,74 @@
+<command>
+<name>get extra db info</name>
+<description>Get database extra information</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[ 
+{
+    get registry value where key = 'database' and subkey = 'driver' catch (@?)
+    |
+    publish data 
+        where extra_db_info = 'Driver: ' || nvl(@value, 'N/A')
+}
+&
+{
+    get registry value where key = 'database' and subkey = 'url'  catch (@?)
+    |
+    publish data 
+        where extra_db_info = 'URL: ' || nvl(@value, 'N/A')
+}
+&
+if (dbtype = 'ORACLE')
+{
+    [ 
+     select banner extra_db_info 
+       from v$version 
+     union all
+     select 'Compatible Version ' || value extra_db_info
+       from v$parameter
+      where name = 'compatible'
+     union all
+     select 'NLS_CHARACTERSET: ' || value extra_db_info
+       from v$nls_parameters
+      where parameter='NLS_CHARACTERSET' 
+     union all
+     select 'NLS_LENGTH_SEMANTICS: ' || value extra_db_info
+       from v$nls_parameters
+      where parameter='NLS_LENGTH_SEMANTICS' 
+    ]
+}
+else if (dbtype = 'MSSQL')
+{
+    [  
+     sp_executesql "select replace(@@version, char(10) + char(9), char(13) + char(10)) extra_db_info"
+    ]
+    &
+    [
+       select 'Logical Machine: ' + 
+              cast(serverproperty('MachineName') 
+                  as varchar(2000)) as extra_db_info 
+       union all
+       select 'Physical Machine: ' + 
+              cast(serverproperty('ComputerNamePhysicalNetBIOS') 
+                  as varchar(2000)) as extra_db_info 
+       union all
+       select 'Collation: ' + 
+              cast(serverproperty('Collation') 
+                  as varchar(2000)) as extra_db_info 
+    ]
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+<p>
+Get extra database information.
+</p>
+]]>
+</remarks>
+<retcol name="db_extra_info" type="COMTYP_STRING">
+</retcol>
+<exception value="eOK">Normal successful completion</exception>
+</documentation>
+</command>

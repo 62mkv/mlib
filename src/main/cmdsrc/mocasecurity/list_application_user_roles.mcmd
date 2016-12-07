@@ -1,0 +1,34 @@
+<command>
+<name>list application user roles</name>
+<description>List the roles an application user has.</description>
+<type>Local Syntax</type>
+<local-syntax>
+get security server information
+|
+publish data 
+    where search_filter = '(' || @ldap_uid_attr || '=' || @username || ')'
+|
+connect to ldap server
+    where url = @ldap_url
+      and bind_dn = @ldap_bind_dn
+      and bind_password = @ldap_bind_password
+|
+find ldap attribute values
+    where search_filter = @search_filter
+      and search_base = ''
+      and attr_name = @ldap_role_attr 
+|
+publish data 
+    where role = @value
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command list the set of roles an application user has.
+]]>
+</remarks>
+<retrows>One row for each role.</retrows>
+<retcol name="role" type="string">The role this user has.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

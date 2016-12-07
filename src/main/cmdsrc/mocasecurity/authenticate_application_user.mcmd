@@ -1,0 +1,31 @@
+<command>
+<name>authenticate application user</name>
+<description>Authenticate an application user.</description>
+<type>Local Syntax</type>
+<local-syntax>
+get security server information
+|
+connect to ldap server
+    where url = @ldap_url
+      and bind_dn = @ldap_bind_dn
+      and bind_password = @ldap_bind_password
+      and auth_type = @ldap_auth_type
+      and referrals = @ldap_referrals
+|
+authenticate ldap user using uid
+    where uid_attr = @ldap_uid_attr
+      and uid = @username
+      and password = @password
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command authenticates an application user against the security server
+ configured in the MOCA registry.
+]]>
+</remarks>
+<retrows>None</retrows>
+<exception value="eOK">The user was successfully authenticated against the security server.</exception>
+<exception value="eMOCA_LDAP_CLIENT_AUTH">A failure occurred authenticating the user against the security server.</exception>
+</documentation>
+</command>

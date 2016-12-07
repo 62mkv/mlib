@@ -1,0 +1,33 @@
+<command>
+<name>list active command arguments</name>
+<description>List active command arguments.</description>
+<type>Java Method</type>
+<class>RepositoryService</class>
+<method>listActiveCommandArguments</method>
+<argument name="cmplvl" alias="level" datatype="string">
+Component level name
+</argument>
+<argument name="command" alias="cmd_nam" datatype="string">
+Command name
+</argument>
+<argument name="argument" alias="argnam" datatype="string">
+Argument name
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the arguments of the given active command.
+]]>
+</remarks>
+<retrows>One row is returned for every argument.</retrows>
+<retcol name="cmplvl" type="COMTYP_STRING">Component level of the command.</retcol>
+<retcol name="command" type="COMTYP_STRING">The command name.</retcol>
+<retcol name="argnam" type="COMTYP_STRING">This argument's name.</retcol>
+<retcol name="altnam" type="COMTYP_STRING">This argument's alias name.</retcol>
+<retcol name="argtyp" type="COMTYP_STRING">This argument's type.</retcol>
+<retcol name="fixval" type="COMTYP_STRING">This argument's default value.</retcol>
+<retcol name="argreq" type="COMTYP_BOOLEAN">Flag indicating if this argument is required.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

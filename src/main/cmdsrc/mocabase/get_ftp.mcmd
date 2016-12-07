@@ -1,0 +1,53 @@
+<command>
+<name>get ftp</name>
+<description>get a file via ftp.</description>
+<type>Java Method</type>
+<class>FTPService</class>
+<method>getFile</method>
+<argument name="ftp"  datatype="object">
+</argument>
+<argument name="host" datatype="string">
+</argument>
+<argument name="port" default-value="21" datatype="integer">
+</argument>
+<argument name="user" datatype="string">
+</argument>
+<argument name="pass" datatype="string">
+</argument>
+<argument name="destdir" datatype="string">
+The directory on the LOCAL machine to place the file
+that is being obtained over ftp.
+</argument>
+<argument name="destfile" datatype="string">
+The name for the file to use on the LOCAL machine.
+</argument>
+<argument name="srcdir" datatype="string">
+The source directory on the REMOTE machine where the file
+that is being retrieved exists.
+</argument>
+<argument name="srcfile" required="yes" datatype="string">
+The filename on the REMOTE machine that is being retrieved.
+</argument>
+<argument name="mode" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets a file from another host via ftp.
+ Directory paths support environment variables.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="result" type="string">A string describing the file transferred.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_FTP_COM_FAILURE">An FTP communication failure occurred.</exception>
+<seealso cref="list ftp">
+</seealso>
+<seealso cref="remove ftp">
+</seealso>
+<seealso cref="put ftp">
+</seealso>
+<seealso cref="rename ftp">
+</seealso>
+</documentation>
+</command>

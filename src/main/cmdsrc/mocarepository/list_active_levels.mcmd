@@ -1,0 +1,25 @@
+<command>
+<name>list active levels</name>
+<description>List active levels.</description>
+<type>Java Method</type>
+<class>RepositoryService</class>
+<method>listActiveLevels</method>
+<argument name="cmplvl" alias="level" datatype="string">
+Component level name
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists information about the given active level.
+]]>
+</remarks>
+<retrows>One row is returned for every level installed.</retrows>
+<retcol name="name" type="COMTYP_STRING">The component level name.</retcol>
+<retcol name="desc" type="COMTYP_STRING">The component level description.</retcol>
+<retcol name="srt_seq" type="COMTYP_LONG">The sort sequence for this level.</retcol>
+<retcol name="editable" type="COMTYP_BOOLEAN">Flag indicating if this level is editable.</retcol>
+<retcol name="cmd_dir" type="COMTYP_STRING">The directory path of the commands for this level.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

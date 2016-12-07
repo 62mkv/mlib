@@ -1,0 +1,13 @@
+/**
+ *  This example demonstrates connecting to a server, uploading all files with a .gif extension
+ *  from specified local directory, deleting local files and then disconnecting.
+ */
+
+lcd "c:/tmp"
+prompt hostname "Enter hostname: "
+prompt username "Enter username: "
+prompt password "Enter password: "
+connect
+mput ".*\\.gif"
+ldel ".*\\.gif"
+disconnect

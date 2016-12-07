@@ -1,0 +1,82 @@
+<command>
+<name>generate db documentation</name>
+<description>Generate HTML-based DB documentation.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+
+   /* Setup call information */
+   expand environment variable 
+     where name = "$MOCADIR/docs/xsl/db.xsl" |
+   publish data 
+     where tblstylesheet=@value |
+
+   expand environment variable 
+     where name = "$MOCADIR/docs/xsl/dbindex.xsl" |
+   publish data 
+     where indexstylesheet=@value |
+
+   expand environment variable
+     where name = "$LESDIR/docs/database/" | 
+   publish data
+        where outputdir=@value  |
+
+   /* Generate master index */
+   {list user tables | publish data where table_name=lower(@table_name)} >> rs | 
+   convert column to multicolumn 
+     where column='table_name' and res = @rs and column_count = 3 >> rs |
+   /* We make a new context right after so enclose in braces  */
+   convert result set to xml |
+   {
+      apply stylesheet where filename=@indexstylesheet |
+      write xml file where filename=@outputdir||"index.html" |
+      /* Stop the context from style sheet */ 
+      stop xml parser
+   }
+   |
+   stop xml parser |
+
+   /* Get list of tables */
+   list user tables |
+
+   /* Build output file spec */
+   publish data 
+     where dbhtml=@outputdir||@table_name||".html" |
+
+   /* Get table information */
+   list table comment where table=@table_name catch(@?) | 
+   list table columns where table=@table_name catch(@?) >> rs1 |
+   list table indexes where table=@table_name catch(@?) >> rs2 |
+   publish data where table_name=@table_name and table_comment=@table_comment >> rs3 |
+
+   /* Build nested result set, convert to xml and apply stylesheet */
+   publish data 
+     where table_comment_rs=@rs3 
+       and table_rs=@rs1 
+       and index_rs=@rs2 >> rs |
+
+   /* We make a new context right after so enclose in braces  */
+   convert result set to xml |
+   {
+      apply stylesheet 
+        where filename=@tblstylesheet |
+      write xml file where filename=@dbhtml |
+      /* Stop the context from style sheet */ 
+      stop xml parser
+   }
+   |
+   stop xml parser
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command is used to generate HTML-based documentation of the 
+ database schema.
+]]>
+</remarks>
+<retrows>
+   List of filenames containing documentation for tables in schema. 
+</retrows>
+</documentation>
+</command>

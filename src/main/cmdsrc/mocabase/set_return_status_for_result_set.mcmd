@@ -1,0 +1,45 @@
+<command>
+<name>set return status for result set</name>
+<description>Set the return status for a result set</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    // Default the status to 0 if not provided
+    def retStatus = status != null ? status : 0;
+    def realResultSet = resultset ? resultset : res;
+
+    // If the status is not 0 then we have to produce an exception
+    if (retStatus != 0) {
+        MocaException excp = new MocaException(retStatus);
+        excp.setResults(realResultSet);
+        throw excp;
+    }
+    res;
+]]
+
+]]>
+</local-syntax>
+<argument name="status" datatype="integer">
+</argument>
+<argument name="resultset" alias="res" datatype="results" required="yes">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+This command publishes the resultset referenced by the given result set, 
+setting the return status to the given status.  If the status is not provided it assumes OK;
+]]>
+</remarks>
+<exception value="eOK">
+ The command completed successfully.
+</exception>
+<exception value="eINVALID_ARGS">
+ Invalid argument(s).
+</exception>
+<exception value="eMOCA_MISSING_ARG">
+ Insufficient arguments.
+</exception>
+</documentation>
+
+</command>

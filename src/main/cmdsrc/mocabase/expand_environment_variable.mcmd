@@ -1,0 +1,26 @@
+<command>
+<name>expand environment variable</name>
+<description>Expand an environment variable.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+name = name ? name : variable; value = MocaUtils.expandEnvironmentVariables(moca, name)
+]]
+]]>
+</local-syntax>
+<argument name="name" alias="variable" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command expands an envirnment variable within Local Syntax.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="name" type="string">Name of the environment variable.</retcol>
+<retcol name="value" type="string">Value of the environment variable.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+</documentation>
+</command>

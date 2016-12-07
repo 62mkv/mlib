@@ -1,0 +1,35 @@
+<command>
+<name>set bits from bitmask</name>
+<description>Sets bits in a bitset from a bitmask.</description>
+<type>Java Method</type>
+<class>BitArithmetic</class>
+<method>setBitsFromBitmask</method>
+<argument name="bitmask" required="yes" datatype="integer">
+</argument>
+<argument name="bitset" default-value="0" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sets all 32 bits in the given bitset from the given 32-bit 
+ bitmask.
+]]>
+</remarks>
+<retcol name="bitmask" type="integer">The bitmask that was used to set the bits in the bitset.</retcol>
+<retcol name="bitset" type="integer">Bitset after the bits were set from the bitmask.</retcol>
+<seealso cref="bit is clear">
+</seealso>
+<seealso cref="bit is set">
+</seealso>
+<seealso cref="clear all bits">
+</seealso>
+<seealso cref="clear bit">
+</seealso>
+<seealso cref="dump bitset">
+</seealso>
+<seealso cref="set all bits">
+</seealso>
+<seealso cref="set bit">
+</seealso>
+</documentation>
+</command>

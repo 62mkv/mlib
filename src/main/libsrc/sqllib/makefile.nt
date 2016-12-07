@@ -1,0 +1,65 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAsql
+
+LIBPART=yes
+
+OFILES=sqlAddColumn.obj \
+       sqlAddRow.obj \
+       sqlBuildBindList.obj \
+       sqlCombineResults.obj \
+       sqlCompareTypes.obj \
+       sqlDecodeBinary.obj \
+       sqlDecodeResults.obj \
+       sqlDumpResults.obj \
+       sqlEncodeBinary.obj \
+       sqlEncodeResults.obj \
+       sqlFindColumn.obj \
+       sqlFreeBindList.obj \
+       sqlFreeResults.obj \
+       sqlGetActualColumnLen.obj \
+       sqlGetBinaryData.obj \
+       sqlGetBinaryDataLen.obj \
+       sqlGetBoolean.obj \
+       sqlGetColName.obj \
+       sqlGetDataType.obj \
+       sqlGetDate.obj \
+       sqlGetDefinedColumnLen.obj \
+       sqlGetFloat.obj \
+       sqlGetLastRow.obj \
+       sqlGetLong.obj \
+       sqlGetLongDesc.obj \
+       sqlGetMessage.obj \
+       sqlGetNextRow.obj \
+       sqlGetNumColumns.obj \
+       sqlGetNumRows.obj \
+       sqlGetResultset.obj \
+       sqlGetRow.obj \
+       sqlGetShortDesc.obj \
+       sqlGetString.obj \
+       sqlGetValue.obj \
+       sqlIsHidden.obj \
+       sqlIsNull.obj \
+       sqlIsNullable.obj \
+       sqlIsPseudoCol.obj \
+       sqlLengths.obj \
+       sqlRemoveRow.obj \
+       sqlRenameColumn.obj \
+       sqlSetDate.obj \
+       sqlSetFloat.obj \
+       sqlSetLong.obj \
+       sqlSetString.obj \
+       sqlSwapColumns.obj \
+       sqlUnbind.obj \
+       sql_AddRowItem.obj \
+       sql_AllocateResultHdr.obj \
+       sql_AllocateRow.obj \
+       sql_ChangeDataType.obj \
+       sql_FreeHeaderOnly.obj \
+       sql_FreeRow.obj \
+       sql_ObjectRef.obj \
+       sql_PromoteDataType.obj \
+       sql_Set.obj 
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

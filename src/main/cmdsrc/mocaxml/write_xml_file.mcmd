@@ -1,0 +1,59 @@
+<command>
+<name>write xml file</name>
+<description>Write an XML document.</description>
+<type>C Function</type>
+<function>mocaWriteXMLFile</function>
+<argument name="mxml_ctxt" datatype="pointer">
+</argument>
+<argument name="mxml_write_raw" default-value="F" datatype="string">
+</argument>
+<argument name="pathname" alias="filename" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command writes the current document to a file.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="mxml_ctxt" type="pointer">New context</retcol>
+<retcol name="pathname" type="string">Pathname of the output file.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+<seealso cref="add xml attribute">
+</seealso>
+<seealso cref="add xml element">
+</seealso>
+<seealso cref="add xml text node">
+</seealso>
+<seealso cref="convert result set to xml">
+</seealso>
+<seealso cref="convert xml to result set">
+</seealso>
+<seealso cref="create xml document">
+</seealso>
+<seealso cref="get xml">
+</seealso>
+<seealso cref="get xml child nodes">
+</seealso>
+<seealso cref="get xml elements by tagname">
+</seealso>
+<seealso cref="get xml info">
+</seealso>
+<seealso cref="get xml node values">
+</seealso>
+<seealso cref="normalize xml">
+</seealso>
+<seealso cref="parse xml">
+</seealso>
+<seealso cref="remove xml child">
+</seealso>
+<seealso cref="start xml parser">
+</seealso>
+<seealso cref="stop xml parser">
+</seealso>
+</documentation>
+</command>

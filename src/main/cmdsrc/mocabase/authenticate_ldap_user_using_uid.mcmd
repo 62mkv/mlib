@@ -1,0 +1,24 @@
+<command>
+<name>authenticate ldap user using uid</name>
+<description>Authenticate a user against an LDAP server.</description>
+<type>Java Method</type>
+<class>LDAPClientService</class>
+<method>authenticateLDAPUserUsingUID</method>
+<argument name="ldap_client" required="yes" datatype="object"> </argument>
+<argument name="uid_attr" required="yes" datatype="string"> </argument>
+<argument name="uid" alias="logname" required="yes" datatype="string"> </argument>
+<argument name="password" required="yes" datatype="string"> </argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command attempts to authenticate a user against the given LDAP server.
+ The user's distinguished name will be looked up by performing a search against
+ the LDAP server with a search filter built using the given uid attribute name
+ and uid.
+]]>
+</remarks>
+<retrows>None</retrows>
+<exception value="eOK">The user was successfully authenticated against the LDAP server.</exception>
+<exception value="eMOCA_LDAP_CLIENT_AUTH">A failure occurred authenticating the user against the LDAP server.</exception>
+</documentation>
+</command>

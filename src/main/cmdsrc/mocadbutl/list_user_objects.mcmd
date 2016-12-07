@@ -1,0 +1,75 @@
+<command>
+<name>list user objects</name>
+<description>List a user&apos;s database objects.</description>
+<type>local syntax</type>
+<argument name="object_name" alias="obj_name" required="no" datatype="string"></argument>
+<argument name="object_type" alias="obj_type" required="no" datatype="string"></argument>
+<local-syntax>
+<![CDATA[
+/* Deal with aliases and capitalization */
+[[
+    if (!object_name && obj_name) object_name = obj_name
+]]
+|
+[[
+    if (!object_type && obj_type) object_type = obj_type;
+    if (object_type) object_type = object_type.toUpperCase()
+]]
+|
+if (dbtype = 'ORACLE')
+{
+    /* Safeguard against lower case */
+    [[ if (object_name) object_name = object_name.toUpperCase() ]]
+    |
+    [
+       select object_name, object_type
+         from user_objects
+        where @+object_name
+          and object_name not like 'BIN$%'
+          and @+object_type
+     order by object_name
+    ]
+}
+else if (dbtype = 'MSSQL')
+{
+    [[
+        if (object_type.equals("DATABASE LINK"))
+            object_type = "NOT SUPPORTED";
+        else if (object_type.equals("SYNONYM"))
+            object_type = "SYNONYM";
+        else if (object_type.equals("TABLE"))
+            object_type = "BASE TABLE";
+        else if (object_type.equals("VIEW"))
+            object_type = "VIEW";
+    ]]
+    |
+    [
+       select table_name object_name, table_type object_type
+         from information_schema.tables
+        where @+table_name^object_name
+          and @+table_type^object_type
+     order by object_name
+    ]
+    |
+    publish data
+      where object_name = upper(@object_name)
+        and object_type = decode(@object_type,
+                                 'BASE TABLE', 'TABLE',
+                                 @object_type)
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists various objects from the user's database, filtered by type and/or name if specified.
+ Valid object types are database link, synonym, view, and table.
+ Database links are currently not detected on SQL Server
+]]>
+</remarks>
+<retrows>One row for each table in the database.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

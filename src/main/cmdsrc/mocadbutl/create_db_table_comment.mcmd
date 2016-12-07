@@ -1,0 +1,67 @@
+<command>
+<name>create db table comment</name>
+<description>Create a database table comment.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data 
+    where table_name = nvl(@table_name, @table)
+      and table_comment = nvl(@table_comment, @comment) 
+|
+if (dbtype = 'ORACLE')
+{
+    [ /*#nobind*/
+      comment on table @table_name:raw is @table_comment
+    ]
+}
+else if (dbtype = 'MSSQL')
+{
+    /* Need to determine whether it is a table or view */
+    [
+        select count(*) table_exists
+          from information_schema.tables
+         where table_type = 'BASE TABLE'
+           and @+table_name
+    ]
+    |
+    publish data where obj_type = decode(@table_exists, 0, 'view', 'table')
+    |
+    [select count(*) cnt 
+       from ::fn_listextendedproperty('MS_Description',
+                                      'user', 
+                                      'dbo', 
+                                      @obj_type, 
+                                      @table_name, 
+                                      NULL, 
+                                      NULL)] 
+    |
+    if (@cnt <= 0)
+    {
+        [{call sp_addextendedproperty( 'MS_Description', 
+                                       @table_comment, 
+                                       'user', 
+                                       dbo, 
+                                       @obj_type, 
+                                       @table_name:raw)}]
+    }
+    else
+    {
+        [{call sp_updateextendedproperty( 'MS_Description', 
+                                          @table_comment, 
+                                          'user', 
+                                          dbo, 
+                                          @obj_type, 
+                                          @table_name:raw)}]
+    }
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command creates a comment for a database table.
+]]>
+</remarks>
+<retrows>None. This command just returns a status.</retrows>
+</documentation>
+</command>

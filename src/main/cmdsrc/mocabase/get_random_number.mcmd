@@ -1,0 +1,19 @@
+<command>
+<name>get random number</name>
+<description>Get Random Number</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>getRandomNumber</method>
+<argument name="max_value" datatype="integer" required="no">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+  <p>
+  Gets a Random number between 0 and max_value.  If max_value is not provided it will default to 100.
+  </p>
+]]>
+</remarks>
+<exception value="eOK">Normal successful completion.</exception>
+</documentation>
+</command>

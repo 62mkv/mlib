@@ -1,0 +1,40 @@
+<command>
+  <name>change job env</name>
+  <description>Modify a job environment definition.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+/* Check required arguments */
+[[
+  varName = (name != null) ? name : var_nam;
+
+  if (!job_id)
+    throw new RequiredArgumentException('job_id')
+  if (varName == null)
+    throw new RequiredArgumentException('name')
+
+  varName
+]]
+|
+change record
+ where table_name = 'job_env_definition'
+   and job_id = @job_id
+   and name = @varName
+   and @*
+]]>
+  </local-syntax>
+  <argument name="job_id" datatype="string"/>
+  <argument name="name" datatype="string"/>
+  <argument name="value" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command changes an existing job environment using the job ID and
+   variable name as the keys.  With this command, it is only possible to modify
+   a single job environment variable in the configuration.
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+  <seealso cref="list job env"/>
+  </documentation>
+</command>

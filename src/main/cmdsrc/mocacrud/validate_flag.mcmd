@@ -1,0 +1,27 @@
+<command>
+<name>validate flag</name>
+<description>
+  Checks if the specified flag value is legitimate.
+</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>validateFlag</method>
+<argument name="flagnam" datatype="string" required="yes">
+  Name of variable to test if has a valid flag value of 0 or 1.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+  <p>
+  Test that a flag value has a value in the set {0,1}.
+  </p>
+  <p>
+  Example:
+    validate flag 
+      where flagnam = 'enaflg'
+  </p>
+]]>
+</remarks>
+</documentation>
+</command>
+

@@ -1,0 +1,22 @@
+<command>
+<name>check command syntax</name>
+<description>Check the Local Syntax of a command.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>checkCommandSyntax</method>
+<insecure>yes</insecure>
+<argument name="command" alias="syntax" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command checks and validates the Local Syntax for a command.
+]]>
+</remarks>
+<retcol name="command" type="string">The command that was checked.</retcol>
+<retcol name="status" type="integer">The status the checking the command.</retcol>
+<retcol name="errorline" type="integer">The line number where an error was encountered.</retcol>
+<retcol name="errorpos" type="integer">The position where an error was encountered.</retcol>
+<retcol name="errortext" type="string">An explanation of the error.</retcol>
+</documentation>
+</command>

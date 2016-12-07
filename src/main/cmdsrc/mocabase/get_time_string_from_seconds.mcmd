@@ -1,0 +1,37 @@
+<command>
+<name>get time string from seconds</name>
+<description>Get the number of hours, minutes and seconds for a number a seconds.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data 
+    where hours=int(@seconds/3600)
+      and minutes=int(@seconds/60) % 60
+      and secs=@seconds % 60
+|
+[[
+    time_string = hours + ':' +
+                  minutes.toString().padLeft(2, '0') + ':' +
+                  secs.toString().padLeft(2, '0')
+]]
+]]>
+</local-syntax>
+<documentation>
+<remarks>This command converts the given number of seconds to a string containing
+ the hours, minutes and seconds associated with the number of seconds.<br>
+</br>
+</remarks>
+<example>MSQL&gt; get time string from seconds where seconds = 9999
+
+Executing... Success!
+
+time_string
+-----------
+2:46:39
+
+(1 Rows Affected)</example>
+<retrows>One row containing the given seconds converted to hours, minutes and seconds.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+</documentation>
+</command>

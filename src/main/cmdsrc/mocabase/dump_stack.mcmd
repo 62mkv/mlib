@@ -1,0 +1,24 @@
+<command>
+<name>dump stack</name>
+<description>Dump the current stack.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>dumpStack</method>
+<argument name="stop" default-value="n" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command publishes the current stack and conditionally stops
+ execution of the currently executing Local Syntax.  
+ <br/>
+ If the stop argument is 'no', execution will continue.  If the stop argument 
+ is 'y', execution will stop immediately and error 2 will be returned.
+]]>
+</remarks>
+<retrows>The number of rows and columns returned is dependent on what is currently
+ on the stack.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+</documentation>
+</command>

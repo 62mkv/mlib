@@ -1,0 +1,53 @@
+<command>
+<name>convert list</name>
+<description>Convert a list of tokens.</description>
+<type>Java Method</type>
+<class>ConversionService</class>
+<method>convertList</method>
+<argument name="string" alias="liststring" datatype="string" required="yes">
+    The string to convert.
+</argument>
+<argument name="type" alias="conversiontype" datatype="string" required="yes">
+    The type of conversion to perform.
+</argument>
+<argument name="separator" alias="delimiter" default-value="," datatype="string">
+    The separtor to use in parsing each token from the string.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+The command takes a string, a separator, and a conversion type and parses each token from the given string using the given separator, building a new list of the given conversion type.  If the given conversion type is a 'L' (list), the given string is parsed, with each row in the result set being a token from the string.  If the given conversion type is a 'S', each token in the given string is single-quoted.  If the given token is a 'D', each token in the given string is double-quoted.  If a separator is not passed, a comma is used.
+]]>
+</remarks>
+<example>
+convert list 
+    where string = 'a,b,c,d'
+      and type = 'S'
+
+    retstr           count  
+    ---------------  -----  
+    'a','b','c','d'  4    
+</example>
+<example>
+convert list 
+    where string = 'a,b,c,d'
+      and type = 'D'
+
+    retstr           count  
+    ---------------  -----  
+    "a","b","c","d"  4    
+</example>
+<example>
+convert list 
+    where string = 'a,b,c,d'
+      and type = 'L'
+
+    retstr  count  
+    ------  -----  
+    a       1      
+    b       2      
+    c       3      
+    d       4      
+</example>
+</documentation>
+</command>

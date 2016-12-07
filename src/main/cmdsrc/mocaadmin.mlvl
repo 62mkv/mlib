@@ -1,0 +1,6 @@
+<component-level>
+<name>MOCAadmin</name>
+<description>MOCA Admin Components</description>
+<package>com.redprairie.moca.components.admin</package>
+<sort-sequence>0</sort-sequence>
+</component-level>

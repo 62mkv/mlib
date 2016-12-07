@@ -1,0 +1,27 @@
+<command>
+<name>get registry value</name>
+<description>Get a registry key value.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    value = moca.getRegistryValue(key + '.' + subkey);
+]]
+]]>
+</local-syntax>
+<argument name="key" required="yes" datatype="string">
+</argument>
+<argument name="subkey" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the value of a registry entry using the given key and
+ subkey.
+]]>
+</remarks>
+<retcol name="value" type="string">Registry key value.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+</documentation>
+</command>

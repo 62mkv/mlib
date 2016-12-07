@@ -1,0 +1,13 @@
+/**
+ *  This example demonstrates connecting to a server using a secure SSH/SFTP 
+ *  connection and performing a directory
+ */
+
+prompt hostname "Enter hostname: "
+prompt username "Enter username: "
+prompt password "Enter password: "
+
+set protocol "sftp"
+connect
+dir
+disconnect

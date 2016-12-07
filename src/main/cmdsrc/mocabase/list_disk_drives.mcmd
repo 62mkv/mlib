@@ -1,0 +1,19 @@
+<command>
+<name>list disk drives</name>
+<description>List all the logical drives in the disk</description>
+<type>C Function</type>
+<function>mocaListDiskDrives</function>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the disk drives on the server (Windows only). 
+ On Unix the command returns - 1403.
+]]>
+</remarks>
+<retcol name="drive_name" type="string">Drive Name</retcol>
+<retcol name="drive_type" type="string">Drive Type</retcol>
+<retcol name="drive_type_descr" type="string">Drive Type Description</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eDB_NO_ROWS_AFFECTED">Server is running on Unix.</exception>
+</documentation>
+</command>

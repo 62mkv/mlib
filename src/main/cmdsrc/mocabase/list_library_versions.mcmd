@@ -1,0 +1,23 @@
+<command>
+<name>list library versions</name>
+<description>List library versions.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>listLibraryVersions</method>
+<insecure>yes</insecure>
+<argument name="category" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the versions of the component libraries.
+]]>
+</remarks>
+<retrows>The number of rows returned is equal to the number of componnet libraries
+ the installed product contains.</retrows>
+<retcol name="category" type="string">Category.</retcol>
+<retcol name="library_name" type="string">Library name.</retcol>
+<retcol name="version" type="string">Library version.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

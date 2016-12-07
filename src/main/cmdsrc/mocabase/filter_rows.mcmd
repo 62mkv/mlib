@@ -1,0 +1,28 @@
+<command>
+<name>filter rows</name>
+<description>Filter rows from a result set.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>filterRows</method>
+<argument name="moca_filter_level" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command filters a result set from an upstream command.  In essence, it
+ "reaches back" and republishes the result set from an upstream command using
+ the given filter level to determine how far back "reach back", and using
+ additional command arguments to determine whether to publish the row.
+ <br/>
+ Due to its use as a command filter, this commmand will return eOK (0) status
+ even if no rows are returned.
+]]>
+</remarks>
+<retrows>The number of rows returned is dependent on the result set being referenced.</retrows>
+<example>publish data where a=1 | publish data where b=2 | filter rows where moca_filter_level = 2 and a = 2
+
+    a c
+    - - </example>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

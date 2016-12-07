@@ -1,0 +1,47 @@
+<command>
+<name>list user tables</name>
+<description>List a user&apos;s database tables.</description>
+<type>local syntax</type>
+<argument name="table_name" required="no" datatype="string"></argument>
+<local-syntax>
+<![CDATA[
+if (dbtype = 'ORACLE')
+{
+    /* Safe guard against lower case */
+    [[ if (table_name) table_name=table_name.toUpperCase()]]
+    |
+    [
+     select table_name
+       from user_tables 
+      where @+table_name
+     order by table_name
+    ]
+    |
+    publish data where table_name = @table_name
+}
+else if (dbtype = 'MSSQL')
+{
+    [
+     select table_name
+       from information_schema.tables
+      where table_type = 'BASE TABLE'
+        and @+table_name
+     order by table_name
+    ]
+    |
+    publish data where table_name = upper(@table_name)
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists all the user's database tables.
+]]>
+</remarks>
+<retrows>One row for each table in the database.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

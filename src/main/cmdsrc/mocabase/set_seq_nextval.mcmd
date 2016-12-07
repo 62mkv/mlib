@@ -1,0 +1,32 @@
+<command>
+<name>set seq nextval</name>
+<description>Set a sequence's next value.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>setSequenceNextValue</method>
+<argument name="seq" alias="sequence" required="yes" datatype="string">
+</argument>
+<argument name="nextval" alias="new_nextval" datatype="integer">
+</argument>
+<argument name="safe_mode" default-value="T" datatype="string">
+</argument>
+<argument name="table_name" alias="table" datatype="string">
+</argument>
+<argument name="col_name" alias="col" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sets the next value that a sequence will return.  
+ <br/>
+ If 'nextval' is not given, then the next value is determined by fetching 
+ the value of the 'col_name' column in the 'table_name' table'.  The 
+ column must be integer based column and cannot be string.
+]]>
+</remarks>
+<retcol name="new_nextval" type="float">The sequence's new next value.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

@@ -1,0 +1,25 @@
+<command>
+<name>find ldap attributes</name>
+<description>Find a set of attribute name/value pairs.</description>
+<type>Java Method</type>
+<class>LDAPClientService</class>
+<method>findLDAPAttributes</method>
+<argument name="ldap_client" required="yes" datatype="object"> </argument>
+<argument name="search_base" datatype="string"> </argument>
+<argument name="search_filter" required="yes" datatype="string"> </argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command finds all attribute name/value pairs associated with the given
+ search base and search filter starting at the search base.  The search base is 
+ relative to the base dn that was provided to the "connect to ldap server" 
+ command.
+]]>
+</remarks>
+<retrows>One row for each matching attribute.</retrows>
+<retcol name="name" type="string">The name of the LDAP attribute that was found.</retcol>
+<retcol name="value" type="string">The value of the LDAP attribute that was found.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_LDAP_CLIENT_SEARCH">A failure occurred searching the LDAP server.</exception>
+</documentation>
+</command>

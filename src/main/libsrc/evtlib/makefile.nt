@@ -1,0 +1,12 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAevt
+
+LIBPART=yes
+
+OFILES=evtlib.obj
+
+EXTRACFLAGS=$(EXTRACFLAGS) -D_WIN32_WINNT=0x0400
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

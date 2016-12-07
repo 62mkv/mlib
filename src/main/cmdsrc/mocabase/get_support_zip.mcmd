@@ -1,0 +1,17 @@
+<command>
+<name>get support zip</name>
+<description>Generate a support zip</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>generateSupportZip</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command generates a support zip at that current moment in time.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="filename" type="string">The filename where the support zip can be found.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

@@ -1,0 +1,50 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAmis
+
+LIBPART=yes
+
+OFILES=misAsciiToHex.obj \
+       misBanner.obj \
+       misBaseConv.obj \
+       misBase64.obj \
+       misBlowfishPassword.obj \
+       misBuildInsertList.obj \
+       misBuildInsertListDBKW.obj \
+       misBuildInsertListType.obj \
+       misBuildUpdateList.obj \
+       misBuildUpdateListDBKW.obj \
+       misBuildUpdateListType.obj \
+       misBuildWhereList.obj \
+       misCache.obj \
+       misDMalloc.obj \
+       misDT.obj \
+       misDatetime.obj \
+       misDynBuf.obj \
+       misDynStr.obj \
+       misEncrypt.obj \
+       misEncryptBlowfish.obj \
+       misEncryptionRPBF.obj \
+       misExpandVars.obj \
+       misFileExists.obj \
+       misFindFile.obj \
+       misFixFilePath.obj \
+       misHash.obj \
+       misHexToAscii.obj \
+       misHTTP.obj \
+       misLog.obj \
+       misMD5.obj \
+       misParseArgument.obj \
+       misQuoteString.obj \
+       misSocket.obj \
+       misSprintfLen.obj \
+       misStatus.obj \
+       misStrsep.obj \
+       misSysmon.obj \
+       misTrace.obj \
+       misTrim.obj \
+       misUTF8.obj \
+       mislib.obj 
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

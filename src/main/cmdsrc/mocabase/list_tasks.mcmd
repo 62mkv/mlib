@@ -1,0 +1,21 @@
+<command>
+<name>list tasks</name>
+<description>List the given tasks in the registry.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+list task where @*
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command just wraps the 'list task' command.  Please see the documentation
+ for 'list task'.
+]]>
+</remarks>
+<seealso cref="list task">
+</seealso>
+</documentation>
+</command>
+

@@ -1,0 +1,121 @@
+<command>
+<name>send email</name>
+<description>Send an email.</description>
+<type>Java Method</type>
+<class>EmailService</class>
+<method>sendMail</method>
+<argument name="hostname" alias="host_name" default-value="localhost" datatype="string">
+</argument>
+<argument name="port" default-value="25" datatype="integer">
+</argument>
+<argument name="user"  datatype="string">
+</argument>
+<argument name="password"  datatype="string">
+</argument>
+<argument name="enableTLS" alias="tls" default-value="0" datatype="integer">
+</argument>
+<argument name="mail_from" alias="from" required="yes" datatype="string">
+</argument>
+<argument name="send_to" alias="to" required="yes" datatype="string">
+</argument>
+<argument name="reply_to" alias="reply" datatype="string">
+</argument>
+<argument name="from_name" datatype="string">
+</argument>
+<argument name="to_name" datatype="string">
+</argument>
+<argument name="subject" required="yes" datatype="string">
+</argument>
+<argument name="message" alias="msg" required="yes" datatype="string">
+</argument>
+<argument name="document" alias="pathname" datatype="string">
+</argument>
+<argument name="attachments" alias="attachment" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+This command sends an email to either a single recipient or multiple
+recipients.  The recipients are given as a string of semicolon
+seperated fields.  If a document is given, its contents are sent in
+the email. Some SMTP servers insist on authentication prior to
+relaying the message; providing a user and password will cause
+authentication. Should encryption be desired ( i.e. to prevent
+user/password information to be passed over the network as clear text)
+then the enableTLS should be specified with a number value greater
+than 0. Servers that require authentication may rewrite the from:
+field to be address of the user that logged in if the domain portion
+of the from: field does not match the domain of the Server. Use the
+reply_to option to work around this.
+<br/> 
+The 'attachments' argument is a semicolon-separated list of 'pathname,filename' 
+pairs. The 'pathname' is the full pathname of the file to attach to the email. The 
+'filename' is the filename to use for the attachment in the email. If a 
+'filename' is not provided, then the basename of the given 'pathname' is used 
+in its place.<br>
+Examples:
+<hl width="100%">
+   <ol>
+      <li> Using local smtp server listening on port 25 setup to relay</li>
+      <li> Using local smtp server listening on port 25 setup to relay with authentication</li>
+      <li> Using local smtp server listening on port 25 setup to relay with authentication and encryption</li>
+      <li> Using remote smtp server listening on port 587 setup to relay with authentication and encryption</li>
+      <li> Using remote smtp server listening on port 25 setup to relay </li>
+   </ol> 
+<br/>
+HTML can be sent using the 'html_message' argument.  The msg parameter is still 
+required, however, as a multi-part message is built for users that lack a
+HTML capable e-mail viewer.
+]]>
+</remarks>
+<example>send email
+    where hostname   = 'localhost'
+      and send_to    = 'john.smith@acme.com'
+      and mail_from  = 'rick.smith@acme.com'
+      and subject    = 'Weekly Report'
+      and msg        = 'See attachment for weekly report.'
+      and attachment = 'c:\temp\weekly.doc'
+</example>
+<example>send email
+    where hostname   = 'localhost' and user='rick' and password = 'ricks_password'
+      and send_to    = 'john.smith@acme.com'
+      and mail_from  = 'rick.smith@acme.com'
+      and subject    = 'Weekly Report'
+      and msg        = 'See attachment for weekly report.'
+      and attachment = 'c:\temp\weekly.doc'
+</example>
+<example>send email
+    where hostname   = 'localhost' and user='rick' and password = 'ricks_password' and enableTLS='1'
+      and send_to    = 'john.smith@acme.com'
+      and mail_from  = 'rick.smith@acme.com'
+      and subject    = 'Weekly Report'
+      and msg        = 'See attachment for weekly report.'
+      and attachment = 'c:\temp\weekly.doc'
+</example>
+<example>send email
+    where hostname   = 'smtp.gmail.com'
+      and port       = '587' 
+      and enableTLS  = '1'
+      and user       = 'user@gmail.com'
+      and password   = 'password'
+      and send_to    = 'john.smith@acme.com'
+      and mail_from  = 'rick.smith@acme.com'
+      and reply_to   = 'rick.smith@acme.com'
+      and subject    = 'Weekly Report'
+      and msg        = 'See attachment for weekly report.'
+      and attachment = 'c:\temp\weekly.doc'
+</example>
+<example>send email
+    where hostname   = 'relay.mfa.com'
+      and send_to    = 'john.smith@acme.com'
+      and mail_from  = 'rick.smith@acme.com'
+      and subject    = 'Weekly Report'
+      and msg        = 'See attachment for weekly report.'
+      and attachment = 'c:\temp\weekly.doc'
+</example>
+<retcol name="status" type="string">A message describing the status.</retcol>
+<exception value="eOK">Completed successfully.</exception>
+<exception value="eMOCA_SMTP_COM_FAILURE">A SMTP communication failure occurred.</exception>
+<exception value="eMOCA_INVALID_ARG">An invalid attachment path was specified.</exception>
+</documentation>
+</command>

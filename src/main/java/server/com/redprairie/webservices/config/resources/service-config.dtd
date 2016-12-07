@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT service-config (service+)>
+<!ELEMENT service (operation*)>
+<!ATTLIST service 
+    name CDATA #REQUIRED
+    class CDATA #IMPLIED
+    package CDATA #IMPLIED
+    generate (true|false) "true" >
+
+<!ELEMENT operation (input?, command, output?)>
+<!ATTLIST operation
+    name CDATA #REQUIRED>
+
+<!ELEMENT input (argument*)>
+
+<!ELEMENT argument EMPTY>
+<!ATTLIST argument
+    name CDATA #REQUIRED
+    type (string|integer|double|boolean) #REQUIRED
+    column CDATA #IMPLIED
+    nullable (true|false) "false" >
+
+<!ELEMENT command (#PCDATA)>
+
+<!ELEMENT output (field*)>
+<!ATTLIST output
+	class CDATA #IMPLIED
+	multirow CDATA #IMPLIED>
+
+<!ELEMENT field EMPTY>
+<!ATTLIST field
+    name CDATA #REQUIRED
+    type (string|integer|double|boolean) #REQUIRED
+    column CDATA #IMPLIED
+    nullable (true|false) "true" >
+

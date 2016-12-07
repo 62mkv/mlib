@@ -1,0 +1,16 @@
+<command>
+<name>clear command usage</name>
+<description>This will clear the usage statistics for the server up to this point all commands that have been run in the system</description>
+<type>Java Method</type>
+<class>CommandProfileService</class>
+<method>clearCommandUsage</method>
+<documentation>
+<retrows>None.</retrows>
+<remarks>
+<![CDATA[
+  This command will clear the usage statistics for all commands that have been run.
+]]>
+</remarks>
+<exception value="eOK">Completed successfully.</exception>
+</documentation>
+</command>

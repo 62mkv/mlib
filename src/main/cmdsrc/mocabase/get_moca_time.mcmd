@@ -1,0 +1,21 @@
+<command>
+<name>get moca time</name>
+<description>Get the current MOCA time.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    moca_time = Math.floor(System.currentTimeMillis() / 1000);
+]]
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the number of seconds since 00:00 Universal Coordinated 
+ Time, Janary 1, 1970.
+]]>
+</remarks>
+<retcol name="time" type="integer">The number of seconds.</retcol>
+</documentation>
+</command>

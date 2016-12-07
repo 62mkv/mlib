@@ -1,0 +1,40 @@
+<command>
+<name>sprintf data</name>
+<description>sprintf the columns published by the previous command.</description>
+<type>C Function</type>
+<function>mocaSprintfData</function>
+<insecure>yes</insecure>
+<argument name="format" datatype="string" required="yes">
+</argument>
+<argument name="args" datatype="string">
+</argument>
+<argument name="output_column" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+This command formats one or more columns published by the previous command using sprintf format.
+<br/>
+The args argument should be a comma-separated list of column names, listed
+in order of how the columns should be formatted in the output column.  Any column 
+name in the args argument that aren't in the columns published by the 
+previous command will cause that format for that column to be skipped.
+<br/>
+WARNING: If you provide the wrong data type argument for a sprintf format it may crash your application just as it would if you gave sprintf the wrong arguments.
+]]>
+</remarks>
+<retrows>The number of rows returned is dependent on the result set being referenced.</retrows>
+<example>publish data where ord='ord123' and qty=2.145 | sprintf data where format='%-10.10s=%.2lf' and args = 'ord,qty' and output_column = 'test'
+
+    test
+    ------------
+    ord123    =2.15</example>
+<example>publish data where a=1 and b=2 | sprintf data where format='%d=%d' and args = 'a,b'
+
+    list
+    ---
+    1=2</example>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+</documentation>
+</command>

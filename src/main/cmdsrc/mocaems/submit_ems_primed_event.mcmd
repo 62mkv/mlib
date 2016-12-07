@@ -1,0 +1,54 @@
+<command>
+  <name>submit ems primed event</name>
+  <description>Submit an EMS primed event.</description>
+  <insecure>yes</insecure>
+
+  <type>Java Method</type>
+  <class>EventPrimer</class>
+  <method>primeEvent</method>
+
+  <argument name="evt_nam" datatype="string" required="yes" />
+  <argument name="src_sys" datatype="string" required="yes" />
+  <argument name="evt_msg" datatype="string" />
+  <argument name="html_msg" datatype="string" />
+  <argument name="evt_subj" datatype="string" />
+  <argument name="evt_qual" datatype="string" />
+  <argument name="evt_grp" datatype="string" />
+  <argument name="evt_pri" datatype="integer" />
+  <argument name="ack_flg" datatype="integer" />
+  <argument name="evt_typ" datatype="string" />
+  <argument name="prm_lck_flg" datatype="integer" />
+  <argument name="evt_tm" datatype="integer" />
+  <argument name="esc_tm" datatype="integer" />
+  <argument name="esc_evt" datatype="string" />
+  <argument name="lngdsc" datatype="string" />
+  <argument name="locale_id" datatype="string" />
+  <argument name="ems_StoredTimZon" datatype="string" />
+  <argument name="short_descr" datatype="string" />
+  <argument name="add_msg_flg" datatype="integer" />
+
+  <documentation>
+    <remarks>
+      <![CDATA[
+        This command is used to create a PRIME message for a new EMS event.
+        It will do so by creating a specially formatted PRIME Alert and 
+        passing it to EMS.
+      ]]>
+    </remarks>
+
+    <exception value="eOK">The command completed successfully.</exception>
+
+    <example>submit ems primed event
+        where src_sys = 'DCS'
+          and evt_nam = 'SALEMS-TBLSPC-FULL'
+          and evt_subj = 'Tablespace close (&gt; @threshold percent) to being full'
+          and evt_qual = 'tablespace_name,kbytes:I,kbused:I,kbfree:I,pctuse:F,pctfre:F,threshold:I,curdte:D'     
+          and evt_grp = 'SYSTEM'     
+          and evt_pri = 1     
+          and evt_msg = 'Tablespace @tablespace_name is close to being full'
+    </example>
+
+    <seealso cref="submit ems raised events" />
+    <seealso cref="log ems event" />
+  </documentation>
+</command>

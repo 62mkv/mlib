@@ -1,0 +1,33 @@
+<command>
+<name>remove record</name>
+<description>Removes a record from the specified table.</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>removeRecord</method>
+<argument name="table" alias="table_name" required="yes" datatype="string">
+The table from which to remove data.
+</argument> 
+<argument name="pkUpperCase" alias="pk_upper_case" required="no" datatype="flag" default="false">
+If true, PK values are wrapped in UPPER() functions.
+</argument> 
+<argument name="allowPartialPK" alias="allow_partial_pk" required="no" datatype="flag" default="false">
+If true the command executes if not all PK values are filled in. Used for mass record updates.
+</argument> 
+<documentation>
+<remarks>
+<![CDATA[
+<p>
+    Removes an existing record
+    in the specified table.
+
+    It looks at the table definition to ascertain the PK values to 
+    use to uniquely identify a row.
+
+    It then gathers the required PK values from the stack and 
+    removes the record.
+</p>
+]]>
+</remarks>
+</documentation>
+</command>
+

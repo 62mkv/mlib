@@ -1,0 +1,33 @@
+<command>
+<name>convert column to multicolumn</name>
+<description>Convert all rows for a single column into a multiple columns, distributing the rows evenly</description>
+<type>Java Method</type>
+<class>ConversionService</class>
+<method>convertColumnsToMultiColumn</method>
+<argument name="resultset" alias="res" datatype="results" required="yes">
+</argument>
+<argument name="colnam" alias="column" datatype="string" required="yes">
+</argument>
+<argument name="column_count" alias="count" datatype="integer" required="yes">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ <p>
+ This command converts the data from all rows of a single column into a 
+ multiple columns, distributing the number of rows evenly across columns.</p>
+ <br/>
+ <p>
+ Because this component splits data in a top-down fill pattern, based on the
+ number of rows in the result set, this component will not always generate
+ output in the requested number of columns.  For example, if requested to 
+ convert to 4 rows into 3 columns, the only output which makes sense in a 
+ top-down fill pattern is to generate 2 columns of 2 rows each.  Generating
+ 3 columns would only make sense if the component we utilizing a left to right
+ fill pattern.  
+ </p>
+]]>
+</remarks>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

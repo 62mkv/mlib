@@ -1,0 +1,26 @@
+<command>
+  <name>remove job execution</name>
+  <description>remove a job execution from the database.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+[
+   delete from job_definition_exec
+     where @+start_dte:date
+       and @+end_date:date
+       and @*
+]
+]]>
+  </local-syntax>
+  <documentation>
+  <remarks>
+   This command removes all job executions from the database given the values 
+   in the where clause.  An example of common usage is to remove all executions
+   that have a start date older than a certain time (ie. 1 week)
+   remove job execution where start_dte &lt; sysdate - 7
+ </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <seealso cref="list job executions"/>
+  </documentation>
+</command>

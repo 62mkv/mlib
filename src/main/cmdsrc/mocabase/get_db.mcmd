@@ -1,0 +1,22 @@
+<command>
+<name>get db</name>
+<description>Get database.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+    publish data
+      where dbtype = dbtype()
+]]>
+</local-syntax>
+<insecure>yes</insecure>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the current database engine as a string.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="dbtype" type="string">The current database engine (NONE, Oracle, MSSQL, ERROR).</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

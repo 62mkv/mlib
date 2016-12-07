@@ -1,0 +1,30 @@
+<command>
+<name>check field</name>
+<description>Check field in Context</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>checkField</method>
+
+<argument name="fieldName" alias="fldnam" datatype="string" required="yes">The name of the field to check.</argument>
+<argument name="requiredLevel" alias="fld_type" datatype="string" required="yes">The value check mode. See remarks.</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+    <p>
+    This command will check if a desired field is in context.  It will check
+    if it is valid if is not in context as well.  This is passed in by the
+    fld_type where you can specify if it is a PK field, a Not Null(NN) field or
+    if it is a NNIG field.  NN is to designate that if the field is on the
+    stack to ensure it is not null.  NNIG is to check if the field is either
+    not null or not in context.  This command is mainly called by the
+    validate stack variable commands.
+    </p>
+]]>
+</remarks>
+
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eINVALID_ARGS">Invalid Arguments</exception>
+
+</documentation>
+</command>

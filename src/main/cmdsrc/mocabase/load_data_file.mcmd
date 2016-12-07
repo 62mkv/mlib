@@ -1,0 +1,35 @@
+<command>
+<name>load data file</name>
+<description>Loads a data file into database.</description>
+<type>Java Method</type>
+<class>LoadDataService</class>
+<method>loadDataFile</method>
+<transaction>new</transaction>
+<argument name="data_dir" datatype="string">
+The directory containing the data files.  If no data file is supplied then all csv files in this directory will be tried.
+</argument>
+<argument name="data_file" datatype="string">
+The specific file to load in the data directory.
+</argument>
+<argument name="ctl_file" datatype="string" required="yes">
+The control to control behavior of loading the data.
+</argument>
+<argument name="use_header" datatype="boolean" default-value="1">
+Whether or not the data file(s) has a header to pay attention to.
+</argument>
+<argument name="delim" datatype="string" default=",">
+The delimiter that separates the data values.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command will load a given data file using the control file and arguments
+ specified.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="err_cnt" type="string">The number of errors while processing.</retcol>
+<retcol name="result" type="string">The output while running the dataload.  This contains detailed information on errors and sucesses.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

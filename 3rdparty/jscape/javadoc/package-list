@@ -1,0 +1,11 @@
+com.jscape.filetransfer
+com.jscape.ftcl
+com.jscape.inet.file
+com.jscape.inet.ftp
+com.jscape.inet.ftps
+com.jscape.inet.scp
+com.jscape.inet.scp.events
+com.jscape.inet.sftp
+com.jscape.inet.sftp.events
+com.jscape.inet.ssh.util
+com.jscape.util

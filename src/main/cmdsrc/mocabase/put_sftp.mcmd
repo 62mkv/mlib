@@ -1,0 +1,55 @@
+<command>
+<name>put sftp</name>
+<description>Send a file via secure ftp.</description>
+<type>Java Method</type>
+<class>SecureFTPService</class>
+<method>putFile</method>
+<argument name="host" required="yes" datatype="string">
+</argument>
+<argument name="port" default-value="22" datatype="integer">
+</argument>
+<argument name="user" required="yes" datatype="string">
+</argument>
+<argument name="pass" datatype="string">
+</argument>
+<argument name="pk_file" datatype="string">
+</argument>
+<argument name="pk_password" datatype="string">
+</argument>
+<argument name="destdir" datatype="string">
+The destination directory on the REMOTE machine
+for the file that is being put.
+</argument>
+<argument name="destfile" datatype="string">
+The file name to use on the REMOTE machine for the file
+that is being put.
+</argument>
+<argument name="srcdir" datatype="string">
+The directory on the LOCAL machine where the file is located.
+</argument>
+<argument name="srcfile" required="yes" datatype="string">
+The LOCAL filename that we're putting.
+</argument>
+<argument name="mode" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sends a file to another host via sftp.
+ Directory paths support environment variables.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="result" type="string">A string describing the file transferred.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_SFTP_COM_FAILURE">An SFTP communication failure occurred.</exception>
+<seealso cref="get sftp">
+</seealso>
+<seealso cref="list sftp">
+</seealso>
+<seealso cref="remove sftp">
+</seealso>
+<seealso cref="rename sftp">
+</seealso>
+</documentation>
+</command>

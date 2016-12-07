@@ -1,0 +1,24 @@
+<command>
+<name>get security server information</name>
+<description>Get the configuration of the Connection Manager.</description>
+<type>Java Method</type>
+<class>SecurityServerComponents</class>
+<method>getSecurityServerInformation</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command returns the configuration associated with the LDAP server being
+ used for authentication and authorization.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="ldap_url" type="string">The URL for the LDAP server.</retcol>
+<retcol name="ldap_bind_dn" type="string">The bind DN to use to connect to the LDAP server.</retcol>
+<retcol name="ldap_bind_password" type="string">The bind password to use to connect to the LDAP server.</retcol>
+<retcol name="ldap_auth_type" type="string">The authentication type used to connect to the LDAP server.</retcol>
+<retcol name="ldap_referrals" type="string">The referrals behavior use after connected to the LDAP server.</retcol>
+<retcol name="ldap_uid_attr" type="string">The attribute name that contains the user's login name. (e.g. uid, sAMAccountName)</retcol>
+<retcol name="ldap_role_attr" type="string">The attribute name that contains the user's roles.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

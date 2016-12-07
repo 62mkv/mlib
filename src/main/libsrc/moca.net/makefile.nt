@@ -1,0 +1,14 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME = RedPrairie.MOCA.NET
+
+CSFILES = AssemblyInfo.cs \
+          Command.cs \
+          Error.cs \
+          Log.cs \
+          SQL.cs \
+          Trace.cs \
+          Transaction.cs
+
+!include $(MOCADIR)\makefiles\DotNetAssembly.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

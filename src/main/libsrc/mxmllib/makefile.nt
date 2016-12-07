@@ -1,0 +1,12 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAmxml
+
+LIBPART=yes
+
+OFILES=mxmllib.obj \
+       mxmlcommon.obj \
+       mxmljni.obj
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

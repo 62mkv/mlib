@@ -1,0 +1,25 @@
+<command>
+<name>find file</name>
+<description>Find a file.</description>
+<type>Java Method</type>
+<class>FileDirectoryService</class>
+<method>findFile</method>
+<argument name="pathname" alias="filnam" required="yes" datatype="string">
+</argument>
+<argument name="sort" alias="namesort" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command finds a file using wildcards to search for all matching 
+ filenames and publishes both the filename and full pathname.  
+ <br/>If the 'sort' argument is 'Y', the filenames will be returned sorted.
+]]>
+</remarks>
+<retrows>One row is returned for every file found.</retrows>
+<retcol name="filename" type="pointer">Matching filename.</retcol>
+<retcol name="pathname" type="pointer">Matching pathname.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+</documentation>
+</command>

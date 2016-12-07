@@ -1,0 +1,16 @@
+<command>
+    <name>create federation token</name>
+    <description>Create a federation token.</description>
+    <type>Java Method</type>
+    <class>FederatedSecurityComponents</class>
+    <method>createFederationToken</method>
+    <documentation>
+        <remarks>
+            <![CDATA[
+              This component will generate a token that
+              will be used for verifying the user's authentication
+              with federated hosts.
+            ]]>
+        </remarks>
+    </documentation>
+</command>

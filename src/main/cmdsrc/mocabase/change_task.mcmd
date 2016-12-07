@@ -1,0 +1,38 @@
+<command>
+  <name>change task</name>
+  <description>Modify a task definition.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+/* Check required arguments */
+[[
+  if (!task_id) throw new RequiredArgumentException('task_id')
+]];
+change record
+ where table_name = 'task_definition'
+   and task_id = @task_id
+   and @*
+]]>
+  </local-syntax>
+  <argument name="task_id" datatype="string"/>
+  <argument name="name" datatype="string"/>
+  <argument name="task_typ" datatype="string"/>
+  <argument name="cmd_line" datatype="string"/>
+  <argument name="run_dir" datatype="string"/>
+  <argument name="log_file" datatype="string"/>
+  <argument name="auto_start" datatype="string"/>
+  <argument name="restart" datatype="string"/>
+  <argument name="start_delay" datatype="int"/>
+  <argument name="grp_nam" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command changes an existing task using the task ID as the key.  With
+   this command, it is only possible to modify a single task in the
+   configuration.
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+  <seealso cref="list job"/>
+  </documentation>
+</command>

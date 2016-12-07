@@ -1,0 +1,20 @@
+<command>
+<name>list java properties</name>
+<description>Return a list of Java system properties.</description>
+<type>Java Method</type>
+<class>JavaInformation</class>
+<method>listJavaProperties</method>
+<argument name="property" alias="name" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets a file from another host via sftp.
+]]>
+</remarks>
+<retrows>many</retrows>
+<retcol name="name" type="string">The property name.</retcol>
+<retcol name="value" type="string">The property value.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

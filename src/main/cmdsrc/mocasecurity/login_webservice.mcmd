@@ -1,0 +1,24 @@
+<command>
+<name>login webservice</name>
+<description>Login a web service account.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+login user
+]]>
+</local-syntax>
+<insecure>yes</insecure>
+<documentation>
+<remarks>
+<![CDATA[
+ This command logs in a web service.  The default implementation defers to the
+ standard "login user" command.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="usr_id" type="string">User id.</retcol>
+<retcol name="session_key" type="string">Session key.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_INVALID_PASSWORD">The given password is invalid.</exception>
+</documentation>
+</command>

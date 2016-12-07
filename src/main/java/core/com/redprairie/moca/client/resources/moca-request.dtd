@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT moca-request (session?, environment?, context?, args?, query)>
+<!ATTLIST moca-request 
+    autocommit (true|false) "true" 
+    remote (true|false) "false" >
+
+<!ELEMENT session EMPTY >
+<!ATTLIST session
+    id CDATA #IMPLIED >
+
+<!ELEMENT environment (var*) >
+
+<!ELEMENT var EMPTY >
+<!ATTLIST var
+    name CDATA #REQUIRED
+    value CDATA #REQUIRED >
+
+<!ELEMENT args (field*)>
+
+<!ELEMENT context (field*)>
+
+<!ELEMENT field (#PCDATA)* >
+<!ATTLIST field
+    name CDATA #REQUIRED
+    type (STRING|INTEGER|DOUBLE|BOOLEAN|BINARY|RESULTS|DATETIME) #IMPLIED
+    oper (NOTNULL|ISNULL|EQ|NE|LT|LE|GT|GE|LIKE|NOTLIKE|RAWCLAUSE|NAMEDCLAUSE) #IMPLIED
+    null (true|false) "false" >
+
+<!ELEMENT query (#PCDATA) >
+    

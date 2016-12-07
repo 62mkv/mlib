@@ -1,0 +1,54 @@
+<command>
+<name>print file</name>
+<description>Print a file.</description>
+<type>C Function</type>
+<function>mocaPrintFile</function>
+<argument name="printer" alias="printqueue" datatype="string">
+ Name of the printer to send the file to.  If not provided default printer 
+ will be used
+</argument>
+<argument name="pathname" alias="filename" required="yes" datatype="string">
+ Pathname of the file to print.
+</argument>
+<argument name="copies" datatype="integer">
+ Number of copies to print.
+</argument>
+<argument name="raw" datatype="flag">
+ Flag indicating if the file should be printed raw.
+</argument>
+<argument name="remove" alias="delflg" datatype="flag">
+ Flag indicating if the file should be removed after printing it.
+</argument>
+<documentation>
+
+<remarks>
+<![CDATA[
+ <p>
+ The command sends the given file to the given printer.  The command may have
+ environment variables in the string.
+ </p>
+ <p>
+ If remove (delflg) is set, then the file is removed after the file is sent to 
+ the printer.
+ </p>
+]]>
+</remarks>
+
+<retrows>1</retrows>
+
+<retcol name="printer" type="string">
+ Name of the printer the file was sent to.
+</retcol>
+<retcol name="pathname" type="string">
+ The pathname of the file that was printed.
+</retcol>
+
+<exception value="eOK">
+ The command completed successfully.
+</exception>
+<exception value="eERROR">
+ A generic error occurred.
+</exception>
+
+</documentation>
+</command>

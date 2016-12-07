@@ -1,0 +1,66 @@
+/*
+ *  $URL$
+ *  $Author$
+ *  $Date$
+ *  
+ *  $Copyright-Start$
+ *
+ *  Copyright (c) 2011
+ *  RedPrairie Corporation
+ *  All Rights Reserved
+ *
+ *  This software is furnished under a corporate license for use on a
+ *  single computer system and can be copied (with inclusion of the
+ *  above copyright) only for use on such a system.
+ *
+ *  The information in this document is subject to change without notice
+ *  and should not be construed as a commitment by RedPrairie Corporation.
+ *
+ *  RedPrairie Corporation assumes no responsibility for the use of the
+ *  software described in this document on equipment which has not been
+ *  supplied or approved by RedPrairie Corporation.
+ *
+ *  $Copyright-End$
+ */
+
+package com.redprairie.moca.server.service;
+
+import java.util.Map;
+
+/**
+ * TODO Class Description
+ * 
+ * Copyright (c) 2011 RedPrairie Corporation
+ * All Rights Reserved
+ * 
+ * @author mlange
+ */
+public class ExeStartStopInfo extends StartStopInfo {
+    
+    ExeStartStopInfo(String command) {
+        super();
+        _command = command;
+    }
+    
+    void exec(String applicationName, Map<String, String> environment) throws ServiceManagerException {    
+        
+        System.out.println("Starting application: " + applicationName);
+        
+        // Start the actual service.
+        try {
+            System.out.println("Executing command: " + _command);
+            System.out.println(); 
+            ServiceTools.executeCommand(_command, environment, _debug ? System.out : null);
+        }
+        catch (ServiceManagerException e) {
+            e.printStackTrace();
+            return;
+        }
+    }
+    
+    public String toString() {
+        return _command;
+    }
+    
+    private final String _command;  
+}

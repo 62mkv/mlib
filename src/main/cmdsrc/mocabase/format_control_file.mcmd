@@ -1,0 +1,29 @@
+<command>
+<name>format control file</name>
+<description>Format an mload control file.</description>
+<type>Java Method</type>
+<class>ControlFileService</class>
+<method>formatControlFile</method>
+<insecure>yes</insecure>
+<argument name="type" required="yes" datatype="string">
+</argument>
+<argument name="table_name" required="yes" datatype="string">
+</argument>
+<argument name="where_command" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command formats an mload load/unload control file.  The type can be 
+ 'Load', 'Unload' or 'Data'.  If the type is 'Data', the where_command can be 
+ used to build a where-clause using in fetching data from the table.
+]]>
+</remarks>
+<retrows>One row is returned for every row in the given table the satisfies the
+ where-clause.</retrows>
+<retcol name="rowtype" type="string">Always 'data'.</retcol>
+<retcol name="formated_data" type="string">The actual formatted data.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+</documentation>
+</command>

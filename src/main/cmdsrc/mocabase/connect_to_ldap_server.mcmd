@@ -1,0 +1,29 @@
+<command>
+<name>connect to ldap server</name>
+<description>Connect to an LDAP server.</description>
+<type>Java Method</type>
+<class>LDAPClientService</class>
+<method>connectToLDAPServer</method>
+<argument name="url" alias="urls" required="yes" datatype="string"> </argument>
+<argument name="bind_dn" datatype="string"> </argument>
+<argument name="bind_password" datatype="string"> </argument>
+<argument name="auth_type" datatype="string"> </argument>
+<argument name="referrals" datatype="string"> </argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command establishes a connection to the LDAP server associated with
+ the given URL, using the given username and password as the distinguished 
+ name and password for the bind request.  The URL can be a semicolon-separated
+ list of URLs, where the next URL in the list will be used if a connection
+ cannot be made to the URL associated with a given LDAP srever.  The 
+ authentication type argument can be one of "NONE", "SIMPLE", or "DIGEST-MD5".
+ The referrals argument must can be one of "FOLLOW", "IGNORE".
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="ldap_client" type="object">The LDAP client connection object.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_LDAP_CLIENT_BIND">A failure occurred while trying to connect to the LDAP server.</exception>
+</documentation>
+</command>

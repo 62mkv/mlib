@@ -1,0 +1,43 @@
+<command>
+<name>list ftp</name>
+<description>List the contents of a directory via ftp.</description>
+<type>Java Method</type>
+<class>FTPService</class>
+<method>list</method>
+<argument name="ftp"  datatype="object">
+</argument>
+<argument name="host" datatype="string">
+</argument>
+<argument name="port" default-value="21" datatype="integer">
+</argument>
+<argument name="user" datatype="string">
+</argument>
+<argument name="pass" datatype="string">
+</argument>
+<argument name="directory" datatype="string">
+</argument>
+<argument name="filename" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the files in the given directory.  If a directory is not given the command
+ lists the files in the current working directory.  If a filename is given, which can consist of 
+ a patter (e.g. *.xml) it is used to limit the files returned.
+ The directory path supports environment variables.
+]]>
+</remarks>
+<retrows>One row per filename in the specified directory.</retrows>
+<retcol name="filename" type="string">A string containing the filename.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_FTP_COM_FAILURE">An FTP communication failure occurred.</exception>
+<seealso cref="get ftp">
+</seealso>
+<seealso cref="put ftp">
+</seealso>
+<seealso cref="remove ftp">
+</seealso>
+<seealso cref="rename ftp">
+</seealso>
+</documentation>
+</command>

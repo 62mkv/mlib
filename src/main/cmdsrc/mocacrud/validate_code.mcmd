@@ -1,0 +1,36 @@
+<command>
+<name>validate code</name>
+<description>
+  Checks if the specified code value is legitimate.
+</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>validateCode</method>
+<argument name="colnam" datatype="string" required="yes"> </argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+<p>
+  This command tests if a code value is valid.  An unspecified value returns 
+  error.
+</p>
+]]>
+</remarks>
+<example>
+    validate code 
+      where colnam='day_of_month'
+
+    This will look in the stack for a variable of the name day_of_month.  And
+    then check if that value is a valid code per the entries in codmst table.
+</example>
+
+<exception value="eOK">Normal successful completion</exception>
+<exception value="2962">
+  There is no column name in context.
+</exception>
+<exception value="2963">Code value is invalid</exception>
+
+</documentation>
+</command>
+

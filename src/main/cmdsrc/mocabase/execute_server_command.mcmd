@@ -1,0 +1,40 @@
+<command>
+<name>execute server command</name>
+<description>Execute a server command.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    def realCommand = cmd ? cmd : command;
+    def realInline = (inline != null) ? inline : (context != null) ? context : 1;
+    if (realInline) {
+        res = moca.executeInline(realCommand);
+    }
+    else {
+        res = moca.executeCommand(realCommand);
+    }
+    res;
+]]
+]]>
+</local-syntax>
+<argument name="cmd" alias="command" required="yes" datatype="string">
+The command to execute
+</argument>
+<argument name="inline" alias="context" default-value="1" datatype="flag">
+If true (default), execute with inline context, otherwise execte with
+clean context.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command executes a server command from Local Syntax using the
+ srvInitiateInline( ) API.  
+ <br/>
+ The status and columns published from the execution of the command are 
+ entirely dependent on the command being executed.
+]]>
+</remarks>
+<retrows>The number of rows returned is dependent on server command executed.</retrows>
+<exception value="Status">The status of the executed o/s command is returned.</exception>
+</documentation>
+</command>

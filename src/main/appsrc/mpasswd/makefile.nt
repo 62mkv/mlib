@@ -1,0 +1,9 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+APPNAME=mpasswd
+
+OFILES=mpasswd.obj
+
+!include $(MOCADIR)\makefiles\Application.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32
+

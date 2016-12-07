@@ -1,0 +1,23 @@
+<command>
+<name>publish data</name>
+<description>Publish data as a result set.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>publishData</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command publishes all the arguments in its where-clause as a result set.
+]]>
+</remarks>
+<example>publish data where a=1 and b=2
+
+    a b
+    - -
+    1 2</example>
+<retrows>One</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="publish data combination">
+</seealso>
+</documentation>
+</command>

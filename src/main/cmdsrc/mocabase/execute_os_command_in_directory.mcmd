@@ -1,0 +1,24 @@
+<command>
+<name>execute os command in directory</name>
+<description>Execute an o/s command and setting the cwd.</description>
+<type>C Function</type>
+<function>mocaExecuteOsCommand</function>
+<argument name="cmd" alias="command" required="yes" datatype="string">
+</argument>
+<argument name="directory" required="no" datatype="string">
+This is the working directory to set when executing the os command.  If not provided the current working directory will stay as is.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command executes an o/s command from Local Syntax and returns each line
+ of the output from the command as a row in the result set.
+ <br/>
+ The implementation of the command assumes that each line of output from the 
+ command will be no longer than 1024 bytes.]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="result" type="string">Result from command.</retcol>
+<exception value="Status">The status of the executed o/s command is returned.</exception>
+</documentation>
+</command>

@@ -1,0 +1,46 @@
+include $(MOCADIR)/makefiles/StandardHeader.mk
+
+OFILES=misAsciiToHex.o \
+       misBanner.o \
+       misBaseConv.o \
+       misBase64.o \
+       misBlowfishPassword.o \
+       misBuildInsertList.o \
+       misBuildInsertListDBKW.o \
+       misBuildInsertListType.o \
+       misBuildUpdateList.o \
+       misBuildUpdateListDBKW.o \
+       misBuildUpdateListType.o \
+       misBuildWhereList.o \
+       misCache.o \
+       misDMalloc.o \
+       misDT.o \
+       misDatetime.o \
+       misDynBuf.o \
+       misDynStr.o \
+       misEncrypt.o \
+       misEncryptBlowfish.o \
+       misEncryptionRPBF.o \
+       misExpandVars.o \
+       misFileExists.o \
+       misFindFile.o \
+       misFixFilePath.o \
+       misHash.o \
+       misHexToAscii.o \
+       misHTTP.o \
+       misLog.o \
+       misMD5.o \
+       misParseArgument.o \
+       misQuoteString.o \
+       misSocket.o \
+       misSprintfLen.o \
+       misStatus.o \
+       misStrsep.o \
+       misSysmon.o \
+       misTrace.o \
+       misTrim.o \
+       misUTF8.o \
+       mislib.o 
+
+include $(MOCADIR)/makefiles/Library.mk
+include $(MOCADIR)/makefiles/StandardFooter.mk

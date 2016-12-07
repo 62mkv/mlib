@@ -1,0 +1,31 @@
+<command>
+<name>dump bitset</name>
+<description>Dumps a string representation of a bitset.</description>
+<type>Java Method</type>
+<class>BitArithmetic</class>
+<method>dumpBitset</method>
+<argument name="bitset" required="yes" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command dumps the string representation of the given bitset.
+]]>
+</remarks>
+<retcol name="representation" type="string">The string representation of the bitset.</retcol>
+<seealso cref="bit is clear">
+</seealso>
+<seealso cref="bit is set">
+</seealso>
+<seealso cref="clear all bits">
+</seealso>
+<seealso cref="clear bit">
+</seealso>
+<seealso cref="set all bits">
+</seealso>
+<seealso cref="set bit">
+</seealso>
+<seealso cref="set bits from bitmask">
+</seealso>
+</documentation>
+</command>

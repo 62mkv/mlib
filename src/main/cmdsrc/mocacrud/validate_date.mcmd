@@ -1,0 +1,41 @@
+<command>
+<name>validate date</name>
+<description>
+    Checks if the specified date value is in valid moca date format.
+    Moca date format is YYYYMMDDHH24MISS.
+</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>validateDate</method>
+<argument name="dtenam" required="yes" datatype="string"> 
+  The name of the date that corresponds to the date value wanted to be
+  validated.
+</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+  <p>
+  This command will check whether the date is valid.
+  Valid date format is "YYYYMMDDHH24MMSS".  If the date variable is not valid
+  or on the stack than it will throw the appropriate error and tell what
+  variable is not correct.  The date name must be passed in as the date_name
+  parameter as shown in the example as below.
+  </p>
+]]>
+</remarks>
+
+<example>
+    publish data
+      where shipdte = '20050101000000
+    |
+    validate date 
+      where date_name = 'shipdte'
+</example>
+
+<exception value="eOK">Normal successful completion</exception>
+<exception value="2960">Date was not in context</exception>
+<exception value="2961">Invalid Date value</exception>
+
+</documentation>
+</command>

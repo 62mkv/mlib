@@ -1,0 +1,44 @@
+<command>
+  <name>submit ems raised events</name>
+  <description>Submit EMS raised events.</description>
+  <insecure>yes</insecure>
+
+  <type>Java Method</type>
+  <class>AlertTransport</class>
+  <method>raiseAlert</method>
+  
+  <argument name="filnam" alias="filename" datatype="string" />
+  <argument name="remove_file" datatype="integer" default-value="0" />
+
+  <documentation>
+    <remarks>
+      <![CDATA[
+This command is used to push raised events from the calling system to EMS.  
+<br/>
+If a filename is provided, that filename is pushed to the EMS system.  If no
+filename is provided, it searches the "hostout" directory specified by the
+"spool-dir" key in the MOCA registry for filenames with a "*.trg" suffix 
+and then pushes the matching filename with a ".xml" suffix to the EMS system. 
+<br/>
+If the XML document was pushed successfully to the EMS system, the ".trg"
+file is removed, if one existed, and the ".xml" file is moved to the 
+"files/ems/prc" directory specified by the "processed-dir" key in the MOCA
+registry, unless the remove_file parameter is passed in as "1," in which 
+case the file is immediately removed.
+<br/>
+If a "spool-dir" registry key does not exist in the MOCA registry, the
+following value is used: $LESDIR\files\ems.
+<br/>
+If a "processed-dir" registry key does not exist in the MOCA registry, the
+following value is used: LESDIR\files\ems\prc.
+]]>
+    </remarks>
+    
+    <exception value="eOK">
+      The command completed successfully.
+    </exception>
+    
+    <seealso cref="log ems event" />
+    <seealso cref="submit ems primed event" />
+  </documentation>
+</command>

@@ -1,0 +1,62 @@
+<command>
+<name>get xml info</name>
+<description>Get XML parser information.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    import javax.xml.parsers.DocumentBuilderFactory;
+    import javax.xml.transform.TransformerFactory;
+
+    mxml_lib_info = "JAXP";
+
+    mxml_dom_info = DocumentBuilderFactory.newInstance().newDocumentBuilder().getClass().getName();
+
+    mxml_xslt_info = TransformerFactory.newInstance().getClass().getName();
+]]
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets information associated with the current XML parser.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="mxml_lib_info" type="string">XML parser library information.</retcol>
+<retcol name="mxml_lib_impl" type="string">XML parser implementation.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="add xml attribute">
+</seealso>
+<seealso cref="add xml element">
+</seealso>
+<seealso cref="add xml text node">
+</seealso>
+<seealso cref="convert result set to xml">
+</seealso>
+<seealso cref="convert xml to result set">
+</seealso>
+<seealso cref="create xml document">
+</seealso>
+<seealso cref="get xml">
+</seealso>
+<seealso cref="get xml child nodes">
+</seealso>
+<seealso cref="get xml elements by tagname">
+</seealso>
+<seealso cref="get xml node values">
+</seealso>
+<seealso cref="normalize xml">
+</seealso>
+<seealso cref="parse xml">
+</seealso>
+<seealso cref="remove xml child">
+</seealso>
+<seealso cref="start xml parser">
+</seealso>
+<seealso cref="stop xml parser">
+</seealso>
+<seealso cref="write xml file">
+</seealso>
+</documentation>
+</command>

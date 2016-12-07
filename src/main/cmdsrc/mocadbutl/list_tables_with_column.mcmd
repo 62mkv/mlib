@@ -1,0 +1,102 @@
+<command>
+
+<name>list tables with column</name>
+
+<description>List tables with column.</description>
+
+<type>local syntax</type>
+
+<local-syntax>
+<![CDATA[
+if (dbtype = 'ORACLE')
+{
+    if (@table_name or @table)
+        publish data where table_name = upper(nvl(@table_name, @table))
+    |
+    if (@column_name or @column)
+        publish data where column_name = upper(nvl(@column_name, @column))
+    |
+    [
+     select table_name                             table_name,
+            column_name                            column_name,
+	    decode(nullable, 'Y', 'TRUE', 'FALSE') null_flg,
+            data_type                              data_type
+       from user_tab_columns
+      where @+table_name
+        and @+column_name
+      order by table_name
+    ]
+    |
+    [
+     select nvl(min('TRUE'), 'FALSE') pk_flg
+       from user_cons_columns ucc, 
+	    user_constraints uc
+      where ucc.table_name      = uc.table_name
+        and ucc.constraint_name = uc.constraint_name
+        and ucc.column_name     = @column_name
+        and uc.constraint_type  = 'P'
+        and uc.table_name       = @table_name
+    ]
+    |
+    publish data
+        where table_name = @table_name
+          and column_name = @column_name
+          and null_flg = @null_flg
+          and pk_flg    = @pk_flg
+          and data_type  = @data_type
+}
+else
+{
+    if (@table_name or @table)
+        publish data where table_name = lower(nvl(@table_name, @table))
+    |
+    if (@column_name or @column)
+        publish data where column_name = lower(nvl(@column_name, @column))
+    |
+    [select c.table_name                                  table_name,
+            c.column_name                                 column_name,
+            decode(c.is_nullable, 'YES', 'TRUE', 'FALSE') null_flg,
+            c.data_type                                   data_type
+       from information_schema.columns c, sysobjects o
+      where @+c.table_name
+        and @+c.column_name 
+        and c.table_name = o.name
+        and o.id = object_id(lower(c.table_name))
+        and o.xtype in ( 'U', 'V')
+     order by table_name]
+    |
+    [select nvl(min('TRUE'), 'FALSE') pk_flg
+       from syscolumns c, sysindexes i, sysobjects o
+      where index_col(@table_name, i.indid, c.colid) = lower(@column_name)
+        and c.id = object_id(lower(@table_name))
+        and c.id = o.id
+        and o.id = i.id
+        and (i.status & cast(2048 as int)) = cast(2048 as int)
+        and c.colid <= i.keycnt
+        and o.xtype in ('U', 'V')]
+    |
+    publish data
+        where table_name = upper(@table_name)
+          and column_name = upper(@column_name)
+          and null_flg = @null_flg
+          and pk_flg    = @pk_flg
+          and data_type  = upper(@data_type)
+}
+]]>
+</local-syntax>
+
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the database tables that contain the given database column.
+]]>
+</remarks>
+
+<retrows>One row for each table that contains the given column.</retrows>
+
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+
+</documentation>
+</command>

@@ -1,0 +1,19 @@
+<command>
+<name>close ldap server connection</name>
+<description>Close an existing LDAP server connection.</description>
+<type>Java Method</type>
+<class>LDAPClientService</class>
+<method>closeLDAPServerConnection</method>
+<argument name="ldap_client" required="yes" datatype="object"> </argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command closes the existing connection to the LDAP server associated with
+ the given LDAP client connection.
+]]>
+</remarks>
+<retrows>None</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_LDAP_CLIENT_BIND">A failure occurred while trying to close the LDAP server connection.</exception>
+</documentation>
+</command>

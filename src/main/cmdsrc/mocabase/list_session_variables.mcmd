@@ -1,0 +1,23 @@
+<command>
+<name>list session variables</name>
+<description>Get a list of session variables.</description>
+<type>Java Method</type>
+<class>SessionVariableService</class>
+<method>listSessionVariables</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets a list of the current session variables.  A session variable
+ is a variable whose lifetime is the current transaction.
+]]>
+</remarks>
+<retrows>One row for every session variable that is set.</retrows>
+<retcol name="name" type="string">The name of the variable.</retcol>
+<retcol name="value" type="string">The value of the variable.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="get session variable">
+</seealso>
+<seealso cref="save session variable">
+</seealso>
+</documentation>
+</command>

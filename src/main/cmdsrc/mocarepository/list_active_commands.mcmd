@@ -1,0 +1,34 @@
+<command>
+<name>list active commands</name>
+<description>List active commands.</description>
+<type>Java Method</type>
+<class>RepositoryService</class>
+<method>listActiveCommands</method>
+<argument name="cmplvl" alias="level" datatype="string">
+Component level name
+</argument>
+<argument name="command" alias="cmd_nam" datatype="string">
+Command name
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists information about the given active command.
+]]>
+</remarks>
+<retrows>One row is returne for every command installed.</retrows>
+<retcol name="cmplvl" type="COMTYP_STRING">Component level of the command.</retcol>
+<retcol name="command" type="COMTYP_STRING">Command name.</retcol>
+<retcol name="verb" type="COMTYP_STRING">The verb portion of the command.</retcol>
+<retcol name="noun" type="COMTYP_STRING">The noun-phrase portion of the command.</retcol>
+<retcol name="cmdtyp" type="COMTYP_STRING">The adapter code for the command type.</retcol>
+<retcol name="type" type="COMTYP_STRING">The command type.</retcol>
+<retcol name="syntax" type="COMTYP_STRING">The local syntax that implements this command.</retcol>
+<retcol name="functn" type="COMTYP_STRING">The function that implements this command.</retcol>
+<retcol name="insecure" type="COMTYP_BOOLEAN">Flag indicating if this command is insecure.</retcol>
+<retcol name="filename" type="COMTYP_STRING">The name of the file where the command is stored.</retcol>
+<retcol name="desc" type="COMTYP_STRING">The description of the command.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

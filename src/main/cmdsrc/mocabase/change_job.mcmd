@@ -1,0 +1,38 @@
+<command>
+  <name>change job</name>
+  <description>Modify a job definition.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+/* Check required arguments */
+[[
+  if (!job_id) throw new RequiredArgumentException('job_id')
+]];
+change record
+ where table_name = 'job_definition'
+   and job_id = @job_id
+   and @*
+]]>
+  </local-syntax>
+  <argument name="job_id" datatype="string"/>
+  <argument name="node_id" datatype="string"/>
+  <argument name="name" datatype="string"/>
+  <argument name="command" datatype="string"/>
+  <argument name="enabled" datatype="flag"/>
+  <argument name="overlap" datatype="flag"/>
+  <argument name="log_file" datatype="string"/>
+  <argument name="timer" datatype="integer"/>
+  <argument name="start_delay" datatype="integer"/>
+  <argument name="schedule" datatype="string"/>
+  <argument name="grp_nam" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command changes an existing job using the job ID as the key.  With this
+   command, it is only possible to modify a single job in the configuration
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+  <seealso cref="list job"/>
+  </documentation>
+</command>

@@ -1,0 +1,39 @@
+<command>
+<name>write trace message</name>
+<description>Write a trace message to the trace file.</description>
+<type>Java Method</type>
+<class>TraceService</class>
+<method>writeTraceMessage</method>
+<argument name="message" alias="msg" required="yes" datatype="string">
+</argument>
+<argument name="level" alias="lvl" default-value="W" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command writes the given trace message to the trace file using the 
+ given trace level.  Valid trace levels are as follows:
+
+     D - Database (PL/SQL) messages
+     W - Application flow messages
+     S - SQLLIB calls
+     X - Server flow messages
+     A - Server arguments
+     R - Performance statistics
+
+ The default trace level is 'W'.
+]]>
+</remarks>
+<retrows>None.  This command just returns a status.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<seealso cref="get current trace levels">
+</seealso>
+<seealso cref="get trace file">
+</seealso>
+<seealso cref="get trace levels">
+</seealso>
+<seealso cref="set trace">
+</seealso>
+</documentation>
+</command>

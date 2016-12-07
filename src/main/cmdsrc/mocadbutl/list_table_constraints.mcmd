@@ -1,0 +1,89 @@
+<command>
+<name>list table constraints</name>
+<description>List Table Constraints.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+if (!@table_name and !@table)
+{   
+    list user tables
+}
+|
+publish data 
+    where table_name = upper(nvl(@table_name, @table))
+      and column_name = upper(nvl(@column_name, @column))
+|
+if (dbtype = 'ORACLE')
+{
+    [SELECT
+        cc.table_name, 
+        cc.constraint_name,
+        cc.constraint_type,
+        col.column_name,
+        con.position as column_position,
+        cc.search_condition AS definition
+     FROM
+        user_tab_columns col
+        join user_cons_columns con
+          on col.table_name = con.table_name
+         and col.column_name = con.column_name
+        join user_constraints cc
+          on con.constraint_name = cc.constraint_name
+     WHERE 
+       @+col.table_name
+       and @+cc.constraint_name
+     ORDER BY
+        table_name, constraint_name, column_position
+       ] catch (-1403)
+}
+else if (dbtype = 'MSSQL')
+{
+ [SELECT
+     TC.TABLE_NAME TABLE_NAME,
+     TC.CONSTRAINT_NAME CONSTRAINT_NAME,
+     TC.constraint_type AS CONSTRAINT_TYPE,
+     KCU.COLUMN_NAME,
+     KCU.ordinal_position as COLUMN_POSITION,
+     CC.definition AS definition,
+     null ReferenceTableName,
+     null ReferenceColumnName
+ FROM
+     INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC
+  LEFT OUTER JOIN   INFORMATION_SCHEMA.KEY_COLUMN_USAGE KCU
+            ON kcu.constraint_name = tc.constraint_name
+  LEFT OUTER JOIN SYS.CHECK_CONSTRAINTS CC
+            ON CC.name = tc.constraint_name
+  where @+TC.table_name
+UNION ALL 
+  SELECT
+      u.name AS TABLE_NAME,
+      d.name AS CONSTRAINT_NAME,
+      'DEFAULT' AS CONSTRAINT_TYPE,
+      c.name AS COLUMN_NAME,
+      0 AS COLUMN_POSITION,
+      d.definition,
+      null ReferenceTableName,
+      null ReferenceColumnName
+    FROM sys.default_constraints as d
+  JOIN sys.objects as u
+      ON u.object_id = d.parent_object_id
+ JOIN sys.columns as c
+     ON c.object_id = u.object_id AND c.column_id = d.parent_column_id
+ WHERE @+u.name^table_name
+    order by table_name, CONSTRAINT_NAME, ordinal_position
+ ] catch (-1403)
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the comment associated with the given database column.
+]]>
+</remarks>
+<retrows>One row for each column in the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

@@ -1,0 +1,37 @@
+<command>
+<name>list application role users</name>
+<description>List the users assigned to an application role.</description>
+<type>Local Syntax</type>
+<local-syntax>
+{
+get security server information
+|
+publish data 
+    where search_filter = '(' || @ldap_role_attr || '=' || @role|| ')'
+|
+connect to ldap server
+    where url = @ldap_url
+      and bind_dn = @ldap_bind_dn
+      and bind_password = @ldap_bind_password
+|
+find ldap attribute values
+    where search_filter = @search_filter
+      and search_base = ''
+      and attr_name = @ldap_uid_attr} >> res
+| 
+rename columns where res = @res and value = 'usr_id' 
+
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command list the set of roles an application user has.
+]]>
+</remarks>
+<retrows>One row for each role.</retrows>
+<retcol name="attribute" type="string">The ldap attribute used to define a user.</retcol>
+<retcol name="role" type="string">A user that belongs to the specified role.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>
+

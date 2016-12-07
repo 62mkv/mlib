@@ -1,0 +1,12 @@
+/**
+ *  This example demonstrates connecting to a server, downloading all files with a .gif extension
+ *  to the specified local directory and then disconnecting.
+ */
+
+lcd "c:/tmp"
+prompt hostname "Enter hostname: "
+prompt username "Enter username: "
+prompt password "Enter password: "
+connect
+mget ".*\\.gif"
+disconnect

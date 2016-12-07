@@ -1,0 +1,39 @@
+<command>
+<name>check missing argument</name>
+<description>This command does missing argument checking for local-syntax CRUD commands and exists so the same validation can be used for create and change components</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+
+if (@val_mode = 'CREATE')
+{
+    validate stack variable not null 
+}
+else
+{
+    /* assume all 'elses' are CHANGE for now */
+    validate stack variable not null or absent 
+}
+
+]]>
+</local-syntax>
+<argument name="mode" required="yes" datatype="string"> 
+    The execution action of the calling crud command. Either CREATE or CHANGE.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+  <p>
+  This wrapper command will call the appropriate stack variable
+  validator command based on the CRUD command mode. CREATE and 
+  Change are currently supported.  
+  </p>
+]]>
+</remarks>
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eMCSAPP_MISSING_ARG (2005)">Required argument missing</exception>
+<seealso cref="validate stack variable not null"></seealso>
+<seealso cref="validate stack variable not null or absent"></seealso>
+
+</documentation>
+</command>

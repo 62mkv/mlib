@@ -1,0 +1,21 @@
+<command>
+<name>get directory separator</name>
+<description>Get directory separator.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    separator = File.separator;
+]]
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the directory separator for the current server platform.
+]]>
+</remarks>
+<retcol name="separator" type="string">The directory separator.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

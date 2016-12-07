@@ -1,0 +1,61 @@
+include $(MOCADIR)/makefiles/StandardHeader.mk
+
+OFILES=sqlAddColumn.o \
+       sqlAddRow.o \
+       sqlBuildBindList.o \
+       sqlCombineResults.o \
+       sqlCompareTypes.o \
+       sqlDecodeBinary.o \
+       sqlDecodeResults.o \
+       sqlDumpResults.o \
+       sqlEncodeResults.o \
+       sqlEncodeBinary.o \
+       sqlFindColumn.o \
+       sqlFreeBindList.o \
+       sqlFreeResults.o \
+       sqlGetActualColumnLen.o \
+       sqlGetBinaryData.o \
+       sqlGetBinaryDataLen.o \
+       sqlGetBoolean.o \
+       sqlGetColName.o \
+       sqlGetDataType.o \
+       sqlGetDate.o \
+       sqlGetDefinedColumnLen.o \
+       sqlGetFloat.o \
+       sqlGetLastRow.o \
+       sqlGetLong.o \
+       sqlGetLongDesc.o \
+       sqlGetMessage.o \
+       sqlGetNextRow.o \
+       sqlGetNumColumns.o \
+       sqlGetNumRows.o \
+       sqlGetResultset.o \
+       sqlGetRow.o \
+       sqlGetShortDesc.o \
+       sqlGetString.o \
+       sqlGetValue.o \
+       sqlIsHidden.o \
+       sqlIsNull.o \
+       sqlIsNullable.o \
+       sqlIsPseudoCol.o \
+       sqlLengths.o \
+       sqlRemoveRow.o \
+       sqlRenameColumn.o \
+       sqlSetDate.o \
+       sqlSetFloat.o \
+       sqlSetLong.o \
+       sqlSetString.o \
+       sqlSwapColumns.o \
+       sqlUnbind.o \
+       sql_AddRowItem.o \
+       sql_AllocateResultHdr.o \
+       sql_AllocateRow.o \
+       sql_ChangeDataType.o \
+       sql_FreeHeaderOnly.o \
+       sql_FreeRow.o \
+       sql_ObjectRef.o \
+       sql_PromoteDataType.o \
+       sql_Set.o 
+       
+include $(MOCADIR)/makefiles/Library.mk
+include $(MOCADIR)/makefiles/StandardFooter.mk

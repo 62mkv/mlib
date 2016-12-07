@@ -1,0 +1,24 @@
+<command>
+<name>get trace levels</name>
+<description>Lists all the trace levels.</description>
+<type>C Function</type>
+<function>mocaGetTraceLevels</function>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists all the possible trace level entries.
+]]>
+</remarks>
+<retcol name="lvl" type="string">Trace Level String.</retcol>
+<retcol name="arg" type="string">Argument passed to Set Trace command to enable tracing at level.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="get current trace levels">
+</seealso>
+<seealso cref="get trace file">
+</seealso>
+<seealso cref="set trace">
+</seealso>
+<seealso cref="write trace message">
+</seealso>
+</documentation>
+</command>

@@ -1,0 +1,82 @@
+<command>
+<name>do http request</name>
+<description>Send an HTTP request to a URL.</description>
+<type>Java Method</type>
+<class>HttpService</class>
+<method>doHttpRequest</method>
+<argument name="url" alias="uri" required="yes" datatype="string">
+</argument>
+<argument name="method" default-value="post" required="yes" datatype="string">
+</argument>
+<argument name="headers" alias="header" datatype="string">
+</argument>
+<argument name="body" alias="payload" datatype="string">
+</argument>
+<argument name="namevaluepairs" alias="namevaluepair" datatype="string">
+</argument>
+<argument name="encoding" datatype="string">
+  This argument is used to decode the given body to bytes when sending.  You should pass the decoding that the endpoint expects.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sends a request to a URL and publishes the response as a result
+ set.
+ <br/>
+ The method argument specifies what method to use for the HTTP request.  
+ Currently, 'POST' is the only method supported.  
+ <br/>
+ The optional headers argument provides the ability to specify additional 
+ headers for the HTTP request.  If used, the value should be an 
+ ampersand-separated list of headers.  (e.g. headers='Content-Type: text/xml')
+ <br/>
+ The optional body argument provides the ability to specify your own message
+ body for the HTTP request.  If used, the value of this argument can be any
+ textual data.  This argument should be used, for example, to add a
+ serialized XML document for the HTTP request.
+ (e.g. body='<document><foo>bar</foo></document>')
+ <br/>
+ The optional namevaluepairs argument provides the ability to specify your
+ own name/value pairs (parameters) for the HTTP request.  If used, the value
+ of this argument should be an ampersand-separated list of name/value pairs.
+ The name/value pairs should not be encoded.  The component will encode them
+ before adding them to the HTTP request.  In general, the passing of name/value
+ pairs via this argument should only be done if an argument name contains a
+ special character that can't be contained within a MOCA variable name.  
+ (e.g. namevaluepairs='host=localhost&amp;port=4500')
+ <br/>
+ If neither a body nor namevaluepairs argument is passed, the message body
+ for the HTTP request will be a list of name/value pairs, built using the 
+ name and value of each overstacked argument to the command.
+]]>
+</remarks>
+<example>
+<![CDATA[
+do http request
+     where url = 'http://localhost/myservice/cgi-bin/myservice.pl'
+       and method = 'post' 
+       and body = '<document><foo>bar</foo></document>'
+
+ do http request
+     where url = 'http://localhost/myservice/cgi-bin/myservice.pl'
+       and method = 'post' 
+       and namevaluepairs = 'host=localhost&port=4500&cmd=list library version'
+
+ do http request
+     where url = 'http://localhost/myservice/cgi-bin/myservice.pl'
+       and method = 'post' 
+       and host = 'localhost'
+       and port = '4500'
+       and cmd = 'list library version'
+]]>
+</example>
+<retrows>One</retrows>
+<retcol name="status" type="integer">The status of the HTTP request.</retcol>
+<retcol name="reason" type="string">The reason for the status of the HTTP request.</retcol>
+<retcol name="body" type="string">The message body of the response.</retcol>
+<retcol name="content_type" type="string">The content type of the response.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eNOT_IMPLEMENTED">Only post requests are currently supported.</exception>
+</documentation>
+</command>

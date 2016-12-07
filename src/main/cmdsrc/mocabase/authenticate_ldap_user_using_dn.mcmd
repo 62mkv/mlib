@@ -1,0 +1,21 @@
+<command>
+<name>authenticate ldap user using dn</name>
+<description>Authenticate a user against an LDAP server.</description>
+<type>Java Method</type>
+<class>LDAPClientService</class>
+<method>authenticateLDAPUserUsingDN</method>
+<argument name="ldap_client" required="yes" datatype="object"> </argument>
+<argument name="dn" required="yes" datatype="string"> </argument>
+<argument name="password" required="yes" datatype="string"> </argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command attempts to authenticate a user against the given LDAP server
+ given a user's distinguished name and password.
+]]>
+</remarks>
+<retrows>None</retrows>
+<exception value="eOK">The user was successfully authenticated against the LDAP server.</exception>
+<exception value="eMOCA_LDAP_CLIENT_AUTH">A failure occurred authenticating the user against the LDAP server.</exception>
+</documentation>
+</command>

@@ -1,0 +1,23 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCA
+
+DEFFILE=mocalib.def
+
+BASEADDRESS=0x6C000000
+
+LIBDEPEND=..\dblib\MOCAdb-static.lib \
+	  ..\evtlib\MOCAevt-static.lib \
+	  ..\jnilib\MOCAjni-static.lib \
+	  ..\madlib\MOCAmad-static.lib \
+	  ..\mcclib\MOCAmcc-static.lib \
+	  ..\mislib\MOCAmis-static.lib \
+	  ..\mxmllib\MOCAmxml-static.lib \
+	  ..\oslib\MOCAos-static.lib \
+	  ..\sqllib\MOCAsql-static.lib \
+	  ..\srvlib\MOCAsrv-static.lib 
+
+EXTRALIBS=$(LIBDEPEND) ole32.lib winspool.lib wininet.lib ole32.lib oleaut32.lib
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

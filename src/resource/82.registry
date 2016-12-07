@@ -1,0 +1,193 @@
+#-------------------------------------------------------------------------------
+#
+# SOURCE FILE: registry
+#
+# DESCRIPTION: RedPrairie instance registry file.
+#
+#------------------------------------------------------------------------------
+
+[ENVIRONMENT]
+MOCA_PORT=4600
+RMI_PORT=10079
+MOCA_RMI_PORT=10079
+LOCALE_ID=US_ENGLISH
+MTF_PORT=4520
+FIT_WCS_LOCAL_PORT=5300
+FIT_WCS_REMOTE_PORT=5200
+
+JAVA_HOME=C:\jdk1.7
+JAVA64_HOME=C:\jdk1.8
+
+LESDIR=D:\dev\8.2\les
+MCSDIR=D:\dev\8.2\mcs
+DCSDIR=D:\dev\8.2\wmd
+MTFDIR=D:\dev\8.2\mtf
+MTFCLIENT=D:\dev\8.2\wmd\mtfclient
+
+MOCADIR=D:\dev\8.2\moca
+SALDIR=D:\dev\8.2\sal
+SLDIR=D:\dev\8.2\seamles
+#REFSDIR=D:\dev\8.2\rpweb
+#RPUXDIR=D:\dev\8.2\rpux
+#REPORTINGDIR=D:\dev\8.2\reporting
+#RPFITDIR=D:\dev\8.2\RPFitNesse
+
+DEVTOOLS=D:\dev\devtools\
+
+
+USR_ID=SUPER
+WAFFLEDIR=D:\dev\8.2\waffle
+#DISABLE_CLIENT_DATA_CACHE=1
+DCSTESTDIR=D:\dev\8.2\wmd-testing
+DCSTESTINGDIR=%DCSTESTDIR%
+DCS_FITDIR=%DCSTESTDIR%
+HIBERNATE_HOME=%MOCADIR%\javalib
+
+
+PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\bin;%SALDIR%\bin;%SALDIR%\scripts;%DCSDIR%\bin;%DCSDIR%\scripts;%LESDIR%\scripts;%LESDIR%\bin;%MOCADIR%\bin;%MOCADIR%\scripts;%SLDIR%\bin;%SLDIR%\scripts;%MTFDIR%\bin;%MTFDIR%\scripts;%MCSDIR%\bin;%MCSDIR%\client\bin;%MCSDIR%\scripts;%MOCARPTDIR%\scripts;%MOCARPTDIR%\bin;%REFSDIR%\bin;D:\DailyWork\bin;D:\dev\home;%PATH%;
+
+#TEST_CLASSPATH=%RPUXDIR%\server\mocarest\domain\build\classes-test\;
+#WEB_CLASSPATH=%RPUXDIR%\server\build\classes\*;%RPUXDIR%\server\artifacts\*;%RPUXDIR%\server\mocarest\domain\build\jar\*;%REFSDIR%\javalib\*;%REFSDIR%
+CLASSPATH=%RPFITDIR%\lib\*.jar;%MTFDIR%\build\classes;%MTFDIR%\3rdparty\log4j-1.2.15.jar;%MTFDIR%\lib\*;%MTFDIR%\fitnesse\lib\*;%MTFCLIENT%\lib\*;%MTFDIR%\javalib\*;%MCSDIR%\lib\*;%MOCADIR%\lib\*;%MOCADIR%\javalib\*;%MOCADIR%\test\3rdparty\findbugs\lib\*;%SALDIR%\lib\*;%DCSDIR%\build\classes\;%DCSDIR%\mtfclient\build\classes;%DCSDIR%\lib\*;%DCSDIR%\mtfclient\lib\*;%SLDIR%\lib\*;%SLDIR%\javalib\*;%REPORTINGDIR%\lib\*;%REPORTINGDIR%\javalib\*;%DEVTOOLS%\build\classes;%DEVTOOLS%\lib\*;
+
+MTF_CLASSPATH=%MTFDIR%\3rdparty\log4j-1.2.15.jar;%CLASSPATH%
+#CLASSPATH=%MTFDIR%\3rdparty\log4j*.jar;%CLASSPATH%
+
+#MOCA_DB_ISOLATION=READ_COMMITTED_SNAP
+TC_SERVER=localhost
+TC_PORT=9543
+TC_JMX_PORT=9551
+#TC_MAPPINGS=%TMDIR%\src\mappings\terracotta
+
+GLOBALSTKSIZE=2M
+localhost=http://localhost:4500/service
+
+DEFAULT_GUI_TIMEOUT=10
+
+MOCA_HOST=localhost
+
+[JMS]
+wms-event-url=tcp://localhost:61616
+wms-event-queue=WMS-WMA
+
+[SERVER]
+port=%MOCA_PORT%
+prod-dirs=%LESDIR%;%RPUXDIR%;%DCSDIR%;%MTFDIR%;%MOCARPTDIR%;%SLDIR%;%SALDIR%;%MCSDIR%;%MOCADIR%;%REPORTINGDIR%;%DEVTOOLS%;%REFSDIR%;%DCS_FITDIR%;
+url=http://localhost:%MOCA_PORT%/service
+rmi-port=%RMI_PORT%                         
+memory-file=d:\dev\registry\%MOCA_ENVNAME%.mem
+config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
+commands-dir=%REPORTINGDIR%\src\cmdsrc;
+#session-idle-timeout=10
+#session-key-idle-timeout=10
+#session-transaction-timeout=10
+#classic-idle-timeout=10
+#trace-file=D:\dev\8.2\les\log\mocaServer.log
+trace-level=*
+java-vmargs=-verbose:jni 
+#command-profile=<pathname>         # Default: off
+#command-profile=%LESDIR%\log\benchmarkprofile
+#mailbox-file=<pathname>
+#java-vm=<pathname>               # Default: "java"
+#command=<string>                    # This is the command to run when the service starts ie. mocaserver -t*
+#output=<filename>                   # The location that output from the process is written to
+#process-timeout=10
+
+[JAVA]
+#vm=%JAVA_HOME%\jre\bin\java.exe
+vmargs=-Xms512m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=96m
+#vmargs32=-Xms1024M -Xmx1024M -XX:MaxPermSize=900m
+#vmargs=-server -Xrs -Xms1024
+#vm32=%JAVA_HOME%\jre\bin\java.exe
+#vmargs32=-Xmx256m
+
+
+[NATIVE]
+#java-vmargs=-XX:+ShowMessageBoxOnError
+#pool-size=<integer>                # Default: 20
+#max-commands=<integer>
+#java-vm=<pathname>                  # Default: "java"
+
+[SERVER MAPPING]
+localhost:%MOCA_PORT%=http://localhost:%MOCA_PORT%/service
+localhost:0=http://localhost:%MOCA_PORT%/service
+BASE_URL:%MOCA_PORT%=http://localhost:%MOCA_PORT%/service
+BASE_URL:0=http://localhost:%MOCA_PORT%/service
+
+[DATABASE]
+username=sa
+password=RedPrairie1
+#128454
+#url=jdbc:sqlserver://localhost;databaseName=%MOCA_ENVNAME%
+#url=jdbc:sqlserver://localhost;databaseName=rpw82
+###url=jdbc:sqlserver://localhost;databaseName=20141
+url=jdbc:sqlserver://localhost;databaseName=82
+#url=jdbc:sqlserver://localhost;databaseName=fit-8.2
+driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+##$$$$username=sam
+##$$$$password=sam
+##$$$$url=jdbc:oracle:thin:@localhost:1521:orcl
+##$$$$driver=oracle.jdbc.OracleDriver
+
+
+[EMS]
+#url=<string>
+#spool-dir=<pathname>
+#processed-dir=<pathname>
+#bad-dir=<pathname>
+
+
+[SECURITY]
+admin-user=SUPER
+admin-password=|H|BGROP5SIRJLG0E6RLFNH2A1PMU4105
+#domain=<string>
+#trusted-domains=<domain list>
+#ldap-url=<url>
+#ldap-bind-dn=<string>
+#ldap-bind-password=<string>
+#ldap-auth-type=<string>          # One of "NONE", "SIMPLE", "DIGEST-MD5"
+#ldap-referrals=<string>          # One of "IGNORE", "FOLLOW"
+#ldap-uid-attr=<string>
+#ldap-role-attr=<string>
+#session-keepalive-timeout=10
+
+
+[LICENSE]
+key=zwimh ej5e1 r2mn4 dkqpu rh58s g7rg6
+licensee=RedPrairie Internal Development
+product-list=All
+users=10
+expdate=99999999
+
+
+[SERVICE]
+#command=<command line>          # This is the command to execute when running the service.  Defaults to mocaserver
+#output=<file name>              # This is where the standard output will go if provided.  By default this is not used
+
+
+[MOCA Reports]
+cache-folder=%MOCARPTDIR%\report-cache
+archive-folder=%MOCARPTDIR%\report-archive
+lib-folder=%MOCARPTDIR%\report-libs
+failure-log-path=%MOCARPTDIR%\report-failure-logs
+failure-log-keep-days=7
+ems-attachment-format=pdf
+ems-folder=%MOCARPTDIR%\report-ems
+#db-date-time-format=
+local-db-connection=Provider=Microsoft.Jet.OLEDB.4.0;Data Source=%MOCARPTDIR%\db\mocarpt.mdb
+#db-init-command=
+default-locale-id=US_ENGLISH
+
+
+[mocarpt]
+report-server=http://localhost:%MOCA_PORT%/service
+app-server=http://localhost:%MOCA_PORT%/service
+
+
+# [INSTALLER]
+# INSTALLED-PRODUCTS=MOCARPT_PRODUCT,TM_ALL_PRODUCT
+
+[REPORTING]
+cache-folder=%REPORTINGDIR%/report-cache
+archive-folder=%REPORTINGDIR%/report-archive
+errorpage-filepath=%REPORTINGDIR%\reports\error.jrprint

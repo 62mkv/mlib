@@ -1,0 +1,31 @@
+<command>
+<name>remove extra whitespace</name>
+<description>Remove extra whitespace from a string.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    string = string ? string : str;
+    string = string.replaceAll("\\s+", " ");
+    string = string.trim();
+]]
+]]>
+</local-syntax>
+<function>mocaRemoveExtraWhitespace</function>
+<argument name="string" alias="str" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command removes extra whitespace from the given string.  
+ <br/>
+ This involves trimming all whitespace from the beginning and end of the given
+ string as well as extra whitespace between tokens within the given string to a
+ single space.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="string" type="string">The string minus extra whitespace.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

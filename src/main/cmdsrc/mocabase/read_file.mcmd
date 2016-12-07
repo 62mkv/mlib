@@ -1,0 +1,46 @@
+<command>
+<name>read file</name>
+<description>Read a file.</description>
+<type>Java Method</type>
+<class>FileDirectoryService</class>
+<method>readFile</method>
+<argument name="filnam" alias="filename" required="yes" datatype="string">
+</argument>
+<argument name="max" alias="max_lines" datatype="integer">
+</argument>
+<argument name="start" alias="start_line" datatype="integer">
+</argument>
+<argument name="mode" alias="line_mode" default-value="L" datatype="string">
+</argument>
+<argument name="offset" datatype="integer">
+</argument>
+<argument name="readsize" alias="size" datatype="integer">
+</argument>
+<argument name="encoding" datatype="string">
+  The encoding of the file if it isn't in the system default encoding.
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command reads the contents of a file into a result set.
+ <br/>
+ If the mode argument is 'B', the file is opened in binary mode and 'readsize' 
+ bytes are readthe file are read 'offset' bytes from the beginning of the file.
+ In this case, only one row is returned.
+ <br/>
+ If the mode argument is 'F', 'max' lines of the file are read, starting at 
+ the given 'start' line.
+]]>
+</remarks>
+<retrows>The number of rows returned is dependent on the mode the file is being read
+ in as well as the number of lines in the file.</retrows>
+<retcol name="size" type="string">The size, in bytes, of the data returned.</retcol>
+<retcol name="data" type="string">The actual binary data.</retcol>
+<retcol name="line" type="string">The line number of the file.</retcol>
+<retcol name="text" type="string">The text from the associated line number of the file.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eFILE_OPENING_ERROR">The given file could not be opened.</exception>
+<seealso cref="write output file">
+</seealso>
+</documentation>
+</command>

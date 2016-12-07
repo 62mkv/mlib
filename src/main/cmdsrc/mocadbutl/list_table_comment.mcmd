@@ -1,0 +1,53 @@
+<command>
+<name>list table comment</name>
+<description>List database table comment.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where table_name = upper(nvl(@table_name, @table))
+|
+if (dbtype = 'ORACLE')
+{
+    [
+     select table_name,
+	    comments table_comment
+       from user_tab_comments
+      where table_name = @table_name
+    ]
+    |
+    publish data 
+	where table_name = @table_name
+	  and table_comment = @table_comment
+}
+else if (dbtype = 'MSSQL')
+{
+    [
+     select @table_name                 table_name,
+	    cast(value as varchar(512)) table_comment 
+       from ::fn_listextendedproperty('MS_Description',
+                                      'user', 
+                                      'dbo',
+                                      'table', 
+                                      @table_name,
+                                      NULL,
+                                      NULL)
+    ]
+    |
+    publish data 
+	where table_name = @table_name
+	  and table_comment = @table_comment
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the comment for the given database table.
+]]>
+</remarks>
+<retrows>One row for each comment the given table has on it.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

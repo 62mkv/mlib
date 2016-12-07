@@ -1,0 +1,31 @@
+<command>
+<name>login user</name>
+<description>Login a user.</description>
+<type>Java Method</type>
+<class>AuthService</class>
+<method>loginUser</method>
+<insecure>yes</insecure>
+<argument name="usr_id" alias="login" datatype="string" required="yes">
+    User ID
+</argument>
+<argument name="usr_pswd" alias="password" datatype="string">
+    Password
+</argument>
+<argument name="client_key" datatype="string">
+    Client Key
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command logs in a user.  It takes, but does not require or validate the passed-in
+ password.  Components that extend this command can simply pass the user ID and receive
+ a validated session.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="usr_id" type="string">User id.</retcol>
+<retcol name="session_key" type="string">Session key.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_INVALID_PASSWORD">The given password is invalid.</exception>
+</documentation>
+</command>

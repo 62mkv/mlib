@@ -1,0 +1,98 @@
+<command>
+<name>list database locks</name>
+<description>List database locks.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+if (dbtype = 'ORACLE')
+{
+    [select distinct ss.osuser,
+	    ss.sid,
+	    ss.process,
+	    ss.terminal,
+	    a.name,
+	    o.name obj_name,
+            decode(l.lmode,	
+                   0, 'None',	
+                   1, 'Null',	
+                   2, 'Row-S (SS)',
+	           3, 'Row-X (SX)',	
+                   4, 'Share',	
+                   5, 'S/Row-X (SSX)',	
+                   6, 'Exclusive') lock_mode  
+       from sys.obj$ o,
+            sys.dbms_lock_allocated a,
+            v$lock l,       
+            v$session ss 
+      where o.obj# (+)   = l.id1
+        and a.lockid (+) = l.id1   
+        and ss.sid       = l.sid   
+        and ss.type      = 'USER']
+}
+else if (dbtype = 'MSSQL')
+{
+    [exec sp_lock]
+    |
+    [
+     select @spid               spid,
+	    db_name(@dbid)      db_name,
+            object_name(@objid) object_name,
+            @indid              indid,
+            decode(@type,
+                   'DB',  'Database',
+                   'FIL', 'File',
+                   'IDX', 'Index',
+                   'PG',  'Page',
+                   'KEY', 'Key',
+                   'TAB', 'Table',
+                   'EXT', 'Extent',
+                   'RID', 'Row Identifier') lock_type,
+            decode(@mode,
+                   'Sch-S',    'Schema Stability',
+                   'Sch-M',    'Schema Modification',
+                   'S',        'Shared',
+                   'X',        'Exclusive',
+                   'IS',       'Intent Shared',
+                   'IU',       'Intent Update',
+                   'IX',       'Intent Exclusive',
+                   'SIU',      'Shared Intent Update',
+                   'SIX',      'Shared Intent Exclusive',
+                   'UIX',      'Update Intent Exclusive',
+                   'BU',       'Bulk Update',
+                   'RangeS_S', 'Shared Key-Range and Shared',
+                   'RangeS_U', 'Shared Key-Range and Update',
+                   'RangeI_N', 'Insert Key-Range and NULL',
+                   'RangeI_S', 'Key-Range Conversion',
+                   'RangeI_U', 'Key-Range Conversion',
+                   'RangeI_X', 'Key-Range Conversion',
+                   'RangeX_S', 'Key-Range Conversion',
+                   'RangeX_U', 'Key-Range Conversion',
+                   'RangeX_X', 'Exclusive Key-Range and Exlusive',
+                  NULL,       'No access granted',
+                  'Unknown') lock_mode,
+           decode(@status,
+                  'CNVRT', 'Converting',
+                  'GRANT', 'Granted',
+                  'WAIT',  'Waiting',
+                  'Unknown') lock_status
+       from dual
+       order by db_name
+    ]
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists any locks that may exist in the database. 
+ <br/>
+ This command is meant only as a developer utility, so the columms
+ published are different for each database engine.
+]]>
+</remarks>
+<retrows>One row for each database lock that exists.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

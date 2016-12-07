@@ -1,0 +1,112 @@
+<command>
+<name>describe table</name>
+<description>Describe a database table.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where table_name = upper(nvl(@table_name, @table))
+|
+if (dbtype = 'ORACLE')
+{
+    [
+     select column_name column_name,
+            decode(nullable, 'N', 'NOT NULL', 'NULL') nullable,
+            data_type,
+            data_length,
+            data_precision,
+            data_scale,
+            char_length,
+            char_col_decl_length byte_length
+       from user_tab_columns
+      where table_name = @table_name
+      order by column_id
+    ]
+    |
+    if (@data_type = 'CHAR' or @data_type = 'VARCHAR2')
+    {
+        publish data where type = @data_type || '(' || @data_length || ')'
+    }
+    else if (@data_type = 'DECIMAL' or @data_type = 'NUMBER')
+    {
+        if (@data_scale = 0)
+        {
+            publish data where type = @data_type || '(' || @data_precision ||')'        }
+        else
+        {
+            publish data where type = @data_type || '(' ||
+                             @data_precision || ',' || @data_scale || ')'
+        }
+    }
+    else
+    {
+        publish data where type = @data_type
+    }
+    |
+    publish data
+	where Column = @column_name
+	  and Nullable = @nullable
+	  and Type = @type
+          and Length = @data_length
+          and CharLength = @char_length
+}
+else if (dbtype = 'MSSQL')
+{
+    [
+     select c.column_name                                   column_name, 
+            decode(c.is_nullable, 'NO', 'NOT NULL', 'NULL') nullable,
+            c.data_type                                     data_type,
+            c.character_maximum_length                      data_length,
+            c.numeric_precision                             data_precision,
+            c.numeric_scale                                 data_scale,
+            c.character_octet_length                        byte_length
+           from information_schema.columns c, sysobjects o
+          where c.table_name = o.name
+            and o.xtype in ('U', 'V')
+            and o.id = object_id(lower(@table_name))
+          order by c.ordinal_position
+    ]
+    |
+    if (@data_type = 'char' or @data_type = 'varchar')
+    {
+        publish data where type = @data_type || '(' || @data_length || ')'
+    }
+    else if (@data_type = 'decimal' or @data_type = 'numeric')
+    {
+        if (@data_scale = 0)
+        {
+            publish data where type = @data_type || '(' || @data_precision ||')'        }
+        else
+        {
+            publish data where type = @data_type || '(' ||
+                             @data_precision || ',' || @data_scale || ')'
+        }
+    }
+    else
+    {
+        publish data where type = @data_type
+    }
+    |
+    publish data
+        where Column = upper(@column_name)
+	  and Nullable = @nullable
+	  and Type = upper(@type)
+          and Length = @data_length
+          and Char_Length = @data_length
+          and Byte_Length = @byte_length
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command describes each column of the given database table.
+]]>
+</remarks>
+<retrows>One row for each column in the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="Some other error code">A command executed from within this command returned an error.</exception>
+</documentation>
+</command>

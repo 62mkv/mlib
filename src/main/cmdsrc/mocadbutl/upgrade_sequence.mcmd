@@ -1,0 +1,30 @@
+<command>
+<name>upgrade sequence</name>
+<description>Upgrade SQL Server sequences.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+if (dbtype = 'MSSQL')
+{
+    [alter table @seq:raw add seedval numeric(28)] catch(-2705);
+    [alter table @seq:raw add incval  numeric(28)] catch(-2705);
+    [alter table @seq:raw add maxval  numeric(28)] catch(-2705);
+    [delete from @seq:raw where 1 = 1]             catch(-1403);
+    [set identity_insert @seq:raw on];
+    [insert into @seq:raw (currval, nextval, seedval, incval, maxval) 
+     values (-1, -1, @seed, @inc, @max)];
+    [set identity_insert @seq:raw off];
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command adds the seedval, incval and maxval columns to the given
+ SQL Server sequence table. 
+]]>
+</remarks>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+</documentation>
+</command>

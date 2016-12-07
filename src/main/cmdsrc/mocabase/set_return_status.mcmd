@@ -1,0 +1,25 @@
+<command>
+<name>set return status</name>
+<description>Set a return status.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>setReturnStatus</method>
+<argument name="status" alias="code" default-value="0" datatype="integer">
+</argument>
+<argument name="message" alias="error_message" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sets the return status that is packaged with the result set.  If
+ the return status is an error, the given message will also be packaged with 
+ the result set.  Any additional arguments passed to this command will be
+ used as "error message arguments" to be used to perform substitution in 
+ parameterized error messages.  To make a string argument that needs to be
+ looked up in the MLS catalog, prefix the argument with "lookup_".
+ Example: set return status where status = 20005 and message = 'Error because of ^foo^' and foo = 'something' 
+]]>
+</remarks>
+<retrows>None. This command just returns the given status.</retrows>
+</documentation>
+</command>

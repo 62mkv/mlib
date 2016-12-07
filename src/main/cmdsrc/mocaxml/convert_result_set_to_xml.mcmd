@@ -1,0 +1,55 @@
+<command>
+<name>convert result set to xml</name>
+<description>Convert a MOCA result set to an XML document.</description>
+<type>C Function</type>
+<function>mocaConvertResultSetToXML</function>
+<argument name="resultset" alias="rs" datatype="results">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command converts a MOCA result set to an XML document.  It's useful
+ for sending the contents of a MOCA result set to a non-MOCA-based system.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="mxml_ctxt" type="pointer">New context</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+<seealso cref="add xml attribute">
+</seealso>
+<seealso cref="add xml element">
+</seealso>
+<seealso cref="add xml text node">
+</seealso>
+<seealso cref="convert xml to result set">
+</seealso>
+<seealso cref="create xml document">
+</seealso>
+<seealso cref="get xml">
+</seealso>
+<seealso cref="get xml child nodes">
+</seealso>
+<seealso cref="get xml elements by tagname">
+</seealso>
+<seealso cref="get xml info">
+</seealso>
+<seealso cref="get xml node values">
+</seealso>
+<seealso cref="normalize xml">
+</seealso>
+<seealso cref="parse xml">
+</seealso>
+<seealso cref="remove xml child">
+</seealso>
+<seealso cref="start xml parser">
+</seealso>
+<seealso cref="stop xml parser">
+</seealso>
+<seealso cref="write xml file">
+</seealso>
+</documentation>
+</command>

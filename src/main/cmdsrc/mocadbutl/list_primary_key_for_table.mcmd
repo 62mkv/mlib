@@ -1,0 +1,116 @@
+<command>
+<name>list primary key for table</name>
+<description>List primary key for database table.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where table_name = upper(nvl(@table_name, @table))
+|
+if (dbtype = 'ORACLE')
+{
+    [
+     SElect syn.table_name,
+            decode(syn.table_owner,
+                   null, dblink.username,
+                   syn.table_owner) table_owner,
+            syn.table_name,
+            syn.db_link
+      from all_db_links dblink, all_synonyms syn
+      where dblink.db_link(+)= syn.db_link
+        and   (syn.owner = user or syn.owner = 'PUBLIC')
+        and   syn.synonym_name = @table_name
+    ] catch(-1403)
+    |
+    if (!@table_owner)
+    {
+       [select user table_owner from dual]
+    }
+    |
+    if (@db_link)
+    {
+       publish data where db_link_syntax = "@" || @db_link
+    }
+    else
+    {
+       publish data where db_link_syntax = " "
+    }
+    |
+    try
+    {
+        [
+        select cons.table_name table_name,
+            cons_cols.constraint_name index_name,
+            cons_cols.column_name column_name,
+            cons_cols.position column_position
+        from
+            user_cons_columns @db_link_syntax:raw cons_cols,
+            user_constraints  @db_link_syntax:raw cons
+        where cons.constraint_name   = cons_cols.constraint_name
+            and cons.constraint_type = 'P'
+            and cons.table_name      = @table_name
+        ]
+    }
+    catch (-1403)
+    {
+        [ 
+	 select tab_cols.table_name       table_name,
+                cons_cols.constraint_name index_name,
+                tab_cols.column_name      column_name,
+                cons_cols.position        column_position
+           from all_tab_columns  @db_link_syntax:raw tab_cols,
+                all_cons_columns @db_link_syntax:raw cons_cols,
+                all_constraints  @db_link_syntax:raw cons
+          where tab_cols.table_name  = cons_cols.table_name
+            and tab_cols.column_name = cons_cols.column_name
+            and tab_cols.owner       = cons_cols.owner
+            and cons.constraint_name = cons_cols.constraint_name
+            and cons.owner           = cons_cols.owner
+            and cons.constraint_type = 'P'
+            and cons.table_name      = @table_name
+            and cons.owner           = @table_owner
+        ]
+    }
+    |
+    publish data
+        where table_name = @table_name
+          and index_name = @index_name
+          and column_name = @column_name
+          and column_position = @column_position
+}
+else if (dbtype = 'MSSQL')
+{
+    [{call sp_pkeys(@table_name)}]
+    |
+    publish data
+        where table_name = upper(@table_name)
+          and index_name = upper(@pk_name)
+          and column_name = upper(@column_name)
+          and column_position = @key_seq
+}
+else if (dbtype = 'H2')
+{
+    [select * from INFORMATION_SCHEMA.INDEXES 
+      where TABLE_NAME = upper(@table_name)
+        and index_type_name = 'PRIMARY KEY']
+    |
+    publish data
+      where table_name = upper(@table_name)
+        and index_name = upper(@index_name)
+        and column_name = upper(@column_name)
+        and column_position = @ordinal_position
+}
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists the primary key for the given database table.
+ This command additionally handles Oracle synonyms.
+]]>
+</remarks>
+<retrows>One row if a primary key exists on the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

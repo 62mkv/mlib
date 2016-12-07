@@ -1,0 +1,26 @@
+<command>
+<name>publish data combination</name>
+<description>Publish data as a flattened result set.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>publishDataCombination</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command publishes all the arguments in its where-clause as a result set.
+ One of the arguments can be a sub-result set.
+]]>
+</remarks>
+<example>do loop where count = 3 &gt;&gt; res | publish data combination where res = @res and j = 9
+
+    i j
+    - -
+    0 9
+    1 9
+    2 9</example>
+<retrows>The number of rows and columns returned is dependent on the result set being referenced.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="publish data">
+</seealso>
+</documentation>
+</command>

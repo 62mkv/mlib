@@ -1,0 +1,69 @@
+<command>
+<name>create db column comment</name>
+<description>Create a database column comment.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data 
+    where table_name = nvl(@table_name, @table) 
+      and column_name = nvl(@column_name, @column) 
+      and column_comment = nvl(@column_comment, @comment)  
+|
+if (dbtype = 'ORACLE')
+{
+    publish data where qualified_name = @table_name || '.' || @column_name
+    |
+    [ /*#nobind*/ 
+      comment on column @qualified_name:raw is @column_comment
+    ]
+}
+else if (dbtype = 'MSSQL')
+{
+    [select count(*) cnt 
+       from ::fn_listextendedproperty('MS_Description',
+                                      'user', 
+                                      'dbo', 
+                                      'table', 
+                                      @table_name, 
+                                      'column', 
+                                      @column_name)]
+    |
+    if (@cnt <=0)
+    {
+        [{call sp_addextendedproperty( 'MS_Description', 
+                                @column_comment, 
+                                'user', 
+                                dbo, 
+                                'table', 
+                                @table_name:raw,
+                                'column', 
+                                @column_name:raw)}]
+    }
+    else 
+    {
+        [{call sp_updateextendedproperty( 'MS_Description', 
+                                   @column_comment, 
+                                   'user', 
+                                   dbo, 
+                                   'table', 
+                                   @table_name:raw,
+                                   'column', 
+                                   @column_name:raw)}]
+    }
+}
+]]>
+</local-syntax>
+<argument name="table_name" alias="table" required="yes" type="String">The name of the table containing the column to create the comment for.</argument>
+<argument name="column_name" alias="column" required="yes" type="String">The name of the column to create the comment for.</argument>
+<argument name="column_comment" alias="comment" required="yes" type="String">The comment to create.</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command creates a comment for a database column.
+]]>
+</remarks>
+<retrows>None. This command just returns a status.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+</documentation>
+</command>

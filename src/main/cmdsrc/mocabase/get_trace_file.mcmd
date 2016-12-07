@@ -1,0 +1,52 @@
+<command>
+<name>get trace file</name>
+<description>Get trace file.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    realPathname = pathname ? pathname : filename;
+    // If the path name doesnt have either slash assume it is in the log directory
+    if (!(realPathname.contains("/") || realPathname.contains("\\"))) {
+        realPathname = "\$LESDIR/log/" + realPathname;
+    }
+    realPathname;
+]]
+|
+read file 
+  where filename = @realPathname 
+    and max = nvl(@maxlines, @numlines)
+    and start = @startline
+]]>
+</local-syntax>
+<insecure>yes</insecure>
+<argument name="pathname" alias="filename" datatype="string" required="yes">
+</argument>
+<argument name="startline" datatype="integer">
+</argument>
+<argument name="maxlines" alias="numlines" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the given trace file.  It assumes the lines are 0 based.
+]]>
+</remarks>
+<retcol name="line" type="integer">The line number of this line in the file.</retcol>
+<retcol name="text" type="string">The text of the line itself.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+<seealso cref="get current trace levels">
+</seealso>
+<seealso cref="get trace levels">
+</seealso>
+<seealso cref="set trace">
+</seealso>
+<seealso cref="write trace message">
+</seealso>
+<seealso cref="read file">
+</seealso>
+</documentation>
+</command>

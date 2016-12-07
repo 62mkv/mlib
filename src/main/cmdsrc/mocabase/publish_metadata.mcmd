@@ -1,0 +1,30 @@
+<command>
+<name>publish metadata</name>
+<description>Publish the metadata from the given result set.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    def realResults = resultset ? resultset : res;
+    def columns = moca.newResults();
+    MocaUtils.copyColumns(columns, realResults);
+    columns;
+]]
+]]>
+</local-syntax>
+<argument name="resultset" alias="res" datatype="results" required="yes">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command publishes only the header information for the given result set.
+ To do this, it simply removes any rows in the given result set.
+]]>
+</remarks>
+<retrows>One</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+</documentation>
+</command>

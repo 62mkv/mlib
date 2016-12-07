@@ -1,0 +1,55 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAos
+
+LIBPART=yes
+
+OFILES=osAccess.obj \
+       osAsyncIO.obj \
+       osAtexit.obj \
+       osAuthenticateUser.obj \
+       osBaseFile.obj \
+       osCodePages.obj \
+       osCopyFile.obj \
+       osDirectory.obj \
+       osDirName.obj \
+       osDumpCore.obj \
+       osEncodeDescriptor.obj \
+       osError.obj \
+       osFilterTCP.obj \
+       osFileInfo.obj \
+       osFindFile.obj \
+       osFopen.obj \
+       osGetHostSerialNumber.obj \
+       osGetLogin.obj \
+       osGetProcessId.obj \
+       osGetTime.obj \
+       osGetopt.obj \
+       osIniFile.obj \
+       osInit.obj \
+       osLaunchJavaApplication.obj \
+       osLibrary.obj \
+       osLocal.obj \
+       osLockMem.obj \
+       osLogEvent.obj \
+       osMBX.obj \
+       osMutex.obj \
+       osMapFile.obj \
+       osPanic.obj \
+       osPipe.obj \
+       osPrintFile.obj \
+       osProcessPriority.obj \
+       osRecvFile.obj \
+       osRegistry.obj \
+       osSendFile.obj \
+       osSignal.obj \
+       osSleep.obj \
+       osSockError.obj \
+       osSocket.obj \
+       osTCP.obj \
+       osThread.obj \
+       osVar.obj \
+       os_MapInfo.obj 
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

@@ -1,0 +1,38 @@
+import com.redprairie.moca.*
+import com.redprairie.moca.util.MocaUtils
+
+ExpandoMetaClass.enableGlobally()
+
+RowIterator.metaClass.getProperty = { String name -> 
+    delegate.getValue(name)
+}
+
+ModifiableResults.metaClass.setProperty = { String name, value -> 
+    delegate.setValue(name, value)
+}
+
+EditableResults.metaClass.leftShift = { Map rowData ->
+    delegate.addRow(rowData)
+}
+
+EditableResults.metaClass.leftShift = { RowIterator rowData ->
+    MocaUtils.copyCurrentRow(delegate, rowData)
+}
+
+EditableResults.metaClass.like = { MocaResults res ->
+    MocaUtils.copyColumns(delegate, res)
+    delegate
+}
+
+EditableResults.metaClass.setProperty = { String name, value ->
+    if (!delegate.containsColumn(name))
+        delegate.addColumn(name, MocaType.lookupClass(value.class))
+    delegate.setValue(name, value)
+}
+
+MocaResults.metaClass.eachRow = {c -> 
+    def rows = delegate.getRows()
+    while (rows.next()) {
+        c(rows)
+    }
+}

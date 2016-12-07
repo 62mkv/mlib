@@ -1,0 +1,24 @@
+<command>
+<name>create directory</name>
+<description>Create a directory.</description>
+<type>Java Method</type>
+<class>FileDirectoryService</class>
+<method>createDirectory</method>
+<argument name="directory" alias="pathname" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command creates the given directory.  The given directory can contain
+ environment variables, which it will expand before creating it.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="directory" type="string">The pathname of the directory.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="Some other error code">A system call executed from within this command returned an error.</exception>
+<seealso cref="remove directory">
+</seealso>
+</documentation>
+</command>

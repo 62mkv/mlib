@@ -1,0 +1,52 @@
+<command>
+<name>validate stack variable not null</name>
+<description>
+Checks if a variable is present in the context and is not null.  If it is 
+a character value then it must be not be a zero length string.
+</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+
+if (@name = '')
+{
+    /* name is a required argument */
+    set return status 
+      where status = 2969
+}
+|
+check field 
+  where fldnam = @name 
+    and fld_type = 'NN'
+
+]]>
+
+</local-syntax>
+
+<argument name="name" datatype="string" required="yes">
+    Field name
+</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+<p>
+  Detects if the supplied variable exists in the context or not.
+  It is an error if the variable cannot be found in the context.
+</p>
+]]>
+</remarks>
+<example>
+  In TM wh_id is a required argument for dds_change warehouse command in
+  ddslib.  This check could be made using this syntax as follows:
+
+  validate stack variable not null 
+    where name = 'wh_id'
+</example>
+
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED (510)">No data found</exception>
+
+</documentation>
+</command>
+

@@ -1,0 +1,23 @@
+<command>
+<name>change record</name>
+<description>Changes a record in the specified table. Automatically fills the update user/time fields.</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>updateRecord</method>
+<argument name="table" alias="table_name" required="yes" datatype="string">
+The table in which to update the data.
+</argument>
+<argument name="pkUpperCase" alias="pk_upper_case" required="no" default="false" datatype="flag">
+If true, PK values are wrapped in UPPER() functions.
+</argument> 
+<argument name="forceUpdate" alias="force_update" required="no" default="true" datatype="flag">
+If true, The command will fail if a record with the matching PK is not found.
+</argument>
+<argument name="conCheckMode" required="no" default="0" datatype="integer">
+Indicates the concurrency check mode. 0=None, 1=U_Version check, 2=Data Overlay. Otherwise the data will update.
+</argument>
+<documentation>
+<private>
+</private>
+</documentation>
+</command>

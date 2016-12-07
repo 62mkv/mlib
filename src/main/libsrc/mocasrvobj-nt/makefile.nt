@@ -1,0 +1,41 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCASrvObjNG
+
+DEFFILE=MOCASrvObj.def
+
+OFILES=MOCAResults.obj \
+       MOCAServerAccess.obj \
+       MOCASrvObj.obj \
+       StdAfx.obj \
+       Utils.obj \
+       MOCASrvObj.res
+
+IFILES=MOCASrvObj.h
+
+LIBDEPEND = MOCASrvObj.res
+
+POST_INSTALL=post-install
+
+EXTRACFLAGS=$(EXTRACFLAGS) -D "_ATL_STATIC_REGISTRY" \
+            -D "_WINDOWS" -D "_USRDLL" -EHsc
+
+EXTRALIBS=MOCA.lib
+
+MOCASrvObj.res: MOCASrvObj.rc MOCAResults.rgs MOCAServerAccess.rgs
+	rc $(RELFLAGS) MOCASrvObj.rc
+
+MOCASrvObj.h: MOCASrvObj.idl
+	midl /I$(MOCADIR)\include /Oicf MOCASrvObj.idl
+
+MOCAResults.cpp: MOCASrvObj.h
+
+MOCAServerAccess.cpp: MOCASrvObj.h
+
+post-install:
+	regsvr32 /s $(MOCADIR)\bin\MOCASrvObjNG.dll
+
+FRC:
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

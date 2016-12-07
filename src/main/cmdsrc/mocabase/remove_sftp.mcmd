@@ -1,0 +1,43 @@
+<command>
+<name>remove sftp</name>
+<description>Remove a file via secure ftp.</description>
+<type>Java Method</type>
+<class>SecureFTPService</class>
+<method>removeFile</method>
+<argument name="host" required="yes" datatype="string">
+</argument>
+<argument name="port" default-value="22" datatype="integer">
+</argument>
+<argument name="user" required="yes" datatype="string">
+</argument>
+<argument name="pass" datatype="string">
+</argument>
+<argument name="pk_file" datatype="string">
+</argument>
+<argument name="pk_password" datatype="string">
+</argument>
+<argument name="targetdir" datatype="string">
+</argument>
+<argument name="targetfile" required="yes" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command removes a file on another host via sftp.
+ The target directory path supports environment variables.
+]]>
+</remarks>
+<retrows>One</retrows>
+<retcol name="result" type="string">A string describing the file removed.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_SFTP_COM_FAILURE">An SFTP communication failure occurred.</exception>
+<seealso cref="list sftp">
+</seealso>
+<seealso cref="put sftp">
+</seealso>
+<seealso cref="get sftp">
+</seealso>
+<seealso cref="rename sftp">
+</seealso>
+</documentation>
+</command>

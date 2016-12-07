@@ -1,0 +1,8 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+APPNAME=mload_all
+
+OFILES=mload_all.obj
+
+!include $(MOCADIR)\makefiles\Application.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

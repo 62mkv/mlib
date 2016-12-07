@@ -1,0 +1,34 @@
+<command>
+<name>validate data</name>
+<description>Validate Data exists</description>
+<type>Java Method</type>
+<class>CrudService</class>
+<method>validateData</method>
+
+<argument name="tblnam" datatype="string" required="yes"> 
+    The table to check if there is data located in it.
+</argument>
+<argument name="fldnam" datatype="string" required="yes"> 
+    The field name in the table to validate.  The value should be in context
+    for this.
+</argument>
+<argument name="val_type" datatype="string" required="no"> 
+    A value of 'RES' can be put here to have it error if there is a value
+    for that key in the table.  Normally this is null.
+</argument>
+
+<documentation>
+<remarks>
+<![CDATA[
+    <p>
+    This command will validate data in a given table whether it be null or
+    present.
+    </p>
+]]>
+</remarks>
+
+<exception value="eOK">Normal successful completion</exception>
+<exception value="eINVALID_ARGS">Invalid Arguments</exception>
+
+</documentation>
+</command>

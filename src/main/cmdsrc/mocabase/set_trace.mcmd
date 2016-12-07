@@ -1,0 +1,41 @@
+<command>
+<name>set trace</name>
+<description>Set tracing options.</description>
+<type>Java Method</type>
+<class>TraceService</class>
+<method>setTrace</method>
+<insecure>yes</insecure>
+<argument name="trcfil" alias="filename" datatype="string">
+</argument>
+<argument name="trcdir" alias="directory" datatype="string">
+</argument>
+<argument name="trclvl" alias="level" datatype="string">
+</argument>
+<argument name="trcmod" alias="mode" datatype="string">
+</argument>
+<argument name="activate" required="yes" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sets tracing options, including the trace file information and
+ tracing levels.  
+ <br/>
+ The default directory for the trace file is %%LESDIR%%\log.  Tracing is only 
+ turned on for this caller's session.
+]]>
+</remarks>
+<retcol name="filename" type="string">The filename of the trace file.</retcol>
+<retcol name="tracing" type="integer">A flag indicating if tracing is active.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<seealso cref="get current trace levels">
+</seealso>
+<seealso cref="get trace file">
+</seealso>
+<seealso cref="get trace levels">
+</seealso>
+<seealso cref="write trace message">
+</seealso>
+</documentation>
+</command>

@@ -1,0 +1,66 @@
+<command>
+<name>list indexes for table</name>
+<description>List database indexes.</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where table_name = upper(nvl(@table_name, @table))
+|
+if (dbtype = 'ORACLE')
+{
+    [
+     select table_name      table_name,
+            index_name      index_name,
+            column_name     column_name,
+            column_position column_position
+       from user_ind_columns
+      where table_name = @table_name
+      order by index_name, column_position
+    ]
+    |
+    publish data
+        where table_name = @table_name
+          and index_name = @index_name
+          and column_name = @column_name
+          and column_position = @column_position
+}
+else if (dbtype = 'MSSQL')
+{
+    [
+     select object_name(sik.id) table_name,
+            si.name             index_name,
+            col.name            column_name,
+            sik.keyno           column_position
+       from sysindexkeys sik
+            inner join sysindexes si 
+                on sik.id = si.id and sik.indid = si.indid
+            inner join syscolumns col 
+                on sik.id = col.id and sik.colid = col.colid
+      where sik.indid BETWEEN 1 AND 254
+        and objectproperty(sik.id, 'IsMSShipped') = 0
+        and indexproperty(sik.id, si.name, 'IsStatistics') = 0
+        and sik.id = object_id(lower(@table_name))
+      order by table_name, index_name, keyno
+    ]
+    |
+    publish data
+        where table_name = upper(@table_name)
+          and index_name = upper(@index_name)
+          and column_name = upper(@column_name)
+          and column_position = @column_position
+}
+ 
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command lists all indexes for the given database table.
+]]>
+</remarks>
+<retrows>One row for each index on the given table.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eSRV_DB_ERROR">A database error occurred while executing the command.</exception>
+<exception value="eSRV_NO_ROWS_AFFECTED">The command didn't have an affect on any rows or no rows were found.</exception>
+</documentation>
+</command>

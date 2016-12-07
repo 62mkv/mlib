@@ -1,0 +1,3 @@
+using System.Reflection;
+
+[assembly: AssemblyVersion("@VB_MAJOR@.@VB_MINOR@.0.0")]

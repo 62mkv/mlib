@@ -1,0 +1,24 @@
+<command>
+<name>put os var</name>
+<description>Set the value of an o/s variable.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>putOsVariable</method>
+<argument name="var" alias="variable" required="yes" datatype="string">
+</argument>
+<argument name="val" alias="value" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command sets the value of the given o/s variable.  The value of the
+ variable can get checked via the 'get os var' command.
+]]>
+</remarks>
+<exception value="eOK">The command completed successfully.</exception>
+<seealso cref="get os var">
+</seealso>
+<seealso cref="remove os var">
+</seealso>
+</documentation>
+</command>

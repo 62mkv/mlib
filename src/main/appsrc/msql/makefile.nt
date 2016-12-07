@@ -1,0 +1,19 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+APPNAME=msql
+
+OFILES=commands.obj \
+       connection.obj \
+       edit.obj \
+       history.obj \
+       msql.obj \
+       print.obj \
+       process.obj \
+       read.obj \
+       script.obj \
+       spool.obj 
+
+EXTRALINKFLAGS=/stack:20000000
+
+!include $(MOCADIR)\makefiles\Application.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

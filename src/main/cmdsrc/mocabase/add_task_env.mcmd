@@ -1,0 +1,40 @@
+<command>
+  <name>add task env</name>
+  <description>Add an environment definition for a task.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+/* Check required arguments */
+[[
+  varName = (name != null) ? name : var_nam;
+
+  if (!task_id)
+      throw new RequiredArgumentException('task_id')
+  if (varName == null)
+      throw new RequiredArgumentException('name')
+
+  varName
+]]
+|
+[
+    insert into task_env_definition
+      (task_id, name, value)
+    values
+      (@task_id, @varName, @value)
+]
+]]>
+  </local-syntax>
+  <argument name="task_id" datatype="string"/>
+  <argument name="name" datatype="string"/>
+  <argument name="value" datatype="string"/>
+  <documentation>
+  <remarks>This command adds the given task environment definition to the 
+   configuration, using the given task name and environment variable name
+   and value.</remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  <exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+  <seealso cref="list task env"/>
+  <seealso cref="remove task env"/>
+  </documentation>
+</command>

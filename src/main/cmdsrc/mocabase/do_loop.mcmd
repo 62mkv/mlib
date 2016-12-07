@@ -1,0 +1,27 @@
+<command>
+<name>do loop</name>
+<description>Do a loop.</description>
+<type>Java Method</type>
+<class>CoreService</class>
+<method>doLoop</method>
+<argument name="iterations" alias="count" default-value="0" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command performs a loop, incrementing a counter with each iteration.
+]]>
+</remarks>
+<retrows>The number of rows returned equals the iterations argument passed to the 
+ command.</retrows>
+<retcol name="i" type="COMTYP_INT">The loop counter variable.</retcol>
+<example>do loop where count = 3
+
+    i 
+    -
+    0
+    1 
+    2</example>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

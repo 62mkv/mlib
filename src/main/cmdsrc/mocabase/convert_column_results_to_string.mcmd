@@ -1,0 +1,42 @@
+<command>
+<name>convert column results to string</name>
+<description>Convert all rows for a single column into a string</description>
+<type>Java Method</type>
+<class>ConversionService</class>
+<method>convertColumnsToString</method>
+<argument name="resultset" alias="res" datatype="results" required="yes">
+</argument>
+<argument name="colnam" alias="column" datatype="string" required="yes">
+</argument>
+<argument name="separator" default-value="," datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command converts the data from all rows of a single column into a 
+ single string, with the column data separated by a character defined
+ in the separator argument.  If no separator argument is passed, a comma
+ will be used by default.
+]]>
+</remarks>
+<retrows>A single row will be returned</retrows>
+<example>
+[
+    select 'a' col1, '1' col2 from dual 
+    union 
+    select 'b' col1, '2' col2 from dual
+] >> res 
+|
+convert column results to string 
+    where resultset = @res
+      and colnam = 'col1'
+      and separator = ','
+
+result_string 
+-------------
+a,b
+</example>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eNOT_IMPLEMENTED">A column was specified whose datatype is not supported for the conversion.</exception>
+</documentation>
+</command>

@@ -1,0 +1,29 @@
+<command>
+<name>clear all bits</name>
+<description>Create a bitset with all bits cleared.</description>
+<type>Java Method</type>
+<class>BitArithmetic</class>
+<method>clearAllBits</method>
+<documentation>
+<remarks>
+<![CDATA[
+ This command creates a new bitset with all its 32 bits cleared.
+]]>
+</remarks>
+<retcol name="bitset" type="integer">New bitset.</retcol>
+<seealso cref="bit is clear">
+</seealso>
+<seealso cref="bit is set">
+</seealso>
+<seealso cref="clear bit">
+</seealso>
+<seealso cref="dump bitset">
+</seealso>
+<seealso cref="set all bits">
+</seealso>
+<seealso cref="set bit">
+</seealso>
+<seealso cref="set bits from bitmask">
+</seealso>
+</documentation>
+</command>

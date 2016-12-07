@@ -1,0 +1,37 @@
+<command>
+<name>bit is set</name>
+<description>Check if a bit is set in a bitset.</description>
+<type>Java Method</type>
+<class>BitArithmetic</class>
+<method>bitIsSet</method>
+<argument name="bit" required="yes" datatype="integer">
+</argument>
+<argument name="bitset" required="yes" datatype="integer">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command checks to see if the given 1-based bit in the given bitset
+ is set.  A total of 32 bits are stored within a bitset, so the given bit
+ must be a number between 1 and 32.
+]]>
+</remarks>
+<retcol name="bit" type="integer">Bit number to check within bitset.</retcol>
+<retcol name="bitset" type="integer">Bitset that was checked.</retcol>
+<retcol name="result" type="integer">1 if the bit is set, otherwise 0.</retcol>
+<seealso cref="bit is clear">
+</seealso>
+<seealso cref="clear all bits">
+</seealso>
+<seealso cref="clear bit">
+</seealso>
+<seealso cref="dump bitset">
+</seealso>
+<seealso cref="set all bits">
+</seealso>
+<seealso cref="set bit">
+</seealso>
+<seealso cref="set bits from bitmask">
+</seealso>
+</documentation>
+</command>

@@ -1,0 +1,48 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAsrv
+
+LIBPART=yes
+
+OFILES=srvAddColumn.obj \
+       srvAddColumnWithValue.obj \
+       srvAddRow.obj \
+       srvAddSQLResults.obj \
+       srvBuildResultsList.obj \
+       srvCombineResults.obj \
+       srvCommit.obj \
+       srvCompileCommand.obj \
+       srvConcatenateResults.obj \
+       srvConcatenateRow.obj \
+       srvEnumerateArgList.obj \
+       srvErrorResults.obj \
+       srvExecuteAfterCommitRollback.obj \
+       srvFreeMemory.obj \
+       srvFreeReturnStruct.obj \
+       srvGetNeededElement.obj \
+       srvInitialize.obj \
+       srvInitiateCommand.obj \
+       srvInitiateCompiled.obj \
+       srvInitiateInline.obj \
+       srvMakeSessionKey.obj \
+       srvMoca.obj \
+       srvRegisterData.obj \
+       srvResults.obj \
+       srvResultsAdd.obj \
+       srvResultsAddList.obj \
+       srvResultsErrorArg.obj \
+       srvResultsInit.obj \
+       srvResultsInitList.obj \
+       srvResultsList.obj \
+       srvResultsMessage.obj \
+       srvResultsNull.obj \
+       srvReturn.obj \
+       srvRollback.obj \
+       srvSortResultSet.obj \
+       srvSwapColumns.obj \
+       srv_AppHooks.obj \
+       srv_FormatCommand.obj \
+       srvlib.obj \
+
+!include $(MOCADIR)\makefiles\Library.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

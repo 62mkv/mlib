@@ -1,0 +1,127 @@
+!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+
+IFILES=cmdlib.h \
+       common.h \
+       copyright.h \
+       dblib.h \
+       evtlib.h \
+       jnilib.h \
+       madlib.h \
+       mcclib.h \
+       mislib.h \
+       moca.h \
+       mocacolwid.h \
+       mocaconfig.h \
+       mocaddl.h \
+       mocaerr.h \
+       mocagendef.h \
+       mocasymbols.h \
+       mocatbldef.h \
+       mocaversion.h \
+       mxmllib.h \
+       oslib.h \
+       sqlDataTypes.h \
+       sqlDataTypesH2.h \
+       sqlDataTypesObsolete.h \
+       sqlDataTypesOracle.h \
+       sqlDataTypesSQLServer.h \
+       sqlconvlib.h \
+       sqllib.h \
+       srvlib.h \
+       usrtbldef.h \
+       vartbldef.h
+
+TARGETS=$(INCDIR)\cmdlib.h \
+	$(INCDIR)\common.h \
+	$(INCDIR)\copyright.h \
+	$(INCDIR)\dblib.h \
+	$(INCDIR)\evtlib.h \
+	$(INCDIR)\jnilib.h \
+	$(INCDIR)\madlib.h \
+	$(INCDIR)\mcclib.h \
+	$(INCDIR)\mislib.h \
+	$(INCDIR)\moca.h \
+	$(INCDIR)\mocacolwid.h \
+	$(INCDIR)\mocaconfig.h \
+	$(INCDIR)\mocaddl.h \
+	$(INCDIR)\mocaerr.h \
+	$(INCDIR)\mocagendef.h \
+	$(INCDIR)\mocasymbols.h \
+	$(INCDIR)\mocatbldef.h \
+	$(INCDIR)\mocaversion.h \
+	$(INCDIR)\mxmllib.h \
+	$(INCDIR)\oslib.h \
+	$(INCDIR)\sqlDataTypes.h \
+	$(INCDIR)\sqlDataTypesH2.h \
+	$(INCDIR)\sqlDataTypesObsolete.h \
+	$(INCDIR)\sqlDataTypesOracle.h \
+	$(INCDIR)\sqlDataTypesSQLServer.h \
+	$(INCDIR)\sqlconvlib.h \
+	$(INCDIR)\sqllib.h \
+	$(INCDIR)\srvlib.h \
+	$(INCDIR)\usrtbldef.h \
+	$(INCDIR)\vartbldef.h
+
+$(INCDIR)\cmdlib.h: cmdlib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\common.h: common.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\copyright.h: copyright.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\dblib.h: dblib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\evtlib.h: evtlib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\jnilib.h: jnilib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\madlib.h: madlib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mcclib.h: mcclib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mislib.h: mislib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\moca.h: moca.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocacolwid.h: mocacolwid.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocaconfig.h: mocaconfig.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocaddl.h: mocaddl.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocaerr.h: mocaerr.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocagendef.h: mocagendef.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocasymbols.h: mocasymbols.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocatbldef.h: mocatbldef.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mocaversion.h: mocaversion.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\mxmllib.h: mxmllib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\oslib.h: oslib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\sqlDataTypes.h: sqlDataTypes.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\sqlDataTypesH2.h: sqlDataTypesH2.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\sqlDataTypesObsolete.h: sqlDataTypesObsolete.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\sqlDataTypesOracle.h: sqlDataTypesOracle.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\sqlDataTypesSQLServer.h: sqlDataTypesSQLServer.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\sqlconvlib.h: sqlconvlib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\sqllib.h: sqllib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\srvlib.h: srvlib.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\usrtbldef.h: usrtbldef.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\vartbldef.h: vartbldef.h
+	@$(INSTALL) $? $(INCDIR)
+
+!include $(MOCADIR)\makefiles\Header.mk.win32
+!include $(MOCADIR)\makefiles\StandardFooter.mk.win32

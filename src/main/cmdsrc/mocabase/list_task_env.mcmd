@@ -1,0 +1,34 @@
+<command>
+  <name>list task env</name>
+  <description>list task envronments in the system.</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+[[
+  name = (name != null) ? name : var_nam;
+  if (name != null)
+    name
+]]
+|
+[
+  select task_id,
+         name as var_nam,
+         value
+    from task_env_definition
+   where @*
+]
+]]>
+  </local-syntax>
+  <documentation>
+  <remarks>
+   This command lists all configured task environments in the system, taking an
+   optional argument of task_id to list a single task's environment.
+  </remarks>
+  <retcol name="task_id" type="string">Task name</retcol>
+  <retcol name="var_nam" type="string">Task environment variable name</retcol>
+  <retcol name="value" type="string">Task environment variable value</retcol>
+  <exception value="eOK">The command completed successfully.</exception>
+  <seealso cref="add task env"/>
+  <seealso cref="remove task env"/>
+  </documentation>
+</command>

@@ -1,0 +1,16 @@
+<command>
+<name>list command usage</name>
+<description>This will list the usage statistics for all commands that have been run in the system</description>
+<type>Java Method</type>
+<class>CommandProfileService</class>
+<method>listCommandUsage</method>
+<documentation>
+<retrows>None.</retrows>
+<remarks>
+<![CDATA[
+  This command will list the usage statistics for all commands that have been run.  The scope of the statistics will depend on server settings, particularly whether persistent profiling is enabled, and whether those statistics are persisted to a central store (e.g. database) or a local one (filesystem), or are kept in memory only.
+]]>
+</remarks>
+<exception value="eOK">Completed successfully.</exception>
+</documentation>
+</command>

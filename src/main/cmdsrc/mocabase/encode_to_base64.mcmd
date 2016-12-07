@@ -1,0 +1,31 @@
+<command>
+<name>encode to base64</name>
+<description>Encode binary data.</description>
+<type>Local Syntax</type>
+<local-syntax>
+publish data 
+  where base64_encoded = b64encode(@bin_data)
+</local-syntax>
+<argument name="bin_data" datatype="binary" required="yes">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command encodes binary data as a string.
+]]>
+</remarks>
+<example>
+    [[a = 'foobar'.getBytes()]]
+    |
+    encode to base64
+        where bin_data = @a
+
+</example>
+<retrows>One</retrows>
+<retcol name="base64_encoded" type="string">Binary data encoded as a string.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eMOCA_MISSING_ARG">One or more required arguments were not passed to the command.</exception>
+<seealso cref="decode from base64">
+</seealso>
+</documentation>
+</command>

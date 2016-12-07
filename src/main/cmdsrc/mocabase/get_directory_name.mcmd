@@ -1,0 +1,31 @@
+<command>
+<name>get directory name</name>
+<description>Get directory name.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    def realFileName = filnam ? filnam : filename;
+    def expandedDirName = MocaUtils.expandEnvironmentVariables(moca, realFileName);
+
+    def newFile = new File(expandedDirName);
+
+    dirname = newFile.getParent();
+    
+]]
+]]>
+</local-syntax>
+<argument name="filnam" alias="filename" datatype="string" required="yes">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command gets the directory name of the given pathname.  Environment
+ variables are expanded and path separators are changed, if necessary, for
+ the current platform.
+]]>
+</remarks>
+<retcol name="directory" type="string">The directory name.</retcol>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>
