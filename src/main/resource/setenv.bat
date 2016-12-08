@@ -1,0 +1,1 @@
+set LESDIR=D:\MFC\mlib\src\main\resource

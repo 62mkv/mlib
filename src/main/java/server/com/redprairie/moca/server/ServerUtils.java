@@ -411,8 +411,7 @@ public class ServerUtils {
             if (in == null) {
                 String regFile = System.getProperty("com.redprairie.moca.config");
                 if (regFile == null) {
-                    //regFile = System.getenv("MOCA_REGISTRY");
-                	regFile = "F:\\MFC\\mlib\\src\\resource\\82.registry";
+                    regFile = System.getenv("MOCA_REGISTRY");
                 }
                 
                 if (regFile == null) {

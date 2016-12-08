@@ -36,6 +36,10 @@ public class AppTest
     {
         try {
         System.out.println("now start test");
+        System.setProperty("com.redprairie.moca.config","D:\\MFC\\mlib\\src\\main\\resource\\82.registry");
+        System.setProperty("LESDIR","D:\\MFC\\mlib\\src\\main\\resource");
+        String lesdir = System.getenv("LESDIR");
+        System.out.println(lesdir);
         MocaServerMain.main(null);
         }
         catch (Exception e)

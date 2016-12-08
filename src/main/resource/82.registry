@@ -14,7 +14,7 @@ LOCALE_ID=US_ENGLISH
 MTF_PORT=4520
 FIT_WCS_LOCAL_PORT=5300
 FIT_WCS_REMOTE_PORT=5200
-
+MOCA_ENVNAME=82
 JAVA_HOME=C:\jdk1.7
 JAVA64_HOME=C:\jdk1.8
 
@@ -72,7 +72,7 @@ wms-event-queue=WMS-WMA
 
 [SERVER]
 port=%MOCA_PORT%
-prod-dirs=%LESDIR%;%RPUXDIR%;%DCSDIR%;%MTFDIR%;%MOCARPTDIR%;%SLDIR%;%SALDIR%;%MCSDIR%;%MOCADIR%;%REPORTINGDIR%;%DEVTOOLS%;%REFSDIR%;%DCS_FITDIR%;
+prod-dirs=%MOCADIR%;
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
 memory-file=d:\dev\registry\%MOCA_ENVNAME%.mem
