@@ -109,6 +109,7 @@ public class Options {
 
         int a;
         for (a = 0; a < args.length; a++) {
+            System.out.println("Parsing option char:" + args[a]);
             if (args[a].equals("--")) {
                 a++;
                 break;
@@ -122,6 +123,7 @@ public class Options {
                                 "unrecognized option: " + argChar + ".");
                     }
 
+                    System.out.println("Putting option char:" + argChar);
                     _optionSet.add(Character.valueOf(argChar));
 
                     if (spec.length() > (specPos + 1) &&

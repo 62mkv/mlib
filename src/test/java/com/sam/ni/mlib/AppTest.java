@@ -40,7 +40,12 @@ public class AppTest
         System.setProperty("LESDIR","D:\\MFC\\mlib\\src\\main\\resource");
         String lesdir = System.getenv("LESDIR");
         System.out.println(lesdir);
-        MocaServerMain.main(null);
+        String args[] = null;
+        args = new String[3];
+        args[0] = "-R";
+        args[1] = "-t*";
+        args[2] ="-TJ";
+        MocaServerMain.main(args);
         }
         catch (Exception e)
         {

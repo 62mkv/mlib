@@ -7,7 +7,7 @@
 #------------------------------------------------------------------------------
 
 [ENVIRONMENT]
-MOCA_PORT=4600
+MOCA_PORT=4800
 RMI_PORT=10079
 MOCA_RMI_PORT=10079
 LOCALE_ID=US_ENGLISH
@@ -19,14 +19,14 @@ JAVA_HOME=C:\jdk1.7
 JAVA64_HOME=C:\jdk1.8
 
 LESDIR=D:\dev\8.2\les
-MCSDIR=D:\dev\8.2\mcs
-DCSDIR=D:\dev\8.2\wmd
-MTFDIR=D:\dev\8.2\mtf
-MTFCLIENT=D:\dev\8.2\wmd\mtfclient
+#MCSDIR=D:\dev\8.2\mcs
+#DCSDIR=D:\dev\8.2\wmd
+#MTFDIR=D:\dev\8.2\mtf
+#MTFCLIENT=D:\dev\8.2\wmd\mtfclient
 
 MOCADIR=D:\dev\8.2\moca
-SALDIR=D:\dev\8.2\sal
-SLDIR=D:\dev\8.2\seamles
+#SALDIR=D:\dev\8.2\sal
+#SLDIR=D:\dev\8.2\seamles
 #REFSDIR=D:\dev\8.2\rpweb
 #RPUXDIR=D:\dev\8.2\rpux
 #REPORTINGDIR=D:\dev\8.2\reporting
@@ -36,11 +36,11 @@ DEVTOOLS=D:\dev\devtools\
 
 
 USR_ID=SUPER
-WAFFLEDIR=D:\dev\8.2\waffle
+#WAFFLEDIR=D:\dev\8.2\waffle
 #DISABLE_CLIENT_DATA_CACHE=1
-DCSTESTDIR=D:\dev\8.2\wmd-testing
-DCSTESTINGDIR=%DCSTESTDIR%
-DCS_FITDIR=%DCSTESTDIR%
+#DCSTESTDIR=D:\dev\8.2\wmd-testing
+#DCSTESTINGDIR=%DCSTESTDIR%
+#DCS_FITDIR=%DCSTESTDIR%
 HIBERNATE_HOME=%MOCADIR%\javalib
 
 
@@ -76,8 +76,8 @@ prod-dirs=%MOCADIR%;
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
 memory-file=d:\dev\registry\%MOCA_ENVNAME%.mem
-config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
-commands-dir=%REPORTINGDIR%\src\cmdsrc;
+#config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
+#commands-dir=%REPORTINGDIR%\src\cmdsrc;
 #session-idle-timeout=10
 #session-key-idle-timeout=10
 #session-transaction-timeout=10
@@ -121,7 +121,7 @@ password=RedPrairie1
 #url=jdbc:sqlserver://localhost;databaseName=%MOCA_ENVNAME%
 #url=jdbc:sqlserver://localhost;databaseName=rpw82
 ###url=jdbc:sqlserver://localhost;databaseName=20141
-url=jdbc:sqlserver://localhost;databaseName=82
+url=jdbc:sqlserver://localhost;databaseName=mlib
 #url=jdbc:sqlserver://localhost;databaseName=fit-8.2
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 ##$$$$username=sam

@@ -1,2 +1,4 @@
 target/*
 .[!g]*
+src/main/resource/data/ArjunaObjectStore/*
+src/main/resource/data/moca-sessions/*

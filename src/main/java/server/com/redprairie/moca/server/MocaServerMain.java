@@ -144,9 +144,6 @@ public class MocaServerMain {
      */
     public static void main(String[] args) throws SystemConfigurationException {
         System.out.println("hehe");
-        args = new String[2];
-        args[0] = "mocaserver ";
-        args[1] = "-t*";
         try {
             setupSystemProperties();
         	bootstrapServer(args);
