@@ -137,7 +137,9 @@ public class AuthService {
     }
     
     private static Role getRole(MocaContext moca, String usrId) throws MocaException {
-        if (usrId.equals(getConsoleAdminUser())) {
+        String user = getConsoleAdminUser();
+        System.out.println("usrId:" + usrId + ",useradmin:" + user + (usrId.equals(user) ? " equals": " not equals"));
+        if (usrId.equals(user)) {
             return getRoleForInternalUser(moca, usrId);
         }
         else {
@@ -155,10 +157,13 @@ public class AuthService {
      */
     private static Role getRoleCommandBased(MocaContext moca, String usrId) throws MocaException {
         try {
+//            final MocaResults res2 = moca.executeCommand(
+//                "get user privileges where usr_id=@usr_id and opt_typ=@opt_typ",
+//                new MocaArgument("usr_id", usrId),
+//                new MocaArgument("opt_typ", "P"));
+            
             final MocaResults res2 = moca.executeCommand(
-                "get user privileges where usr_id=@usr_id and opt_typ=@opt_typ",
-                new MocaArgument("usr_id", usrId),
-                new MocaArgument("opt_typ", "P"));
+                    "publish data where opt_nam ='" + CONSOLE_ADMIN_PERMISSION + "'");
             
             boolean hasRead = false;
             while (res2.next()) {

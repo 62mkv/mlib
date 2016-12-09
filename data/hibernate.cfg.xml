@@ -1,0 +1,32 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+        <hibernate-configuration>
+          <session-factory>
+
+            <property name="hibernate.cache.use_second_level_cache">
+                false
+            </property>
+            <property name="hibernate.cache.region.factory_class">
+               com.redprairie.moca.cache.infinispan.MocaInfinispanRegionFactory
+            </property>
+
+          <!-- The following properties are to enable second level cache for 
+               hibernate.
+            <property name="hibernate.cache.use_second_level_cache">
+                true
+            </property>
+            <property name="hibernate.cache.use_query_cache">
+                false
+            </property>
+            -->
+
+            <!-- The following is required for MOCA -->
+            <mapping class="com.redprairie.moca.cluster.RoleDefinition"/>
+            <mapping class="com.redprairie.moca.task.TaskDefinition"/>
+            <mapping class="com.redprairie.moca.task.TaskExecution"/>
+            <mapping class="com.redprairie.moca.job.JobDefinition"/>
+            <mapping class="com.redprairie.moca.job.JobExecution"/>
+          </session-factory>
+        </hibernate-configuration>

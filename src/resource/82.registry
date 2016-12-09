@@ -7,7 +7,7 @@
 #------------------------------------------------------------------------------
 
 [ENVIRONMENT]
-MOCA_PORT=4800
+MOCA_PORT=4500
 RMI_PORT=10079
 MOCA_RMI_PORT=10079
 LOCALE_ID=US_ENGLISH
@@ -18,13 +18,13 @@ MOCA_ENVNAME=82
 JAVA_HOME=C:\jdk1.7
 JAVA64_HOME=C:\jdk1.8
 
-LESDIR=D:\dev\8.2\les
+LESDIR=D:\MFC\mlib
 #MCSDIR=D:\dev\8.2\mcs
 #DCSDIR=D:\dev\8.2\wmd
 #MTFDIR=D:\dev\8.2\mtf
 #MTFCLIENT=D:\dev\8.2\wmd\mtfclient
 
-MOCADIR=D:\dev\8.2\moca
+MOCADIR=D:\MFC\mlib
 #SALDIR=D:\dev\8.2\sal
 #SLDIR=D:\dev\8.2\seamles
 #REFSDIR=D:\dev\8.2\rpweb
@@ -48,7 +48,8 @@ PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\b
 
 #TEST_CLASSPATH=%RPUXDIR%\server\mocarest\domain\build\classes-test\;
 #WEB_CLASSPATH=%RPUXDIR%\server\build\classes\*;%RPUXDIR%\server\artifacts\*;%RPUXDIR%\server\mocarest\domain\build\jar\*;%REFSDIR%\javalib\*;%REFSDIR%
-CLASSPATH=%RPFITDIR%\lib\*.jar;%MTFDIR%\build\classes;%MTFDIR%\3rdparty\log4j-1.2.15.jar;%MTFDIR%\lib\*;%MTFDIR%\fitnesse\lib\*;%MTFCLIENT%\lib\*;%MTFDIR%\javalib\*;%MCSDIR%\lib\*;%MOCADIR%\lib\*;%MOCADIR%\javalib\*;%MOCADIR%\test\3rdparty\findbugs\lib\*;%SALDIR%\lib\*;%DCSDIR%\build\classes\;%DCSDIR%\mtfclient\build\classes;%DCSDIR%\lib\*;%DCSDIR%\mtfclient\lib\*;%SLDIR%\lib\*;%SLDIR%\javalib\*;%REPORTINGDIR%\lib\*;%REPORTINGDIR%\javalib\*;%DEVTOOLS%\build\classes;%DEVTOOLS%\lib\*;
+#CLASSPATH=%RPFITDIR%\lib\*.jar;%MTFDIR%\build\classes;%MTFDIR%\3rdparty\log4j-1.2.15.jar;%MTFDIR%\lib\*;%MTFDIR%\fitnesse\lib\*;%MTFCLIENT%\lib\*;%MTFDIR%\javalib\*;%MCSDIR%\lib\*;%MOCADIR%\lib\*;%MOCADIR%\javalib\*;%MOCADIR%\test\3rdparty\findbugs\lib\*;%SALDIR%\lib\*;%DCSDIR%\build\classes\;%DCSDIR%\mtfclient\build\classes;%DCSDIR%\lib\*;%DCSDIR%\mtfclient\lib\*;%SLDIR%\lib\*;%SLDIR%\javalib\*;%REPORTINGDIR%\lib\*;%REPORTINGDIR%\javalib\*;%DEVTOOLS%\build\classes;%DEVTOOLS%\lib\*;
+CLASSPATH=%MOCADIR%\lib\*;%MOCADIR%\javalib\*;%MOCADIR%\test\3rdparty\findbugs\lib\*;%MOCADIR%\target\classes;
 
 MTF_CLASSPATH=%MTFDIR%\3rdparty\log4j-1.2.15.jar;%CLASSPATH%
 #CLASSPATH=%MTFDIR%\3rdparty\log4j*.jar;%CLASSPATH%
@@ -71,11 +72,12 @@ wms-event-url=tcp://localhost:61616
 wms-event-queue=WMS-WMA
 
 [SERVER]
+test-disable-native=true
 port=%MOCA_PORT%
 prod-dirs=%MOCADIR%;
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
-memory-file=d:\dev\registry\%MOCA_ENVNAME%.mem
+memory-file=D:\MFC\mlib\data\%MOCA_ENVNAME%.mem
 #config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
 #commands-dir=%REPORTINGDIR%\src\cmdsrc;
 #session-idle-timeout=10

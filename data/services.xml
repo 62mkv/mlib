@@ -1,0 +1,23 @@
+<services>
+
+  <service>
+    <application>moca</application>
+    <displayName>RedPrairie MOCA Server (%MOCA_ENVNAME%)</displayName>
+    <description>The MOCA Server for %MOCA_ENVNAME%.</description>
+
+    <start>
+      <mode>java</mode>
+      <class>com.redprairie.moca.server.MocaServerMain</class>
+      <debug/>
+    </start>
+
+    <stop>
+      <mode>java</mode>
+      <class>com.redprairie.moca.server.MocaServiceFunctions</class>
+      <argument>stop</argument>
+    </stop>
+
+  </service>
+
+</services>
+

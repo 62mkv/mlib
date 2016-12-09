@@ -1,0 +1,14 @@
+<command>
+<name>get user privileges</name>
+<description>Get User Privileges</description>
+<type>Local Syntax</type>
+<local-syntax>
+
+publish data
+  where opt_nam ='optMocaConsoleAdmin'
+
+</local-syntax>
+<documentation>
+dummy command
+</documentation>
+</command>

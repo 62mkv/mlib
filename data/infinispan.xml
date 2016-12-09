@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:infinispan:config:5.1">
+    <global>
+        <transport distributedSyncTimeout="20000"/>
+        <serialization>
+            <advancedExternalizers>
+                <advancedExternalizer id="32768" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.SessionDataExternalizer"/>
+                <advancedExternalizer id="32769" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.MaybeExternalizer"/>
+                <advancedExternalizer id="32770" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.RoleDefinitionExternalizer"/>
+                <advancedExternalizer id="32771" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.InfinispanNodeExternalizer"/>
+                <advancedExternalizer id="32772" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.InstanceUrlExternalizer"/>
+            </advancedExternalizers>
+        </serialization>
+        <globalJmxStatistics enabled="true"/>
+    </global>
+
+   <default>
+      <!-- By default we have all the caches as local cache - we cannot
+           reliably change this -->
+      <clustering mode="LOCAL"/>
+      <!-- Used to register JMX statistics in any available MBean server -->
+      <jmxStatistics enabled="true"/>
+      <transaction transactionManagerLookupClass="com.redprairie.moca.cache.infinispan.MocaTransactionManagerLookup" />
+   </default>
+
+   <namedCache name="moca-sessions">
+     <clustering mode="replication">
+       <stateTransfer fetchInMemoryState="true" timeout="20000"/>
+       <sync replTimeout="20000"/>
+     </clustering>
+     <loaders passivation="false" shared="false" preload="true">
+       <loader class="org.infinispan.loaders.file.FileCacheStore" fetchPersistentState="true"
+            ignoreModifications="false" purgeOnStartup="false">
+         <properties>
+            <property name="location" value="${LESDIR}/data"/>
+			<property name="fsyncMode" value="perWrite"/>
+         </properties>
+       </loader>
+     </loaders>
+      <!-- Eviction configuration.  WakeupInterval defines how often the eviction thread runs, in milliseconds.  
+           0 means the eviction thread will never run.  A separate executor is used for eviction in each cache. -->
+      <eviction maxEntries="50000" strategy="LRU"/>
+
+      <!-- Expiration configuration.  This is what controls how long cached sessions are kept around when idle. This is commented out since it can be controlled via registry key.  If this is defined in a higher up infinispan.xml it will override the registry key however -->
+      <!--expiration maxIdle="1800000" wakeUpInterval="5000"/-->
+      <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+
+   <namedCache name="moca-current-roles">
+     <clustering mode="replication">
+       <stateTransfer fetchInMemoryState="true" timeout="20000"/>
+       <sync replTimeout="20000"/>
+     </clustering>
+     <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+   <namedCache name="moca-forced-roles">
+     <clustering mode="replication">
+       <stateTransfer fetchInMemoryState="true" timeout="20000"/>
+       <sync replTimeout="20000"/>
+     </clustering>
+     <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+   <namedCache name="moca-node-urls">
+   <clustering mode="replication">
+    <stateTransfer fetchInMemoryState="true" timeout="20000"/>
+    <sync replTimeout="20000"/>
+  </clustering>
+  <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+   <namedCache name="moca-single-forced-roles">
+     <clustering mode="replication">
+       <stateTransfer fetchInMemoryState="true" timeout="20000"/>
+       <sync replTimeout="20000"/>
+     </clustering>
+     <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+   <namedCache name="date_format">
+     <clustering mode="LOCAL" />
+     <loaders passivation="false" shared="false" preload="true">
+       <loader class="com.redprairie.moca.server.expression.function.DateFormatCacheStore"
+            ignoreModifications="true" />
+     </loaders>
+     <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+   <namedCache name="moca-job-cache">
+     <clustering mode="replication">
+       <stateTransfer fetchInMemoryState="true" timeout="20000"/>
+       <sync replTimeout="20000"/>
+     </clustering>
+     <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+   <namedCache name="moca-task-cache">
+     <clustering mode="replication">
+       <stateTransfer fetchInMemoryState="true" timeout="20000"/>
+       <sync replTimeout="20000"/>
+     </clustering>
+     <transaction transactionMode="NON_TRANSACTIONAL"/>
+   </namedCache>
+
+</infinispan>
