@@ -1,0 +1,3 @@
+base_prog_id,comp_maj_ver,comp_min_ver,comp_bld_ver,comp_rev_ver,comp_file_nam,comp_prog_id,comp_typ,comp_file_ext,comp_need_fw,lic_key,grp_nam
+WinMSQL,2013,2,0,1,WinMSQL,RedPrairie.MCS.WinMSQL.cFormat,E,exe,1,,MCS
+WinMSQL.config,2013,2,0,1,WinMSQL,WinMSQL,G,CFG,1,,MCS

@@ -1,0 +1,345 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D07FB6C1-472A-4128-B6D8-9321647A9916}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RedPrairie.MCS.WinMSQL</RootNamespace>
+    <AssemblyName>WinMSQL</AssemblyName>
+    <ManifestCertificateThumbprint>86765C161C78C266BA0F1450D56AE580507525B6</ManifestCertificateThumbprint>
+    <ManifestKeyFile>winmsql_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
+    <TargetZone>LocalIntranet</TargetZone>
+    <SignManifests>false</SignManifests>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <StartupObject>RedPrairie.MCS.WinMSQL.Program</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>http://localhost/winmsql/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>..\..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data3, Version=3.2.5.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils3, Version=3.2.5.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors3, Version=3.2.5.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors3.Design, Version=3.2.5.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid3, Version=3.2.5.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid3.Design, Version=3.2.5.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Infragistics2.Shared.v7.2, Version=7.2.20072.61, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Infragistics2.Win.Misc.v7.2, Version=7.2.20072.61, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Infragistics2.Win.UltraWinTabControl.v7.2, Version=7.2.20072.61, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Infragistics2.Win.UltraWinToolbars.v7.2, Version=7.2.20072.61, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Infragistics2.Win.v7.2, Version=7.2.20072.61, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.Configuration, Version=2010.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.Exceptions">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.MCS.Connection">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.MCS.Controls">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.MCS.Defines">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.MCS.Interfaces">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.MCS.RPStyle">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.MCS.Session">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RedPrairie.MOCA.Client">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cFormat.cs" />
+    <Compile Include="ctlFind.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlFind.Designer.cs">
+      <DependentUpon>ctlFind.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlFavorite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlFavorite.Designer.cs">
+      <DependentUpon>ctlFavorite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="cLookup.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="ctlColumnInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlColumnInfo.Designer.cs">
+      <DependentUpon>ctlColumnInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlHistory.Designer.cs">
+      <DependentUpon>ctlHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlLogin.Designer.cs">
+      <DependentUpon>ctlLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlOptions.Designer.cs">
+      <DependentUpon>ctlOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlTracing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlTracing.Designer.cs">
+      <DependentUpon>ctlTracing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlValue.Designer.cs">
+      <DependentUpon>ctlValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlWinMSQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlWinMSQL.Designer.cs">
+      <DependentUpon>ctlWinMSQL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ctlSyntaxColorOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ctlSyntaxColorOptions.Designer.cs">
+      <DependentUpon>ctlSyntaxColorOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ctlColumnInfo.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctlColumnInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlHistory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctlHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlLogin.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctlLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlOptions.resx">
+      <DependentUpon>ctlOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlTracing.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctlTracing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlValue.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctlValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlWinMSQL.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctlWinMSQL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="winMSQLTab.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>winMSQLTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ServerCache.cs" />
+    <Compile Include="ServerInfo.cs" />
+    <Compile Include="winMSQLTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="winMSQLTab.Designer.cs">
+      <DependentUpon>winMSQLTab.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ctlFind.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctlFind.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlFavorite.resx">
+      <DependentUpon>ctlFavorite.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ctlSyntaxColorOptions.resx">
+      <DependentUpon>ctlSyntaxColorOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\find_32.ico" />
+    <None Include="Resources\AddBtn.ico" />
+    <None Include="Resources\NextRecord.ico" />
+    <None Include="Resources\PrevRecord.ico" />
+    <None Include="Resources\keywords.txt" />
+    <Content Include="Resources\RedPrairie.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

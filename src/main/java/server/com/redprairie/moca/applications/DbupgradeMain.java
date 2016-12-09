@@ -78,6 +78,12 @@ public class DbupgradeMain {
      * @param args The arguments passed in the command line
      */
     public static void main(String[] args) {
+        
+        System.setProperty("com.redprairie.moca.config","D:\\MFC\\mlib\\src\\resource\\82.registry");
+        System.setProperty("LESDIR","D:\\MFC\\mlib");
+        args = new String[2];
+        args[0] = "-w";
+        args[1] ="-fsrc\\resource\\sample_table.sql";
         long begin = System.nanoTime();
         
         //Try to get the global context which reads the settings

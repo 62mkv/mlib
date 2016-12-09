@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+	<PropertyGroup>
+		<MCSProjectName>winmsql</MCSProjectName>
+		<MCSProjectType>Executable</MCSProjectType>
+	</PropertyGroup>
+
+	<!-- MSI Installer Properties -->
+	<PropertyGroup>
+		<ProductId>91f97eb2-ca66-4e92-8103-da9d7be41df0</ProductId>
+		<UpgradeCode>d653ba89-a043-4cbf-88aa-ccd6ce649156</UpgradeCode>
+		<ProductName>WinMSQL</ProductName>
+		<InstallDir>WinMSQL</InstallDir>
+	</PropertyGroup>
+
+	<Import Project="winmsql.csproj" />
+	<Import Project="$(MCSDIR)\client\buildfiles\project.targets" />
+</Project>
