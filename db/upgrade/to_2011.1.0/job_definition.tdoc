@@ -1,0 +1,20 @@
+mset command on
+
+create db documentation
+  where table = 'job_definition'
+    and table_comment = "This table contains the job definitions for the given server instance"
+    and job_id = "The primary key.  This is the primary identifier for the given job."
+    and role_id = "This job will run as part of this role in a clustered environment.  All tasks/jobs that have the same role are guaranteed to run on the same physical machine."
+    and name = "The name of the job.  This is not unique and is used to easier find a job."
+    and command = "The MOCA command line this job should execute when running."
+    and log_file = "The name of the log file the standard output will go to."
+    and trace_level = "The trace level for the execution of this job."
+    and type = "The type of job -- cron or timer"
+    and schedule = "If a schedule-type job, the cron-style schedule of this job"
+    and timer = "If a timer job, the time delay between runs"
+    and start_delay = "If a timer job, the start delay before the first run"
+    and overlap = "Controls whether multiple jobs can run at the same time"
+    and enabled = "Controls whether this job is enabled."
+/
+
+mset command off 

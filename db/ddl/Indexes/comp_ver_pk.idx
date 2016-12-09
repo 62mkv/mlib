@@ -1,0 +1,16 @@
+#include <../../../include/mocaddl.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_PK_CONSTRAINT_BEGIN(comp_ver, comp_ver_pk)
+(
+    base_prog_id, 
+    comp_maj_ver, 
+    comp_min_ver, 
+    comp_bld_ver, 
+    comp_rev_ver
+)
+CREATE_PK_CONSTRAINT_USING_INDEX
+CREATE_PK_CONSTRAINT_TABLESPACE(COMP_VER_PK_TBLSPC, COMP_VER_PK_STORAGE)
+CREATE_PK_CONSTRAINT_END
+RUN_DDL

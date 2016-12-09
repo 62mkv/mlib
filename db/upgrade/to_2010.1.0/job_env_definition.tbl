@@ -1,0 +1,22 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+mset command on
+
+[
+CREATE_TABLE(job_env_definition)
+(
+    job_id STRING_TY(JOB_ID_LEN) not null,
+    name    STRING_TY(JOB_ENV_NAME_LEN) not null,
+    value   STRING_TY(JOB_ENV_VALUE_LEN)
+)
+CREATE_TABLE_TABLESPACE(JOB_ENV_DEFINITION_TBL_TBLSPC, JOB_ENV_DEFINITION_TBL_STORAGE)
+] catch(ERR_TABLE_ALREADY_EXISTS)
+RUN_DDL
+
+mset command off
+
+#include <job_env_definition_pk.idx>
+#include <job_env_definition.tdoc>

@@ -1,0 +1,17 @@
+<!--                                                                      -->
+<!--  This XML document is actually of no use whatsoever.  It's simply    -->
+<!--  meant to document the different elements that can exist within a    -->
+<!--  real component level XML document.                                  -->
+<!--                                                                      -->
+<!--  Opening it in a browser can be helpful in making it more readable.  -->
+<!--                                                                      -->
+
+<component-level>
+ <mocadir>MOCADIR</mocadir>
+ <name>Name</name>
+ <description>Description</description>
+ <command>
+  <name>Name</name>
+  <uri>URI</uri>
+ </command>
+</component-level>

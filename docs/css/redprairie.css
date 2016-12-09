@@ -1,0 +1,164 @@
+h1
+{
+	font-family: Arial, Arial, Helvetica;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24pt;
+}
+
+h2
+{
+	font-family: Arial, Arial, Helvetica;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 18pt;
+}
+
+h3
+{
+	font-family: Arial, Arial, Helvetica;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 14pt;
+}
+
+h4
+{
+	font-family: Arial, Arial, Helvetica;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 12pt;
+}
+
+h5
+{
+	font-family: Arial, Arial, Helvetica;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 10pt;
+}
+
+h6
+{
+	font-family: Arial, Arial, Helvetica;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 8pt;
+}
+
+body
+{
+    background-color: white;
+}
+
+.title-table
+{
+    width: 100%;
+}
+
+.my-table
+{
+    cellspacing: 1;
+}
+
+.my-th
+{
+    font-family: helvetica;
+    font-size: 13;
+    font-weight: bold;
+    background-color: #CC0000;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+.my-td
+{
+    font-family: verdana;
+    font-size: 13;
+    background-color: #DDDDDD;
+    text-align: left;
+}
+
+.my-description
+{
+    height: 50;
+    width: 300;
+    overflow-y: auto;
+}
+
+.link-list
+{
+    margin: 5 15;
+}
+
+.indent1
+{
+    margin: 10 30;
+}
+
+.indent2
+{
+    margin: 10 60;
+}
+
+.indent3
+{
+    margin: 10 90;
+}
+
+.title      
+{
+    font-family: arial;     
+    font-size: 20; 
+    font-weight: bold;
+    color: #cc0000;
+}
+
+.section    
+{
+    font-family: helvetica;
+    font-size: 13;
+    font-weight: bold;
+}
+
+.item
+{
+    font-family: verdana;
+    font-size: 13;
+}
+
+.code
+{
+    font-family: verdana;
+    font-size: 12;
+}
+
+.overridden
+{
+    color: #cc0000;
+}
+
+.private
+{
+    font-weight: bold;
+    color: #cc0000;
+}
+
+.backlink
+{
+    font-family: verdana;
+    font-size: 10; 
+    text-align: right;
+}
+
+.copyright
+{
+    font-family: arial;
+    font-size: 10;
+    text-align: center;
+    color: #008800;
+}
+
+a.link         {color:#0000aa; text-decoration:none}
+a.link:visited {color:#0000aa; text-decoration:none}
+a.link:hover   {color:#cc0000;  text-decoration:none}

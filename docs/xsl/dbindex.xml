@@ -1,0 +1,7 @@
+<resultset rows="1" columns="1">
+<row number="1">
+<table_name_0>table_name (column 1) here</table_name_0>
+<table_name_1>table_name (column 2) here</table_name_1>
+<table_name_2>table_name (column 3) here</table_name_2>
+</row>
+</resultset>

@@ -1,0 +1,12 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_TABLE(moca_dbversion)
+(
+    version STRING_TY(DBVERSION_LEN) not null
+)
+CREATE_TABLE_TABLESPACE(MOCA_DBVERSION_TBL_TBLSPC, MOCA_DBVERSION_TBL_STORAGE)
+RUN_DDL
+

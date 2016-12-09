@@ -1,0 +1,65 @@
+<!--                                                                      -->
+<!--  This XML document is actually of no use whatsoever.  It's simply    -->
+<!--  meant to document the different elements that can exist within a    -->
+<!--  real command XML document.                                          -->
+<!--                                                                      -->
+<!--  Opening it in a browser can be helpful in making it more readable.  -->
+<!--                                                                      -->
+
+<command>
+ <mocadir>MOCADIR</mocadir>
+ <name>Name</name>
+ <description>Description</description>
+ <private/>
+ <type>Type</type>
+ <component-level>
+  <name>Name</name>
+  <uri>URI</uri>
+ </component-level>
+ <local-syntax>Local Syntax</local-syntax>
+ <overridden-by>
+  <component-level>Component Level</component-level>
+  <command>Command</command>
+  <uri>URI</uri>
+ </overridden-by>
+ <argument name="Name"
+           alias="Alias"
+           default="Default Value"
+           required="Required?"
+           type="Type">
+  Description
+ </argument>
+ <retrows>
+  Text describing the expected number of rows returned.
+ </retrows>
+ <retcol name="Name" 
+         type="Type">
+  Description
+ </retcol>
+ <exception> value="Value">
+  Description
+ </exception>
+ <policy polcod="Policy Code"
+         polval="Value"
+         polvar="Variable"
+         rtnum1="Number 1"
+         rtnum2="Number 2">
+  Description
+ </policy>
+ <remarks>Remarks</remarks>
+ <example>
+  Example
+ </example>
+ <trigger> 
+  <name>Name</name>
+  <component-level>Component Level</component-level>
+  <uri>URI</uri>
+ </trigger> 
+ <event> 
+  <name>Name</name>
+  <component-level>Component Level</component-level>
+  <uri>URI</uri>
+ </event> 
+ <seealso cref="some command"/>
+ <called-by cref="some command"/>
+</command>

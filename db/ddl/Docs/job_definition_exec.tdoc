@@ -1,0 +1,14 @@
+mset command on
+
+create db documentation
+  where table = 'job_definition_exec'
+    and table_comment = "This table contains the job executions for the instance or cluster."
+    and job_id = "Part 1 of the primary key.  This is the primary identifier for the given job.  This is a foreign key into the job_definition table."
+    and start_dte = "Part 2 of the primary key.  This is the primary identifier saying when the job execution started." 
+    and node_url = "Part 3 of the primary key.  Field that tells the url for the node of which this job ran on."
+    and status = "The MOCA status code of the command execution."
+    and message = "The Exception message that was encountered if a non zero status is returned."
+    and end_dte = "When the job execution completed."
+/
+
+mset command off 

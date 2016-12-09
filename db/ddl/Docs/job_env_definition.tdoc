@@ -1,0 +1,11 @@
+mset command on
+
+create db documentation
+  where table = 'job_env_definition'
+    and table_comment = "This table contains the environment settings for job definitions for the given server instance"
+    and job_id = "Part 1 of the primary key.  This is the primary identifier for the given job.  This is a foreign key into the job_definition table."
+    and name = "Part 2 of the primary key.  The name of the setting."
+    and value = "The value of this environment setting."
+/
+
+mset command off 

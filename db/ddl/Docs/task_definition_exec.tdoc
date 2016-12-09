@@ -1,0 +1,14 @@
+mset command on
+
+create db documentation
+  where table = 'task_definition_exec'
+    and table_comment = "This table contains the task executions for the instance or cluster."
+    and task_id = "Part 1 of the primary key.  This is the primary identifier for the given task.  This is a foreign key into the task_definition table."
+    and start_dte = "Part 2 of the primary key.  This is the primary identifier saying when the task execution started." 
+    and node_url = "Part 3 of the primary key.  Field that tells the url for the node of which this task ran on."
+    and end_dte = "When the task execution completed."
+    and start_cause = "The reason this task was started."
+    and status = "The status of the task.  If a server crash occurs this may not be reflect the proper status."
+/
+
+mset command off 

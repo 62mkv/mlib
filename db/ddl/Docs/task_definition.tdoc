@@ -1,0 +1,18 @@
+mset command on
+
+create db documentation
+  where table = 'task_definition'
+    and table_comment = "This table contains the task definitions for the given server instance"
+    and task_id = "The primary key.  This is the primary identifier for the given task."
+    and role_id = "This task will run as part of this role in a clustered environment.  All tasks/jobs that have the same role are guaranteed to run on the same physical machine."
+    and name = "The name of the task.  This is not unique and is used to easier find a task."
+    and task_typ = "The task type. This field can be either P or T, for a process-oriented or thread-oriented task."
+    and cmd_line = "The command line this task should execute when running."
+    and run_dir = "The directory this process should run from."
+    and log_file = "The name of the log file the standard output will go to."
+    and trace_level = "The trace level for the execution of this task."
+    and restart = "Whether this task should automatically restart if it were to stop running."
+    and auto_start = "Whether this task should start when the MOCA server starts up."
+/
+
+mset command off 

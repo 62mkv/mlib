@@ -1,0 +1,29 @@
+<!--                                                                      -->
+<!--  This XML document is actually of no use whatsoever.  It's simply    -->
+<!--  meant to document the different elements that can exist within a    -->
+<!--  real trigger XML document.                                          -->
+<!--                                                                      -->
+<!--  Opening it in a browser can be helpful in making it more readable.  -->
+<!--                                                                      -->
+
+<trigger>
+ <mocadir>MOCADIR</mocadir>
+ <name>Name</name>
+ <sequence>Sequence</sequence>
+ <enabled>Enabled?</enabled>
+ <action>Syntax</action>
+ <component-level>
+  <name>Name</name>
+  <uri>URI</uri>
+ </component-level>
+ <command>
+  <name>Name</name>
+  <component-level>Component Level</component-level>
+  <uri>URI</uri>
+ </command>
+ <seealso>
+  <component-level>Component Level</component-level>
+  <command>Command</command>
+  <uri>URI</uri>
+ </seealso>
+</trigger>

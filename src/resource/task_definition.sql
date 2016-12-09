@@ -50,3 +50,20 @@ select distinct role_id as role_id
    from job_definition 
      where role_id is not null
 GO
+
+CREATE TABLE [dbo].[task_definition_exec](
+        [task_id] [nvarchar](256) NOT NULL,
+        [node_url] [nvarchar](256) NOT NULL,
+        [start_dte] [datetime] NOT NULL,
+        [end_dte] [datetime] NULL,
+        [start_cause] [nvarchar](2000) NULL,
+        [status] [nvarchar](2000) NULL,
+     CONSTRAINT [task_definition_exec_pk] PRIMARY KEY CLUSTERED 
+    (
+        [task_id] ASC,
+        [node_url] ASC,
+        [start_dte] ASC
+    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+    ) ON [PRIMARY]
+
+GO

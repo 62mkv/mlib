@@ -1,0 +1,20 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_TABLE(task_definition_exec)
+(
+    task_id     STRING_TY(TASK_ID_LEN) not null,
+    node_url    STRING_TY(URL_LEN) not null,
+    start_dte   DATE_TY not null,
+    end_dte     DATE_TY,
+    start_cause STRING_TY(TASK_EXEC_START_LEN),
+    status      STRING_TY(TASK_EXEC_STATUS_LEN)
+)
+CREATE_TABLE_TABLESPACE(TASK_DEFINITION_EXEC_TBL_TBLSPC, TASK_DEFINITION_EXEC_TBL_STORAGE)
+RUN_DDL
+
+#include <task_definition_exec_pk.idx>
+#include <task_definition_exec_idx1.idx>
+#include <task_definition_exec.tdoc>

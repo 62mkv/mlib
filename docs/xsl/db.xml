@@ -1,0 +1,52 @@
+<resultset rows="1" columns="3">
+<row number="1">
+<table_comment_rs>
+<resultset rows="1" columns="2">
+<row number="1">
+<table_name>table name here</table_name>
+<table_comment>table description here</table_comment>
+</row>
+</resultset>
+</table_comment_rs>
+<table_rs>
+<resultset rows="3" columns="7">
+<row number="1">
+<table_name>table_name</table_name>
+<column_name>column_name</column_name>
+<comtyp>I</comtyp>
+<length>4</length>
+<null_flg>0</null_flg>
+<pk_flg>1</pk_flg>
+<column_comment>Column comment describing purpose of field.</column_comment>
+</row>
+<row number="2">
+<table_name>table_name</table_name>
+<column_name>column_name</column_name>
+<comtyp>S</comtyp>
+<length>10</length>
+<null_flg>1</null_flg>
+<pk_flg>0</pk_flg>
+<column_comment>Column comment describing purpose of field</column_comment>
+</row>
+<row number="3">
+<table_name>table_name</table_name>
+<column_name>column_name</column_name>
+<comtyp>F</comtyp>
+<length>8</length>
+<null_flg>1</null_flg>
+<pk_flg>0</pk_flg>
+<column_comment>Column comment</column_comment>
+</row>
+</resultset>
+</table_rs>
+<index_rs>
+<resultset rows="1" columns="3">
+<row number="1">
+<index_name>index_name</index_name>
+<index_description>Description of index</index_description>
+<index_keys>columns that make up the index</index_keys>
+</row>
+</resultset>
+</index_rs>
+</row>
+</resultset>

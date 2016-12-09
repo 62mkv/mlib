@@ -1,0 +1,25 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_TABLE(comp_ver)
+(
+    base_prog_id    STRING_TY(PROG_ID_LEN)      not null,
+    comp_maj_ver    INTEGER_TY                  not null,
+    comp_min_ver    INTEGER_TY                  not null,
+    comp_bld_ver    INTEGER_TY                  not null,
+    comp_rev_ver    INTEGER_TY                  not null,
+    comp_file_nam   STRING_TY(FRM_FILE_NAM_LEN) not null,
+    comp_prog_id    STRING_TY(PROG_ID_LEN)      not null,
+    comp_typ        STRING_TY(COMP_TYP_LEN)     not null,
+    comp_file_ext   STRING_TY(COMP_FILE_EXT)    not null,
+    comp_need_fw    FLAG_TY,
+    lic_key         STRING_TY(LIC_KEY_LEN),
+    grp_nam	    STRING_TY(GRP_NAM_LEN)      not null
+)
+CREATE_TABLE_TABLESPACE(COMP_VER_TBL_TBLSPC, COMP_VER_TBL_STORAGE)
+RUN_DDL
+
+#include <comp_ver_pk.idx>
+#include <comp_ver.tdoc>

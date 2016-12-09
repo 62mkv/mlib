@@ -1,0 +1,15 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_TABLE(moca_dataset)
+(
+    ds_name STRING_TY(DS_NAME_LEN) not null,
+    ds_desc STRING_TY(DS_DESC_LEN) not null,
+    ds_dir  STRING_TY(DS_DIR_LEN)  not null,
+    ds_seq  INTEGER_TY             not null
+)
+CREATE_TABLE_TABLESPACE(MOCA_DATASET_TBL_TBLSPC, MOCA_DATASET_TBL_STORAGE)
+RUN_DDL
+

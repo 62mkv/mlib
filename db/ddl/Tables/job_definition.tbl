@@ -1,0 +1,26 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_TABLE(job_definition)
+(
+    job_id   STRING_TY(JOB_ID_LEN) not null,
+    role_id  STRING_TY(CLUSTER_ROLE_ID_LEN),
+    name     STRING_TY(JOB_NAME_LEN) not null,
+    enabled  FLAG_TY not null,
+    type     STRING_TY(JOB_TYPE_LEN) not null,
+    command  NCLOB_TY not null,
+    log_file STRING_TY(JOB_LOG_LEN),
+    trace_level STRING_TY(JOB_TRACE_LEN),
+    overlap  FLAG_TY not null,
+    schedule STRING_TY(JOB_SCHED_LEN),
+    start_delay INTEGER_TY,
+    timer    INTEGER_TY,
+    grp_nam  STRING_TY(GRP_NAM_LEN) 
+)
+CREATE_TABLE_TABLESPACE(JOB_DEFINITION_TBL_TBLSPC, JOB_DEFINITION_TBL_STORAGE)
+RUN_DDL
+
+#include <job_definition_pk.idx>
+#include <job_definition.tdoc>

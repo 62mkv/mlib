@@ -42,3 +42,20 @@ CREATE TABLE [dbo].[job_env_definition](
 ) ON [PRIMARY]
 
 GO
+
+CREATE TABLE [dbo].[job_definition_exec](
+        [job_id] [nvarchar](256) NOT NULL,
+        [node_url] [nvarchar](256) NOT NULL,
+        [start_dte] [datetime] NOT NULL,
+        [status] [int] NULL,
+        [message] [nvarchar](2000) NULL,
+        [end_dte] [datetime] NULL,
+     CONSTRAINT [job_definition_exec_pk] PRIMARY KEY CLUSTERED 
+    (
+        [job_id] ASC,
+        [node_url] ASC,
+        [start_dte] ASC
+    )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+    ) ON [PRIMARY]
+
+GO

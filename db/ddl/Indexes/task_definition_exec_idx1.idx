@@ -1,0 +1,11 @@
+#include <../../../include/mocaddl.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_INDEX_BEGIN(task_definition_exec, task_definition_exec_idx1)
+(
+    start_dte
+)
+CREATE_INDEX_TABLESPACE(TASK_DEFINITION_EXEC_IDX1_TBLSPC, TASK_DEFINITION_EXEC_IDX1_STORAGE)
+CREATE_INDEX_END
+RUN_DDL

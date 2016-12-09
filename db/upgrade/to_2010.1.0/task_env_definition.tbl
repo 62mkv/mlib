@@ -1,0 +1,22 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+mset command on
+
+[
+CREATE_TABLE(task_env_definition)
+(
+    task_id STRING_TY(TASK_ID_LEN) not null,
+    name    STRING_TY(TASK_ENV_NAME_LEN) not null,
+    value   STRING_TY(TASK_ENV_VALUE_LEN)
+)
+CREATE_TABLE_TABLESPACE(TASK_ENV_DEFINITION_TBL_TBLSPC, TASK_ENV_DEFINITION_TBL_STORAGE)
+] catch(ERR_TABLE_ALREADY_EXISTS)
+RUN_DDL
+
+mset command off
+
+#include <task_env_definition_pk.idx>
+#include <task_env_definition.tdoc>

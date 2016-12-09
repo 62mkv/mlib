@@ -1,0 +1,26 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+mset command on
+
+[
+CREATE_TABLE(job_definition_exec)
+(
+    job_id    STRING_TY(JOB_ID_LEN) not null,
+    node_url  STRING_TY(URL_LEN) not null,
+    status    INTEGER_TY,
+    message   STRING_TY(JOB_EXEC_MSG_LEN),
+    start_dte DATE_TY not null,
+    end_dte   DATE_TY
+)
+CREATE_TABLE_TABLESPACE(JOB_DEFINITION_EXEC_TBL_TBLSPC, JOB_DEFINITION_EXEC_TBL_STORAGE)
+] catch (ERR_TABLE_ALREADY_EXISTS)
+RUN_DDL
+
+mset command off
+
+#include "job_definition_exec_pk.idx"
+#include "job_definition_exec_idx1.idx"
+#include "job_definition_exec.tdoc"

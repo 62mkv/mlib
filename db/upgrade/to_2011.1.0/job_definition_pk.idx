@@ -1,0 +1,16 @@
+#include <../../../include/mocaddl.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+mset command on
+
+[
+CREATE_PK_CONSTRAINT_BEGIN(job_definition, job_definition_pk)
+(
+    job_id
+)
+CREATE_PK_CONSTRAINT_USING_INDEX
+CREATE_PK_CONSTRAINT_TABLESPACE(JOB_DEFINITION_PK_TBLSPC, JOB_DEFINITION_PK_STORAGE)
+CREATE_PK_CONSTRAINT_END
+] catch (ERR_INDEX_ALREADY_EXISTS, ERR_PRIMARY_KEY_ALREADY_EXISTS)
+RUN_DDL

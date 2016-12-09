@@ -1,0 +1,13 @@
+#include <../../../include/mocaddl.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_PK_CONSTRAINT_BEGIN(task_env_definition, task_env_definition_pk)
+(
+    task_id,
+    name
+)
+CREATE_PK_CONSTRAINT_USING_INDEX
+CREATE_PK_CONSTRAINT_TABLESPACE(TASK_ENV_DEFINITION_PK_TBLSPC, TASK_ENV_DEFINITION_PK_STORAGE)
+CREATE_PK_CONSTRAINT_END
+RUN_DDL
