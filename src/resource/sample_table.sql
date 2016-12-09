@@ -4,7 +4,7 @@ mset command on
 DROP_TABLE (uc_bc_bl_interface)
 ] catch(@?)
 RUN_DDL
-aaa
+
 [
 CREATE_TABLE(uc_bc_bl_interface)
 (

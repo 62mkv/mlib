@@ -202,7 +202,7 @@ public class MocaServerMain {
         
         //Check if we're just printing out the version
         if (options.isSet('v')) {
-            System.out.print(AppUtils.getVersionBanner("MOCA Server"));
+            System.out.print(AppUtils.getVersionBanner("MLib Server"));
             return;
         }
         
@@ -211,7 +211,7 @@ public class MocaServerMain {
             return;
         }
         
-        System.out.print(AppUtils.getStartBanner("MOCA Server"));
+        System.out.print(AppUtils.getStartBanner("MLib Server"));
 
         //Setup Logging
         LoggingConfigurator.configure();

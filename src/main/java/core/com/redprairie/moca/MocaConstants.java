@@ -38,8 +38,8 @@ package com.redprairie.moca;
  * @version $Revision$
  */
 public class MocaConstants {
-    public final static String COPYRIGHT_STRING = "Copyright (c) 2002-2011 " +
-    		"RedPrairie Corporation.  All rights reserved.";
+    public final static String COPYRIGHT_STRING = "Copyright (c) 2016 " +
+    		"Mlib Corporation.  All rights reserved.";
     
     public final static String WEB_CLIENT_ADDR = "WEB_CLIENT_ADDR";
     public final static String ENV_DEVICE_ID = "DEVCOD";
