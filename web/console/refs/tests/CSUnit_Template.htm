@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Unit Test Page</title>
+    
+    <!-- Load "rpcommon" package from The Stash -->
+    <script type="text/javascript" src="/stash/stashloader.js"></script>
+    <script language="javascript" type="text/javascript">
+      if (typeof RP === "undefined")
+      {
+        RP = {};
+      }
+      
+      if (typeof RP.globals === "undefined")
+      {
+        RP.globals = {};
+      }
+      
+      if  (typeof RP.location === "undefined") {
+        RP.location = {};
+        RP.location.DEFAULT_NONE = "NONE";
+      }
+      
+      RP.stash.loadLibrary("rpcommon", "3.3.*", false);
+      RP.stash.loadLibrary("rpcore", "1.0.*", false);
+      RP.stash.loadLibrary("csunit", "3.2.*", false);
+    </script>
+    
+    <!-- For YUI Console -->
+    <style type="text/css"> 
+        #basic, #add_to_bottom {
+            margin-bottom: 1em;
+        }
+         
+        #TestConsole .yui3-console .yui3-console-title {
+            border: 0 none;
+            color: #000;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 0;
+            text-transform: none;
+        }
+        #TestConsole .yui3-console .yui3-console-entry-meta {
+            margin: 0;
+        }
+        
+        #TestConsole .yui3-separate-console {
+          right: 0;
+          top: 0;
+        }
+    </style> 
+</head>
+<body class="yui3-skin-sam  yui-skin-sam">
+  <script>
+    Ext.onReady(function (){
+      RP.Tests.CSUnit.EventManager.on('loadTests', function() {
+        RP.locale.Dispatch.includeLocalePack = Ext.emptyFn;
+        
+        //////////////////////////
+        // update the following lines to be specific for your app
+        CSUnit.setRoot("/web/App/");
+        CSUnit.loadTestScripts("app.tests.debug.js");
+        //////////////////////////
+        
+        var viewport = new Ext.Viewport({
+          layout: 'border',
+          items: [{
+            region: 'north',
+            items: new Ext.Panel({
+              html: "RedPrairie Test Suite",
+              layout: 'fit'
+            })
+          }, {
+            xtype: 'csunitpanel',
+            region: 'center'
+          }]
+        });
+        
+        var params = Ext.urlDecode(window.location.search.substr(1));
+        if (params.ciRun && params.ciRun === 'true') {
+          setTimeout(function() {
+            RP.util.ScriptLoader.onReady(function() {
+              RP.Tests.CSUnit.EventManager.runTests();
+            });
+          }, 1000);
+          RP.Tests.CSUnit.EventManager.on("completeTests", function() {
+            var xml = CSUnit.getJUNITXMLResults();
+            Ext.Ajax.request({
+              url: '/csunit',
+              params: {
+                xml: xml,
+                outputfile: params.outputfile
+              },
+              success: function() {
+                window.close();
+              }
+            });
+          });
+        }
+      });
+    })
+  </script>
+</body>
+</html>

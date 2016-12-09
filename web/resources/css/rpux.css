@@ -1,0 +1,3499 @@
+/* ---------------------------------Variables--------------------------------------- */
+/**
+ * This variables file contains many of the images
+ * provided by rpux.  Each image has its own
+ * variable that can be reference elsewhere
+ * in rpux sass.
+ */
+/**
+ * This variables file contains many of the gradients
+ * provided by rpux.  Each gradient has its own
+ * variable that can be reference elsewhere
+ * in rpux sass.
+ */
+/* ----------------------------------Mixins----------------------------------------- */
+/* CSS3 transition related mix-ins */
+/* example { @include transition-duration(1s); } */
+/* example { @include transition-property("width, height"); } */
+/* --------------------------------Stylesheets-------------------------------------- */
+/* line 1, ../sass/stylesheets/_mosaicLayout.scss */
+.mosaic-tile {
+  float: left; }
+
+/* line 5, ../sass/stylesheets/_mosaicLayout.scss */
+.mosaic-tile-drag-over {
+  outline: #b2db6d dotted 2px; }
+
+/* line 9, ../sass/stylesheets/_mosaicLayout.scss */
+.mosaic-tile-trigger-movable {
+  cursor: move; }
+
+/* line 14, ../sass/stylesheets/_mosaicLayout.scss */
+.masonry,
+.masonry .masonry-brick {
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -ms-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s; }
+
+/* line 18, ../sass/stylesheets/_mosaicLayout.scss */
+.masonry {
+  -webkit-transition-property: width, height;
+  -moz-transition-property: width, height;
+  -ms-transition-property: width, height;
+  -o-transition-property: width, height;
+  transition-property: width, height; }
+
+/* line 22, ../sass/stylesheets/_mosaicLayout.scss */
+.masonry .masonry-brick {
+  -webkit-transition-property: left, right, top;
+  -moz-transition-property: left, right, top;
+  -ms-transition-property: left, right, top;
+  -o-transition-property: left, right, top;
+  transition-property: left, right, top; }
+
+/* line 1, ../sass/stylesheets/_overrides.scss */
+.x-window-header-default-top {
+  border-bottom: 1px solid #98BBDA;
+  border-right: 0;
+  border-left: 0;
+  box-shadow: inset 0 0 0 0;
+  padding: 4px 8px;
+  background: #cedae9;
+  /* Old browsers */
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cedae9), color-stop(100%, #88bce0));
+  background-image: -webkit-linear-gradient(#cedae9, #88bce0);
+  background-image: -moz-linear-gradient(#cedae9, #88bce0);
+  background-image: -o-linear-gradient(#cedae9, #88bce0);
+  background-image: linear-gradient(#cedae9, #88bce0); }
+
+/* line 11, ../sass/stylesheets/_overrides.scss */
+.x-window-body-default {
+  border-style: none; }
+
+/* line 15, ../sass/stylesheets/_overrides.scss */
+.x-datepicker-month .x-btn-split-right {
+  background: #22427c no-repeat right center !important;
+  padding-right: 12px; }
+
+/* line 20, ../sass/stylesheets/_overrides.scss */
+.x-dd-drag-proxy.rpux-dd-filter-grid-proxy .x-dd-drop-icon {
+  display: none; }
+
+/* line 24, ../sass/stylesheets/_overrides.scss */
+.x-dd-drag-proxy.rpux-dd-filter-grid-proxy .x-dd-drag-ghost {
+  width: 140;
+  padding: 5px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+  opacity: 0.6;
+  background-color: #f8e66a;
+  border: 1px solid #7d7d7d !important; }
+
+/* line 32, ../sass/stylesheets/_overrides.scss */
+.x-grid-drop-indicator.rpux-dd-filter-grid-drop-indicator {
+  background-color: #7d7d7d;
+  height: 3px; }
+
+/* line 38, ../sass/stylesheets/_overrides.scss */
+.x-grid-drop-indicator.rpux-dd-filter-grid-drop-indicator .x-grid-drop-indicator-left,
+.x-grid-drop-indicator.rpux-dd-filter-grid-drop-indicator .x-grid-drop-indicator-right {
+  display: none; }
+
+/* line 42, ../sass/stylesheets/_overrides.scss */
+.x-column-header-checkbox .x-column-header-text {
+  margin-top: 3px; }
+
+/* line 46, ../sass/stylesheets/_overrides.scss */
+.x-column-header-checkbox .x-column-header-inner {
+  padding: 4px 5px; }
+
+/* line 1, ../sass/stylesheets/_rpux.scss */
+.x-trigger-cell.button-only {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  border-left: 1px solid #CACACA;
+  position: absolute; }
+
+/* line 7, ../sass/stylesheets/_rpux.scss */
+.rpux-lookup-trigger-wrap {
+  float: left; }
+  /* line 10, ../sass/stylesheets/_rpux.scss */
+  .rpux-lookup-trigger-wrap .rpux-lookup-trigger {
+    background-image: url("images/versioned/magnify-glass.png");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    border-color: #CACACA #CACACA #CACACA #FFFFFF;
+    -webkit-border-radius: 0 2px 2px 0;
+    -moz-border-radius: 0 2px 2px 0;
+    -ms-border-radius: 0 2px 2px 0;
+    -o-border-radius: 0 2px 2px 0;
+    border-radius: 0 2px 2px 0;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 1px medium; }
+    /* line 19, ../sass/stylesheets/_rpux.scss */
+    .rpux-lookup-trigger-wrap .rpux-lookup-trigger.x-form-trigger-over {
+      background-color: #282A2C;
+      background-image: url("images/versioned/magnify-glass-hover.png"); }
+
+/* line 27, ../sass/stylesheets/_rpux.scss */
+.rpux-lookup-trigger-wrap-focus .rpux-lookup-trigger-wrap .x-trigger-cell > .rpux-lookup-trigger {
+  border-color: #55ADEC #55ADEC #55ADEC #FFFFFF; }
+/* line 31, ../sass/stylesheets/_rpux.scss */
+.rpux-lookup-trigger-wrap-focus input {
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important; }
+
+/* line 38, ../sass/stylesheets/_rpux.scss */
+.x-form-invalid .rpux-lookup-trigger-wrap .rpux-lookup-trigger {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+/* line 42, ../sass/stylesheets/_rpux.scss */
+.x-form-invalid .rpux-lookup-trigger-wrap .x-form-invalid-icon > ul {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  border-style: solid none; }
+
+/* line 49, ../sass/stylesheets/_rpux.scss */
+.rp-uom-boundlist .x-boundlist-item {
+  margin: 0 6px 0 6px;
+  padding: 6px 0 6px 0;
+  text-align: center; }
+
+/* line 55, ../sass/stylesheets/_rpux.scss */
+.rp-uom-boundlist .x-boundlist-item + .x-boundlist-item {
+  border-top: 1px solid #E6E6E6; }
+
+/* line 60, ../sass/stylesheets/_rpux.scss */
+.rp-uom-boundlist .x-boundlist-item-over,
+.rp-uom-boundlist .x-boundlist-selected {
+  margin: 0;
+  padding: 6px; }
+
+/* default tooltip styles */
+/* line 69, ../sass/stylesheets/_rpux.scss */
+.x-tip .x-docked .x-panel-body .rpux-navigation-link {
+  color: #66addf;
+  text-decoration: none;
+  font-size: 12px; }
+/* line 75, ../sass/stylesheets/_rpux.scss */
+.x-tip .x-docked .x-panel-body .rpux-navigation-link:hover {
+  color: #2073bc; }
+
+/* end default tooltip styles */
+/* line 83, ../sass/stylesheets/_rpux.scss */
+.error-text {
+  color: #CC0000 !important;
+  font-weight: bold !important; }
+
+/* line 88, ../sass/stylesheets/_rpux.scss */
+.default-text {
+  color: black !important; }
+
+/* line 92, ../sass/stylesheets/_rpux.scss */
+.textFieldNotFound {
+  border-color: #CC0000; }
+
+/* line 96, ../sass/stylesheets/_rpux.scss */
+.result-address-template .result-address-template-header {
+  font-size: .9em;
+  font-weight: bold; }
+
+/* line 101, ../sass/stylesheets/_rpux.scss */
+.result-address-template .result-address-template-details {
+  font-size: .85em; }
+
+/* line 105, ../sass/stylesheets/_rpux.scss */
+.label-address-template {
+  padding: 0 0 5px 5px; }
+
+/* line 109, ../sass/stylesheets/_rpux.scss */
+.label-address-template .label-address-template-header {
+  font-size: .9em;
+  font-weight: bold; }
+
+/* line 114, ../sass/stylesheets/_rpux.scss */
+.label-address-template .label-address-template-details {
+  font-size: .85em; }
+
+/* line 118, ../sass/stylesheets/_rpux.scss */
+.address-field-info-template {
+  padding: 0 5px 0 8px;
+  font-size: .75em; }
+
+/* line 123, ../sass/stylesheets/_rpux.scss */
+.basic-address-template {
+  font-size: 10;
+  padding: 0 5px 0 5px; }
+
+/* line 128, ../sass/stylesheets/_rpux.scss */
+.x-ie .x-btn button {
+  /* Ext is overriding this with 'visible' in order to "[prevent] extra horiz space in IE," *
+   * but when overflow for x & y don't match, 'visible' tends to be defaulted to 'auto,'    *
+   * creating scroll bars that we don't want.                                               *
+   * Refer to http://www.brunildo.org/test/Overflowxy2.html for more info about overflow.   */
+  overflow-x: hidden; }
+
+/* line 136, ../sass/stylesheets/_rpux.scss */
+td.negative_number {
+  color: #CC0000; }
+
+/* line 140, ../sass/stylesheets/_rpux.scss */
+.rpux-status-container-menu-item {
+  margin: 2px; }
+
+/* line 144, ../sass/stylesheets/_rpux.scss */
+.rpux-status-container-menu-item .x-menu-item-icon {
+  display: none; }
+
+/* line 148, ../sass/stylesheets/_rpux.scss */
+.rpux-status-container-menu-item .x-menu-item-text {
+  top: 0; }
+
+/* line 152, ../sass/stylesheets/_rpux.scss */
+.rpux-status-container-button-hide-arrow {
+  background-image: none; }
+
+/* line 156, ../sass/stylesheets/_rpux.scss */
+.rp-summary-group-header.x-grid-group-hd.x-grid-group-hd-rp {
+  font-weight: bold; }
+
+/* line 160, ../sass/stylesheets/_rpux.scss */
+.rpux-no-grid-group-icon {
+  display: none; }
+
+/* line 164, ../sass/stylesheets/_rpux.scss */
+.rpux-centerTitleText .x-panel-header {
+  text-align: center; }
+
+/* line 168, ../sass/stylesheets/_rpux.scss */
+.rpux-schedule-dragdrop-row-hover {
+  background-color: #FFFFCC; }
+
+/* End Plugins */
+/* line 173, ../sass/stylesheets/_rpux.scss */
+div.rpux-schedule-interval-marker-index {
+  z-index: 5; }
+
+/* line 177, ../sass/stylesheets/_rpux.scss */
+.rpux-toolbar {
+  background-color: #D0DEF0;
+  border-top: 1px solid;
+  border-color: #A9BFD3;
+  padding-left: 5px; }
+
+/* line 184, ../sass/stylesheets/_rpux.scss */
+.rpux-record-view {
+  padding: 4px 8px; }
+
+/* line 189, ../sass/stylesheets/_rpux.scss */
+.rpux-empty-view, .rpux-empty-view .x-grid-empty {
+  padding: 10px; }
+
+/* line 193, ../sass/stylesheets/_rpux.scss */
+.x-grid-view.rpux-empty-view {
+  padding: 0; }
+
+/* line 198, ../sass/stylesheets/_rpux.scss */
+.rpux-framework-column .x-column-double-border {
+  border: none; }
+
+/*
+ * This override makes it easier to read the value of disabled IntervalDateField objects
+ */
+/* line 205, ../sass/stylesheets/_rpux.scss */
+div.rp-datepicker.x-item-disabled {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8; }
+
+/* line 209, ../sass/stylesheets/_rpux.scss */
+div.rpux-dvbox-border {
+  border: 1px solid #C6D4E6; }
+
+/* line 213, ../sass/stylesheets/_rpux.scss */
+.multi-column-stacked .column-item {
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+/* line 218, ../sass/stylesheets/_rpux.scss */
+.x-tree-panel .x-grid-row .x-grid-cell-inner img.rpux-notreeicon {
+  display: none; }
+
+/* line 222, ../sass/stylesheets/_rpux.scss */
+.rpux-roweditor .rpux-button-icon-only, .rpux-buttons-icon-only .rpux-button-icon-only {
+  background: none;
+  border: 0;
+  color: transparent; }
+
+/* line 229, ../sass/stylesheets/_rpux.scss */
+.x-grid-view .x-grid-row-editor-buttons.rpux-buttons-icon-only,
+.x-grid-view .x-grid-row-editor .x-panel-body.rpux-roweditor {
+  background-color: #d7d7d7;
+  border-right: 1px solid #b7b7b7;
+  border-bottom: 1px solid #b7b7b7;
+  border-left: 1px solid #b7b7b7; }
+
+/* line 236, ../sass/stylesheets/_rpux.scss */
+.x-grid-view .x-grid-row-editor-buttons.rpux-buttons-icon-only {
+  width: 60;
+  height: 25px;
+  top: 40px;
+  padding: 2px; }
+
+/* line 243, ../sass/stylesheets/_rpux.scss */
+.x-grid-view .x-grid-row-editor .x-panel-body.rpux-roweditor {
+  border-top: 1px solid #b7b7b7; }
+
+/* line 247, ../sass/stylesheets/_rpux.scss */
+.rp-widget-panel .x-panel-body.x-grid-body {
+  padding: 0; }
+
+/* line 251, ../sass/stylesheets/_rpux.scss */
+.rpux-extra-criteria-panel-body {
+  border-width: 0;
+  background-color: #f0f0f0; }
+
+/* line 256, ../sass/stylesheets/_rpux.scss */
+.rpux-criteria-panel, .rpux-criteria-panel .rpux-extra-criteria-panel-body {
+  border-width: 0; }
+
+/* line 260, ../sass/stylesheets/_rpux.scss */
+.rpux-field-mode-combo {
+  border: 0;
+  text-decoration: underline;
+  background-image: none;
+  color: #BE6200;
+  background-color: transparent; }
+
+/* line 268, ../sass/stylesheets/_rpux.scss */
+.rpux-nopadding {
+  padding: 0; }
+
+/* line 272, ../sass/stylesheets/_rpux.scss */
+.rpux-noborder {
+  border-style: none !important; }
+
+/* line 276, ../sass/stylesheets/_rpux.scss */
+.rpux-noborder-left {
+  border-left-style: none !important; }
+
+/* line 280, ../sass/stylesheets/_rpux.scss */
+.rpux-noborder-right {
+  border-right-style: none !important; }
+
+/* line 284, ../sass/stylesheets/_rpux.scss */
+.rpux-noborder-top {
+  border-top-style: none !important; }
+
+/* line 288, ../sass/stylesheets/_rpux.scss */
+.rpux-noborder-bottom {
+  border-bottom-style: none !important; }
+
+/* line 292, ../sass/stylesheets/_rpux.scss */
+.rpux-border-top {
+  border-top-width: 1px !important; }
+
+/* line 296, ../sass/stylesheets/_rpux.scss */
+.rpux-border-bottom {
+  border-bottom-width: 1px !important; }
+
+/* line 300, ../sass/stylesheets/_rpux.scss */
+.rpux-dashboard-row {
+  height: 23px;
+  padding: 2px 5px; }
+
+/* line 305, ../sass/stylesheets/_rpux.scss */
+.rpux-row-alt {
+  background-color: #F0F0F0; }
+
+/* line 309, ../sass/stylesheets/_rpux.scss */
+.rpux-dashboard-display-top {
+  font-size: 24px !important;
+  text-align: center;
+  padding: 1px; }
+
+/* line 315, ../sass/stylesheets/_rpux.scss */
+.rpux-dashboard-display-bottom {
+  font-size: 10;
+  text-align: center;
+  padding: 1px; }
+
+/* line 321, ../sass/stylesheets/_rpux.scss */
+.rpux-icon-button {
+  background-image: none;
+  border-width: 0;
+  background-color: transparent; }
+
+/* line 327, ../sass/stylesheets/_rpux.scss */
+.rpux-entered-measure-value span {
+  padding: 1px 2px 1px 2px;
+  background-color: #fbf0a6; }
+
+/* line 332, ../sass/stylesheets/_rpux.scss */
+.rpux-label-component-help {
+  cursor: pointer;
+  float: right; }
+
+/* line 337, ../sass/stylesheets/_rpux.scss */
+.rpux-grey-fieldlabel {
+  color: gray; }
+
+/* line 341, ../sass/stylesheets/_rpux.scss */
+.rpux-bold {
+  font-weight: bold; }
+
+/* line 345, ../sass/stylesheets/_rpux.scss */
+.rpux-item-selected {
+  background-color: #DCEAF9; }
+
+/* line 349, ../sass/stylesheets/_rpux.scss */
+.rpux-lookup-item {
+  padding: 10; }
+
+/* line 353, ../sass/stylesheets/_rpux.scss */
+div.x-tool.rpux-tool {
+  height: 16px;
+  width: 16px; }
+
+/* line 358, ../sass/stylesheets/_rpux.scss */
+div.x-tool.rpux-tool.rpux-tool-help img {
+  width: 16px;
+  height: 16px;
+  background-position: 0 0;
+  background-image: url("images/versioned/help.png"); }
+
+/* line 365, ../sass/stylesheets/_rpux.scss */
+.rpux-warning-icon {
+  background-image: url("images/versioned/16x16/warning.png");
+  background-position: right center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  display: inline-block;
+  width: 20px;
+  height: 14px;
+  vertical-align: text-bottom; }
+
+/* line 376, ../sass/stylesheets/_rpux.scss */
+.rpux-warning-icon.rpux-hide-warning-icon {
+  display: none; }
+
+/* line 380, ../sass/stylesheets/_rpux.scss */
+.rpux-buttoncombo-trigger {
+  background-image: url("images/versioned/trigger-bg.png");
+  background-repeat: repeat;
+  border-right: 1px solid #B5B8C8;
+  padding: 4px 6px;
+  text-align: center; }
+
+/* line 388, ../sass/stylesheets/_rpux.scss */
+.rpux-buttoncombo-focus {
+  background-image: url("images/versioned/focus-trigger-bg.png");
+  border-color: #7EADD9; }
+
+/* line 393, ../sass/stylesheets/_rpux.scss */
+.rpux-uom-ratebasis-trigger {
+  background-repeat: repeat;
+  border-right: 1px solid #B5B8C8;
+  padding: 4px 6px;
+  text-align: center; }
+
+/* line 400, ../sass/stylesheets/_rpux.scss */
+.rpux-form-gray {
+  background-color: #F0F0F0;
+  background-image: none; }
+
+/* line 405, ../sass/stylesheets/_rpux.scss */
+.rpux-clientlookup-disabled {
+  color: #606060; }
+
+/* line 410, ../sass/stylesheets/_rpux.scss */
+.rpux-client-lookup-window .x-window-body {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+
+/* line 416, ../sass/stylesheets/_rpux.scss */
+.rpux-address-lookup-window > .x-window-body {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px; }
+
+/* line 422, ../sass/stylesheets/_rpux.scss */
+.x-boundlist-item-over .rpux-menucombo-arrow, x-boundlist-item-selected .rpux-menucombo-arrow {
+  right: 12px; }
+
+/* line 427, ../sass/stylesheets/_rpux.scss */
+.rpux-menucombo-menuopen, .rpux-menucombo-menuopen.x-boundlist-item-over {
+  background-color: #303132;
+  margin: 0;
+  padding: 12px;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF303132', endColorstr='#FF454647');
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #303132), color-stop(100%, #454647));
+  background-image: -webkit-linear-gradient(top, #303132 0%, #454647 100%);
+  background-image: -moz-linear-gradient(top, #303132 0%, #454647 100%);
+  background-image: -o-linear-gradient(top, #303132 0%, #454647 100%);
+  background-image: linear-gradient(top, #303132 0%, #454647 100%);
+  color: white;
+  text-shadow: 0 2px 2px 2px black;
+  border-color: #383838; }
+  /* line 438, ../sass/stylesheets/_rpux.scss */
+  .rpux-menucombo-menuopen .rpux-menucombo-arrow, .rpux-menucombo-menuopen.x-boundlist-item-over .rpux-menucombo-arrow {
+    background-image: url("images/versioned/right-cal-arrow.png");
+    right: 12px; }
+
+/* line 445, ../sass/stylesheets/_rpux.scss */
+.rpux-menucombo-arrow {
+  background: url("images/versioned/triangle-dark-side.png") no-repeat scroll center center transparent;
+  height: 9px;
+  position: absolute;
+  right: 0;
+  width: 12px;
+  margin-top: 2px; }
+
+/* line 454, ../sass/stylesheets/_rpux.scss */
+.rpux-quick-app-breadcrumb-ct {
+  padding: 10px 0 0; }
+
+/*
+ * Start classes For RPUX.grid.plugin.RowEditingWithDelete
+ */
+/* line 462, ../sass/stylesheets/_rpux.scss */
+.rpux-editable-grid .x-grid-row-over img.rpux-grid-row-edit-icon,
+.rpux-editable-grid .x-grid-row-selected img.rpux-grid-row-edit-icon {
+  display: inline; }
+
+/* line 467, ../sass/stylesheets/_rpux.scss */
+.rpux-not-editable-grid img.rpux-grid-row-edit-icon,
+.rpux-editable-grid img.rpux-grid-row-edit-icon {
+  display: none; }
+
+/* line 472, ../sass/stylesheets/_rpux.scss */
+.rpux-editable-grid .rpux-roweditor.rpux-button-icon-only, .rpux-editable-grid
+div.rpux-buttons-icon-only .rpux-button-icon-only {
+  background: none;
+  border: 0;
+  color: transparent; }
+
+/* line 479, ../sass/stylesheets/_rpux.scss */
+.rpux-editable-grid div.x-grid-row-editor-buttons.rpux-buttons-icon-only,
+.rpux-editable-grid .x-panel-body.rpux-roweditor {
+  background-color: #d7d7d7;
+  border-right: 1px solid #b7b7b7;
+  border-bottom: 1px solid #b7b7b7;
+  border-left: 1px solid #b7b7b7; }
+
+/* line 486, ../sass/stylesheets/_rpux.scss */
+.rpux-editable-grid .x-grid-row-editor-buttons.rpux-buttons-icon-only {
+  width: 60;
+  height: 25px;
+  top: 40px;
+  padding: 2px; }
+
+/* line 493, ../sass/stylesheets/_rpux.scss */
+.rpux-editable-grid .x-grid-row-editor .x-panel-body.rpux-roweditor {
+  border-top: 1px solid #b7b7b7; }
+
+/*
+ * End classes For RPUX.grid.plugin.RowEditingWithDelete
+ */
+/* line 508, ../sass/stylesheets/_rpux.scss */
+.rpux-row-delete-grid .x-grid-view .x-grid-row-selected,
+.rpux-row-delete-grid .x-grid-view .x-grid-row-selected .x-grid-rowwrap-div,
+.rpux-row-delete-grid .x-grid-view .x-grid-row-selected .x-grid-cell-special,
+.rpux-row-delete-grid .x-grid-view .x-grid-row-over,
+.rpux-row-delete-grid .x-grid-view .x-grid-row-over .x-grid-rowwrap-div,
+.rpux-row-delete-grid .x-grid-view .x-grid-row-over .x-grid-cell-special {
+  border-right-width: 0; }
+
+/* line 521, ../sass/stylesheets/_rpux.scss */
+.rpux-row-delete-grid-right .x-grid-view .x-grid-row-selected,
+.rpux-row-delete-grid-right .x-grid-view .x-grid-row-selected .x-grid-rowwrap-div,
+.rpux-row-delete-grid-right .x-grid-view .x-grid-row-selected .x-grid-cell-special,
+.rpux-row-delete-grid-right .x-grid-view .x-grid-row-over,
+.rpux-row-delete-grid-right .x-grid-view .x-grid-row-over .x-grid-rowwrap-div,
+.rpux-row-delete-grid-right .x-grid-view .x-grid-row-over .x-grid-cell-special {
+  border-left-width: 0; }
+
+/*
+ * Start selectors for RPUX.grid.MultiLevelGrid
+ */
+/* line 530, ../sass/stylesheets/_rpux.scss */
+.rpux-multi-level-child-grid {
+  display: inline-block; }
+
+/* line 534, ../sass/stylesheets/_rpux.scss */
+.rpux-multi-level-grid-row-collapsible {
+  background-repeat: no-repeat;
+  background-position: 50% 50%; }
+
+/* line 540, ../sass/stylesheets/_rpux.scss */
+.rpux-multi-level-grid-row-body > .x-grid-cell-rowbody > .x-grid-rowbody > div > div {
+  background-color: #d7d7d7; }
+/* line 544, ../sass/stylesheets/_rpux.scss */
+.rpux-multi-level-grid-row-body .x-grid-row:not(.x-grid-row-selected) {
+  background-color: #FFFFFF; }
+/* line 548, ../sass/stylesheets/_rpux.scss */
+.rpux-multi-level-grid-row-body.rpux-multi-level-grid-row-body-alt .x-grid-row:not(.x-grid-row-selected) {
+  background-color: #FAF9F9; }
+
+/* IE8 doesn't support the :not() selector and deletes any styles that it
+   doesn't recognize, so we have to set the row color the old fashioned way. */
+/* line 556, ../sass/stylesheets/_rpux.scss */
+.x-ie8 .rpux-multi-level-grid-row-body .x-grid-row {
+  background-color: #FFFFFF; }
+  /* line 559, ../sass/stylesheets/_rpux.scss */
+  .x-ie8 .rpux-multi-level-grid-row-body .x-grid-row.x-grid-row-selected {
+    background-color: #373839; }
+/* line 564, ../sass/stylesheets/_rpux.scss */
+.x-ie8 .rpux-multi-level-grid-row-body.rpux-multi-level-grid-row-body-alt .x-grid-row {
+  background-color: #FAF9F9; }
+  /* line 567, ../sass/stylesheets/_rpux.scss */
+  .x-ie8 .rpux-multi-level-grid-row-body.rpux-multi-level-grid-row-body-alt .x-grid-row.x-grid-row-selected {
+    background-color: #373839; }
+
+/*
+ * End selectors for RPUX.grid.MultiLevelGrid
+ */
+/* line 577, ../sass/stylesheets/_rpux.scss */
+.rpux-label {
+  font-weight: bold;
+  margin: 0 0 1px 0; }
+
+/* line 582, ../sass/stylesheets/_rpux.scss */
+.rpux-grid-feature-grouping-group {
+  border-bottom: 2px solid  #99BBE8; }
+
+/* line 589, ../sass/stylesheets/_rpux.scss */
+.x-item-disabled .toggle, .x-item-disabled .toggle_value {
+  cursor: default; }
+
+/* line 595, ../sass/stylesheets/_rpux.scss */
+.x-form-dirty .toggle.enabled {
+  background-image: url("../../stash/Deploy/3rdparty/extjs/4.1/resources/themes/images/default/grid/dirty.gif");
+  background-repeat: no-repeat; }
+  /* line 599, ../sass/stylesheets/_rpux.scss */
+  .x-form-dirty .toggle.enabled .toggle_switch {
+    background-image: none; }
+/* line 604, ../sass/stylesheets/_rpux.scss */
+.x-form-dirty .toggle_switch {
+  background-image: url("../../stash/Deploy/3rdparty/extjs/4.1/resources/themes/images/default/grid/dirty.gif");
+  background-repeat: no-repeat; }
+
+/* line 610, ../sass/stylesheets/_rpux.scss */
+.toggle {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 3px -2px #8f8f8f;
+  -moz-box-shadow: inset 0 2px 3px -2px #8f8f8f;
+  box-shadow: inset 0 2px 3px -2px #8f8f8f;
+  background: #DDD;
+  border-color: #BBB;
+  border-style: solid;
+  border-width: 0 1px 1px;
+  cursor: pointer;
+  height: 23px;
+  position: relative; }
+  /* line 622, ../sass/stylesheets/_rpux.scss */
+  .toggle.enabled {
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2b79bc), color-stop(100%, #57a0d6));
+    background-image: -webkit-linear-gradient(#2b79bc, #57a0d6);
+    background-image: -moz-linear-gradient(#2b79bc, #57a0d6);
+    background-image: -o-linear-gradient(#2b79bc, #57a0d6);
+    background-image: linear-gradient(#2b79bc, #57a0d6);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    background: #2b79bc;
+    background-image: none;
+    border-color: #397aae;
+    border-bottom-color: #5295c6;
+    border-top-color: #205E93;
+    border-top-width: 0; }
+    /* line 633, ../sass/stylesheets/_rpux.scss */
+    .toggle.enabled .toggle_switch {
+      border-left-width: 1px;
+      width: 34px; }
+  /* line 641, ../sass/stylesheets/_rpux.scss */
+  .toggle .toggle_value_ff14 {
+    /* Fixes an issue where divs inside of grid cells are shifted slightly in FF14  */
+    margin-top: 3px; }
+
+/* line 647, ../sass/stylesheets/_rpux.scss */
+.toggle_value {
+  left: 30;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 5px;
+  position: absolute;
+  text-shadow: none;
+  cursor: pointer;
+  width: 30; }
+
+/* line 658, ../sass/stylesheets/_rpux.scss */
+.enabled .toggle_value {
+  text-shadow: rgba(0, 0, 0, 0.65) 0 1px 1px; }
+
+/* line 662, ../sass/stylesheets/_rpux.scss */
+.toggle_switch {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #edeef0));
+  background-image: -webkit-linear-gradient(#ffffff, #edeef0);
+  background-image: -moz-linear-gradient(#ffffff, #edeef0);
+  background-image: -o-linear-gradient(#ffffff, #edeef0);
+  background-image: linear-gradient(#ffffff, #edeef0);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 2px 3px -2px #8f8f8f;
+  -moz-box-shadow: 0 2px 3px -2px #8f8f8f;
+  box-shadow: 0 2px 3px -2px #8f8f8f;
+  background: white;
+  background-image: none;
+  border: 1px solid #BBB;
+  border-left-width: 0;
+  color: #7a7a7a;
+  height: 23px;
+  left: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  position: absolute;
+  width: 35px;
+  z-index: 2; }
+
+/* line 683, ../sass/stylesheets/_rpux.scss */
+.rpux-toggle-field-focus .toggle {
+  -webkit-box-shadow: inset 0 2px 1px -1px #55adec;
+  -moz-box-shadow: inset 0 2px 1px -1px #55adec;
+  box-shadow: inset 0 2px 1px -1px #55adec;
+  border-color: #55ADEC; }
+  /* line 687, ../sass/stylesheets/_rpux.scss */
+  .rpux-toggle-field-focus .toggle.enabled .toggle_switch {
+    border-right-color: #55ADEC; }
+/* line 692, ../sass/stylesheets/_rpux.scss */
+.rpux-toggle-field-focus .toggle_switch {
+  border-bottom-color: #55ADEC;
+  border-top-color: #55ADEC; }
+
+/* line 699, ../sass/stylesheets/_rpux.scss */
+.x-ie8m .toggle {
+  border-top-width: 1px; }
+  /* line 703, ../sass/stylesheets/_rpux.scss */
+  .x-ie8m .toggle.enabled .toggle_switch {
+    border-top-width: 1px;
+    height: 23px;
+    margin-top: -1px; }
+/* line 711, ../sass/stylesheets/_rpux.scss */
+.x-ie8m .toggle_switch {
+  border-top-width: 0;
+  height: 22px; }
+
+/* line 722, ../sass/stylesheets/_rpux.scss */
+.rpux-fieldloadingindicator {
+  height: 10;
+  width: 10;
+  margin: 0 0 0 5px; }
+
+/*
+ * RPUX custom combobox trigger styles
+ */
+/* line 732, ../sass/stylesheets/_rpux.scss */
+.rpux-custom-trigger-combo .x-form-trigger {
+  /* Hides default trigger icon on browsers that don't support gradients */
+  background-image: none;
+  /* Applies gradient on good browsers, must go after background-image: none or else it will be overwritten. */
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #eaecee));
+  background-image: -webkit-linear-gradient(#ffffff, #eaecee);
+  background-image: -moz-linear-gradient(#ffffff, #eaecee);
+  background-image: -o-linear-gradient(#ffffff, #eaecee);
+  background-image: linear-gradient(#ffffff, #eaecee);
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  -ms-border-radius: 0 3px 3px 0;
+  -o-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+  background-color: #f5f6f7;
+  border-color: #B5B8C8;
+  border-left-color: #B5B8C8 !important;
+  border-style: solid !important;
+  border-width: 1px;
+  line-height: 18px;
+  padding: 2px 2px 2px 2px;
+  text-align: center;
+  width: 40px; }
+
+/* line 749, ../sass/stylesheets/_rpux.scss */
+.rpux-custom-trigger-combo .x-form-trigger-over {
+  background-color: #38393A;
+  background-image: none;
+  border-color: #b0ccf2;
+  color: #FFFFFF;
+  cursor: pointer;
+  cursor: hand; }
+
+/* line 758, ../sass/stylesheets/_rpux.scss */
+.rpux-address-infoarea {
+  float: left;
+  margin: 3px 0 0 0; }
+
+/* End RPUX custom combobox trigger styles */
+/* DateTime field */
+/* line 766, ../sass/stylesheets/_rpux.scss */
+.rpux-date-time-field .x-field {
+  display: inline-table; }
+
+/* line 770, ../sass/stylesheets/_rpux.scss */
+.rpux-date-time-field .rpux-date-time-field-inner-date {
+  margin-right: 5px; }
+
+/* End of DateTime field */
+/* Start StoreView */
+/* line 776, ../sass/stylesheets/_rpux.scss */
+.rpux-store-view .rpux-store-view-load-records-btn {
+  width: 100%;
+  margin: 5px 0 5px 0;
+  text-align: center; }
+
+/* line 782, ../sass/stylesheets/_rpux.scss */
+.yui3-console .yui3-console-title {
+  border: 0 none !important;
+  color: #000 !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  margin: 0 !important;
+  text-transform: none !important; }
+
+/* line 791, ../sass/stylesheets/_rpux.scss */
+.yui3-console .yui3-console-entry-meta {
+  margin: 0 !important; }
+
+/* line 795, ../sass/stylesheets/_rpux.scss */
+.yui3-separate-console {
+  right: 0 !important;
+  top: 0 !important; }
+
+/* line 800, ../sass/stylesheets/_rpux.scss */
+.x-form-display-field {
+  padding-top: 0; }
+
+/* line 804, ../sass/stylesheets/_rpux.scss */
+.rpux-aggregate-toolbar {
+  border-color: #DEDEDE;
+  border-style: solid;
+  border-width: 1px; }
+
+/* line 810, ../sass/stylesheets/_rpux.scss */
+.rpux-aggregate-scroller {
+  border: none; }
+
+/* line 816, ../sass/stylesheets/_rpux.scss */
+.x-nbr .rpux-aggregate-button {
+  border-width: 0 !important; }
+
+/* line 821, ../sass/stylesheets/_rpux.scss */
+.rpux-aggregate-button {
+  background-color: transparent;
+  background-image: none;
+  border-style: none; }
+  /* line 826, ../sass/stylesheets/_rpux.scss */
+  .rpux-aggregate-button .x-btn-inner {
+    text-overflow: ellipsis; }
+
+/* line 831, ../sass/stylesheets/_rpux.scss */
+.rpux-aggregate-button-over .x-btn-arrow {
+  background-image: url("images/versioned/16x16/triangle-down-dark.png"); }
+
+/* line 835, ../sass/stylesheets/_rpux.scss */
+.rpux-bound-menu.rp-menu-btn-menu .x-menu-body {
+  border-top-width: 1px; }
+
+/* line 839, ../sass/stylesheets/_rpux.scss */
+.rpux-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; }
+
+/* line 847, ../sass/stylesheets/_rpux.scss */
+.x-grid-row .x-grid-cell.rpux-no-padding-cell {
+  padding: 0; }
+
+/* line 851, ../sass/stylesheets/_rpux.scss */
+.x-form-invalid-under {
+  background-image: none;
+  padding: 0;
+  position: absolute;
+  z-index: 20; }
+  /* line 857, ../sass/stylesheets/_rpux.scss */
+  .x-form-invalid-under .rp-invalid-field-arrow {
+    border-color: transparent transparent #f74143;
+    border-style: solid;
+    border-width: 0 5px 5px;
+    left: 5px;
+    position: relative;
+    width: 5px; }
+  /* line 866, ../sass/stylesheets/_rpux.scss */
+  .x-form-invalid-under li {
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f74143), color-stop(100%, #c41515));
+    background-image: -webkit-linear-gradient(#f74143, #c41515);
+    background-image: -moz-linear-gradient(#f74143, #c41515);
+    background-image: -o-linear-gradient(#f74143, #c41515);
+    background-image: linear-gradient(#f74143, #c41515);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    color: #FFFFFF;
+    padding: 5px; }
+
+/* line 875, ../sass/stylesheets/_rpux.scss */
+.x-grid-col-resizer-dd {
+  width: 7px;
+  height: 0; }
+
+/* line 899, ../sass/stylesheets/_rpux.scss */
+.rpux-store-view-record-dd {
+  /*
+   * position relative ensures the the left drag el
+   * can size itself properly with height: 100%. See
+   * below.
+   */
+  position: relative; }
+  /* line 907, ../sass/stylesheets/_rpux.scss */
+  .rpux-store-view-record-dd .store-view-record-drag-el, .rpux-store-view-record-dd .store-view-record-drag-img {
+    display: none; }
+  /* line 912, ../sass/stylesheets/_rpux.scss */
+  .rpux-store-view-record-dd.hover .store-view-record-drag-el {
+    width: 8px;
+    height: 100%;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1;
+    cursor: move; }
+    /* line 922, ../sass/stylesheets/_rpux.scss */
+    .rpux-store-view-record-dd.hover .store-view-record-drag-el .store-view-record-drag-img {
+      width: 7px;
+      cursor: move;
+      border: 1px solid #d1d1d1;
+      background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+      background-image: -webkit-linear-gradient(left, #fafafa, #e9e9e9);
+      background-image: -moz-linear-gradient(left, #fafafa, #e9e9e9);
+      background-image: -o-linear-gradient(left, #fafafa, #e9e9e9);
+      background-image: linear-gradient(left, #fafafa, #e9e9e9);
+      background: #fafafa;
+      /* for non-css3 browsers */
+      background-image: url("images/versioned/grabber-dots.png");
+      background-position: center center;
+      background-repeat: no-repeat;
+      height: 100%;
+      width: 8px;
+      display: block; }
+
+/* line 932, ../sass/stylesheets/_rpux.scss */
+.rpux-store-view-drop-indicator {
+  background-color: transparent;
+  border: 1px solid #3B84C4; }
+
+/* line 938, ../sass/stylesheets/_rpux.scss */
+.rpux-store-view-drag-proxy.x-dd-drop-nodrop .x-dd-drag-ghost {
+  border: 1px solid #d91414; }
+/* line 942, ../sass/stylesheets/_rpux.scss */
+.rpux-store-view-drag-proxy .x-dd-drag-ghost {
+  padding: 0;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  opacity: 0.3;
+  border: 0;
+  background-color: transparent; }
+
+/* line 952, ../sass/stylesheets/_rpux.scss */
+.x-grid-row.rpux-grid-row-dd .x-grid-cell.x-grid-cell-special.x-grid-cell-row-checker {
+  padding-left: 1px; }
+  /* line 955, ../sass/stylesheets/_rpux.scss */
+  .x-grid-row.rpux-grid-row-dd .x-grid-cell.x-grid-cell-special.x-grid-cell-row-checker .x-grid-row-checker {
+    margin-left: 1px; }
+/* line 960, ../sass/stylesheets/_rpux.scss */
+.x-grid-row.rpux-grid-row-dd .rpux-grid-row-drag-el {
+  width: 7px;
+  cursor: default;
+  border-bottom: 1px solid #e9eaea;
+  border-right: none;
+  background: transparent; }
+/* line 965, ../sass/stylesheets/_rpux.scss */
+.x-grid-row.rpux-grid-row-dd.x-grid-row-over .rpux-grid-row-drag-el {
+  width: 7px;
+  cursor: move;
+  border: 1px solid #d1d1d1;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+  background-image: -webkit-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -moz-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -o-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: linear-gradient(left, #fafafa, #e9e9e9);
+  background: #fafafa;
+  /* for non-css3 browsers */
+  background-image: url("images/versioned/grabber-dots.png");
+  background-position: center center;
+  background-repeat: no-repeat; }
+/* line 968, ../sass/stylesheets/_rpux.scss */
+.x-grid-row.rpux-grid-row-dd.x-grid-row-over .x-grid-cell.x-grid-cell-special.x-grid-cell-row-checker {
+  padding-left: 0; }
+/* line 974, ../sass/stylesheets/_rpux.scss */
+.x-grid-row.rpux-grid-row-dd.x-grid-row-selected .rpux-grid-row-drag-el {
+  width: 7px;
+  cursor: move;
+  border: 1px solid #d1d1d1;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+  background-image: -webkit-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -moz-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -o-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: linear-gradient(left, #fafafa, #e9e9e9);
+  background: #fafafa;
+  /* for non-css3 browsers */
+  background-image: url("images/versioned/grabber-dots.png");
+  background-position: center center;
+  background-repeat: no-repeat; }
+/* line 977, ../sass/stylesheets/_rpux.scss */
+.x-grid-row.rpux-grid-row-dd.x-grid-row-selected .x-grid-cell.x-grid-cell-special.x-grid-cell-row-checker {
+  padding-left: 0; }
+
+/* line 988, ../sass/stylesheets/_rpux.scss */
+.x-gecko .x-grid-row.rpux-grid-row-dd .rpux-grid-row-drag-el {
+  width: 7px;
+  cursor: default;
+  border-bottom: 1px solid #e9eaea;
+  border-right: none;
+  background: transparent;
+  border: 0 solid black; }
+/* line 994, ../sass/stylesheets/_rpux.scss */
+.x-gecko .x-grid-row.rpux-grid-row-dd.x-grid-row-over .rpux-grid-row-drag-el {
+  width: 7px;
+  cursor: move;
+  border: 1px solid #d1d1d1;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+  background-image: -webkit-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -moz-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -o-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: linear-gradient(left, #fafafa, #e9e9e9);
+  background: #fafafa;
+  /* for non-css3 browsers */
+  background-image: url("images/versioned/grabber-dots.png");
+  background-position: center center;
+  background-repeat: no-repeat; }
+/* line 997, ../sass/stylesheets/_rpux.scss */
+.x-gecko .x-grid-row.rpux-grid-row-dd.x-grid-row-over .x-grid-cell.x-grid-cell-special.x-grid-cell-row-checker {
+  padding-left: 1px; }
+/* line 1003, ../sass/stylesheets/_rpux.scss */
+.x-gecko .x-grid-row.rpux-grid-row-dd.x-grid-row-selected .rpux-grid-row-drag-el {
+  width: 7px;
+  cursor: move;
+  border: 1px solid #d1d1d1;
+  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #fafafa), color-stop(100%, #e9e9e9));
+  background-image: -webkit-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -moz-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: -o-linear-gradient(left, #fafafa, #e9e9e9);
+  background-image: linear-gradient(left, #fafafa, #e9e9e9);
+  background: #fafafa;
+  /* for non-css3 browsers */
+  background-image: url("images/versioned/grabber-dots.png");
+  background-position: center center;
+  background-repeat: no-repeat; }
+/* line 1006, ../sass/stylesheets/_rpux.scss */
+.x-gecko .x-grid-row.rpux-grid-row-dd.x-grid-row-selected .x-grid-cell.x-grid-cell-special.x-grid-cell-row-checker {
+  padding-left: 1px; }
+
+/* line 1012, ../sass/stylesheets/_rpux.scss */
+.x-btn.close-app-button {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  width: 22px; }
+
+/* line 1020, ../sass/stylesheets/_rpux.scss */
+.rp-menu-grid-menu .x-menu-item.rpux-first-menu-item-visible a {
+  border-top: none; }
+
+/* line 1025, ../sass/stylesheets/_rpux.scss */
+.x-grid .rpux-link-grid-column {
+  color: #2073bc; }
+  /* line 1028, ../sass/stylesheets/_rpux.scss */
+  .x-grid .rpux-link-grid-column .x-grid-cell-inner span {
+    white-space: normal;
+    cursor: pointer; }
+    /* line 1032, ../sass/stylesheets/_rpux.scss */
+    .x-grid .rpux-link-grid-column .x-grid-cell-inner span:hover {
+      color: #66addf; }
+
+/* line 1039, ../sass/stylesheets/_rpux.scss */
+.x-form-item-label .rpux-formfield-subTitle {
+  font-weight: normal; }
+
+/* line 1043, ../sass/stylesheets/_rpux.scss */
+.rpux-category-header {
+  font-size: 10px;
+  font-weight: bold;
+  color: #424749;
+  padding-left: 1px;
+  margin-top: 20px;
+  margin-left: 4px;
+  margin-right: 8px;
+  margin-bottom: 12px;
+  /* Some layouts (e.g. 'box' and subclasses) apply  *
+   * 0 border to the element's style.                *
+   * Make this !important so that it is always used. */
+  border-bottom: solid 1px #999999 !important; }
+  /* line 1060, ../sass/stylesheets/_rpux.scss */
+  .rpux-category-header.x-panel-header {
+    background-image: none;
+    border: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    border-radius: 0;
+    border-bottom: solid 1px #999999 !important; }
+
+/* line 1068, ../sass/stylesheets/_rpux.scss */
+.rpux-bread-crumb-trail {
+  padding-top: 10px; }
+
+/* line 1, ../sass/stylesheets/_rpuxCombo.scss */
+.rpux-combo-btn {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 9px;
+  border: 1px solid #DEDEDE;
+  background-color: transparent;
+  background-image: none;
+  /* User mousedown inside button but then cursor moves off element */ }
+  /* line 9, ../sass/stylesheets/_rpuxCombo.scss */
+  .rpux-combo-btn .x-btn-inner {
+    color: #818383; }
+  /* line 14, ../sass/stylesheets/_rpuxCombo.scss */
+  .rpux-combo-btn.x-btn-pressed .x-btn-inner {
+    color: #818383; }
+  /* line 18, ../sass/stylesheets/_rpuxCombo.scss */
+  .rpux-combo-btn.x-btn-over .x-btn-inner {
+    color: #424749; }
+
+/* line 23, ../sass/stylesheets/_rpuxCombo.scss */
+.rpux-combo-btn-ct {
+  margin-right: 12px;
+  margin-left: 12px; }
+
+/* line 29, ../sass/stylesheets/_rpuxCombo.scss */
+.x-ie8 .rpux-combo-btn {
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid #DEDEDE;
+  font-size: 9px;
+  margin-top: 10px;
+  width: 100%; }
+  /* line 37, ../sass/stylesheets/_rpuxCombo.scss */
+  .x-ie8 .rpux-combo-btn.x-btn-over {
+    background-color: transparent; }
+
+/* line 1, ../sass/stylesheets/_toggleGroup.scss */
+.rpux-togglegroup {
+  text-align: center; }
+
+/* line 5, ../sass/stylesheets/_toggleGroup.scss */
+.rpux-togglegroup .x-btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  border: 1px solid #DDD;
+  border-left: none; }
+
+/* line 11, ../sass/stylesheets/_toggleGroup.scss */
+.rpux-togglegroup .x-btn-inner {
+  font-size: 12px; }
+
+/* line 15, ../sass/stylesheets/_toggleGroup.scss */
+.rpux-togglegroup .x-btn.first {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  -ms-border-radius: 4px 0 0 4px;
+  -o-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+  border-left: 1px solid #DDD; }
+
+/* line 20, ../sass/stylesheets/_toggleGroup.scss */
+.rpux-togglegroup .x-btn.last {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  -ms-border-radius: 0 4px 4px 0;
+  -o-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0; }
+
+/* line 24, ../sass/stylesheets/_toggleGroup.scss */
+.rpux-togglegroup .x-btn-over .x-btn-inner {
+  text-shadow: -1px -1px 1px black; }
+
+/* line 28, ../sass/stylesheets/_toggleGroup.scss */
+.rpux-togglegroup .x-btn-pressed .x-btn-inner {
+  text-shadow: 1px 1px 1px #000; }
+
+/* line 2, ../sass/stylesheets/_triStateGroup.scss */
+.rpux-tri-state-group .x-btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0; }
+/* line 7, ../sass/stylesheets/_triStateGroup.scss */
+.rpux-tri-state-group .rpux-tri-state-group-left.x-btn-over {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ff0000), color-stop(100%, #b80000));
+  background-image: -webkit-linear-gradient(#ff0000, #b80000);
+  background-image: -moz-linear-gradient(#ff0000, #b80000);
+  background-image: -o-linear-gradient(#ff0000, #b80000);
+  background-image: linear-gradient(#ff0000, #b80000);
+  border-color: #C7C7C7; }
+/* line 12, ../sass/stylesheets/_triStateGroup.scss */
+.rpux-tri-state-group .rpux-tri-state-group-left.x-btn-pressed {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ee0000), color-stop(100%, #a70000));
+  background-image: -webkit-linear-gradient(#ee0000, #a70000);
+  background-image: -moz-linear-gradient(#ee0000, #a70000);
+  background-image: -o-linear-gradient(#ee0000, #a70000);
+  background-image: linear-gradient(#ee0000, #a70000);
+  border-color: #C7C7C7; }
+/* line 18, ../sass/stylesheets/_triStateGroup.scss */
+.rpux-tri-state-group .rpux-tri-state-group-right {
+  border-left: 0px none; }
+  /* line 21, ../sass/stylesheets/_triStateGroup.scss */
+  .rpux-tri-state-group .rpux-tri-state-group-right.x-btn-over {
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00ee00), color-stop(100%, #009900));
+    background-image: -webkit-linear-gradient(#00ee00, #009900);
+    background-image: -moz-linear-gradient(#00ee00, #009900);
+    background-image: -o-linear-gradient(#00ee00, #009900);
+    background-image: linear-gradient(#00ee00, #009900);
+    border-color: #C7C7C7; }
+  /* line 26, ../sass/stylesheets/_triStateGroup.scss */
+  .rpux-tri-state-group .rpux-tri-state-group-right.x-btn-pressed {
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #00dd00), color-stop(100%, #008800));
+    background-image: -webkit-linear-gradient(#00dd00, #008800);
+    background-image: -moz-linear-gradient(#00dd00, #008800);
+    background-image: -o-linear-gradient(#00dd00, #008800);
+    background-image: linear-gradient(#00dd00, #008800);
+    border-color: #C7C7C7; }
+
+/* line 1, ../sass/stylesheets/_daterange.scss */
+.rpux-daterange-container {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: #373a3c;
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF393C3E', endColorstr='#FF1D2021');
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #393c3e), color-stop(13%, #222526), color-stop(100%, #1d2021));
+  background-image: -webkit-linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%);
+  background-image: -moz-linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%);
+  background-image: -o-linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%);
+  background-image: linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%);
+  color: white;
+  text-shadow: 0 2px 2px 2px black;
+  font-weight: bold; }
+  /* line 12, ../sass/stylesheets/_daterange.scss */
+  .rpux-daterange-container .x-panel-body {
+    border: none;
+    background: none; }
+  /* line 17, ../sass/stylesheets/_daterange.scss */
+  .rpux-daterange-container .x-docked-bottom {
+    border-top: none;
+    background: none;
+    padding-bottom: 2px; }
+    /* line 22, ../sass/stylesheets/_daterange.scss */
+    .rpux-daterange-container .x-docked-bottom .x-btn {
+      box-shadow: none;
+      margin: 6px 7px 3px 7px;
+      border: none;
+      background: none; }
+      /* line 28, ../sass/stylesheets/_daterange.scss */
+      .rpux-daterange-container .x-docked-bottom .x-btn .x-btn-inner {
+        color: white; }
+    /* line 35, ../sass/stylesheets/_daterange.scss */
+    .rpux-daterange-container .x-docked-bottom .x-btn-pressed .x-btn-inner {
+      color: #5e9ecc; }
+  /* line 43, ../sass/stylesheets/_daterange.scss */
+  .rpux-daterange-container .rpux-daterange-picker-from table.x-datepicker-inner tr:last-child td:last-child {
+    border-radius: 0; }
+    /* line 46, ../sass/stylesheets/_daterange.scss */
+    .rpux-daterange-container .rpux-daterange-picker-from table.x-datepicker-inner tr:last-child td:last-child a {
+      border-radius: 0; }
+  /* line 55, ../sass/stylesheets/_daterange.scss */
+  .rpux-daterange-container .rpux-daterange-picker-to table.x-datepicker-inner tr:last-child td:first-child {
+    border-radius: 0; }
+    /* line 58, ../sass/stylesheets/_daterange.scss */
+    .rpux-daterange-container .rpux-daterange-picker-to table.x-datepicker-inner tr:last-child td:first-child a {
+      border-radius: 0; }
+  /* line 65, ../sass/stylesheets/_daterange.scss */
+  .rpux-daterange-container .x-datepicker {
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none; }
+    /* line 70, ../sass/stylesheets/_daterange.scss */
+    .rpux-daterange-container .x-datepicker .x-monthpicker {
+      margin-top: -4px;
+      margin-left: -5px; }
+    /* line 76, ../sass/stylesheets/_daterange.scss */
+    .rpux-daterange-container .x-datepicker .x-datepicker-header {
+      background-image: none;
+      background-color: transparent;
+      border-bottom-color: #3f4143;
+      border-top: none;
+      border-right: none;
+      border-left: none; }
+  /* line 86, ../sass/stylesheets/_daterange.scss */
+  .rpux-daterange-container table.x-datepicker-inner {
+    border-top: 1px solid black; }
+    /* line 89, ../sass/stylesheets/_daterange.scss */
+    .rpux-daterange-container table.x-datepicker-inner .rpux-datepicker-range {
+      border: 1px double #d2d2d2;
+      background-color: #FAFAFA; }
+
+/* line 96, ../sass/stylesheets/_daterange.scss */
+.rpux-daterange-infoarea {
+  color: #606060;
+  font-size: 9px;
+  margin: 2px 0 0 3px; }
+
+/* line 1, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab.rpux-btn {
+  height: 26px;
+  border: 1px solid #88BCE9;
+  border-radius: 0;
+  border-left: 0;
+  position: relative;
+  cursor: hand;
+  overflow: hidden;
+  margin: 0 0 2px 0;
+  background: #deecfd;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(25%, #f5f9f3), color-stop(45%, #deecfd));
+  background-image: -webkit-linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%);
+  background-image: -moz-linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%);
+  background-image: -o-linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%);
+  background-image: linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%); }
+
+/* line 18, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab button {
+  background: none;
+  border: 0;
+  padding: 2px 0 0 2px;
+  font-size: 12px;
+  text-align: left;
+  position: relative;
+  color: #000000;
+  overflow: hidden; }
+
+/* line 29, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab-active.rpux-btn {
+  border-right: 0;
+  background: #FFFFFF; }
+
+/* line 34, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab-active button {
+  font-weight: bold; }
+
+/* line 38, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab-panel {
+  background: #CBDBEF;
+  border: 1px solid #88BCE9;
+  position: relative;
+  overflow: hidden; }
+
+/* line 45, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab-panel-body {
+  position: relative;
+  border-top: 1px solid #88BCE9; }
+
+/* line 50, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab-panel-header {
+  line-height: 15px;
+  padding: 5px 4px 4px 5px;
+  background-color: #cbddf3;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dae7f6), color-stop(45%, #cddef3), color-stop(46%, #abc7ec), color-stop(50%, #abc7ec), color-stop(51%, #b8cfee), color-stop(100%, #cbddf3));
+  background-image: -webkit-linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+  background-image: -moz-linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+  background-image: -o-linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+  background-image: linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+  -webkit-box-shadow: inset 0 1px 0 0 #f4f8fd;
+  -moz-box-shadow: inset 0 1px 0 0 #f4f8fd;
+  box-shadow: inset 0 1px 0 0 #f4f8fd;
+  position: relative;
+  overflow: hidden; }
+
+/* line 60, ../sass/stylesheets/_verticalTabPanel.scss */
+.RPUX-vertical-tab-panel-header-text {
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "trebuchet ms",tahoma,arial,verdana,sans-serif;
+  white-space: nowrap;
+  cursor: default; }
+
+/* line 1, ../sass/stylesheets/_rowDelete.scss */
+.x-grid-row-over .rpux-row-delete, .x-grid-row-selected .rpux-row-delete {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  background-image: url("images/versioned/16x16/deleteX.png"); }
+
+/* line 1, ../sass/stylesheets/_pagination.scss */
+.pagination-nav-controls-ct {
+  float: right; }
+  /* line 4, ../sass/stylesheets/_pagination.scss */
+  .pagination-nav-controls-ct > div {
+    float: left; }
+    /* line 7, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct > div .x-btn-over .x-btn-inner {
+      text-decoration: underline;
+      text-decoration-color: #333; }
+    /* line 12, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct > div .x-btn-pressed .x-btn-inner {
+      font-weight: bold; }
+    /* line 16, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct > div .x-btn-inner {
+      font-size: 13px; }
+  /* line 21, ../sass/stylesheets/_pagination.scss */
+  .pagination-nav-controls-ct .x-btn {
+    border-color: transparent;
+    background-color: transparent;
+    background-image: none;
+    float: left;
+    margin: 5px 0 5px 0; }
+  /* line 31, ../sass/stylesheets/_pagination.scss */
+  .pagination-nav-controls-ct .x-btn-over .x-btn-inner, .pagination-nav-controls-ct .x-btn-pressed .x-btn-inner {
+    color: #333; }
+  /* line 36, ../sass/stylesheets/_pagination.scss */
+  .pagination-nav-controls-ct > .x-btn-over, .pagination-nav-controls-ct > .x-btn-pressed {
+    border-color: #bebebf;
+    background-color: #eceded;
+    -webkit-border-radius: 3px 3px 4px 4px;
+    -moz-border-radius: 3px 3px 4px 4px;
+    -ms-border-radius: 3px 3px 4px 4px;
+    -o-border-radius: 3px 3px 4px 4px;
+    border-radius: 3px 3px 4px 4px; }
+  /* line 42, ../sass/stylesheets/_pagination.scss */
+  .pagination-nav-controls-ct .x-btn.next-btn {
+    margin-right: 4px;
+    margin-left: 5px; }
+    /* line 46, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct .x-btn.next-btn .next-icon {
+      background-image: url("images/versioned/16x16/rightNormal.png"); }
+    /* line 50, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct .x-btn.next-btn.x-btn-over .next-icon {
+      background-image: url("images/versioned/16x16/rightHover.png"); }
+    /* line 54, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct .x-btn.next-btn.x-btn-pressed .next-icon {
+      background-image: url("images/versioned/16x16/rightPressed.png"); }
+  /* line 59, ../sass/stylesheets/_pagination.scss */
+  .pagination-nav-controls-ct .x-btn.previous-btn {
+    margin-left: 4px;
+    margin-right: 5px; }
+    /* line 63, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct .x-btn.previous-btn .previous-icon {
+      background-image: url("images/versioned/16x16/leftNormal.png"); }
+    /* line 67, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct .x-btn.previous-btn.x-btn-over .previous-icon {
+      background-image: url("images/versioned/16x16/leftHover.png"); }
+    /* line 71, ../sass/stylesheets/_pagination.scss */
+    .pagination-nav-controls-ct .x-btn.previous-btn.x-btn-pressed .previous-icon {
+      background-image: url("images/versioned/16x16/leftPressed.png"); }
+  /* line 76, ../sass/stylesheets/_pagination.scss */
+  .pagination-nav-controls-ct .x-btn-icon {
+    background-position-y: 1px; }
+
+/* line 3, ../sass/stylesheets/_tag.scss */
+.rpux-tag-container {
+  height: 25px; }
+
+/* line 7, ../sass/stylesheets/_tag.scss */
+.rpux-tag-container .rpux-tag-component {
+  margin: 0 5px 0 0;
+  float: left; }
+
+/* line 12, ../sass/stylesheets/_tag.scss */
+.rpux-tag-container .x-grid-rowbody {
+  padding: 0 0 0 10px; }
+
+/* line 16, ../sass/stylesheets/_tag.scss */
+.rpux-tag-component {
+  font-size: 10px;
+  height: 15px;
+  line-height: 13px;
+  padding: 0 5px;
+  cursor: pointer; }
+
+/* line 24, ../sass/stylesheets/_tag.scss */
+.rpux-tag-urgent {
+  color: white;
+  border: 1px solid #b7191a;
+  background-color: #dc2c2e; }
+
+/* line 30, ../sass/stylesheets/_tag.scss */
+.rpux-tag-non-urgent {
+  color: white;
+  border: 1px solid #5F6570;
+  background-color: #999999; }
+
+/* line 36, ../sass/stylesheets/_tag.scss */
+.rpux-tag-row-above {
+  border-bottom: none; }
+
+/* line 40, ../sass/stylesheets/_tag.scss */
+.rpux-tag-row-above.x-grid-row-selected .x-grid-cell {
+  box-shadow: none; }
+
+/* line 44, ../sass/stylesheets/_tag.scss */
+.rpux-tag-row-above.x-grid-row-over .x-grid-cell {
+  box-shadow: none; }
+
+/* line 48, ../sass/stylesheets/_tag.scss */
+.rpux-tag-row-above.x-grid-row-selected .x-grid-cell {
+  box-shadow: none; }
+
+/* line 52, ../sass/stylesheets/_tag.scss */
+.x-component.rpux-tag-component {
+  display: inline; }
+
+/* line 1, ../sass/stylesheets/_panelHeader.scss */
+.rpux-panel-header {
+  background: transparent; }
+  /* line 5, ../sass/stylesheets/_panelHeader.scss */
+  .rpux-panel-header .x-panel-header-horizontal + .rpux-panel-header-body .rpux-header-top-bar {
+    -webkit-border-radius: 0 0 0 0;
+    -moz-border-radius: 0 0 0 0;
+    -ms-border-radius: 0 0 0 0;
+    -o-border-radius: 0 0 0 0;
+    border-radius: 0 0 0 0; }
+  /* line 10, ../sass/stylesheets/_panelHeader.scss */
+  .rpux-panel-header .rpux-panel-header-body {
+    background-color: transparent;
+    border: 0;
+    -webkit-border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
+    -ms-border-radius: 3px 3px 0 0;
+    -o-border-radius: 3px 3px 0 0;
+    border-radius: 3px 3px 0 0; }
+    /* line 15, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header .rpux-panel-header-body .rpux-header-top-bar, .rpux-panel-header .rpux-panel-header-body .rpux-header-bottom-bar {
+      -webkit-border-radius: 3px 3px 0 0;
+      -moz-border-radius: 3px 3px 0 0;
+      -ms-border-radius: 3px 3px 0 0;
+      -o-border-radius: 3px 3px 0 0;
+      border-radius: 3px 3px 0 0;
+      padding: 4px 4px 4px 4px;
+      border: 0;
+      background: transparent; }
+    /* line 22, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header .rpux-panel-header-body .rpux-header-top-bar + .rpux-header-bottom-bar {
+      -webkit-border-radius: 0 0 0 0;
+      -moz-border-radius: 0 0 0 0;
+      -ms-border-radius: 0 0 0 0;
+      -o-border-radius: 0 0 0 0;
+      border-radius: 0 0 0 0; }
+    /* line 26, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header .rpux-panel-header-body .rpux-header-bottom-bar {
+      background-color: #eeeff0;
+      background-image: none;
+      /* any top-level divs or tables in the left bottom bar
+         should be inline-block/margined so they flow.*/ }
+      /* line 33, ../sass/stylesheets/_panelHeader.scss */
+      .rpux-panel-header .rpux-panel-header-body .rpux-header-bottom-bar .rpux-header-bottom-bar-left > div, .rpux-panel-header .rpux-panel-header-body .rpux-header-bottom-bar .rpux-header-bottom-bar-left > table {
+        display: inline-block;
+        margin-left: 8px; }
+    /* line 42, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header .rpux-panel-header-body .x-toolbar-default {
+      background-color: transparent;
+      background-image: none;
+      border: 0; }
+    /* line 48, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header .rpux-panel-header-body .x-toolbar {
+      padding: 0; }
+    /* line 53, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header .rpux-panel-header-body .rp-tbar-container .x-container
+    > .x-toolbar-separator {
+      display: inline-block;
+      position: relative;
+      top: 4px; }
+    /* line 59, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header .rpux-panel-header-body .x-btn {
+      margin-right: 4px;
+      margin-left: 4px; }
+  /* line 65, ../sass/stylesheets/_panelHeader.scss */
+  .rpux-panel-header > .x-panel-header {
+    padding: 3px 8px 4px 8px;
+    border: 0;
+    background: transparent; }
+    /* line 70, ../sass/stylesheets/_panelHeader.scss */
+    .rpux-panel-header > .x-panel-header .x-panel-header-body {
+      border: 0;
+      border-bottom: 1px solid #dadadb; }
+  /* line 77, ../sass/stylesheets/_panelHeader.scss */
+  .rpux-panel-header.rpux-panel-header-no-top .rpux-panel-header-body .rpux-header-bottom-bar {
+    background: transparent; }
+  /* line 81, ../sass/stylesheets/_panelHeader.scss */
+  .rpux-panel-header.rpux-panel-header-no-top.rpux-panel-header-no-bottom > .x-panel-header .x-panel-header-body {
+    border-bottom: 0; }
+  /* line 85, ../sass/stylesheets/_panelHeader.scss */
+  .rpux-panel-header > .x-panel-header.x-panel-header-collapsed .x-panel-header-body {
+    border-bottom: 0; }
+  /* line 89, ../sass/stylesheets/_panelHeader.scss */
+  .rpux-panel-header .x-panel-header-text {
+    white-space: normal; }
+
+/* line 1, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-controls-ct {
+  padding-top: 8px;
+  padding-left: 6px;
+  padding-right: 6px; }
+  /* line 6, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .x-btn {
+    border-color: transparent;
+    background-color: transparent;
+    background-image: none; }
+    /* line 11, ../sass/stylesheets/_filtering.scss */
+    .rpux-filter-controls-ct .x-btn .x-btn-inner {
+      text-shadow: white 0 1px 1px;
+      color: black;
+      font-size: 12px; }
+  /* line 18, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .x-btn-over, .rpux-filter-controls-ct .x-btn-pressed {
+    border-color: #bebebf;
+    background-color: #eceded;
+    -webkit-border-radius: 3px 3px 4px 4px;
+    -moz-border-radius: 3px 3px 4px 4px;
+    -ms-border-radius: 3px 3px 4px 4px;
+    -o-border-radius: 3px 3px 4px 4px;
+    border-radius: 3px 3px 4px 4px; }
+  /* line 25, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .rpux-save-filter .x-btn-inner {
+    padding-right: 24px !important; }
+  /* line 28, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .rpux-save-filter .x-btn-icon {
+    right: 4px; }
+  /* line 33, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .rp-menu-btn .x-btn-arrow-right {
+    padding-right: 22px; }
+  /* line 37, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .x-btn-icon.rpux-close-filter {
+    top: 2px;
+    left: 1px; }
+  /* line 42, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .x-btn.x-noicon {
+    color: #A8A8A8;
+    font-family: arial, verdana, sans-serif;
+    font-size: 11px;
+    text-align: center; }
+  /* line 49, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .rpux-save-filter-icon {
+    background-image: url("images/versioned/filtering/starlight.png"); }
+  /* line 53, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .rpux-save-filter {
+    margin: 5px 6px 3px 4px;
+    float: right; }
+  /* line 58, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct.rpux-filter-selected .rpux-save-filter-icon {
+    background-image: url("images/versioned/filtering/starbright.png"); }
+  /* line 62, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .rpux-close-filter {
+    background-image: url("images/versioned/filtering/close.png"); }
+  /* line 66, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-controls-ct .rpux-close-filter-btn {
+    margin: 5px 0 3px 4px;
+    float: right; }
+
+/* line 72, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-tools {
+  margin-left: 8px; }
+
+/* line 77, ../sass/stylesheets/_filtering.scss */
+.rpux-panel-header .rpux-panel-header-body .rpux-filter-conjunction,
+.rpux-filter-conjunction {
+  float: left;
+  margin-top: 2px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5); }
+  /* line 84, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-conjunction.x-btn-pressed,
+  .rpux-filter-conjunction.x-btn-pressed {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none; }
+
+/* line 90, ../sass/stylesheets/_filtering.scss */
+.rpux-panel-header .rpux-panel-header-body .rpux-filter-locked-conjunction,
+.rpux-filter-locked-conjunction {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  float: left;
+  margin-top: 3px;
+  margin-left: 4px;
+  margin-right: 12px;
+  margin-bottom: 11px;
+  padding-right: 4px;
+  padding-left: 4px;
+  border: 1px solid #888888;
+  background-color: #dedede;
+  color: #888888;
+  line-height: 19px;
+  cursor: default; }
+
+/* line 108, ../sass/stylesheets/_filtering.scss */
+.rpux-panel-header .rpux-panel-header-body .rpux-filter-locked-criterion-ct,
+.rpux-filter-locked-criterion-ct {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  float: left;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  padding-right: 8px;
+  padding-left: 8px;
+  border: 1px solid #888888;
+  background-color: #dedede;
+  color: #888888;
+  line-height: 26px;
+  cursor: default; }
+  /* line 122, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-locked-criterion-ct span.category,
+  .rpux-filter-locked-criterion-ct span.category {
+    font-size: 12px; }
+
+/* line 128, ../sass/stylesheets/_filtering.scss */
+.rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct,
+.rpux-filter-criterion-ct {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+  background-color: #666666;
+  color: white;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  float: left; }
+  /* line 138, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct input.x-form-field,
+  .rpux-filter-criterion-ct input.x-form-field {
+    color: white; }
+  /* line 142, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-form-invalid .x-form-field,
+  .rpux-filter-criterion-ct .x-form-invalid .x-form-field {
+    background-image: none; }
+  /* line 146, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-form-invalid-icon,
+  .rpux-filter-criterion-ct .x-form-invalid-icon {
+    background-image: none;
+    background-color: transparent;
+    width: 16px; }
+    /* line 150, ../sass/stylesheets/_filtering.scss */
+    .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-form-invalid-icon ul,
+    .rpux-filter-criterion-ct .x-form-invalid-icon ul {
+      border: 0; }
+  /* line 155, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-form-item,
+  .rpux-filter-criterion-ct .x-form-item {
+    margin-bottom: 0; }
+  /* line 159, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-table-layout-cell + .x-table-layout-cell,
+  .rpux-filter-criterion-ct .x-table-layout-cell + .x-table-layout-cell {
+    background-color: #767676; }
+  /* line 163, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct.boolean .last,
+  .rpux-filter-criterion-ct.boolean .last {
+    background-color: transparent; }
+  /* line 167, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .first,
+  .rpux-filter-criterion-ct .first {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    -ms-border-radius: 4px 0 0 4px;
+    -o-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px; }
+  /* line 171, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .last,
+  .rpux-filter-criterion-ct .last {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    -ms-border-radius: 0 4px 4px 0;
+    -o-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0; }
+  /* line 175, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-form-dirty .x-form-field,
+  .rpux-filter-criterion-ct .x-form-dirty .x-form-field {
+    background-image: none; }
+  /* line 179, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .rpux-filter-criterion-operator-field,
+  .rpux-filter-criterion-ct .rpux-filter-criterion-operator-field {
+    background-size: 100% 100%;
+    background-image: url("images/versioned/filtering/op-btn-normal.png"); }
+    /* line 183, ../sass/stylesheets/_filtering.scss */
+    .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .rpux-filter-criterion-operator-field.over,
+    .rpux-filter-criterion-ct .rpux-filter-criterion-operator-field.over {
+      background-image: url("images/versioned/filtering/op-btn-hover.png"); }
+    /* line 187, ../sass/stylesheets/_filtering.scss */
+    .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .rpux-filter-criterion-operator-field.focus,
+    .rpux-filter-criterion-ct .rpux-filter-criterion-operator-field.focus {
+      background-image: url("images/versioned/filtering/op-btn-pressed.png"); }
+  /* line 192, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-btn,
+  .rpux-filter-criterion-ct .x-btn {
+    border: 0;
+    background: transparent;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin-top: 4px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0; }
+  /* line 202, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-btn-over .rpux-remove-criterion,
+  .rpux-filter-criterion-ct .x-btn-over .rpux-remove-criterion {
+    background-image: url("images/versioned/filtering/remove-criterion-hover.png"); }
+  /* line 206, ../sass/stylesheets/_filtering.scss */
+  .rpux-panel-header .rpux-panel-header-body .rpux-filter-criterion-ct .x-btn-disabled.x-btn-over .rpux-remove-criterion,
+  .rpux-filter-criterion-ct .x-btn-disabled.x-btn-over .rpux-remove-criterion {
+    background-image: none; }
+
+/* line 211, ../sass/stylesheets/_filtering.scss */
+.rpux-remove-criterion {
+  background-image: url("images/versioned/filtering/remove-criterion.png");
+  background-position: center center;
+  height: 24px; }
+
+/* line 217, ../sass/stylesheets/_filtering.scss */
+.x-btn-disabled .rpux-remove-criterion {
+  background-image: none; }
+
+/* advanced Filter css */
+/* line 224, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-advanced-date-range .x-form-field {
+  box-shadow: none; }
+/* line 228, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-advanced-date-range .x-form-trigger {
+  background-position: center center !important;
+  background-image: url("images/versioned/16x16/calendar-icon.png") !important;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border-top: 1px solid #CACACA;
+  border-right: 1px solid #CACACA;
+  border-bottom: 1px solid #CACACA;
+  -webkit-border-radius: 0 2px 2px 0;
+  -moz-border-radius: 0 2px 2px 0;
+  -ms-border-radius: 0 2px 2px 0;
+  -o-border-radius: 0 2px 2px 0;
+  border-radius: 0 2px 2px 0;
+  box-shadow: none; }
+
+/* line 242, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-advanced .rpux-filter-advanced-date-range .x-form-text {
+  border-right: none !important;
+  -webkit-border-radius: 2px 0 0 2px;
+  -moz-border-radius: 2px 0 0 2px;
+  -ms-border-radius: 2px 0 0 2px;
+  -o-border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 2px; }
+/* line 248, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-advanced.round-body-top-corners .x-window-body,
+.rpux-filter-advanced .rpux-filter-advanced-tbar {
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  -ms-border-radius: 5px 5px 0 0;
+  -o-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0; }
+
+/* line 253, ../sass/stylesheets/_filtering.scss */
+.filter-clause textarea.x-form-invalid-field {
+  background: repeat-x 0 0;
+  background-color: white;
+  border-color: #ffb900; }
+
+/* line 259, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-menu {
+  border-collapse: separate;
+  border: 0;
+  margin-left: 2px;
+  margin-right: 4px; }
+  /* line 265, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-menu .rpux-buttoncombo-trigger {
+    background-image: url("images/versioned/filtering/star-normal.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin-left: 4px;
+    margin-right: 4px;
+    height: 25px;
+    width: 25px;
+    border: 1px solid transparent;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    padding: 0; }
+  /* line 280, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-menu td > .rpux-buttoncombo-trigger.x-form-arrow-trigger-over {
+    background-image: url("images/versioned/filtering/star-hover.png"); }
+  /* line 284, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-menu td > .rpux-buttoncombo-trigger.rpux-buttoncombo-focus {
+    background-image: url("images/versioned/filtering/star-pressed.png"); }
+  /* line 289, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-menu .x-form-arrow-trigger {
+    background-image: none;
+    border-right: 0;
+    border-bottom: 0; }
+
+/* line 296, ../sass/stylesheets/_filtering.scss */
+.x-boundlist-item.rpux-default-filter {
+  color: black; }
+  /* line 299, ../sass/stylesheets/_filtering.scss */
+  .x-boundlist-item.rpux-default-filter span {
+    font-weight: normal;
+    font-size: 10px;
+    color: #ababab; }
+
+/* line 306, ../sass/stylesheets/_filtering.scss */
+.x-boundlist-item-over.rpux-default-filter {
+  color: #5a6164; }
+
+/* line 310, ../sass/stylesheets/_filtering.scss */
+.x-boundlist-selected.rpux-default-filter {
+  color: #cccccc; }
+
+/* line 314, ../sass/stylesheets/_filtering.scss */
+.x-boundlist-selected.x-boundlist-item-over.rpux-default-filter {
+  color: #e6e6e6; }
+
+/* line 318, ../sass/stylesheets/_filtering.scss */
+.x-boundlist-item.rpux-shared-filter span {
+  font-weight: normal;
+  font-size: 10px;
+  color: #ababab; }
+
+/* line 324, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-name-field, .rpux-filter-save-msg {
+  margin: 8px; }
+
+/* line 328, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-checkbox .x-form-cb-label {
+  vertical-align: middle; }
+
+/* line 332, ../sass/stylesheets/_filtering.scss */
+.rpux-edit-filter-icon {
+  background-image: url("images/versioned/16x16/edit.png");
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  width: 16px;
+  height: 16px;
+  display: none; }
+
+/* line 342, ../sass/stylesheets/_filtering.scss */
+.x-menu-item-text.rpux-filter-menu-item-text {
+  padding: 2px 2px 2px 2px; }
+
+/* line 346, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-main-entry-ct {
+  margin-top: 6px;
+  margin-right: 8px;
+  margin-bottom: 6px;
+  float: right; }
+
+/* line 353, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-more-menu-btn {
+  margin: 5px 6px 3px 4px;
+  float: right; }
+  /* line 357, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-more-menu-btn .x-btn-arrow {
+    background-image: url("images/versioned/filtering/triangle.png"); }
+
+/* line 362, ../sass/stylesheets/_filtering.scss */
+.rpux-refresh-filter-results-icon {
+  margin: 2px 0 0 0; }
+
+/* line 366, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-row-count-label {
+  margin: 4px 0 0 4px;
+  font-size: 10px;
+  vertical-align: center;
+  color: gray; }
+
+/* line 373, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-label {
+  margin: 6px 2px 0 0;
+  padding: 0 2px 0 2px;
+  float: left;
+  font-size: 12px;
+  vertical-align: center; }
+
+/* line 381, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-selected.rpux-filter-owned .rpux-filter-label-over {
+  cursor: pointer;
+  cursor: hand;
+  background-color: gray; }
+
+/* line 387, ../sass/stylesheets/_filtering.scss */
+.rpux-dirty-filter .rpux-dirty-filter-label {
+  display: block; }
+
+/* line 391, ../sass/stylesheets/_filtering.scss */
+.rpux-dirty-filter-label {
+  display: none;
+  margin: 5px 2px 0 4px;
+  float: left;
+  font-size: 13px;
+  color: gray; }
+
+/* line 401, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-criterion-selector-field .x-form-item-body .rpux-buttoncombo-trigger,
+.rpux-filter-criterion-operator-field .x-form-item-body .rpux-buttoncombo-trigger {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border: 0;
+  background-image: none;
+  background-color: transparent;
+  font-size: 12px;
+  height: 24px;
+  padding: 5px;
+  padding-right: 7px; }
+
+/* line 413, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-criteria-link {
+  display: none;
+  float: left;
+  font-size: 10px;
+  color: gray;
+  margin: 6px 0 0 6px; }
+
+/* line 421, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-criteria-container {
+  padding-right: 6px;
+  padding-left: 6px; }
+
+/* line 427, ../sass/stylesheets/_filtering.scss */
+.rpux-adhoc-filters-only .rpux-close-filter-btn {
+  margin-top: 4px;
+  position: absolute;
+  right: 6px; }
+/* line 433, ../sass/stylesheets/_filtering.scss */
+.rpux-adhoc-filters-only .rpux-filter-controls-ct {
+  padding-top: 12px; }
+/* line 437, ../sass/stylesheets/_filtering.scss */
+.rpux-adhoc-filters-only .rpux-filter-criteria-container {
+  padding-right: 28px; }
+
+/* line 442, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-selected .rpux-filter-criteria-link {
+  display: block; }
+
+/* line 446, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-list-item .filter-category {
+  color: #424749; }
+
+/* line 451, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-criterion-edit-field input {
+  background-image: none;
+  background-color: transparent;
+  border: 0;
+  padding-top: 1px; }
+/* line 459, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-criterion-edit-field .x-form-trigger-input-cell .x-form-field {
+  -webkit-border-radius: 2px 0 0 2px;
+  -moz-border-radius: 2px 0 0 2px;
+  -ms-border-radius: 2px 0 0 2px;
+  -o-border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 2px;
+  border-right: none; }
+  /* line 464, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-criterion-edit-field .x-form-trigger-input-cell .x-form-field.x-form-invalid-field, .rpux-filter-criterion-edit-field .x-form-trigger-input-cell .x-form-field.x-field-form-focus {
+    border-right: none; }
+
+/* line 471, ../sass/stylesheets/_filtering.scss */
+.rpux-category-filter-combo-focus .rpux-filter-combo-wrap {
+  border: 1px solid #CACBD7; }
+
+/* line 475, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-combo-trigger {
+  background-image: url("images/versioned/filter-icon.png");
+  background-repeat: no-repeat;
+  background-position: 0 center !important;
+  background-color: transparent;
+  border: 0 !important;
+  -webkit-border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  -ms-border-radius: 0 3px 3px 0;
+  -o-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important; }
+
+/* line 485, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-combo.search .rpux-filter-combo-trigger {
+  background-image: url("images/versioned/magnify-glass.png"); }
+
+/* line 489, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-combo .rpux-filter-combo-trigger {
+  height: 22px; }
+
+/* line 493, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-combo-wrap {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #cfcfcf;
+  background-color: white;
+  padding-right: 1px;
+  padding-left: 1px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dadada), color-stop(5%, #e8e8e8), color-stop(10%, #f2f2f2), color-stop(15%, #fdfdfd), color-stop(100%, #ffffff));
+  background-image: -webkit-linear-gradient(#dadada, #e8e8e8 5%, #f2f2f2 10%, #fdfdfd 15%, #ffffff);
+  background-image: -moz-linear-gradient(#dadada, #e8e8e8 5%, #f2f2f2 10%, #fdfdfd 15%, #ffffff);
+  background-image: -o-linear-gradient(#dadada, #e8e8e8 5%, #f2f2f2 10%, #fdfdfd 15%, #ffffff);
+  background-image: linear-gradient(#dadada, #e8e8e8 5%, #f2f2f2 10%, #fdfdfd 15%, #ffffff); }
+  /* line 500, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-combo-wrap .x-trigger-cell {
+    background: repeat-x 0 0;
+    background-image: none; }
+
+/* line 506, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-combo .rpux-filter-combo-wrap input {
+  -webkit-border-radius: 3px 0 0 3px;
+  -moz-border-radius: 3px 0 0 3px;
+  -ms-border-radius: 3px 0 0 3px;
+  -o-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+  height: 22px;
+  background-image: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important; }
+
+/* line 515, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-header {
+  overflow: visible; }
+  /* line 518, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-header .rpux-panel-header {
+    overflow: visible; }
+    /* line 521, ../sass/stylesheets/_filtering.scss */
+    .rpux-filter-header .rpux-panel-header .rpux-panel-header-body {
+      background: transparent;
+      overflow: visible; }
+
+/* line 528, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-header-lower {
+  background-color: #d5d6d6;
+  -webkit-box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 1px 2px 1px rgba(0, 0, 0, 0.15); }
+
+/* line 533, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-triangle {
+  width: 20px;
+  height: 12px;
+  position: absolute;
+  background-image: url("images/versioned/filtering/filter-triangle.png"); }
+
+/* line 540, ../sass/stylesheets/_filtering.scss */
+.rpux-criterion-error-indicator {
+  position: relative; }
+  /* line 543, ../sass/stylesheets/_filtering.scss */
+  .rpux-criterion-error-indicator .pointer {
+    z-index: 10;
+    position: absolute;
+    left: 15px;
+    width: 10px;
+    border-bottom: 6px solid #d91414;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent; }
+  /* line 553, ../sass/stylesheets/_filtering.scss */
+  .rpux-criterion-error-indicator .error-msg-el {
+    z-index: 10;
+    background-color: #d91414;
+    position: relative;
+    padding: 6px 8px 7px 8px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px; }
+
+/* line 565, ../sass/stylesheets/_filtering.scss */
+.x-nbr .rpux-filter-criterion-ct .x-form-trigger-input-cell .x-form-field {
+  background-color: transparent; }
+/* line 570, ../sass/stylesheets/_filtering.scss */
+.x-nbr .rpux-filter-combo-wrap {
+  background-image: none; }
+/* line 576, ../sass/stylesheets/_filtering.scss */
+.x-nbr .rpux-filter-criterion-ct .x-form-trigger-input-cell > .x-form-field {
+  height: 22px;
+  margin-top: 4px; }
+/* line 581, ../sass/stylesheets/_filtering.scss */
+.x-nbr .rpux-filter-triangle {
+  background-image: url("images/versioned/filtering/filter-triangle-ie8.png"); }
+
+/* line 587, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-managment-panel .rpux-filter-management-nav-ct {
+  background-color: #eeeff0;
+  border: 1px solid #dedede;
+  border-top: 0;
+  border-right: 0; }
+  /* line 593, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .rpux-filter-management-nav-ct .selection-indicator {
+    width: 18px;
+    height: 18px;
+    border: 0;
+    display: inline-block; }
+  /* line 600, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .rpux-filter-management-nav-ct .nav-filler {
+    border-right: 1px solid #dedede; }
+  /* line 604, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .rpux-filter-management-nav-ct .rpux-filter-management-category-selector {
+    padding: 9px 0 9px 8px;
+    border-bottom: solid #c5c5c5 1px;
+    font-size: 12px;
+    cursor: pointer; }
+    /* line 610, ../sass/stylesheets/_filtering.scss */
+    .rpux-filter-managment-panel .rpux-filter-management-nav-ct .rpux-filter-management-category-selector:hover {
+      background-color: #c5c9cc;
+      -webkit-box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.5);
+      box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.5); }
+    /* line 615, ../sass/stylesheets/_filtering.scss */
+    .rpux-filter-managment-panel .rpux-filter-management-nav-ct .rpux-filter-management-category-selector.selected {
+      -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0 -1px 9px 2px inset;
+      -moz-box-shadow: rgba(0, 0, 0, 0.25) 0 -1px 9px 2px inset;
+      box-shadow: rgba(0, 0, 0, 0.25) 0 -1px 9px 2px inset;
+      background-color: #9da3a8;
+      color: #f5f5f6;
+      border-right: 0; }
+      /* line 621, ../sass/stylesheets/_filtering.scss */
+      .rpux-filter-managment-panel .rpux-filter-management-nav-ct .rpux-filter-management-category-selector.selected .selection-indicator {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 6px solid #ffffff; }
+    /* line 628, ../sass/stylesheets/_filtering.scss */
+    .rpux-filter-managment-panel .rpux-filter-management-nav-ct .rpux-filter-management-category-selector .filter-category {
+      cursor: pointer;
+      padding-top: 2px;
+      padding-bottom: 2px; }
+    /* line 634, ../sass/stylesheets/_filtering.scss */
+    .rpux-filter-managment-panel .rpux-filter-management-nav-ct .rpux-filter-management-category-selector .filter-count {
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+      text-align: right;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      padding-right: 6px;
+      padding-left: 6px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      -o-border-radius: 3px;
+      border-radius: 3px;
+      border-color: gray;
+      background-color: #414649;
+      position: absolute;
+      right: 0; }
+/* line 652, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-managment-panel .x-toolbar {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #f5f5f6));
+  background-image: -webkit-linear-gradient(#ffffff, #f5f5f6);
+  background-image: -moz-linear-gradient(#ffffff, #f5f5f6);
+  background-image: -o-linear-gradient(#ffffff, #f5f5f6);
+  background-image: linear-gradient(#ffffff, #f5f5f6);
+  background-color: #f5f5f6;
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25); }
+  /* line 656, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .x-toolbar .x-btn, .rpux-filter-managment-panel .x-toolbar .x-toolbar-separator {
+    margin: 8px 0 8px 8px; }
+/* line 661, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-managment-panel .x-grid {
+  margin: 10px;
+  border-top: 1px solid #dedede; }
+/* line 668, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-managment-panel .x-grid-cell-filterText .x-grid-cell-inner,
+.rpux-filter-managment-panel .x-grid-cell-ownerName .x-grid-cell-inner {
+  white-space: normal; }
+/* line 673, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-managment-panel .x-grid-row-selected .x-grid-cell-isFavoriteColumn .rpux-not-favorite-filter {
+  background-image: url("images/versioned/filtering/star-gray.png"); }
+/* line 677, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-managment-panel .x-grid-cell-isFavoriteColumn {
+  padding: 0 9px 0 9px; }
+  /* line 680, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .x-grid-cell-isFavoriteColumn .rpux-favorite-filter {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-image: url("images/versioned/filtering/starbright.png");
+    display: none;
+    width: 22px;
+    cursor: pointer; }
+  /* line 689, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .x-grid-cell-isFavoriteColumn .rpux-not-favorite-filter {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-image: url("images/versioned/filtering/starlight.png");
+    width: 22px;
+    cursor: pointer; }
+  /* line 698, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .x-grid-cell-isFavoriteColumn.favorite .rpux-favorite-filter {
+    display: block; }
+  /* line 701, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .x-grid-cell-isFavoriteColumn.favorite .rpux-not-favorite-filter {
+    display: none; }
+/* line 707, ../sass/stylesheets/_filtering.scss */
+.rpux-filter-managment-panel .rpux-tag-component {
+  cursor: default; }
+  /* line 710, ../sass/stylesheets/_filtering.scss */
+  .rpux-filter-managment-panel .rpux-tag-component.tag-removable {
+    padding-right: 20px;
+    background-image: url("images/versioned/filtering/padded-x.png");
+    background-position: right 2px;
+    background-repeat: no-repeat;
+    cursor: pointer; }
+
+/* line 720, ../sass/stylesheets/_filtering.scss */
+.rpux-quick-filter-menu .x-menu-icon-separator {
+  display: none; }
+
+/* line 724, ../sass/stylesheets/_filtering.scss */
+.rpux-quick-filter-group {
+  background-color: #eeeeee;
+  padding-left: 15px;
+  height: 25px;
+  line-height: 25px;
+  font-weight: bold;
+  color: #868687;
+  text-transform: uppercase;
+  font-size: 10px;
+  cursor: default; }
+
+/* line 736, ../sass/stylesheets/_filtering.scss */
+.rpux-quick-filter-name {
+  width: 100%;
+  white-space: normal; }
+
+/* line 741, ../sass/stylesheets/_filtering.scss */
+.rpux-quick-filter-count {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  margin-left: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 1px; }
+
+/* line 1, ../sass/stylesheets/_requiredField.scss */
+.rpux-label-required-field-indicator {
+  color: #545454;
+  font-weight: bold;
+  margin-left: 1px; }
+
+/* line 7, ../sass/stylesheets/_requiredField.scss */
+.rpux-label-optional-field-indicator {
+  font-size: 10px;
+  font-weight: normal;
+  color: #a5a5a5;
+  margin-left: 6px; }
+
+/**
+ * @deprecated 
+ */
+/* line 17, ../sass/stylesheets/_requiredField.scss */
+.rpux-label-required-indicator {
+  color: #CC0000;
+  font-weight: bold; }
+
+/**
+ * @deprecated 
+ */
+/* line 25, ../sass/stylesheets/_requiredField.scss */
+.rpux-label-hide-required-indicator {
+  display: none; }
+
+/* line 1, ../sass/stylesheets/_print.scss */
+.rpux-multi-level-print-grid .rpux-multi-level-grid-row-body > .x-grid-cell-rowbody > .x-grid-rowbody > div > div {
+  background-color: white !important; }
+
+/* line 5, ../sass/stylesheets/_print.scss */
+.rp-print-grid {
+  margin: 0; }
+  /* line 8, ../sass/stylesheets/_print.scss */
+  .rp-print-grid .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center; }
+  /* line 15, ../sass/stylesheets/_print.scss */
+  .rp-print-grid .header {
+    border-bottom: 1px solid; }
+    /* line 18, ../sass/stylesheets/_print.scss */
+    .rp-print-grid .header .hcell {
+      padding: 7px;
+      font-weight: bold; }
+      /* line 22, ../sass/stylesheets/_print.scss */
+      .rp-print-grid .header .hcell.left {
+        text-align: left;
+        float: left; }
+      /* line 26, ../sass/stylesheets/_print.scss */
+      .rp-print-grid .header .hcell.center {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto; }
+      /* line 33, ../sass/stylesheets/_print.scss */
+      .rp-print-grid .header .hcell.right {
+        text-align: right;
+        float: right; }
+  /* line 40, ../sass/stylesheets/_print.scss */
+  .rp-print-grid .row-cells {
+    border-bottom: 1px solid #DDD; }
+    /* line 43, ../sass/stylesheets/_print.scss */
+    .rp-print-grid .row-cells .cell {
+      padding: 5px;
+      width: 100%; }
+      /* line 47, ../sass/stylesheets/_print.scss */
+      .rp-print-grid .row-cells .cell.left {
+        text-align: left;
+        float: left; }
+      /* line 51, ../sass/stylesheets/_print.scss */
+      .rp-print-grid .row-cells .cell.center {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto; }
+      /* line 58, ../sass/stylesheets/_print.scss */
+      .rp-print-grid .row-cells .cell.right {
+        text-align: right;
+        float: right; }
+  /* line 65, ../sass/stylesheets/_print.scss */
+  .rp-print-grid .row-body {
+    width: 100%;
+    margin-left: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid; }
+
+/* line 2, ../sass/stylesheets/_gridWarningBar.scss */
+.rpux-grid-with-warning-bar > .x-panel-header {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+/* line 6, ../sass/stylesheets/_gridWarningBar.scss */
+.rpux-grid-with-warning-bar .rpux-wb {
+  -webkit-box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.13);
+  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.13);
+  border: 1px solid #DEDEDE;
+  padding: 8px;
+  z-index: 2; }
+  /* line 12, ../sass/stylesheets/_gridWarningBar.scss */
+  .rpux-grid-with-warning-bar .rpux-wb .rpux-wb-label-current {
+    color: #949494;
+    font-size: 12px;
+    padding: 0 0 0 8px; }
+  /* line 18, ../sass/stylesheets/_gridWarningBar.scss */
+  .rpux-grid-with-warning-bar .rpux-wb .rpux-wb-label-total {
+    color: #C41515;
+    font-size: 12px;
+    padding: 0 8px 0 5px; }
+    /* line 24, ../sass/stylesheets/_gridWarningBar.scss */
+    .rpux-grid-with-warning-bar .rpux-wb .rpux-wb-label-total.rpux-wb-label-total-clickable:hover {
+      cursor: pointer;
+      text-decoration: underline; }
+/* line 34, ../sass/stylesheets/_gridWarningBar.scss */
+.rpux-grid-with-warning-bar .rpux-prev-btn,
+.rpux-grid-with-warning-bar .rpux-next-btn,
+.rpux-grid-with-warning-bar .rp-close-x-btn {
+  background-color: transparent;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  border: none; }
+
+/* line 2, ../sass/stylesheets/_invalidGrid.scss */
+.x-grid-cell.rp-invalid-field .rp-invalid-cell {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  display: inline;
+  float: left;
+  height: 16px;
+  left: -8px;
+  margin-right: -2px;
+  position: relative;
+  width: 16px; }
+/* line 14, ../sass/stylesheets/_invalidGrid.scss */
+.x-grid-cell.rp-invalid-field .rp-invalid-field-arrow {
+  border-color: transparent transparent #F74143;
+  border-style: solid;
+  border-width: 0 5px 5px;
+  position: absolute;
+  top: 5px;
+  width: 5px; }
+  /* line 22, ../sass/stylesheets/_invalidGrid.scss */
+  .x-grid-cell.rp-invalid-field .rp-invalid-field-arrow.rp-invalid-field-arrow-left {
+    left: -5px; }
+  /* line 26, ../sass/stylesheets/_invalidGrid.scss */
+  .x-grid-cell.rp-invalid-field .rp-invalid-field-arrow.rp-invalid-field-arrow-right {
+    right: 5px; }
+/* line 31, ../sass/stylesheets/_invalidGrid.scss */
+.x-grid-cell.rp-invalid-field .rp-invalid-field-body {
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f74143), color-stop(100%, #c41515));
+  background-image: -webkit-linear-gradient(#f74143, #c41515);
+  background-image: -moz-linear-gradient(#f74143, #c41515);
+  background-image: -o-linear-gradient(#f74143, #c41515);
+  background-image: linear-gradient(#f74143, #c41515);
+  background-color: #C41515;
+  border-radius: 2px;
+  left: -12px;
+  padding: 5px;
+  position: relative;
+  top: 10px; }
+  /* line 40, ../sass/stylesheets/_invalidGrid.scss */
+  .x-grid-cell.rp-invalid-field .rp-invalid-field-body .rp-invalid-field-label {
+    color: white; }
+/* line 46, ../sass/stylesheets/_invalidGrid.scss */
+.x-grid-cell.rp-invalid-field.empty-text .rp-invalid-field-body {
+  display: none; }
+/* line 49, ../sass/stylesheets/_invalidGrid.scss */
+.x-grid-cell.rp-invalid-field.empty-text .rp-invalid-field-arrow {
+  display: none; }
+/* line 52, ../sass/stylesheets/_invalidGrid.scss */
+.x-grid-cell.rp-invalid-field.empty-text .x-grid-cell-inner {
+  font-style: italic; }
+
+/* line 58, ../sass/stylesheets/_invalidGrid.scss */
+.x-form-invalid-icon.rp-input-hidden {
+  background: none;
+  width: 10px; }
+  /* line 62, ../sass/stylesheets/_invalidGrid.scss */
+  .x-form-invalid-icon.rp-input-hidden > ul {
+    border: none; }
+
+/* line 1, ../sass/stylesheets/_progressBar.scss */
+.x-grid-row-focused .rpux-progress-bar-container .bar-area {
+  -webkit-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.37) inset;
+  -moz-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.37) inset;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.37) inset; }
+
+/* line 5, ../sass/stylesheets/_progressBar.scss */
+.rpux-progress-bar-container {
+  width: 100%; }
+  /* line 9, ../sass/stylesheets/_progressBar.scss */
+  .rpux-progress-bar-container .bar-area {
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #999;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dfdede), color-stop(100%, #e9e9ea));
+    background-image: -webkit-linear-gradient(#dfdede, #e9e9ea);
+    background-image: -moz-linear-gradient(#dfdede, #e9e9ea);
+    background-image: -o-linear-gradient(#dfdede, #e9e9ea);
+    background-image: linear-gradient(#dfdede, #e9e9ea);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.37) inset, 1px 1px 0 0 white;
+    -moz-box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.37) inset, 1px 1px 0 0 white;
+    box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 0.37) inset, 1px 1px 0 0 white; }
+    /* line 18, ../sass/stylesheets/_progressBar.scss */
+    .rpux-progress-bar-container .bar-area .bar {
+      border: none;
+      overflow: hidden;
+      position: absolute;
+      height: 100%; }
+      /* line 24, ../sass/stylesheets/_progressBar.scss */
+      .rpux-progress-bar-container .bar-area .bar.blue {
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #62a9db), color-stop(100%, #2073bc));
+        background-image: -webkit-linear-gradient(#62a9db, #2073bc);
+        background-image: -moz-linear-gradient(#62a9db, #2073bc);
+        background-image: -o-linear-gradient(#62a9db, #2073bc);
+        background-image: linear-gradient(#62a9db, #2073bc);
+        background-color: #62a9db; }
+      /* line 28, ../sass/stylesheets/_progressBar.scss */
+      .rpux-progress-bar-container .bar-area .bar.red {
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f7372a), color-stop(100%, #a00000));
+        background-image: -webkit-linear-gradient(#f7372a, #a00000);
+        background-image: -moz-linear-gradient(#f7372a, #a00000);
+        background-image: -o-linear-gradient(#f7372a, #a00000);
+        background-image: linear-gradient(#f7372a, #a00000);
+        background-color: #f7372a; }
+      /* line 32, ../sass/stylesheets/_progressBar.scss */
+      .rpux-progress-bar-container .bar-area .bar.green {
+        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #76c43f), color-stop(100%, #409f0a));
+        background-image: -webkit-linear-gradient(#76c43f, #409f0a);
+        background-image: -moz-linear-gradient(#76c43f, #409f0a);
+        background-image: -o-linear-gradient(#76c43f, #409f0a);
+        background-image: linear-gradient(#76c43f, #409f0a);
+        background-color: #76c43f; }
+      /* line 37, ../sass/stylesheets/_progressBar.scss */
+      .rpux-progress-bar-container .bar-area .bar.rtl {
+        right: 0; }
+    /* line 42, ../sass/stylesheets/_progressBar.scss */
+    .rpux-progress-bar-container .bar-area .bar-text {
+      overflow: hidden;
+      font-size: 12px;
+      top: 50%;
+      margin-top: -7px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-weight: bold;
+      /*color: #FFF;*/
+      /*@include text-shadow(-2px 1px 7px #000);*/
+      color: #000;
+      text-shadow: -2px 1px 6px white; }
+  /* line 62, ../sass/stylesheets/_progressBar.scss */
+  .rpux-progress-bar-container .details .of {
+    font-size: 11px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #eeeeee; }
+  /* line 72, ../sass/stylesheets/_progressBar.scss */
+  .rpux-progress-bar-container .details .ends {
+    color: inherit;
+    font-size: 11px;
+    font-weight: bold;
+    text-shadow: 0 0 0; }
+    /* line 78, ../sass/stylesheets/_progressBar.scss */
+    .rpux-progress-bar-container .details .ends .left {
+      float: left; }
+    /* line 82, ../sass/stylesheets/_progressBar.scss */
+    .rpux-progress-bar-container .details .ends .right {
+      float: right; }
+    /* line 86, ../sass/stylesheets/_progressBar.scss */
+    .rpux-progress-bar-container .details .ends .blue {
+      color: #62a9db; }
+    /* line 90, ../sass/stylesheets/_progressBar.scss */
+    .rpux-progress-bar-container .details .ends .red {
+      color: #f7372a; }
+    /* line 94, ../sass/stylesheets/_progressBar.scss */
+    .rpux-progress-bar-container .details .ends .green {
+      color: #76c43f; }
+
+/* line 11, ../sass/stylesheets/_calendar.scss */
+.rpux-calendar-month-item, .rpux-calendar-month-row {
+  border-width: 0;
+  border-style: solid;
+  border-color: #dedede; }
+
+/* line 17, ../sass/stylesheets/_calendar.scss */
+.rpux-calendar-month-item-number {
+  color: black;
+  font-size: 11px;
+  padding-top: 8px;
+  padding-left: 8px; }
+  /* line 24, ../sass/stylesheets/_calendar.scss */
+  .rpux-calendar-month-item-number.disabled {
+    color: #aca09a; }
+
+/* line 29, ../sass/stylesheets/_calendar.scss */
+.rpux-calendar-month-item + .rpux-calendar-month-item {
+  border-left-width: 1px; }
+
+/* line 33, ../sass/stylesheets/_calendar.scss */
+.rpux-calendar-month-row {
+  border-top-width: 1px;
+  background-color: white; }
+
+/* line 38, ../sass/stylesheets/_calendar.scss */
+.rpux-calendar-week {
+  color: black;
+  border-right: 1px solid #dedede;
+  border-left: 1px solid #dedede; }
+  /* line 45, ../sass/stylesheets/_calendar.scss */
+  .rpux-calendar-week .rpux-calendar-month-item {
+    font-size: 11px;
+    padding-top: 8px;
+    padding-left: 8px; }
+
+/* line 52, ../sass/stylesheets/_calendar.scss */
+.rpux-calendar-month-picker-display {
+  font-size: 18px;
+  text-align: center; }
+
+/* line 57, ../sass/stylesheets/_calendar.scss */
+.rpux-calendar-month-body {
+  color: black;
+  border: 1px solid #dedede;
+  border-top-style: none; }
+
+/* line 2, ../sass/stylesheets/_button.scss */
+.rpux-text-wrap-button .x-btn-inner {
+  white-space: normal; }
+
+/* line 7, ../sass/stylesheets/_button.scss */
+.x-btn.auto-height {
+  height: auto !important; }
+  /* line 9, ../sass/stylesheets/_button.scss */
+  .x-btn.auto-height button {
+    height: auto !important; }
+  /* line 12, ../sass/stylesheets/_button.scss */
+  .x-btn.auto-height .x-btn-inner {
+    height: auto !important;
+    line-height: normal !important; }
+
+/* line 19, ../sass/stylesheets/_button.scss */
+.rpux-drilldown-button button {
+  min-height: 26px; }
+
+/* line 24, ../sass/stylesheets/_button.scss */
+.rpux-drilldown-icon {
+  background-image: url("images/versioned/drilldownArrow.png"); }
+
+/* line 27, ../sass/stylesheets/_button.scss */
+.rpux-drilldown-invalid {
+  border-color: #ff7d7d; }
+  /* line 30, ../sass/stylesheets/_button.scss */
+  .rpux-drilldown-invalid .rpux-drilldown-icon {
+    background-image: url("images/versioned/error.png"); }
+
+/* line 35, ../sass/stylesheets/_button.scss */
+.rpux-drilldown-invalid.x-disabled {
+  border-color: #c7c7c7; }
+  /* line 38, ../sass/stylesheets/_button.scss */
+  .rpux-drilldown-invalid.x-disabled .rpux-drilldown-icon {
+    background-image: url("images/versioned/drilldownArrow.png"); }
+
+/* Ext assigns !important padding to buttons. */
+/* line 44, ../sass/stylesheets/_button.scss */
+.x-nbr .rpux-text-wrap-button {
+  padding: 6px 12px 6px 6px !important; }
+
+/* line 48, ../sass/stylesheets/_button.scss */
+.rpux-text-wrap-button {
+  padding: 6px 12px 6px 6px; }
+
+/* line 52, ../sass/stylesheets/_button.scss */
+.rpux-text-wrap-button.x-btn-default-small-icon-text-right .x-btn-inner {
+  padding-right: 40px !important; }
+
+/* line 56, ../sass/stylesheets/_button.scss */
+.rpux-save-default-state-button {
+  height: 24px;
+  margin-left: 10px; }
+
+/* line 62, ../sass/stylesheets/_button.scss */
+.count-button .x-btn-count {
+  height: 50px;
+  width: 50px;
+  background-color: black; }
+
+/* line 72, ../sass/stylesheets/_button.scss */
+.x-btn .x-btn-center .x-btn-inner .rpux-count-btn-count {
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 1px 3px; }
+/* line 78, ../sass/stylesheets/_button.scss */
+.x-btn .x-btn-center .x-btn-inner .count-black {
+  background-color: black;
+  color: white; }
+/* line 83, ../sass/stylesheets/_button.scss */
+.x-btn .x-btn-center .x-btn-inner .count-red {
+  background-color: red;
+  color: white; }
+
+/* line 1, ../sass/stylesheets/_wizard.scss */
+.rpux-step-sequence {
+  position: relative;
+  font-size: 14px;
+  font-family: tahoma, arial, verdana, sans-serif;
+  padding: 2px 3px 3px 18px;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  cursor: pointer; }
+  /* line 12, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence:after {
+    content: "";
+    color: transparent;
+    position: absolute;
+    float: right;
+    top: 0;
+    right: -13px;
+    width: 0;
+    height: 0;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent; }
+  /* line 25, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence:before {
+    content: "";
+    color: transparent;
+    position: absolute;
+    float: right;
+    margin-left: 0;
+    left: 100%;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent; }
+  /* line 39, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-available {
+    background-color: #CCC;
+    color: #000; }
+  /* line 44, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-available:after {
+    border-left: 14px solid #CCC; }
+  /* line 48, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-unavailable:after {
+    border-left: 14px solid #FFF; }
+  /* line 52, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-active:after {
+    border-left: 14px solid #090; }
+  /* line 56, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-available:before {
+    border-left: 15px solid #000; }
+  /* line 60, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-unavailable:before {
+    border-left: 15px solid #000; }
+  /* line 64, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-active:before {
+    border-left: 15px solid #000; }
+  /* line 68, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-unavailable {
+    color: #CCC;
+    background-color: #FFF; }
+  /* line 73, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.rpux-step-active {
+    color: #FFF;
+    background-color: #090; }
+  /* line 78, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence:first-child {
+    padding-left: 20px;
+    border-top-left-radius: 5px 5px;
+    border-bottom-left-radius: 5px 5px; }
+  /* line 84, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence .rpux-step-number {
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 10px; }
+  /* line 90, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.last:after, .rpux-step-sequence.last:before {
+    margin-left: 0;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border: 0; }
+  /* line 99, ../sass/stylesheets/_wizard.scss */
+  .rpux-step-sequence.last {
+    padding-right: 20px;
+    border-top-right-radius: 5px 5px;
+    border-bottom-right-radius: 5px 5px; }
+
+/* line 106, ../sass/stylesheets/_wizard.scss */
+.x-btn.rpux-wizard-cancel-btn {
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  background-size: default; }
+
+/* Small buttons in IE have a gray background that overrides the 'x' icon.  Arg. */
+/* line 114, ../sass/stylesheets/_wizard.scss */
+.x-nlg .x-btn.rpux-wizard-cancel-btn {
+  background-repeat: no-repeat; }
+
+/* line 118, ../sass/stylesheets/_wizard.scss */
+.x-panel-header.rpux-wizard-seq-hd {
+  background-color: transparent;
+  background-image: none;
+  border: 0;
+  margin-bottom: 10px; }
+  /* line 124, ../sass/stylesheets/_wizard.scss */
+  .x-panel-header.rpux-wizard-seq-hd .rpux-wizard-seq-hd-title {
+    font-size: 24px; }
+
+/* line 129, ../sass/stylesheets/_wizard.scss */
+.rpux-wizard-seq-ft {
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  -ms-border-radius: 0 0 3px 3px;
+  -o-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+  padding: 4px 8px 4px 8px;
+  background: #eeeff0;
+  /* for non-css3 browsers */
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f5f5f6), color-stop(100%, #eeeff0));
+  background-image: -webkit-linear-gradient(#f5f5f6, #eeeff0);
+  background-image: -moz-linear-gradient(#f5f5f6, #eeeff0);
+  background-image: -o-linear-gradient(#f5f5f6, #eeeff0);
+  background-image: linear-gradient(#f5f5f6, #eeeff0); }
+
+/* line 2, ../sass/stylesheets/_actionBasket.scss */
+.rpux-action-basket-app .rpux-action-basket-tb {
+  background: #f0f0f0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #f0f0f0));
+  background-image: -webkit-linear-gradient(#ffffff, #f0f0f0);
+  background-image: -moz-linear-gradient(#ffffff, #f0f0f0);
+  background-image: -o-linear-gradient(#ffffff, #f0f0f0);
+  background-image: linear-gradient(#ffffff, #f0f0f0); }
+  /* line 5, ../sass/stylesheets/_actionBasket.scss */
+  .rpux-action-basket-app .rpux-action-basket-tb.x-toolbar {
+    padding: 8px; }
+    /* line 8, ../sass/stylesheets/_actionBasket.scss */
+    .rpux-action-basket-app .rpux-action-basket-tb.x-toolbar .x-btn-arrow-right {
+      padding-right: 18px; }
+    /* line 12, ../sass/stylesheets/_actionBasket.scss */
+    .rpux-action-basket-app .rpux-action-basket-tb.x-toolbar div, .rpux-action-basket-app .rpux-action-basket-tb.x-toolbar table {
+      margin-right: 8px; }
+
+/* line 19, ../sass/stylesheets/_actionBasket.scss */
+.rpux-action-basket {
+  border: 1px solid #cacaca; }
+  /* line 20, ../sass/stylesheets/_actionBasket.scss */
+  .rpux-action-basket.x-toolbar-item {
+    margin-right: 4px; }
+
+/* line 26, ../sass/stylesheets/_actionBasket.scss */
+.rpux-action-basket-label {
+  -webkit-border-radius: 2px 0 0 2px;
+  -moz-border-radius: 2px 0 0 2px;
+  -ms-border-radius: 2px 0 0 2px;
+  -o-border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 2px;
+  background-color: #016aac;
+  background-position: 4px 2px;
+  background-repeat: no-repeat;
+  color: white;
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 20px;
+  padding-left: 24px;
+  padding-right: 8px; }
+  /* line 38, ../sass/stylesheets/_actionBasket.scss */
+  .rpux-action-basket-label.empty {
+    background-color: #666666; }
+
+/* line 43, ../sass/stylesheets/_actionBasket.scss */
+.rpux-action-basket-count {
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center; }
+
+/* line 50, ../sass/stylesheets/_actionBasket.scss */
+.rpux-action-basket-button {
+  -webkit-border-radius: 0 2px 2px 0;
+  -moz-border-radius: 0 2px 2px 0;
+  -ms-border-radius: 0 2px 2px 0;
+  -o-border-radius: 0 2px 2px 0;
+  border-radius: 0 2px 2px 0; }
+
+/* line 2, ../sass/stylesheets/_endlessPaging.scss */
+.rpux-endless-paging.rpux-ep-hidden .rpux-ep {
+  display: none; }
+/* line 6, ../sass/stylesheets/_endlessPaging.scss */
+.rpux-endless-paging .rpux-ep {
+  height: 300px;
+  padding-top: 140px;
+  width: 100px;
+  margin: auto; }
+/* line 13, ../sass/stylesheets/_endlessPaging.scss */
+.rpux-endless-paging .rp-spinner-image {
+  background-repeat: no-repeat;
+  height: 25px;
+  display: inline-block;
+  width: 25px;
+  position: relative;
+  top: 6px;
+  left: 10px; }
+
+/**
+ * This scss file is used to compile a simple list of css selectors
+ * that provide the ability to easily add rpweb resources (gradients, 
+ * images, ect) to components outside of rpweb.
+ *
+ * A css file seperate from rp-theme is generated, and then compiled
+ * into rp-theme when rpweb is built.  Therefore the selectors
+ * will be avalible to any components that need to use them.
+ *
+ * Any new variables for resources that should be avalible to components
+ * outside of rpweb need to be added in the appropriate rp-resource
+ * list below
+ *
+ * For more information, refer to 
+ * http://redwiki/display/RPUX/Utilizing+RPWEB+and+RPUX+images+and+gradients
+ */
+/**
+ * Mixins
+ */
+/**
+ * This mixin will generate simple selectors for all of the gradients contained
+ * in the list $rp-gradient-resources so that they may be used across
+ * all components.
+ *
+ * $rp-gradient resources must be a list of lists, which each sub-list in the
+ * format (name, $base-color, $gradient).  The name will be applied to the selector,
+ * the base color will be for browsers that don't support gradients, and the 
+ * gradient will be use for those that do.
+ *
+ * @param - rp-gradient-resources.  The list of gradient resources to have
+ *          selectors generated for.
+ */
+/**
+ * This mixin will generate simple selectors for all of the images contained
+ * in the list $rpux-image-resources so that they may be used across
+ * all components.
+ *
+ * The selectors will be named based on the names of the variables.
+ *
+ * @param - rpux-image-resources.  The list of image resources to have
+ *          selectors generated for.  This is a list
+ *          of lists in the form (name, url);
+ */
+/**
+ * This mixin will generate mouse-interactive selectors for all of the images
+ * contained in the list $rp-btn-image-resources so that they may be used across
+ * all components.
+ *
+ * The selectors will be named based on the names of the variables.
+ *
+ * @param - rpux-btn-image-resources.  The list of image resources for
+ *          which selectors will be generated.  This is a list
+ *          of lists in the form (name, normalUrl, hoverUrl, selectedUrl);
+ */
+/**
+ * Variables
+ *
+ * Any new variables files will need to be added here as well as in rp-theme
+ *
+ */
+/**
+ * This variables file contains many of the images
+ * provided by rpux.  Each image has its own
+ * variable that can be reference elsewhere
+ * in rpux sass.
+ */
+/**
+ * This variables file contains many of the gradients
+ * provided by rpux.  Each gradient has its own
+ * variable that can be reference elsewhere
+ * in rpux sass.
+ */
+/**
+ * This is another image resource list, but is intended for icons
+ * that will be mouse-interactive, requiring hover and selected states.
+ *
+ * This list of lists uses the form (name, image path, hover image path, selected image path),
+ * where name titles the selector and the image paths point to the three background images.
+ */
+/**
+ * All new images MUST be added to this list if they are to have simple
+ * css selectors generated for them.
+ *
+ * This a list of lists, in the form (name, image path) where name
+ * is used to title the selector and the image path is
+ * used to specify the background image.
+ */
+/**
+ * All new gradients MUST be added to this list if they are to have
+ * simple css selectors generated for them.
+ *
+ * Gradients must be added as a list in the form ( name, base color, gradient);
+ */
+/**
+ * Generate the css
+ */
+/* line 34, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-prev-btn {
+  background-image: url("images/versioned/16x16/leftNormal.png"); }
+  /* line 37, ../sass/mixins/resources/_rpux-image-resources.scss */
+  .rpux-prev-btn:hover {
+    background-image: url("images/versioned/16x16/leftHover.png"); }
+  /* line 41, ../sass/mixins/resources/_rpux-image-resources.scss */
+  .rpux-prev-btn:active {
+    background-image: url("images/versioned/16x16/leftPressed.png"); }
+
+/* line 34, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-next-btn {
+  background-image: url("images/versioned/16x16/rightNormal.png"); }
+  /* line 37, ../sass/mixins/resources/_rpux-image-resources.scss */
+  .rpux-next-btn:hover {
+    background-image: url("images/versioned/16x16/rightHover.png"); }
+  /* line 41, ../sass/mixins/resources/_rpux-image-resources.scss */
+  .rpux-next-btn:active {
+    background-image: url("images/versioned/16x16/rightPressed.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-filter-icon {
+  background-image: url("images/versioned/filter-icon.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-delete-icon {
+  background-image: url("images/versioned/delete2.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-find-icon {
+  background-image: url("images/versioned/find.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-magnify-normal {
+  background-image: url("images/versioned/magnify-glass.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-magnify-hover {
+  background-image: url("images/versioned/magnify-glass-hover.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-module-icon {
+  background-image: url("images/versioned/module.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-pin-red-icon {
+  background-image: url("images/versioned/pin_red.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-search-icon {
+  background-image: url("images/versioned/search.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-star-hover {
+  background-image: url("images/versioned/star-hover.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-star-normal {
+  background-image: url("images/versioned/star-normal.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-star-pressed {
+  background-image: url("images/versioned/star-pressed.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-menu-arrow {
+  background-image: url("images/versioned/menu-arrow.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-right-cal-arrow {
+  background-image: url("images/versioned/right-cal-arrow.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-triangle-dark-side {
+  background-image: url("images/versioned/triangle-dark-side.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-calendar-icon {
+  background-image: url("images/versioned/16x16/calendar-icon.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-dark-x {
+  background-image: url("images/versioned/16x16/close.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-light-x {
+  background-image: url("images/versioned/16x16/closeX.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-close-hover-icon {
+  background-image: url("images/versioned/16x16/closeHoverX.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-cubes-icon {
+  background-image: url("images/versioned/16x16/cubes.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-red-x {
+  background-image: url("images/versioned/16x16/deleteNew.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-gear-icon {
+  background-image: url("images/versioned/16x16/gear.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-gear-warning-icon {
+  background-image: url("images/versioned/16x16/gear_warning.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-handshake-icon {
+  background-image: url("images/versioned/16x16/handshake.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-favorites-icon {
+  background-image: url("images/versioned/16x16/icon_favourites.gif"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-left-hover-arrow {
+  background-image: url("images/versioned/16x16/leftHover.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-left-normal-arrow {
+  background-image: url("images/versioned/16x16/leftNormal.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-left-pressed-arrow {
+  background-image: url("images/versioned/16x16/leftPressed.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-blue-down-arrow {
+  background-image: url("images/versioned/16x16/navigate_close.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-right-pressed-arrow {
+  background-image: url("images/versioned/16x16/rightPressed.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-right-hover-arrow {
+  background-image: url("images/versioned/16x16/rightHover.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-right-normal-arrow {
+  background-image: url("images/versioned/16x16/rightNormal.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-bright-star-icon {
+  background-image: url("images/versioned/16x16/starbright.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-light-star-icon {
+  background-image: url("images/versioned/16x16/starlight.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-down-dark-triangle {
+  background-image: url("images/versioned/16x16/triangle-down-dark.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-view-icon {
+  background-image: url("images/versioned/16x16/view.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-large-add-icon {
+  background-image: url("images/versioned/24x24/add2.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-large-remove-icon {
+  background-image: url("images/versioned/24x24/delete2.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-large-view-icon {
+  background-image: url("images/versioned/24x24/view.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-refresh-icon {
+  background-image: url("images/versioned/24x24/betterRefresh.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-filter-triangle {
+  background-image: url("images/versioned/filtering/filter-triangle.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-filter-triangle-ie8 {
+  background-image: url("images/versioned/filtering/filter-triangle-ie8.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-op-button-normal {
+  background-image: url("images/versioned/filtering/op-btn-normal.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-op-button-hover {
+  background-image: url("images/versioned/filtering/op-btn-hover.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-op-button-pressed {
+  background-image: url("images/versioned/filtering/op-btn-pressed.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-remove-criterion-x {
+  background-image: url("images/versioned/filtering/remove-criterion.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-remove-criterion-hover-x {
+  background-image: url("images/versioned/filtering/remove-criterion-hover.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-bright-star-plain {
+  background-image: url("images/versioned/filtering/starbright.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-bright-star-hover {
+  background-image: url("images/versioned/filtering/star-hover.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-light-star-simple {
+  background-image: url("images/versioned/filtering/starlight.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-normal-star {
+  background-image: url("images/versioned/filtering/star-normal.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-bright-star-pressed {
+  background-image: url("images/versioned/filtering/star-pressed.png"); }
+
+/* line 14, ../sass/mixins/resources/_rpux-image-resources.scss */
+.rpux-down-triangle-dark {
+  background-image: url("images/versioned/filtering/triangle.png"); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-daterange-container-gradient {
+  background-color: #373a3c;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #393c3e), color-stop(13%, #222526), color-stop(100%, #1d2021));
+  background-image: -webkit-linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%);
+  background-image: -moz-linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%);
+  background-image: -o-linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%);
+  background-image: linear-gradient(top, #393c3e 0%, #222526 13%, #1d2021 100%); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-invalid-field-gradient-gradient {
+  background-color: #f74143;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f74143), color-stop(100%, #c41515));
+  background-image: -webkit-linear-gradient(#f74143, #c41515);
+  background-image: -moz-linear-gradient(#f74143, #c41515);
+  background-image: -o-linear-gradient(#f74143, #c41515);
+  background-image: linear-gradient(#f74143, #c41515); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-window-header-default-gradient {
+  background-color: #cedae9;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #cedae9), color-stop(100%, #88bce0));
+  background-image: -webkit-linear-gradient(#cedae9, #88bce0);
+  background-image: -moz-linear-gradient(#cedae9, #88bce0);
+  background-image: -o-linear-gradient(#cedae9, #88bce0);
+  background-image: linear-gradient(#cedae9, #88bce0); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-filter-header-gradient {
+  background-color: #eeeff0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fcfcfd), color-stop(100%, #eeeff0));
+  background-image: -webkit-linear-gradient(#fcfcfd, #eeeff0);
+  background-image: -moz-linear-gradient(#fcfcfd, #eeeff0);
+  background-image: -o-linear-gradient(#fcfcfd, #eeeff0);
+  background-image: linear-gradient(#fcfcfd, #eeeff0); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-filter-header-panel-header-gradient {
+  background-color: #eeeff0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fcfcfd), color-stop(100%, #f5f5f6));
+  background-image: -webkit-linear-gradient(#fcfcfd, #f5f5f6);
+  background-image: -moz-linear-gradient(#fcfcfd, #f5f5f6);
+  background-image: -o-linear-gradient(#fcfcfd, #f5f5f6);
+  background-image: linear-gradient(#fcfcfd, #f5f5f6); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-filter-header-filter-bar-gradient {
+  background-color: #eeeff0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f5f5f6), color-stop(100%, #eeeff0));
+  background-image: -webkit-linear-gradient(#f5f5f6, #eeeff0);
+  background-image: -moz-linear-gradient(#f5f5f6, #eeeff0);
+  background-image: -o-linear-gradient(#f5f5f6, #eeeff0);
+  background-image: linear-gradient(#f5f5f6, #eeeff0); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-uom-combo-normal-gradient {
+  background-color: white;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(48%, #f9f9f9), color-stop(52%, #e2e2e2), color-stop(100%, #e7e7e7));
+  background-image: -webkit-linear-gradient(#ffffff, #f9f9f9 48%, #e2e2e2 52%, #e7e7e7);
+  background-image: -moz-linear-gradient(#ffffff, #f9f9f9 48%, #e2e2e2 52%, #e7e7e7);
+  background-image: -o-linear-gradient(#ffffff, #f9f9f9 48%, #e2e2e2 52%, #e7e7e7);
+  background-image: linear-gradient(#ffffff, #f9f9f9 48%, #e2e2e2 52%, #e7e7e7); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-uom-combo-hover-gradient {
+  background-color: #e4f3ff;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #e4f3ff), color-stop(48%, #d9edff), color-stop(52%, #c2d8f2), color-stop(100%, #c6dcf6));
+  background-image: -webkit-linear-gradient(#e4f3ff, #d9edff 48%, #c2d8f2 52%, #c6dcf6);
+  background-image: -moz-linear-gradient(#e4f3ff, #d9edff 48%, #c2d8f2 52%, #c6dcf6);
+  background-image: -o-linear-gradient(#e4f3ff, #d9edff 48%, #c2d8f2 52%, #c6dcf6);
+  background-image: linear-gradient(#e4f3ff, #d9edff 48%, #c2d8f2 52%, #c6dcf6); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-menucombo-menu-item-over-gradient {
+  background-color: #303132;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #303132), color-stop(100%, #454647));
+  background-image: -webkit-linear-gradient(top, #303132 0%, #454647 100%);
+  background-image: -moz-linear-gradient(top, #303132 0%, #454647 100%);
+  background-image: -o-linear-gradient(top, #303132 0%, #454647 100%);
+  background-image: linear-gradient(top, #303132 0%, #454647 100%); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-toggle-gradient {
+  background-color: #2b79bc;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #2b79bc), color-stop(100%, #57a0d6));
+  background-image: -webkit-linear-gradient(#2b79bc, #57a0d6);
+  background-image: -moz-linear-gradient(#2b79bc, #57a0d6);
+  background-image: -o-linear-gradient(#2b79bc, #57a0d6);
+  background-image: linear-gradient(#2b79bc, #57a0d6); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-toggle-switch-gradient {
+  background-color: white;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #edeef0));
+  background-image: -webkit-linear-gradient(#ffffff, #edeef0);
+  background-image: -moz-linear-gradient(#ffffff, #edeef0);
+  background-image: -o-linear-gradient(#ffffff, #edeef0);
+  background-image: linear-gradient(#ffffff, #edeef0); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-vertical-tab-button-gradient {
+  background-color: #deecfd;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(25%, #f5f9f3), color-stop(45%, #deecfd));
+  background-image: -webkit-linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%);
+  background-image: -moz-linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%);
+  background-image: -o-linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%);
+  background-image: linear-gradient(#ffffff, #f5f9f3 25%, #deecfd 45%); }
+
+/* line 16, ../sass/mixins/resources/_rpux-gradient-resources.scss */
+.rpux-vertical-tab-panel-header-gradient {
+  background-color: #cbddf3;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #dae7f6), color-stop(45%, #cddef3), color-stop(46%, #abc7ec), color-stop(50%, #abc7ec), color-stop(51%, #b8cfee), color-stop(100%, #cbddf3));
+  background-image: -webkit-linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+  background-image: -moz-linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+  background-image: -o-linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3);
+  background-image: linear-gradient(#dae7f6, #cddef3 45%, #abc7ec 46%, #abc7ec 50%, #b8cfee 51%, #cbddf3); }

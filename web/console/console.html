@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>        
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>JDA Console</title>
+      <script type="text/javascript" src="/stash/stashloader.js"></script>
+      <script language="javascript" type="text/javascript">                    
+
+          if (typeof RP === "undefined") {
+              RP = {};
+          }
+
+          // Attach listener to register when a user is leaving the page, so
+          // that killed ajax requests won't error when the browser kills them
+          // in the unload process. This function will eventually be
+          // overwritten by the BaseTaskForm.
+          window.onbeforeunload = function() {
+              window.leavingPage = true;
+          }
+
+          // Copy of Ext.apply, this is used for RP.globals backwards
+          // compatability, remove later.
+          var apply = function(o, c) {
+              if (o && c && typeof c == 'object') {
+                  for (var p in c) {
+                      o[p] = c[p];
+                  }
+              }
+              return o;
+          };
+
+          RP.globals = (function() {
+
+              /**
+               * @private
+               */
+              var _globals = {
+                     // "CLIENTMODE" : "debug",
+                     // "STASH_CLIENTMODE" :"debug",
+                      "BASE_LOCALE" : "en-us",
+                      "USER_LOCALE" : "en-us",
+                      "PATH_TO_ROOT" : "",
+                      "SERVER_TYPE" : "production",
+                      "IS_HELP_DISABLED": "true"
+              };
+
+              /**
+               * @private
+               */
+              var _paths = {
+                  "LOGIN" : "/console/login.do?redirectUrl=/console/console.do",
+                  "BASE_URL" : ""
+              };
+
+              returnObject = {
+                  getValue: function(key) {
+                      return _globals[key];
+                  },
+
+                  getPath: function(key) {
+                      return _paths[key];
+                  },
+                  
+                  getFullyQualifiedPath: function(key) { 
+                      return _paths["BASE_URL"] + _paths[key];
+                  }
+              };
+
+              //for backwards compatability, remove later.
+              apply(returnObject, _globals);
+              apply(returnObject, {
+                  paths: _paths
+              });
+
+              return returnObject;
+          })();
+          
+          RP.stash.loadLibrary("i18n", "1.0.0");
+          RP.stash.loadLibrary("rpcommon", "8.1.MAX.*");
+          RP.stash.loadLibrary("charting", "1.0.0");
+
+      </script>
+
+      <script type="text/javascript"
+          src="/console/refs/localePacks/en-us/localePack-en-us.js">
+      </script>
+
+      <script language='javascript' type='text/javascript'>
+          RP.stash.loadLibrary("rpcore", "2.0.0");
+      </script>
+      
+      <link rel="stylesheet" href="/resources/css/console.css" type="text/css"/>
+      <link rel="stylesheet" href="/resources/css/rpux.css" type="text/css"/>
+      <link rel="shortcut icon" type="image/x-icon" href="/resources/images/jdafavicon.ico" /> 
+  </head>
+  <body>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            RP.util.ScriptLoader.load("console.js");
+        });
+    </script>
+  </body>
+</html>

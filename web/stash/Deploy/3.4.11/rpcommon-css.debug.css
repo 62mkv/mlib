@@ -1,0 +1,1822 @@
+/*
+ *  $Copyright-Start$
+ *
+ *  Copyright (c) 2013
+ *  RedPrairie Corporation
+ *  All Rights Reserved
+ *
+ *  This software is furnished under a corporate license for use on a
+ *  single computer system and can be copied (with inclusion of the
+ *  above copyright) only for use on such a system.
+ *
+ *  The information in this document is subject to change without notice
+ *  and should not be construed as a commitment by RedPrairie Corporation.
+ *
+ *  RedPrairie Corporation assumes no responsibility for the use of the
+ *  software described in this document on equipment which has not been
+ *  supplied or approved by RedPrairie Corporation.
+ *
+ *  $Copyright-End$
+ */
+.rp-ui-abstract-suggest-button {
+  height: auto !important;
+}
+a.rp-breadcrumb {
+  font-weight: bold;
+}
+
+a.rp-breadcrumb.deactivated {
+  text-decoration: none;
+  cursor: text;
+  color: #000;
+}
+#changePassword .x-form-invalid-msg {
+  background-image: none;
+  padding: 2px;
+}
+.comp-data-view-row-selected {
+  background-color: #DEDEDE;
+}
+.comp-data-view-grid > table {
+  border: 1px solid #99BBE8;
+  width: 100%;
+}
+
+
+/* thead */
+.comp-data-view-grid > table > thead {
+  background: #F9F9F9 url(resources/images/RP/grid/RP_Grid_hrow.gif) repeat-x 0 bottom;
+  cursor: default;
+}
+
+.comp-data-view-grid > table > thead > tr > th {
+  color: #525252;
+  font-weight: bold;
+  font-family: Tahoma;
+  font-size: 11px;
+}
+
+
+/* tbody */
+.comp-data-view-grid > table > tbody {
+  background-color: #fff;
+}
+
+.comp-data-view-grid > table > tbody > tr > td {
+  border-bottom: 1px solid #DEDEDE;
+}
+
+.comp-data-view-grid > table > tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+.comp-data-view-grid th, .comp-data-view-grid td {
+  padding: 5px;
+}
+
+.comp-data-view-grid td.x-table-layout-cell {
+  padding: 0;
+}
+/*!
+ * Ext JS Library 3.2.1
+ * Copyright(c) 2006-2010 Ext JS, Inc.
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
+#x-debug-browser .x-tree .x-tree-node a span {
+    padding-top:2px;
+    line-height:18px;
+}
+
+#x-debug-browser  .x-tool-toggle {
+    background-position:0 -75px;
+}
+
+#x-debug-browser  .x-tool-toggle-over {
+    background-position:-15px -75px;
+}
+
+#x-debug-browser.x-panel-collapsed .x-tool-toggle {
+    background-position:0 -60px;
+}
+
+#x-debug-browser.x-panel-collapsed .x-tool-toggle-over {
+    background-position:-15px -60px;
+}#x-debug-browser .x-tree .x-tree-node a span {
+    color:#222297;
+    font-size:11px;
+    font-family:"monotype","courier new",sans-serif;
+}
+
+#x-debug-browser .x-tree a i {
+    color:#ff4545;
+    font-style:normal;
+}
+
+#x-debug-browser .x-tree a em {
+    color:#999;
+}
+
+#x-debug-browser .x-tree .x-tree-node .x-tree-selected a span{
+    background-color:#c3daf9;
+}
+
+.rp-debug-icon-check {
+    background-image: url("images/icons/icon_check_16x16.png") !important;
+}
+
+.rp-debug-icon-x {
+    background-image: url("images/icons/icon_x_16x16.png") !important;
+}
+body
+{
+  font-family: tahoma, arial, verdana, sans-serif;
+  background-color: White !important;
+}
+
+a 
+{
+  color:#4476ae; font-weight:normal;
+}
+
+a:hover 
+{
+  color:#17375D;
+}
+
+.hide
+{
+  display: none;
+}
+
+.rp-h2bullet { background-color: #436c9b; width: 4px; height: 11px; margin-top: 5px; margin-right: 6px; float: left; }
+
+
+/* Diagnostics and logging window */
+#diagnostic-tabs .x-tab-panel-bwrap .x-panel-body
+{
+	overflow: auto;
+	white-space: nowrap;
+}
+
+#diagnostic-tabs ul
+{
+	list-style-type: none;
+}
+
+.rp-log 
+{
+  font-size: 11px;
+  font-family: monospace;
+}
+
+.rp-log-t
+{
+	color: #9F9F9F;
+}
+
+.rp-log-d
+{
+	color: black;
+}
+
+.rp-log-i
+{
+  color: blue;
+}
+
+.rp-log-w
+{
+  color: #8C8C00;
+}
+
+.rp-log-e
+{
+  color: #BE6200;
+}
+
+.rp-log-f
+{
+  color: red;
+}
+
+.rp-log-tc, .rp-log-cb
+{
+	border: solid 1px #C8C8C8;
+	display: inline;
+	padding: 2px 4px 2px 4px;
+	background-color: #FFF;
+}
+
+.rp-log-summary-line
+{
+	font-weight: bold;
+	color: #AF608F;
+}
+
+.rp-log-tc span, .rp-log-cb span 
+{
+  padding-left: 3px;
+}
+
+.rp-log-tc input, .rp-log-cb input
+{
+	position: relative;
+	top: 2px;
+} 
+
+#diag_live_refresh_btn
+{
+	color: red;
+}
+	
+#diag_live_refresh_btn.rp-log-lr-on
+{
+	color: green;
+}
+
+.rp-bordered
+{
+	border: solid 1px #99BBE8 !important;
+}
+
+div.rp-bordered
+{
+	padding: 4px;
+}
+
+.x-form-radio-group .x-item-disabled, .x-form-check-wrap.x-item-disabled
+{ /* HACK: Fixes disabled radio button labels from showing up green in Firefox. See https://bugzilla.mozilla.org/show_bug.cgi?id=363861 for bug tracking */
+  opacity: 1.0;
+}
+/*
+ * FiscalDatePicker Styles
+ * 
+ * The standard Ext.DatePicker, excluding left/right borders, is 175 pixels
+ * wide (7 days of the week, each 25 pixels wide), the FiscalDatePicker is 210
+ * pixels wide from the addition of fiscal week column (35 pixels).  The DatePicker's
+ * inner table uses a fixed table layout, meaning the table fully obeys any sizing
+ * styles, and it uses the widths of the cells in the first row (not the content), to
+ * determine how the space within the table is divided up.
+ */
+.rp-fiscal-date-picker .x-date-middle {
+    width: 165px;
+}
+
+.rp-fiscal-date-picker .x-date-inner th:first-child {
+  width: 34px;
+  border-right: 1px solid #a9b9d9;
+}
+
+.rp-fiscal-date-picker .x-date-inner td:first-child {
+  border-bottom: none;
+  border-top: none;
+}
+
+.rp-fiscal-date-picker .x-date-inner td:first-child {
+  border-right-color: #a9b9d9;
+}
+/** STRAIGHT UP EXT OVERRIDES **/
+
+.x-accordion-hd .x-panel-header-text
+{
+  font-family: "trebuchet ms", tahoma, arial, verdana, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Gives panels a white background instead of the usual gray*/
+.x-panel-mc,
+.x-panel-mr,
+.x-panel-ml
+{
+  background-color: #FFF;
+}
+
+/* Aligns header text to the center of a header vertically*/
+.x-panel-tl .x-panel-header
+{
+  padding: 3px 0;
+}
+
+/* Fixes images for comboboxes, DatePicker, etc. not being aligned correctly */
+.ext-safari .x-form-field-wrap .x-form-trigger
+{
+  right: auto !important;
+}
+
+/* Fixes DatePicker control width not wide enough in IE8 */
+.x-layer[style]
+{
+  width: auto !important;
+}
+
+/** DATE PICKER CONTROL **/
+.rp-datepicker  .x-form-field-wrap .x-form-text {
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Fixes module tabs in ie8, otherwise they all look 'activated'. */
+.ext-ie8 .rp-taskflow-module-tabs .x-tab-strip span.x-tab-strip-text
+{
+    padding-top: 3px;
+}
+/*----Login page styles ----*/
+
+#loginForm .x-panel-body {
+    background-color: transparent;
+    border: none;
+}
+
+.rp-login-button-panel {
+    position: absolute;
+    top: 180px;
+}
+
+.rp-login-button {
+    margin: auto;
+}
+
+.rp-login-button button {
+    color: #FFFFFF;
+}
+
+.rp-login-button .x-btn-mc {
+    background: url("images/login/LoginButtonBlue-middle.png") repeat-x;
+}
+
+.rp-login-button .x-btn-ml {
+    background: url("images/login/LoginButtonBlue-left.png") repeat-x;
+}
+
+.rp-login-button .x-btn-mr {
+    background: url("images/login/LoginButtonBlue-right.png") repeat-x;
+}
+
+.rp-login-button .x-btn-tr, .rp-login-button .x-btn-tl, .rp-login-button .x-btn-bl, .rp-login-button .x-btn-br,
+.rp-login-button .x-btn-tc, .rp-login-button .x-btn-bc {
+    background: transparent;
+}
+
+.rp-login-button .x-btn-small .x-btn-text {
+    height: 32px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.loginCt {
+    background-color: #FFFFFF;
+    border: 3px solid #051850;
+    border-radius: 8px;
+    left: 50%;
+    margin-left: -150px;
+    position: absolute;
+    top: 140px;
+    width: 300px;
+}
+
+.loginFormPanel > .x-panel-bwrap {
+    overflow: visible;
+}
+
+.loginFormPanel > .x-panel-bwrap > .x-panel-body {
+    overflow: visible;
+}
+
+.jdaLogo {
+    left: -627px;
+    position: absolute;
+    top: -8px;
+}
+
+.loginLogoStrip {
+    background-color: #02194D;
+    background-image: -moz-linear-gradient(#04417B, #02194D);
+    background-image: -ms-linear-gradient(top,  #04417b 0%,#02194d 100%);
+    background-image: -o-linear-gradient(#04417B, #02194D);
+    background-image: -webkit-linear-gradient(#04417B, #02194D);
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #04417B), color-stop(100%, #02194D));
+    background-image: linear-gradient(#04417B, #02194D);
+    border-top: 1px solid #B3C5D7;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04417b', endColorstr='#02194d',GradientType=0 ); /* IE6-9 */
+    position: relative;
+    top: 122px;
+}
+
+.loginLogoStrip .bottomBorder {
+    background-color: #4081C0;
+    height: 7px;
+    position: absolute;
+    top: 103px;
+    width: 100%;
+}
+
+.loginLogoStrip .worldMap {
+    float: right;
+    left: 100%;
+    margin-left: -558px;
+    position: absolute;
+}
+
+/**
+ * Use this class to define the icon to use for a custom logo
+ */
+.jda-custom-logo {
+    position: fixed;
+    left: 20px;
+    top: 10px;
+}
+
+.loginFormPanel .x-form-item {
+    font-family: "Lucida sans", "Lucida Grande", "Lucida Unicode", Verdana, sans-serif;
+    color: #3d3d3d;
+    font-size: 12px;
+    margin: 0;
+    padding: 0 61px;
+    position: relative;
+}
+
+.loginUsername {
+    top: 20px;
+}
+
+.loginPassword {
+    top: 42px;
+}
+
+.loginErrorMsg { 
+    color: #CC0000;
+    font-family: "Lucida sans", "Lucida Grande", "Lucida Unicode", Verdana, sans-serif;
+    font-size: 10px;
+    position: absolute;
+    text-align:center;
+    top: 140px;
+    width: 100%;
+}
+
+.login_ProdName { 
+    color: #383838;
+    font-family: calibri, "trebuchet ms", tahoma, arial, verdana, sans-serif;
+    font-size: 21px;
+    font-style: italic;
+    font-weight: bold;
+    padding-left: 17px;
+    padding-top: 8px;
+    position: relative;
+    text-align: left;
+}
+
+.rp-login-external-failed-msg .ext-mb-content {
+    position: relative;
+    top: 10px;
+}
+
+.rp-login-label {
+    border-radius: 2px;
+}
+
+.loginFormPanel .locale-selector {
+    left: 50%;
+    margin-left: -150px;
+    position: absolute;
+    top: 215px;
+}
+
+.locale-selector input {
+    border: none;
+    background-color: transparent;
+    background-image:none;
+    color: #005072;
+    text-align: right;
+}
+
+.locale-selector .x-form-trigger {
+    background-image: url("images/login/trigger-icon.png"); 
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+}
+
+.locale-selector-list .x-combo-list-item {
+    color: #005072;
+    border: none;
+}
+
+/*overwrite the default style of the loading mask*/
+/* line 1, ../sass/styles/_rp-mask.scss */
+.ext-el-mask {
+  background-color: white;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  opacity: 0.75; 
+}
+
+/* line 6, ../sass/styles/_rp-mask.scss */
+.ext-el-mask-msg {
+  background-color: transparent;
+  background-image: none;
+  border: 0 none; 
+}
+
+/* line 11, ../sass/styles/_rp-mask.scss */
+.ext-el-mask-msg div {
+  background-color: transparent;
+  background-image: url(images/login/spinner.gif);
+  background-position: 5px center;
+  padding-left: 35px;
+  border: 0 none; 
+}
+/** TASKFLOW AND WIDGETS**/
+
+.rp-ttf-app > .x-panel > .x-panel-bwrap > .x-panel-ml > .x-panel-mr > .x-panel-mc
+{
+  padding: 5px 1px 3px 2px;
+}
+
+.rp-vantage .x-panel-body
+{
+  background-color: #ECF1F7;
+}
+
+.rp-vantage .x-panel-header
+{
+  background-image: url(images/window/clipboard-top-bottom.png);
+  padding: 5px 3px 3px 5px;
+}
+
+.rp-vantage > .x-panel-header
+{
+  border-bottom-width: 0px;
+}
+
+.rp-vantage .x-accordion-hd
+{
+  height: 27px;
+  padding: 0; 
+  border: none;
+  /*border: solid 1px #8a8a8a;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d6e5f2), color-stop(0.5, #a5cdf2), color-stop(0.5, #9bc8f2), to(#c1cfe5));
+  background: -moz-linear-gradient(top, #d6e5f2, #a5cdf2 50%, #9bc8f2 50%, #c1cfe5);*/
+}
+
+.rp-vantage .x-accordion-hd .x-panel-header-text
+{
+  line-height: 27px;
+}
+
+.rp-vantage .x-accordion-hd .left
+{
+  background: url(images/window/taskflow_folder_bg_sprite.png) no-repeat 0 0;
+  padding-left: 4px;
+}
+
+.rp-vantage .x-accordion-hd .right
+{
+  background: url(images/window/taskflow_folder_bg_sprite.png) no-repeat right -60px;
+  padding-right: 4px;
+}
+
+.rp-vantage .x-accordion-hd .middle,
+.rp-vantage .x-panel-header.rp-taskflow-header
+{
+  background: url(images/window/taskflow_folder_bg_sprite.png) repeat-x 0 -30px;
+  height: 27px;
+}
+
+/*.ext-ie .rp-vantage .x-accordion-hd
+{
+  background: #9bc8f2 url(images/window/taskflow_folder_bg_bluelite.gif) no-repeat;
+  border: none;
+}*/
+
+.rp-vantage .x-border-panel
+{
+  margin: 0px;
+}
+
+.rp-vantage > .x-panel-bwrap > .x-panel-body
+{
+  border: solid 1px #B8C9D9;
+}
+
+.rp-vantage-item
+{
+  cursor: pointer;
+}
+
+.rp-ellipsis
+{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.rp-taskflow-header .rp-ellipsis
+{
+  width: 90%;
+}
+
+.rp-vantage-item .x-panel-header-text
+{
+  display: inline;
+  float: left;
+  font-size: 12px;
+  font-family: "trebuchet ms", tahoma, arial, verdana, sans-serif;
+}
+
+.rp-widget-state .rp-ellipsis
+{
+  width: 80%;
+}
+
+.rp-widget-dependency.rp-widget-state .rp-ellipsis 
+{
+  width: 70%;
+}
+
+.rp-vantage-item .x-panel-header-text a
+{
+  color: #383838;
+  display: block;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.rp-widget-dependency .x-panel-header-text
+{
+  background-image: url(images/window/exclamation.png);
+  background-repeat: no-repeat;
+  font-size: 11px;
+  font-family: "trebuchet ms", tahoma, arial, verdana, sans-serif;
+  padding-left: 18px; 
+}
+
+.rp-vantage-item .x-panel-header
+{
+  background-image: none;
+  padding: 5px 3px 4px 5px;
+}
+
+.rp-widget-dependency .x-panel-header
+{
+  padding: 5px 3px 0 5px;
+}
+
+.rp-vantage-item
+{
+  padding: 2px 6px;
+}
+
+.rp-vantage-item .x-panel-body
+{
+  background-color: #FFF;
+}
+
+.rp-taskflow-splitbar.x-splitbar-h, .rp-taskflow-splitbar.x-splitbar-proxy-h {
+  cursor: default;
+}
+
+.rp-taskflow-splitbar.x-splitbar-proxy-h{
+  background-color: transparent;
+}
+
+.rp-taskflow-splitbar .x-layout-mini {
+  background-image: url(images/window/mini-right.gif);
+}
+
+.rp-taskflow-splitbar.x-layout-collapsed .x-layout-mini-over{
+  background-image: url(images/window/mini-left-over.gif);
+}
+
+.rp-taskflow-module-tabs ul.x-tab-strip-top {
+  background-color: #DCEAF9;
+  background-image: none;
+  height: 43px;
+}
+
+.rp-taskflow-module-tabs .x-tab-strip-inner .x-tab-strip-text {
+  text-align: center;
+}
+
+.rp-widget-with-panel .rp-vantage-item .x-panel-mc
+{
+	background-color: white;
+}
+
+.rp-widget-panel .x-panel-body
+{
+	padding: 4px;
+}
+
+.rp-vantage-item .x-panel-tl, .rp-vantage-item .x-panel-tr
+{
+  background-image: url(images/window/panel-bg-corner.png);
+  border: none;
+  height: 25px;
+}
+
+.rp-hover-item .x-panel-tl, .rp-hover-item .x-panel-tr
+{
+  background-image: url(images/window/rollover-corner-panel-bg.png);
+}
+
+.rp-vantage-item .x-panel-tc
+{
+  background-image: url(images/window/panel-bg.png);
+  height: 25px;
+}
+
+.rp-hover-item .x-panel-tc
+{
+  background-image:url(images/window/rollover-panel-bg.png);
+}
+
+.rp-vantage-item .x-panel-mc
+{
+  padding: 0;
+  background-color: #F2F2F2;
+}
+
+.rp-vantage .x-panel-ml 
+{
+  background-color: transparent;
+	background-image: url(images/panel/rp_vantage_portlet_border_left.png);
+	padding-left: 3px;
+}
+
+.rp-vantage .x-panel-bl
+{
+	background-image: url(images/panel/panel-bottom-corners-left.png);
+	height: 7px;
+}
+
+.rp-vantage .x-panel-br 
+{
+	background-image: url(images/panel/panel-bottom-corners-right.png);
+	height: 7px;
+}
+
+.rp-vantage .x-panel-bc 
+{
+	background-image: url(images/panel/panel-bottom-bg.png);
+	height: 7px!important;
+	min-height: 7px;
+	padding: 0;
+}
+
+.rp-vantage-item .x-panel-mr
+{
+  background-color: transparent;
+  background-image: url(images/panel/rp_vantage_portlet_border_right.png);
+	padding-right: 3px;
+}
+
+.rp-hover-item
+{
+  background-color: #CADFEF;
+}
+
+.rp-pressed-item, .rp-pressed-panel, .rp-active-item
+{
+  background-color: #ADD1F2;
+}
+
+.rp-disabled-widget
+{
+  background-color: transparent;
+}
+
+.rp-widget-dependency
+{
+  background-color: #F36363;
+}
+
+.rp-widget-no-panel .x-panel-bwrap
+{
+  display: none;
+}
+
+.rp-widget-no-panel .x-panel-tl
+{
+  background-image: url(images/window/widget-corner-left.png);
+  height: 29px;
+}
+
+.rp-widget-no-panel .x-panel-tr
+{
+  background-image: url(images/window/widget-corner-right.png);
+  height: 29px;
+}
+
+.rp-widget-no-panel .x-panel-tc, .rp-widget-done-item .x-panel-tc
+{
+  background-image: url(images/window/widget-bg.png);
+  height: 29px;
+}
+
+.rp-widget-done-item .x-panel-tr, .rp-hover-item.rp-widget-no-panel.rp-widget-done-item .x-panel-tr
+{
+  background-image: url(images/window/widget-complete-corner-right.png);
+  height: 29px;
+}
+
+.rp-widget-failed-item .x-panel-tr, .rp-hover-item.rp-widget-no-panel.rp-widget-failed-item .x-panel-tr
+{
+  background-image: url(images/window/widget-status-failed-corner-right.png);
+  height: 29px;
+}
+
+.rp-hover-item.rp-widget-no-panel .x-panel-tl
+{
+  background-image: url(images/window/rollover-widget-corner-bg-left.png);
+}
+
+.rp-hover-item.rp-widget-no-panel .x-panel-tr
+{
+  background-image: url(images/window/rollover-widget-corner-bg-right.png);
+}
+
+.rp-hover-item.rp-widget-hyperlink .x-panel-tr
+{
+  background-image: url(images/window/rollover-hyperlink-corner-bg-right.png);
+}
+
+.rp-hover-item.rp-widget-done-item .x-panel-tc, .rp-hover-item.rp-widget-no-panel .x-panel-tc
+{
+  background-image: url(images/window/rollover-widget-bg.png);
+}
+
+.rp-widget-hyperlink .x-panel-tr
+{
+  background-image: url(images/window/hyperlink-bg-corner-right.png);
+}
+
+.rp-pressed-panel .x-panel-tl, .rp-pressed-panel .x-panel-tr
+{
+  background-image: url(images/window/vantage-item-pressed-corners-sprite.png) !important;
+  height: 25px;
+}
+
+.rp-pressed-panel .x-panel-tc
+{
+  background-image: url(images/window/vantage-item-pressed-top-bottom.png) !important;
+  height: 25px;
+}
+
+.rp-pressed-item .x-panel-tl,
+.rp-pressed-item .x-panel-tr
+{
+  background-image: url(images/window/pressed-corners-sprite.png) !important;
+  height: 29px;
+}
+
+.rp-pressed-item .x-panel-tc, 
+.rp-pressed-item .rp-vantage-status
+{
+  background-image: url(images/window/pressed-top-bottom.png) !important;
+}
+
+.rp-pressed-item.rp-pressed-panel .x-panel-tl, .rp-pressed-item.rp-pressed-panel .x-panel-tr 
+{
+  background-image: url(images/window/pressed-corners-sprite.png) !important;
+  height: 25px; 
+}
+
+.rp-disabled-widget .x-panel-header-text
+{
+  color: #bcbcbc !important;
+}
+
+.rp-disabled-widget a
+{
+  color: #bcbcbc !important;
+}
+
+.rp-disabled-widget .x-panel-tc
+{
+  background-image: url(images/window/widget-bg.png) !important;
+  height: 29px !important;  
+}
+
+.rp-disabled-widget .x-panel-tl
+{
+  background-image: url(images/window/widget-corner-left.png) !important;
+  height: 29px !important;
+}
+
+.rp-disabled-widget .x-panel-tr
+{
+  background-image: url(images/window/hyperlink-bg-corner-right.png) !important;
+}
+
+.rp-widget-dependency .x-panel-tl, .rp-widget-dependency.rp-widget-hyperlink .x-panel-tl
+{
+  background-image: url(images/window/dependency-corner-bg-left.png) !important;
+  height: 29px !important;
+}
+
+.rp-widget-dependency .x-panel-tr
+{
+  background-image: url(images/window/dependency-corner-bg-right.png) !important;
+  height: 29px !important;
+}
+
+.rp-widget-dependency.rp-widget-hyperlink .x-panel-tr
+{
+  background-image: url(images/window/dependency-hyperlink-corner-bg-right.png) !important;
+  height: 29px !important;
+}
+
+.rp-widget-dependency .x-panel-tc
+{
+  background-image: url(images/window/dependency-widget-bg.png) !important;
+  height: 29px !important;
+}
+
+.rp-vantage-status
+{
+  background-image: url(images/window/widget-status-bg.png);
+  border-left: solid 1px #c6c6c6;
+  color: #D20001;
+  display: inline;
+  float: right;
+  font-size: 12px; 
+	font-weight: bold; 
+	font-family: "Trebuchet MS", Tahoma, Calibri;
+  height: 22px;
+  margin: -5px -3px 0 0;
+  padding: 5px 3px 0 3px; 
+  text-align: center;
+	width: 20px;
+}
+
+.rp-pressed-item .rp-vantage-status {
+  border-left-color: #9d9f9c;
+}
+
+.rp-vantage-sum-small
+{
+  font-size: 11px;
+  font-weight: normal;
+}
+
+.rp-hover-item .rp-vantage-status
+{
+  background-image: url(images/window/rollover-widget-status-bg.png);
+}
+
+.rp-widget-done-item .rp-vantage-status
+{
+  background-image: url(images/window/widget-status-complete-bg.png);
+}
+
+.rp-widget-failed-item .rp-vantage-status {
+  background-image: url(images/window/widget-status-failed-bg.png);
+}
+
+.rp-widget-loading {
+  background: url(images/icons/loading.gif) no-repeat center 1px;
+  position: relative;
+  left: 1px;
+}
+
+.rp-widget-checked {
+  background-image: url(images/icons/icon_GreenCheck_21x21.png);
+}
+
+.rp-widget-failed {
+  background-image: url(images/icons/icon_RedX_21x21.png);
+}
+
+.rp-widget-warning {
+  background-image: url(images/icons/warning-orange.png);
+  position: relative;
+  bottom: 2px;
+  left: 1px;
+}
+
+.rp-widget-dependency .rp-vantage-status
+{
+  background-image: url(images/window/dependency-widget-status-bg.png);
+}
+
+.rp-vantage .x-accordion-hd .x-tool-toggle 
+{
+  background-image: url(images/tree/elbow-end-minus-nl.gif);
+  background-position: 0 0;
+  float: left;
+  margin-right: 3px;
+  margin-top: 3px;
+}
+
+.rp-vantage .x-accordion-hd .x-tool-toggle-over
+{
+  background-image: url(images/tree/elbow-end-minus-nl-over.gif);
+}
+
+.rp-vantage .x-panel-collapsed .x-accordion-hd 
+.x-tool-toggle
+{
+  background-image: url(images/tree/elbow-end-plus-nl.gif);
+  background-position: 0 0;
+  float: left;
+  margin-right: 3px;
+  margin-top: 3px;  
+}
+
+.rp-vantage .x-panel-collapsed .x-accordion-hd 
+.x-tool-toggle-over
+{
+  background-image: url(images/tree/elbow-end-plus-nl-over.gif);
+}
+
+.rp-taskflow-description
+{
+  border-bottom: solid 1px LightGrey !important;
+  color: #0000FF;   
+}
+
+.rp-taskflow-description .x-panel-body
+{
+  text-align: center;
+  background-color: #FFFFCB;
+  font-family: Verdana, Arial;
+  font-size: 11px;
+  padding: 4px 3px 4px 3px;
+}
+
+.rp-taskflow-blank-form-text
+{
+  font-family: Verdana, Arial;
+  font-size: 18px;
+  color: #202020;
+}
+
+.rp-taskflow-blank-form-button.x-btn 
+{
+    margin-top: 20px;
+}
+
+.rp-taskflow-blank-form-button.x-btn button
+{
+    font-size: 14px;
+}
+
+div.about-btn
+{
+  height: 130px;
+  background: transparent url(images/toolbar/about-this-page.png) no-repeat;
+}
+
+/*.rp-ttf-app > .x-panel > .x-panel-bwrap
+{
+  padding-right: 20px;
+}*/
+.rp-ui-time-range > table > tbody > tr > td {
+  padding-right: 10px;
+}
+
+.rp-ui-time-range .x-form-field {
+  margin: 0px;
+ }
+ 
+/* Toolbar */
+.rp-toolbar
+{
+  background: #E5EDFA url("images/window/toolbarBG.png") repeat-x;
+  padding-bottom: 3px;
+  padding-top: 1px;
+  height: 22px;  
+}
+
+.x-panel-noborder .x-panel-bbar-noborder .rp-toolbar 
+{
+  border-width: 1px;
+}
+
+
+.rp-toolbar-button-text.x-btn
+{
+  margin: 0 0 0 0; 
+}
+
+.rp-toolbar-button-text button
+{
+  width: auto;
+  padding: 0 0 0 0 !important;
+  font-weight: normal;
+}
+
+.rp-toolbar-button.x-btn
+{
+  margin: 0 0 0 2px;  
+}
+
+.rp-toolbar-button button
+{
+  width: 17px;
+  height:20px;
+}
+
+.rp-toolbar-button.x-btn button
+{
+  background-repeat: no-repeat;
+  padding: 0 0 0 0;
+}
+
+.rp-toolbar-button
+{
+  background-position: 0 0;  
+}
+
+.rp-toolbar-button-reversed
+{
+  background-position: 0 -40px !important;  
+}
+
+.rp-toolbar-button-disabled.x-btn button, .rp-toolbar-button-sprite-2
+{
+  background-position: 0 -40px !important;
+}
+
+.rp-toolbar.grid-footer
+{
+  background-color: #E0E0E0;
+  background-image: none;
+  border: solid 1px #B8C9D9;
+}
+
+#_rp_taskflow_container .x-panel-tbar,
+#_rp_taskflow_container .x-panel-bbar
+{
+  background:  #33516d;
+}
+
+#_rp_taskflow_container .x-panel-tbar.rp-scrollbar-over,
+#_rp_taskflow_container .x-panel-bbar.rp-scrollbar-over
+{
+  background: #6895BE;
+}
+
+.x-panel-tbar .rp-scrollbar-up.x-toolbar,
+.x-panel-bbar .rp-scrollbar-down.x-toolbar
+{
+  border-bottom: solid 1px #B0B0B0;
+  background-image: url(images/panel/scrollbar_arrows_sprite.png);
+  background-position: 50% -50%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+
+.x-panel-tbar.rp-scrollbar-over .rp-scrollbar-up.x-toolbar,
+.x-panel-bbar.rp-scrollbar-over .rp-scrollbar-down.x-toolbar
+{
+  border-bottom: solid 1px #B0B0B0;
+  background-image: url(images/panel/scrollbar_arrows_sprite.png);
+  background-position: 50% -50%;
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+
+.x-panel-bbar .rp-scrollbar-down.x-toolbar,
+.x-panel-bbar.rp-scrollbar-over .rp-scrollbar-down.x-toolbar
+{
+  background-position: 50% 150%;
+}
+
+.x-panel-tbar .rp-toolbar
+{
+  padding: 2px 2px 4px 2px;
+}
+
+.x-panel-bbar .rp-toolbar
+{
+  padding: 2px 2px 4px 1px;
+}
+
+.rp-toolbar-left
+{
+  float: left;
+}
+
+.rp-toolbar-right
+{
+  float: right;
+}
+
+/* RP.Common.RPToolbar */
+/* TODO: Once this is fully implemented in Site Manager, remove .rp-toolbar */
+
+/* tbar container */
+.rp-tbar-container
+{
+  border: solid 1px #A9BFD3;
+  height: 28px;
+  padding: 0;
+}
+
+/* internal left, center, right tbars */
+.rp-tbar
+{
+  background: transparent;
+  height: 24px !important;
+  padding: 2px;
+}
+
+/* default background */
+.rp-tbar-background
+{
+  background: #E5EDFA url("images/toolbar/toolbarBG.png") repeat-x !important;
+}
+
+.rp-tbar .x-toolbar-ct
+{
+  height: 24px; 
+}
+
+/* makes the RPToolbar play nicely when used as a tbar property */
+.x-panel-tbar .x-toolbar.rp-tbar-container
+{
+  padding: 0; 
+}
+
+/* removes unnecessary borders when used as a panel tbar */
+.x-panel-tbar .rp-tbar-container
+{
+  border-bottom-width: 0;
+}
+
+.x-panel-tbar .rp-tbar-container .rp-tbar
+{
+  border: none; 
+}
+
+.rp-tbar .x-form-date-trigger
+{
+  height: 21px !important;
+}
+
+/* makes the RPToolbar play nicely when used as a bbar property */
+.x-panel-bbar .rp-tbar-container
+{
+  background: none;
+}
+
+.x-grid-panel .x-panel-bbar .rp-tbar-container
+{
+  border-top-width: 0;
+}
+
+.x-panel-bbar .rp-tbar-container .rp-tbar
+{
+  border: 0; 
+}
+
+.x-panel-bbar .rp-tbar-container table.x-btn
+{
+  margin: 0 2px;
+}
+
+/* Temporary hackish styles to make a toolbar look like a panel header.
+ * In Ext JS 4 there will be native support for rendering components in
+ * a panel header, so upon upgrade this should be removed/refactored.
+ */
+.rp-header-toolbar {
+    color: #000000;
+    font-family: "trebuchet ms", tahoma, calibri, arial, verdana, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 2px 2px 6px;
+    border: 1px solid #99BBE8;
+    border-bottom: none;
+    background: url(resources/images/RP/toolbar/header-toolbar-bg.png) repeat-x;
+}
+.x-tool-trashcan {
+    background: url(resources/images/RP/panel/trashcan.png) no-repeat 0 0;
+    width: 20px;
+    height: 20px;
+}
+.x-tool-trashcan-over {
+    background-position: -20px 0;
+}
+
+.x-tool-pdf {
+    background: url(resources/images/RP/panel/tool-sprites.gif) no-repeat 0 -360px;
+}
+.x-tool-pdf-over {
+    background-position: -15px -360px;
+}
+/** BUTTONS **/
+.x-btn button.rp-next-btn {
+    background: transparent url(images/button/Btn_ArrowNavR.png) no-repeat;
+}
+
+.x-btn button.rp-prev-btn {
+    background: transparent url(images/button/Btn_ArrowNavL.png) no-repeat;
+}
+
+.rp-raised-btn .x-btn {
+    margin: 0 2px;
+}
+
+.rp-raised-btn .x-btn-tl, table.rp-raised-btn .x-btn-tl {
+    background-position: 0 0;
+}
+
+.rp-raised-btn .x-btn-tc, table.rp-raised-btn .x-btn-tc {
+    background-position: 0 -6px;
+}
+
+.rp-raised-btn .x-btn-tr, table.rp-raised-btn .x-btn-tr {
+    background-position: -3px 0;
+}
+
+.rp-raised-btn .x-btn-ml, table.rp-raised-btn .x-btn-ml {
+    background-position: 0 -24px;
+}
+
+.rp-raised-btn .x-btn-mc, table.rp-raised-btn .x-btn-mc {
+    background-position: 0 -1096px;
+}
+
+.rp-raised-btn .x-btn-mr, table.rp-raised-btn .x-btn-mr {
+    background-position: -3px -24px;
+}
+
+.rp-raised-btn .x-btn-bl, table.rp-raised-btn .x-btn-bl {
+    background-position: 0 -3px;
+}
+
+.rp-raised-btn .x-btn-bc, table.rp-raised-btn td.x-btn-bc {
+    background-position: 0 -15px;
+}
+
+.rp-raised-btn .x-btn-br, table.rp-raised-btn .x-btn-br {
+    background-position: -3px -3px;
+}
+
+.rp-unraised-btn .x-btn-tl, .rp-unraised-btn .x-btn-tr, .rp-unraised-btn .x-btn-tc, .rp-unraised-btn .x-btn-ml, .rp-unraised-btn .x-btn-mr, .rp-unraised-btn .x-btn-mc, .rp-unraised-btn .x-btn-bl, .rp-unraised-btn .x-btn-br, .rp-unraised-btn .x-btn-bc {
+    background-position: 500px 500px;
+}
+
+/* RP Img Button */
+/* These rules are duplicated from button.css to give priority of x-toolbar rules above */
+.rp-img-button .x-btn-tl, .rp-img-button .x-btn-tr, .rp-img-button .x-btn-tc, .rp-img-button .x-btn-ml, .rp-img-button .x-btn-mr, .rp-img-button .x-btn-mc, .rp-img-button .x-btn-bl, .rp-img-button .x-btn-br, .rp-img-button .x-btn-bc {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-tl {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-tr {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-tc {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-ml {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-mr {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-mc {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-bl {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-br {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-over .x-btn-bc {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-tl, .rp-img-button .x-btn-menu-active .x-btn-tl, .rp-img-button .x-btn-pressed .x-btn-tl {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-tr, .rp-img-button .x-btn-menu-active .x-btn-tr, .rp-img-button .x-btn-pressed .x-btn-tr {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-tc, .rp-img-button .x-btn-menu-active .x-btn-tc, .rp-img-button .x-btn-pressed .x-btn-tc {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-ml, .rp-img-button .x-btn-menu-active .x-btn-ml, .rp-img-button .x-btn-pressed .x-btn-ml {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-mr, .rp-img-button .x-btn-menu-active .x-btn-mr, .rp-img-button .x-btn-pressed .x-btn-mr {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-mc, .rp-img-button .x-btn-menu-active .x-btn-mc, .rp-img-button .x-btn-pressed .x-btn-mc {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-bl, .rp-img-button .x-btn-menu-active .x-btn-bl, .rp-img-button .x-btn-pressed .x-btn-bl {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-br, .rp-img-button .x-btn-menu-active .x-btn-br, .rp-img-button .x-btn-pressed .x-btn-br {
+    background-position: 500px 500px;
+}
+
+.rp-img-button .x-btn-click .x-btn-bc, .rp-img-button .x-btn-menu-active .x-btn-bc, .rp-img-button .x-btn-pressed .x-btn-bc {
+    background-position: 500px 500px;
+}
+
+/**
+ * Styles for the Ext.Button iconCls configuration
+ */
+button.rp-cancel-btn {
+    background-image: url("images/button/cancel.png");
+}
+
+button.rp-ok-btn {
+    background-image: url(resources/images/RP/dd/drop-yes.gif);
+}
+
+button.rp-filter-btn {
+    background-image: url(images/menu/list-items.gif);
+}
+
+button.rp-sort-btn {
+    background-image: url(images/menu/hmenu-asc.gif);
+}
+
+button.rp-approve-btn {
+    background-image: url("images/button/approve.png");
+}
+
+button.rp-decline-btn {
+    background-image: url("images/button/decline.png");
+}
+
+button.rp-deny-btn {
+    background-image: url("images/button/deny.png");
+}
+/** GRID **/
+
+.rp-view-grid-detail
+{
+  width: 18px;
+  height: 18px;
+  background: url("images/icons/icon_greaterThanArrow_16x16.png") no-repeat -2px 0;
+}
+
+div.rp-grid3-summary-row
+{
+}
+
+.rp-grid3-summary-row {
+  cursor: default;
+  border-right: 1px solid #E9F2FF;
+  border-left: 1px solid #E9F2FF;
+  width:100%;
+}
+
+.x-grid3-summary-table
+{
+    border-bottom: 2px solid #E9F2FF;
+    padding-left: 2px;
+}
+
+.rp-grid3-summary-row td.re
+{
+  font-weight: bold;
+}
+
+.rp-grid-row-resolved .rp-view-grid-detail
+{
+  background: url("images/icons/icon_check_16x16.png") no-repeat -2px 0;
+}
+
+.rp-grid-row-deleted .rp-view-grid-detail
+{
+  background: url("images/icons/icon_x_16x16.png") no-repeat -2px 0;
+}
+
+.rp-grid-row-important td
+{
+  font-weight: bold;
+}
+
+.rp-grid-row-edited td
+{
+  font-style: italic;
+}
+
+.rp-dirty-cell 
+{
+    background-image:  url(images/grid/dirty.gif);
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+.rp-grid3-summary-row td.re
+{
+  font-weight: bold;
+}
+
+.rp-non-editable
+{
+  background-color: #E5E7E1;
+}
+
+
+/* RP.grid.GridRowGroup classes */
+.x-grid-group, .x-grid-group-body, .x-grid-group-hd-rp 
+{
+  zoom: 1;
+}
+
+.x-grid-group-hd-rp 
+{
+  cursor:pointer;
+}
+
+.x-grid-group-no-children > div 
+{
+  background-image: none;
+}
+
+.rp-grid-row-group > table > tbody > tr > td > div 
+{  
+  color: #3764a0;
+  cursor: pointer;
+  font: normal 11px tahoma, arial, helvetica, sans-serif;    
+  /*padding: 4px;*/
+}
+
+.x-grid-group-collapsed .x-grid-group-hd-rp div 
+{
+  background-position: 3px 3px;
+}
+
+div.rp-grid-group-hd-edit-icon
+{
+  background-image: url(images/icons/icon_pencil_16x56.png);  
+  background-position: top left;
+  background-repeat: no-repeat;
+  float: right;
+  height: 16px;
+  width: 16px;
+}
+
+div.rp-grid-group-hd-edit
+{
+  background-image: none;
+  padding: 2px 0 0 0;
+}
+
+div.rp-grid-group-hd-edit div
+{
+  background-image: none;
+  padding: 0 0 0 0;
+}
+
+.x-grid-group .x-grid-group-hd-rp .rp-grid-row-group-first-cell
+{
+	background-image: url(resources/images/RP/grid/group-collapse.gif);
+	background-repeat: no-repeat;
+  background-position: 2px 2px;
+}
+
+.x-grid-group-collapsed .x-grid-group-hd-rp .rp-grid-row-group-first-cell
+{
+  background-image: url(resources/images/RP/grid/group-expand.gif);
+  background-repeat: no-repeat;
+  background-position: 2px 2px;
+}
+
+.rp-grid-row-group-first-cell .x-grid3-cell-inner
+{
+  padding-left: 17px;
+}
+
+/**
+ * SummaryGroupingView
+ */
+
+div.rp-summary-group {
+    padding-bottom: 3px;
+}
+
+.rp-summary-group-header.x-grid-group-hd {
+    background-image: url(resources/images/RP/panel/rp-top-bottom.png) !important;
+    background-repeat: repeat-x !important;
+    background-color: transparent !important;
+    background-position: left bottom;
+    border-bottom-width: 0;
+    padding-top: 1px;
+}
+
+.rp-summary-group-header.x-grid-group-hd > div {
+    padding-top: 2px;
+    padding-left: 1px;   /* to compensate for grid rows left border */
+}
+
+.rp-summary-group-header > div.x-grid-group-title  {
+    color: #000;
+    font: bold 13px "trebuchet ms",tahoma,calibri,arial,verdana,sans-serif;
+}
+
+.rp-summary-group-header.x-grid-group-hd .x-grid3-row-table .x-grid3-cell-inner {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.rp-summary-group-view-body table.x-grid3-row-table, 
+.rp-summary-group-header table.x-grid3-row-table {
+    margin-left: 15px;
+}
+
+.rp-summary-group-header-custom div.x-grid-group-title {
+    padding-left: 20px; /* left padding + x-grid3-cell-inner padding*/
+}
+
+.x-grid3-row td {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.x-checkbox {
+	height: 13px;
+	width: 13px;
+	margin-top: 2px;
+	background: url('resources/images/RP/form/checkbox.gif') no-repeat 0 0;
+}
+.x-form-check-focus .x-checkbox, .x-form-check-over .x-checkbox {
+	background-position: -13px 0;
+}
+.x-form-check-down .x-checkbox {
+	background-position:-26px 0;
+}
+.x-item-disabled .x-checkbox {
+	background-position:-39px 0;
+}
+.rp-ui-tri-checkbox-checked .x-checkbox {
+	background-position:0 -13px;
+}
+.rp-ui-tri-checkbox-checked .x-form-check-focus .x-checkbox, .rp-ui-tri-checkbox-checked .x-form-check-over .x-checkbox {
+	background-position:-13px -13px;
+}
+.rp-ui-tri-checkbox-checked .x-form-check-down .x-checkbox {
+	background-position:-26px -13px;
+}
+.x-item-disabled.rp-ui-tri-checkbox-checked .x-checkbox {
+	background-position:-39px -13px;
+}
+.rp-ui-tri-checkbox-grayed .x-checkbox {
+	background-position:0 -26px;
+}
+.rp-ui-tri-checkbox-grayed .x-form-check-focus .x-checkbox, .rp-ui-tri-checkbox-grayed .x-form-check-over .x-checkbox {
+	background-position:-13px -26px;
+}
+.rp-ui-tri-checkbox-grayed .x-form-check-down .x-checkbox {
+	background-position:-26px -26px;
+}
+.x-item-disabled.rp-ui-tri-checkbox-grayed .x-checkbox {
+	background-position:-39px -26px;
+}
+/* Window */
+
+.x-window-proxy 
+{
+  background:#e0e0e0;
+  border-color:#b0b0b0;
+}
+
+.x-window-tl .x-window-header 
+{
+  color:#555;
+}
+
+.x-window-tc 
+{
+	background-image:url(resources/images/RP/window/top-bottom.png);
+}
+
+.x-window-tl 
+{
+	background-image:url(resources/images/RP/window/left-corners.png);
+}
+
+.x-window-tr 
+{
+	background-image:url(resources/images/RP/window/right-corners.png);
+}
+
+.x-window-bc 
+{
+	background-image:url(resources/images/RP/window/top-bottom.png);
+}
+
+.x-window-bl 
+{
+	background-image:url(resources/images/RP/window/left-corners.png);
+}
+
+.x-window-br 
+{
+	background-image:url(resources/images/RP/window/right-corners.png);
+}
+
+.x-window-mc 
+{
+  border:1px solid #d0d0d0;
+  background:#e8e8e8;
+}
+
+.x-window-ml 
+{
+	background-image:url(resources/images/RP/window/left-right.png);
+}
+
+.x-window-mr 
+{
+	background-image:url(resources/images/RP/window/left-right.png);
+}
+
+.x-panel-ghost .x-window-tl 
+{
+  border-color:#d0d0d0;
+}
+
+.x-panel-collapsed .x-window-tl 
+{
+  border-color:#d0d0d0;
+}
+
+.x-window-plain .x-window-mc 
+{
+  background: #e8e8e8;
+  border-right:1px solid #eee;
+  border-bottom:1px solid #eee;
+  border-top:1px solid #d0d0d0;
+  border-left:1px solid #d0d0d0;
+}
+
+/*
+ * Attempt to fix a CSS display issue with windows created by Ext.Msg.show()
+ * 
+ * old: background:transparent !important;
+ */
+.x-window-plain .x-window-body 
+{
+  border-left:1px solid #eee;
+  border-top:1px solid #eee;
+  border-bottom:1px solid #d0d0d0;
+  border-right:1px solid #d0d0d0;
+  background-color: #fff !important;
+}
+
+body.x-body-masked .x-window-mc, body.x-body-masked .x-window-plain .x-window-mc 
+{
+  background-color: #FFF;
+}
+
+body.x-body-masked .x-window-dlg .x-window-mc
+{
+  background-color: #FFF;
+}
+
+.x-window-dlg .x-window-mr, .x-window-dlg .x-window-ml
+{
+  background-image: url(images/window/messagebox/left-right.png);
+}
+
+.x-window-dlg .x-window-bl, .x-window-dlg .x-window-tl
+{
+  background-image: url(images/window/messagebox/left-corners.png);
+}
+
+.x-window-dlg .x-window-br, .x-window-dlg .x-window-tr
+{
+  background-image: url(images/window/messagebox/right-corners.png);
+}
+
+.x-window-dlg .x-window-bc, .x-window-dlg .x-window-tc
+{
+  background-image: url(images/window/messagebox/top-bottom.png);
+}
+
+#sessionExpiredDialog, #inactivityWarningDialog, #externalAuthenticationExpiredDialog, .aboveExpiredMask
+{
+	z-index: 50002 !important;
+}

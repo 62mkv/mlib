@@ -1,0 +1,23 @@
+/*
+ *  $Copyright-Start$
+ *
+ *  Copyright (c) 2013
+ *  RedPrairie Corporation
+ *  All Rights Reserved
+ *
+ *  This software is furnished under a corporate license for use on a
+ *  single computer system and can be copied (with inclusion of the
+ *  above copyright) only for use on such a system.
+ *
+ *  The information in this document is subject to change without notice
+ *  and should not be construed as a commitment by RedPrairie Corporation.
+ *
+ *  RedPrairie Corporation assumes no responsibility for the use of the
+ *  software described in this document on equipment which has not been
+ *  supplied or approved by RedPrairie Corporation.
+ *
+ *  $Copyright-End$
+ */
+.rp-header{background:transparent url("images/bg_header_panel.gif") repeat fixed 0 0;height:47px}.rp-header-logo{background:url("images/logo-blue.png") no-repeat scroll 18px center transparent;background-size:54px;height:100%;width:210px;float:left}.rp-header-logo a{display:block;height:100%;width:100%}.rp-header-demo-time{float:right;color:#707070;position:absolute;right:50px;font-size:7pt}.rp-header-nav{color:#be6200;float:right;font-family:tahoma,arial,verdana,sans-serif;font-size:11px;padding-right:50px;padding-top:6px}.rp-header-nav-top,.rp-header-nav-bottom{float:right}.rp-header-nav-bottom{margin-top:24px}.rp-header-demo-time{color:#707070;font-size:7pt}#_rp-userName{cursor:pointer;background:url(images/menu/down-arrow.png) no-repeat right 2px;padding-right:15px}#_rp-headerNotification{cursor:pointer;background:url(images/icons/warning12x12.png) no-repeat left;padding-left:20px}.rp-header-nav-link,.rp-header-nav-link:visited{color:#5b7797}.rp-header-nav-separator{color:#525252;padding-left:4px;padding-right:4px}
+.rp-header-page-title{color:#525252;height:32px;width:400px;overflow:hidden;padding-left:12px;margin-top:8px;font-family:"trebuchet ms",tahoma,arial,verdana,sans-serif;font-size:15px;font-weight:bold}.rp-form-title-extra{float:right;padding-top:8px;padding-right:8px}
+.rp-center-panel{margin:0 5px 5px 5px}

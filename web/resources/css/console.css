@@ -1,0 +1,156 @@
+.rp-check {
+    background: url(/resources/images/check_16_pad_left_4.png) no-repeat;
+    background-position: left center;
+}
+
+/* Add more padding for our checkbox */
+.rp-balloon-menu-items .x-menu-item {
+  background-color: #353535;
+  border-left: 1px solid #414141;
+  border-right: 1px solid #414141;
+  color: silver;
+  cursor: pointer;
+  font-family: verdana;
+  font-size: 13px;
+  height: 38px;
+  padding: 0 13px 0 22px; /*override*/
+  text-shadow: 0px 2px 1px #111111;
+}
+
+/* We have to change CSS for top and bottom items as well */
+.rp-balloon-menu-items .x-menu-item:first-child {
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -ms-border-radius: 5px 5px 0 0;
+    -o-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+    border-left: 1px solid #414141;
+    border-right: 1px solid #414141;
+    border-top: 1px solid #414141;
+    padding: 10px 13px 0 22px; /*override*/
+}
+
+.rp-balloon-menu-items .x-menu-item:last-child {
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    -ms-border-radius: 0 0 5px 5px;
+    -o-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+    border-bottom: 1px solid #414141;
+    border-left: 1px solid #414141;
+    border-right: 1px solid #414141;
+    padding: 0 13px 10px 22px; /*override*/
+}
+
+/* We have to add only child CSS otherwise when not clustered the other rules apply to our single element */
+.rp-balloon-menu-items .x-menu-item:only-child {
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -ms-border-radius: 5px 5px 5px 5px;
+    -o-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    border-bottom: 1px solid #414141;
+    border-left: 1px solid #414141;
+    border-right: 1px solid #414141;
+    padding: 8px 13px 10px 13px; 
+}
+
+.force-dimension {
+    background-size: 10px;
+    background-position: center;
+}
+
+/* 
+ * Prevent grid cells from displaying a "dirty" state
+ */
+.x-grid-dirty-cell {
+    background-image: none;
+}
+
+/*
+ * This is a hack to line up the progress bar on message boxes.
+ * Increasing margin-bottom does NOT increase the size of the panel.
+ * Also this is a fix for RPWEB CSS progress bar not starting at the left edge.
+ */
+.x-message-box .x-progress {
+    margin: -4px 0 0 0 !important;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/*
+ * Allow expanded content to be user-selectable.
+ */
+.rp-table-expanded {
+    cellspacing: 100px;
+    -moz-user-select: element;
+    -khtml-user-select: element;
+    -webkit-user-select: text;
+} 
+
+/* 
+ * Make sure that simple expanded values can wrap correctly even if they don't contain whitespace.  This
+ * is useful for long values like CLASSPATH that don't contain any spaces.
+ */
+.rp-expanded-value {
+    padding: 4px 5px;
+    word-wrap: break-word;
+    -moz-user-select: element;
+    -khtml-user-select: element;
+    -webkit-user-select: text;
+}
+
+.rp-expanded-value td{
+    vertical-align: top;
+    padding: 0px 4px 0px 4px;
+}
+
+.x-grid-view .x-grid-td-expander {
+    padding-left: 3px;
+    padding-right: 1px;
+    padding-top: 16px;
+    vertical-align: top; 
+}
+
+/* fix RPUX issue with expanded rows being wrong color */
+.x-grid-rowbody {
+    background-color: inherit;
+}
+
+/* Disable toggle button dirty flag */
+.x-form-dirty .toggle.enabled {
+  background-image: none !important;
+}
+  
+/* Disable toggle button dirty flag */
+.x-form-dirty .toggle_switch {
+    background-image: none !important;
+}
+
+/*
+ * Make grid selectable
+ */
+.x-grid-row ,.x-grid-cell, .x-unselectable, .x-unselectable * {
+ -webkit-user-select: text !important;
+ -o-user-select: text !important;
+ -khtml-user-select: all !important;
+ -ms-user-select: text !important;
+ user-select: text !important;
+ -moz-user-select: text !important;
+}
+
+.rp-balloon-menu .rp-balloon-menu-body .rp-balloon-menu-innerCt .rp-balloon-menu-items .rp-menu-item-mousedown.x-menu-item-disabled:only-child {
+    -webkit-box-shadow: inherit !important;
+    -moz-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+    background-color: inherit !important;
+    padding: 11px 14px 11px 14px;
+}
+
+.rp-balloon-menu .rp-balloon-menu-body .rp-balloon-menu-innerCt .rp-balloon-menu-items .rp-menu-item-mousedown.x-menu-item-disabled {
+    -webkit-box-shadow: inherit !important;
+    -moz-box-shadow: inherit !important;
+    box-shadow: inherit !important;
+    background-color: inherit !important;
+    padding: 0 13px 0 22px;
+}
