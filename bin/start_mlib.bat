@@ -1,0 +1,1 @@
+java -classpath %MLIBDIR%/target/mlib.jar;%MLIBDIR%/javalib/* com.redprairie.moca.server.MocaServerMain

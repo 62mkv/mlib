@@ -29,6 +29,8 @@ package com.redprairie.moca.client;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jetty.util.log.Log;
+
 /**
  * A factory that provides a response encoder to use when encoding and writing
  * a response back to a client.
@@ -47,8 +49,10 @@ public class ResponseEncoderFactory {
                                                      String sessionId,
                                                      boolean allowCompression) {
         // The request header may include a header specifying the encoder to use. 
-        String responseFormat = request.getHeader("Response-Encoder");
+        //String responseFormat = request.getHeader("Response-Encoder");
+        String responseFormat = request.getParameter("ResponseFormat");
 
+        System.out.println("responseFormat:" + responseFormat);
         boolean useCompression;
         if (allowCompression) {
             // If the browser support gzip compression, we might want to support compression.

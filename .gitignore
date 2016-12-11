@@ -5,4 +5,5 @@ data/moca-sessions/*
 client/src/winmsql.net/bin/*
 client/src/winmsql.net/obj/*
 */*.obj
+*/*.mem
 /target/

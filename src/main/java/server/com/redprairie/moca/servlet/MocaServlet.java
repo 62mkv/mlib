@@ -36,7 +36,9 @@ import java.io.UnsupportedEncodingException;
 import java.lang.management.ManagementFactory;
 import java.net.URLEncoder;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -172,15 +174,43 @@ public class MocaServlet extends HttpServlet {
     public MocaServlet() {
     }
 
+    private void logParameterInfo(String method, HttpServletRequest request, HttpServletResponse response) {
+    	response.setHeader("Access-Control-Allow-Origin", "*");
+    	_logger.debug("Print Header Information:\n");
+    	Enumeration<String> em = request.getHeaderNames();
+    	while(em.hasMoreElements()) {
+    		String name = em.nextElement();
+    		_logger.debug(method + " Request head name:" + name);
+    		_logger.debug(method + " Request head value:" + request.getHeader(name));
+    	}
+    	_logger.debug("Print Parameter Information:\n");
+    	em = request.getParameterNames();
+    	while(em.hasMoreElements()) {
+    		String name = em.nextElement();
+    		_logger.debug(method + " Request param name:" + name);
+    		_logger.debug(method + " Request param value:" + request.getParameter(name));
+    	}
+    	
+    	_logger.debug("\nPrint response Header Information:");
+    	Collection<String> em2 = response.getHeaderNames();
+    	Iterator<String> it = em2.iterator();
+    	while(it.hasNext()) {
+    		String name = it.next();
+    		_logger.debug(method + " Response head name:" + name);
+    		_logger.debug(method + " Response head value:" + response.getHeader(name));
+    	}
+    }
     // @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	logParameterInfo("doGet", request, response);
         handleFormRequest(request, response);
     }
    
     // @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	logParameterInfo("doPost", request, response);
         if (request.getHeader("content-type").startsWith("application/moca-xml")) {
             handleXMLRequest(request, response);
         }
@@ -233,7 +263,12 @@ public class MocaServlet extends HttpServlet {
 
         // Gather the session cookie from the request
         Cookie sessionCookie = getSessionCookie(request);
-        
+        _logger.debug("sessionId:" + sessionId);
+        _logger.debug("environment:" + environment);
+        _logger.debug("autoCommitStr:" + autoCommitStr);
+        _logger.debug("remoteStr:" + remoteStr);
+        _logger.debug("query:" + query);
+        _logger.debug("Close:" + request.getParameter("Close"));
         // Run the request through the request dispatcher.
         dispatchAndRespond(request, response, autoCommit, remoteMode, sessionId,
                            sessionCookie, envMap, context, args, query);

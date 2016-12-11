@@ -126,8 +126,11 @@ public class AppUtils {
                 try { in.close(); } catch (IOException ignore) { }
             }
         }
-        
+
         String releaseVersion = buildProperties.getProperty("releaseVersion");
+        if (releaseVersion == null) {
+            releaseVersion = "2013.2.2.15";
+        }
         try {
             DateTimeFormatter inDate = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
             DateTimeFormatter outDate = DateTimeFormat.forPattern("MMM d yyyy");
