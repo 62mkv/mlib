@@ -1,0 +1,7 @@
+<command>
+    <name>test take pointer argument</name>
+    <description>testTakePointerArgument</description>
+    <type>C Function</type>
+    <function>testTakePointerArgument</function>
+    <argument name="value" datatype="pointer" required="yes"/>
+</command>

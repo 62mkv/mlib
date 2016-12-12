@@ -1,0 +1,11 @@
+<command>
+<name>test invalid command reference</name>
+<description>invalid command reference test</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+@SuppressWarnings publish NOSUCHCOMMAND data where x = foobar
+]]>
+</local-syntax>
+<reference command="publish nosuchcommand data"/>
+</command>

@@ -1,0 +1,5 @@
+<command>
+<name>test resolved error</name>
+<type>C Function</type>
+<function>testResolvedError</function>
+</command>

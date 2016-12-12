@@ -1,0 +1,20 @@
+<command>
+<name>test get args</name>
+<description>Publishes the arguments passed in</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+noop where @+_XXX^a and @+_XXX^b and @+_XXX^c |
+[[
+  def res = moca.newResults()
+  moca.args.each{ a ->
+      res.addRow([name:a.name,
+                 oper:a.oper as String,
+		 type:a.type as String,
+		 value:a.value as String])
+  }
+  res
+]]
+]]>
+</local-syntax>
+</command>

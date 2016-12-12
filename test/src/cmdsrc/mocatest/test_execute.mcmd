@@ -1,0 +1,7 @@
+<command>
+    <name>test execute</name>
+    <description>Executes a command from C.</description>
+    <type>C Function</type>
+    <function>testExecute</function>
+    <argument name="arg" datatype="string" required="yes"/>
+</command>

@@ -1,0 +1,6 @@
+<command>
+<name>test get variable</name>
+<type>C Function</type>
+<function>testGetVar</function>
+<argument name="name" datatype="string" required="yes">Cache</argument>
+</command>

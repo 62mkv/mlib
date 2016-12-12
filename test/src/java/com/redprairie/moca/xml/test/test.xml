@@ -1,0 +1,21 @@
+<command>
+<name>list library version</name>
+<description>List library versions.</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+ list library versions where name < value and @*
+]]>
+</local-syntax>
+<insecure>yes</insecure>
+<documentation>
+<remarks>
+<![CDATA[
+ This command just wraps the 'list library versions' command.  Please see the
+ documentation for 'list library versions'.
+]]>
+</remarks>
+<seealso cref="list library versions">
+</seealso>
+</documentation>
+</command>

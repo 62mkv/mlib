@@ -1,0 +1,7 @@
+<component-level>
+<name>MOCAtest</name>
+<library>MOCAtest</library>
+<package>com.redprairie.moca.components.mocatest</package>
+<description>MOCA Test Functions</description>
+<sort-sequence>1000</sort-sequence>
+</component-level>

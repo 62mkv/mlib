@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration packages="com.redprairie.moca.server.log" monitorInterval="30">
+    <appenders>
+        <!-- JGroups File Appender used for capturing JGroups debug output
+        <File name="JGroupsAppender" fileName="${env:LESDIR}/log/${env:MOCA_NODE_NAME}-JGROUPS.log">
+            <PatternLayout>
+                <pattern>%d{DEFAULT} %-5p [%-3T %-4.4X{moca-session}] %c{1} [%X{moca-stack-level}] %m []%n</pattern>
+            </PatternLayout>
+        </File>
+        -->
+        <!-- Infinispan File Appender used for capturing Infinispan debug output
+        <File name="InfinispanAppender" fileName="${env:LESDIR}/log/${env:MOCA_NODE_NAME}-INFINISPAN.log">
+            <PatternLayout>
+                <pattern>%d{DEFAULT} %-5p [%-3T %-4.4X{moca-session}] %c{1} [%X{moca-stack-level}] %m []%n</pattern>
+            </PatternLayout>
+        </File>
+        -->
+        <!-- TU_JBossLogging appender -->
+        <File name="TUJBossLoggingAppender" fileName="${env:LESDIR}/log/TU_JBossLogging.testActualLogging.log">
+            <PatternLayout>
+                <pattern>%d{DEFAULT} %-5p [%-3T %-4.4X{moca-session}] %c{1} [%X{moca-stack-level}] %m []%n</pattern>
+            </PatternLayout>
+        </File>
+
+        <!-- Use this appender to create a separate log file in $LESDIR/log for separate junit tests -->
+        <Routing name="TestsRoutingAppender">
+            <Routes pattern="$${ctx:logFilename}">
+                <Route>
+                    <File name="File-${ctx:logFilename}" fileName="${env:LESDIR}/log/${ctx:logFilename}.log" immediateFlush="true">
+                        <PatternLayout> 
+                            <pattern>%d{DEFAULT} %-5p [%-3T %-4.4X{moca-session}] %c{1} [%X{moca-stack-level}] %m []%n</pattern>
+                        </PatternLayout> 
+                    </File >
+                </Route>
+
+                <!-- Fallback to console if logFilename is empty -->
+                <Route ref="Console" key=""/>
+            </Routes>
+        </Routing>
+    </appenders>
+
+    
+    <loggers>
+        <!-- Uncomment to enable better logging for cluster integration tests when
+         dealing with Infinispan or JGroups issues
+        <logger name="org.jgroups" level="ALL" additivity="false">
+            <appender-ref ref="JGroupsAppender"/>
+        </logger>
+        <logger name="org.infinispan" level="ALL" additivity="false">
+            <appender-ref ref="InfinispanAppender"/>
+        </logger>
+        -->
+
+        <logger name="com.redprairie.moca.cluster" level="TRACE">
+            <appender-ref ref="TestsRoutingAppender"/>
+        </logger>
+
+        <logger name="com.redprairie.moca.task.TU_TaskManager" level="ALL">
+            <appender-ref ref="TestsRoutingAppender"/>
+        </logger>
+
+        <!-- Used for tests in TU_JBossLogging -->
+        <logger name="com.redprairie.moca.server.log.TU_JBossLogging.testActualLogging" additivity="false" level="TRACE">
+            <appender-ref ref="TUJBossLoggingAppender"/>
+        </logger>
+    </loggers>
+    
+</configuration>

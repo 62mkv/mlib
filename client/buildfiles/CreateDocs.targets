@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- MSBuild project file for creating documentation
+
+	By default, this script builds the output using the 'prototype' look-and-feel. You
+	can choose a different output style by adding one of the following options to the
+	command line:
+		/property:PresentationStyle=vs2005
+		/property:PresentationStyle=hana
+		/property:PresentationStyle=prototype
+		
+	The default target is "Chm", which builds a CHM file for the test assembly. You can
+	also specify one of the following targets on the command line:
+	  /target:Clean   - removes all generated files
+	  /target:HxS     - builds HxS file for Visual Studio in addition to CHM
+	  
+	NOTE: To build an HxS you must have the "Microsoft Help 2.0 SDK" installed.
+	 -->
+	<PropertyGroup>
+		<!-- Project Setup -->
+		<PresentationStyle Condition="'$(PresentationStyle)' == ''">hana</PresentationStyle>
+		
+		<!-- Environment -->
+		<DxRoot Condition="'$(DxRoot)' == ''">C:\Program Files\Sandcastle</DxRoot>
+		<ProductionTools>$(DxRoot)\ProductionTools</ProductionTools>
+		<ProductionTransforms>$(DxRoot)\ProductionTransforms</ProductionTransforms>
+		<Presentation>$(DxRoot)\Presentation\$(PresentationStyle)</Presentation>
+		<HHC>$(PROGRAMFILES)\Html Help Workshop\hhc.exe</HHC>
+	</PropertyGroup>
+
+	<!-- Item group aliases that define locations of items, scripts etc. -->
+	<ItemGroup>
+		<IconFiles Include="$(Presentation)\icons\**\*.*"/>
+		<ScriptFiles Include="$(Presentation)\scripts\**\*.*"/>
+		<StyleFiles Include="$(Presentation)\styles\**\*.*"/>
+	</ItemGroup>
+	
+	<!-- The master documentation creation task for the product-->
+	<Target Name="CreateDocumentation" DependsOnTargets="SetupDocsFolder;CopyBinariesToDocsFolder;Chm" />
+
+	<!--
+		Creates the documentation, this is a simple task for now.
+		
+		[IN]
+		$(DocsWorkingFolder)	The document working directory to copy items to
+		$(ArtifactsDirectory)	The directory to search for documents in
+		
+	-->
+	<Target Name="CopyBinariesToDocsFolder">
+
+		<CreateItem Include="$(ArtifactsDirectory)\**\RedPrairie.$(ProductGroupName)*.xml" >
+			<Output TaskParameter="Include" ItemName="XmlForDocs"></Output>
+		</CreateItem>
+		
+		<!--<Copy SourceFiles="@(XmlForDocs)"  DestinationFolder="$(DocsWorkingFolder)" />-->
+		<CreateProperty Value="@(XmlForDocs->'$(ArtifactsDirectory)\%(FileName).dll')">
+			<Output TaskParameter="Value" PropertyName="OutputAssembly"/>
+		</CreateProperty>
+		<CreateProperty Value="@(XmlForDocs)">
+			<Output TaskParameter="Value" PropertyName="Comments"/>
+		</CreateProperty>
+		<Copy SourceFiles="@(XmlForDocs)" DestinationFolder="$(DocsWorkingFolder)"/>
+	</Target>
+
+	<!--
+		Sets up the documentation folder inside of the bin directory
+		
+		[IN]
+		$(ArtifactsDirectory)	The root directory of the product
+		@(IconFiles)			The icon styles for the file
+		@(ScriptFiles)			Any javascript files for the style
+		@(StyleFiles)			Any style files for the style
+		
+	-->
+	<Target Name="SetupDocsFolder" >
+		<!-- Create the doc root alias -->
+		<CreateProperty Value="$(ProductDirRoot)\Docs">
+			<Output TaskParameter="Value" PropertyName="DocsWorkingFolder"/>
+		</CreateProperty>
+
+		<CreateProperty Value="$(DocsWorkingFolder)\Chm">
+			<Output TaskParameter="Value" PropertyName="ChmDir"/>
+		</CreateProperty>
+		
+		<!-- Check to see if it already exists -->
+		<CreateProperty Value="true" Condition="!Exists($(DocsWorkingFolder))">
+			<Output TaskParameter="Value" PropertyName="NewDocsDir"/>
+		</CreateProperty>
+
+		<!-- Only setup the rest if it doesn't already exist -->
+		<MakeDir Directories="$(DocsWorkingFolder);$(DocsWorkingFolder)\html;$(DocsWorkingFolder)\media;$(DocsWorkingFolder)\intellisense" 
+				 Condition="'$(NewDocsDir)' == 'true'" />
+		
+		<Copy SourceFiles="@(IconFiles)" 
+			  DestinationFiles="@(IconFiles->'$(DocsWorkingFolder)\icons\%(RecursiveDir)%(FileName)%(Extension)')"
+			  Condition="'$(NewDocsDir)' == 'true'" />
+		
+		<Copy SourceFiles="@(ScriptFiles)" 
+			  DestinationFiles="@(ScriptFiles->'$(DocsWorkingFolder)\scripts\%(RecursiveDir)%(FileName)%(Extension)')"
+			  Condition="'$(NewDocsDir)' == 'true'" />
+		
+		<Copy SourceFiles="@(StyleFiles)" 
+			  DestinationFiles="@(StyleFiles->'$(DocsWorkingFolder)\styles\%(RecursiveDir)%(FileName)%(Extension)')"
+		      Condition="'$(NewDocsDir)' == 'true'" />
+	</Target>
+
+	<Target Name="ReflectionData" Inputs="$(OutputAssembly)" Outputs="$(DocsWorkingFolder)\reflection.xml">
+		<Exec Command='"$(ProductionTools)\MRefBuilder.exe" "$(OutputAssembly)" /out:"$(DocsWorkingFolder)\reflection_base.xml"' />
+		<Exec Condition="'$(PresentationStyle)' == 'prototype'" Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ApplyPrototypeDocModel.xsl" /xsl:"$(ProductionTransforms)\AddGuidFilenames.xsl" "$(DocsWorkingFolder)\reflection_base.xml" /out:"$(DocsWorkingFolder)\reflection.xml"' />
+		<Exec Condition="'$(PresentationStyle)' == 'vs2005'" Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ApplyVSDocModel.xsl" /xsl:"$(ProductionTransforms)\AddFriendlyFilenames.xsl" "$(DocsWorkingFolder)\reflection_base.xml" /out:"$(DocsWorkingFolder)\reflection.xml" /arg:IncludeAllMembersTopic=true /arg:IncludeInheritedOverloadTopics=true' />
+		<Exec Condition="'$(PresentationStyle)' == 'hana'" Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ApplyVSDocModel.xsl" /xsl:"$(ProductionTransforms)\AddFriendlyFilenames.xsl" "$(DocsWorkingFolder)\reflection_base.xml" /out:"$(DocsWorkingFolder)\reflection.xml" /arg:IncludeAllMembersTopic=false /arg:IncludeInheritedOverloadTopics=true' />
+	</Target>
+
+	<Target Name="Manifest" DependsOnTargets="ReflectionData" Inputs="reflection.xml" Outputs="$(DocsWorkingFolder)\manifest.xml">
+		<Exec Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ReflectionToManifest.xsl" "$(DocsWorkingFolder)\reflection.xml" /out:"$(DocsWorkingFolder)\manifest.xml"' />
+	</Target>
+
+	<Target Name="Html"
+			Inputs="$(DocsWorkingFolder)\manifest.xml;$(DocsWorkingFolder)\reflection.xml;$(Comments)"
+			Outputs="$(DocsWorkingFolder)\html\*.htm"
+			DependsOnTargets="Manifest">
+		<Exec Command='"$(ProductionTools)\BuildAssembler.exe" /config:"$(Presentation)\configuration\sandcastle.config" "$(DocsWorkingFolder)\manifest.xml"' 
+			  WorkingDirectory="$(DocsWorkingFolder)" />
+		<CreateItem Include="$(DocsWorkingFolder)\Output\html\*.*">
+			<Output TaskParameter="Include" ItemName="HTMLSource"/>
+		</CreateItem>
+		<Copy SourceFiles="@(HTMLSource)" DestinationFolder="$(DocsWorkingFolder)\html" SkipUnchangedFiles="true"/>
+	</Target>
+
+	<Target Name="Chm"
+			Inputs="$(DocsWorkingFolder)\html\*.htm;$(DocsWorkingFolder)reflection.xml"
+			Outputs="$(DocsWorkingFolder)\test.chm;$(DocsWorkingFolder)\toc.xml"
+			DependsOnTargets="Html">
+		
+		<Exec Condition="'$(PresentationStyle)' == 'prototype'" 
+			   
+			  Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\CreatePrototypeToc.xsl" $(DocsWorkingFolder)\reflection.xml /out:"$(DocsWorkingFolder)\Toc.xml"' />
+		
+		<Exec Condition="'$(PresentationStyle)' != 'prototype'" 
+			  Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\CreateVSToc.xsl" $(DocsWorkingFolder)\reflection.xml /out:"$(DocsWorkingFolder)\Toc.xml"' />
+
+		<MakeDir Directories="$(chmDir)"
+				 Condition="!Exists('$(chmDir)')" />
+		<MakeDir Directories="$(chmDir)\Html"
+				 Condition="!Exists('$(chmDir)\Html')" />
+		<MakeDir Directories="$(chmDir)\Icons"
+				 Condition="!Exists('$(chmDir)\Icons')" />
+		<MakeDir Directories="$(chmDir)\Scripts"
+				 Condition="!Exists('$(chmDir)\Scripts')" />
+		<MakeDir Directories="$(chmDir)\Styles"
+				 Condition="!Exists('$(chmDir)\Styles')" />
+		<MakeDir Directories="$(chmDir)\Local"
+				 Condition="!Exists('$(chmDir)\Local')" />
+
+		<!--copy directories from hxs -->
+		<Exec Condition="Exists('$(chmDir)\Icons')"
+			  Command="xcopy.exe $(DocsWorkingFolder)\Icons\* $(chmDir)\Icons\ /y /r"/>
+		<Exec Condition="Exists('$(chmDir)\Scripts')"
+			  Command="xcopy.exe $(DocsWorkingFolder)\Scripts\* $(chmDir)\Scripts\ /y /r"/>
+		<Exec Condition="Exists('$(chmDir)\Styles')"
+			  Command="xcopy.exe $(DocsWorkingFolder)\Styles\* $(chmDir)\Styles\ /y /r"/>
+		<Exec Condition="Exists('$(chmDir)s\Local')"
+			  Command="xcopy.exe $(chmDir)\Local\* $(chmDir)\Local\ /y /r"/>
+
+		<!-- generate CHM-specific HTML and HH* files -->
+		<Exec Command="&quot;$(ProductionTools)\ChmBuilder.exe&quot; /project:test /html:$(DocsWorkingFolder)\html /lcid:1033 /toc:$(DocsWorkingFolder)\Toc.xml /out:$(chmDir)"/>
+
+		<Exec Condition="'$(PresentationStyle)' == 'prototype'" 
+			  Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ReflectionToChmIndex.xsl" reflection.xml /out:"$(chmDir)\test.hhk"' />
+		
+		<Exec Command="&quot;$(ProductionTools)\DBCSFix.exe&quot; /d:$(chmDir) /l:1033"/>
+
+		<Exec Command='"$(HHC)" "$(chmDir)\test.hhp"' IgnoreExitCode="true" />
+	</Target>
+
+	<Target Name="HxS"
+			DependsOnTargets="Build"
+			Inputs="$(DocsWorkingFolder)\html\*.htm;$(DocsWorkingFolder)\toc.xml"
+			Outputs="$(DocsWorkingFolder)\test.hxs">
+		<Copy SourceFiles="@(HxsFiles)" DestinationFiles="@(HxsFiles->'$(DocsWorkingFolder)\%(RecursiveDir)%(FileName)%(Extension)')"/>
+		<Exec Command='"$(DXROOT)\Presentation\shared\copyhavana.bat" test' />
+		<Exec Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\CreateHxc.xsl" $(DocsWorkingFolder)\toc.xml /arg:fileNamePrefix=test /out:"$(DocsWorkingFolder)\test.HxC"' />
+		<Exec Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\TocToHxSContents.xsl" $(DocsWorkingFolder)\toc.xml /out:"$(DocsWorkingFolder)\test.HxT"' />
+		<Exec Command='hxcomp.exe -p $(DocsWorkingFolder)\test.hxc' IgnoreExitCode="true" />
+	</Target>
+
+</Project>

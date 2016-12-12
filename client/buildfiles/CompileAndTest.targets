@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- Import custom tasks -->
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.VersionProjectTask" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"/>
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.CheckAsmVersion" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"/>
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.ConfigureUserFile" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"/>
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.InjectManifestTask" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"/>
+	<UsingTask TaskName="NUnit" AssemblyFile="tasks\MSBuild.Community.Tasks.dll"/>
+
+	<!-- ====================================================================================== -->
+	<!--                               Project Cleaning Targets and Item Lists                  -->
+	<!-- ====================================================================================== -->
+
+	<ItemGroup>
+		<!--A list of file types  and folders to remove when doing a clean -->
+		<ProjectDeleteExtensions Include=".\*.dll" />
+		<ProjectDeleteExtensions Include=".\*.pdb" />
+		<ProjectDeleteExtensions Include=".\*.xml" />
+		<ProjectDeleteExtensions Include=".\bin\**\*.*" />
+		<ProjectDeleteExtensions Include=".\obj\**\*.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<!--A list of file types to remove when doing a super clean -->
+		<SuperCleanDeleteExtensions Include=".\**\*.user" />
+
+		<SuperCleanDeleteFolders Include="**\*resharper*\" />
+		<SuperCleanDeleteFolders Include="**\TestResults\**\" />
+		<SuperCleanDeleteFolders Include=".\obj" />
+		<SuperCleanDeleteFolders Include=".\bin" />
+	</ItemGroup>
+
+	<!-- 
+		Common public build targets for each project. Clean is part
+		of the MS targets and work well, so we just hook on to the end
+		of it to clean out all the extra stuff.
+	-->
+	<Target Name="AfterClean" DependsOnTargets="CleanProject;CleanOutputFiles" />
+
+	<!--
+		Cleans a project of all the outputs that were generated outside of the core project.
+		Depends on getting the item lists of the assembly to determine what files to remove
+		
+		[IN]
+		@(ProjectDeleteExtensions)	A list of project extensions to clean from the core project
+		@(ProjectDeleteFolders)	A list of project folders to clean from the core project
+		
+	-->
+	<Target Name="CleanProject">
+		<Delete Files="@(ProjectDeleteExtensions)" />
+		<RemoveDir Directories="@(ProjectDeleteFolders)" />
+	</Target>
+
+	<!--
+		Cleans a project of all the outputs that were generated outside of the core project.
+		Depends on getting the item lists of the assembly to determine what files to remove
+		
+		[IN]
+		@(ProjectDeleteExtensions)	A list of project extensions to clean from the core project
+		@(ProjectDeleteFolders)	A list of project folders to clean from the core project
+		
+	-->
+	<Target Name="SuperCleanProject">
+		<Delete Files="@(SuperCleanDeleteExtensions)" />
+		<RemoveDir Directories="@(SuperCleanDeleteFolders)"  />
+	</Target>
+
+
+
+	<!-- ====================================================================================== -->
+	<!--                              Compile Targets and Item Lists                            -->
+	<!-- ====================================================================================== -->
+
+	<!--
+		Checks and bumps the AssemblyVersion.cs version of the assembly if necessary
+		
+		[IN]
+		@(AssemblyTag) Items defined in the config.targets file used to replace things like copyright
+		
+	-->
+	<Target Name="Fix">
+		<CheckAsmVersion AssemblyTags="@(AssemblyTag)"  Version="$(ProductCompileVersion)"/>
+	</Target>
+
+	<!--
+		Checks and forces a bump of the AssemblyVersion.cs version
+		
+		[IN]
+		@(AssemblyTag) Items defined in the config.targets file used to replace things like copyright
+		
+	-->
+	<Target Name="ForceFix">
+		<CheckAsmVersion AssemblyTags="@(AssemblyTag)" ForceBump="true"  Version="$(ProductCompileVersion)"/>
+	</Target>
+
+	<!--
+		Checks and changes the AssemblyVersion.cs version of the assembly to the specified version
+		
+		[IN]
+		@(AssemblyTag) Items defined in the config.targets file used to replace things like copyright
+		$(ProductCompileVersion) The version from the TaggedVersion file of the product
+		
+	-->
+	<Target Name="Cut">
+		<CheckAsmVersion AssemblyTags="@(AssemblyTag)" Version="$(ProductCompileVersion)" NoFixCheck="true"/>
+	</Target>
+
+	<!--
+    Checks to see if a pre-compiled license exists in the project and copies it into the object directory
+    to prevent the license compiler from running and causing errors in later code. Then touches the output
+	to ensure it is newer than the dependencies.
+    
+    [IN]
+    $(TargetFileName) (From VS Build) The final file name
+    @(_Pre-CompileLicense) The local license file - generated
+  -->
+	<ItemGroup>
+		<_Pre-CompileLicense Include="$(TargetFileName).licenses" Condition ="Exists('$(TargetFileName).licenses')"/>
+		<_Pre-CompileLicense Include="Properties\$(TargetFileName).licenses" Condition ="Exists('Properties\$(TargetFileName).licenses')"/>
+	</ItemGroup>
+	<Target Name="CheckForLicense"
+			Condition ="Exists(@(_Pre-CompileLicense))">
+		<CreateItem Include="@(_Pre-CompileLicense->'$(IntermediateOutputPath)%(Filename)%(Extension)')">
+			<Output TaskParameter="Include" ItemName="_Pre-CompileLicenseOut"/>
+		</CreateItem>
+		<Copy SourceFiles="@(_Pre-CompileLicense)"
+		      DestinationFiles="@(_Pre-CompileLicenseOut)" />
+		<Touch Files="@(_Pre-CompileLicenseOut)" />
+	</Target>
+
+	<!--
+		Generates or corrects a csproj.user file for a project after prompting for debug information
+		
+		[IN]
+		$(ArtifactsDirectory)	The main output path used to determine the debug startup and reference path
+		$(AssemblyName)			The name of the assembly used generate the file since an output name generally doesn't exist
+		$(TargetExt)			The project compile extension used to determine wither to use Dlx as a starup or the project
+		@(PreviousSettings)		Previous settings so that multiple projects can be configured at once
+		
+		[OUT]
+		@(PreviousSettings)		Previous settings so that multiple projects can be configured at once
+	-->
+	<Target Name="CreateProjectConfig">
+		<ConfigureUserFile Settings="@(PreviousSettings)" ArtifactsDirectory="$(ArtifactsDirectory)"
+						   AssemblyName="$(AssemblyName)$(TargetExt)" 
+						   TemplateUserFile="$(MOCADIR)\client\buildfiles\templates\template.csproj.user">
+			<Output TaskParameter="Settings" ItemName="PreviousSettings"/>
+		</ConfigureUserFile>
+	</Target>
+
+	<!-- TEST 
+		Attempt to filter the @(Compile) list of the Tests directory
+	-->
+	<Target Name="FilterUnitTestsForRelease" DependsOnTargets="CheckTestsExist" Condition="'$(UnitTestsExist)' == 'true'">
+		<CreateItem Include="@(Compile)" Exclude="@(UnitTestFiles)">
+			<Output TaskParameter="Include" ItemName="Compile"/>
+		</CreateItem>
+	</Target>
+
+	<!--
+		Injects the application manifest with the provided trust information. Uses the
+		provided main assembly name to check wither a file with a .manifest extension exists
+		then injects it into the main assembly.
+		
+		[IN]
+		@(MainAssembly)	The full name of the output assembly i.e. Dlx.exe or RedPrairie.MCS.Config.dll
+		
+	-->
+	<Target Name="InjectManifest">
+		<RemoveDuplicates Inputs="@(MainAssembly)">
+			<Output TaskParameter="Filtered" ItemName="FilteredAssembly"/>
+		</RemoveDuplicates>
+		<CreateItem Include="@(FilteredAssembly->'%(Filename)%(Extension).manifest')"
+					Condition="'@(ManifestFile)' == ''">
+			<Output TaskParameter="Include" ItemName="ManifestFile"/>
+		</CreateItem>
+		<InjectManifestTask ManifestFile="@(ManifestFile)"
+				    ExecutableFile="@(FilteredAssembly)" Condition="Exists(@(ManifestFile))"/>
+	</Target>
+
+	<!--A dummy post-build target to override anything a user put in the .csproj file -->
+	<Target Name="PostBuildEvent" />
+
+	<!--
+		The main override call from 'common.targets' that performs the actual versioning of the assembly.
+		
+		[IN]
+		$(RootNamespace)	The root namespace of the project (RedPrairie.MCS.Controls)
+		$(AssemblyName)		The name of the resulting assembly without the extension (RedPrairie.MCS.Controls)
+		$(MCSProjectName)	The localized name of the project (Controls)
+		$(ProductGroupName)	The name of the product group generating the output (MCS)
+		$(OutputType)		The output type of the project (dll, exe etc.)
+		$(OutDir)			The output path of the assembly to get version information (bin\Debug)
+		$(MCSProjectType)	The MCS project type to detemine versioning (Form, Component, CoreComponent, etc.)
+		@(Compile)			The source files of the project
+		
+		[OUT]
+		@(ProjCSVFile)		The name of the .csv file generated
+	-->
+	<Target Name="VersionItems">
+		<VersionProjectTask RootNamespace="$(RootNamespace)" AssemblyName="$(AssemblyName)"
+							ProjectName="$(MCSProjectName)" Files="@(Compile)" GroupName="$(ProductGroupName)"
+							OutputType="$(OutputType)" OutputPath="$(OutDir)" ProjectType="$(MCSProjectType)">
+			<Output TaskParameter="OutputFile" PropertyName="ProjCSVFile"/>
+		</VersionProjectTask>
+	</Target>
+
+	<!-- ====================================================================================== -->
+	<!--                               Unit Testing Targets                                     -->
+	<!-- ====================================================================================== -->
+	<!--
+		The main target for unit testing. Checks for test existance, compiles the project, and runs the tests.
+	-->
+	<Target Name="RunNUnitTestProjects" DependsOnTargets="CheckTestsExist;UnitTestProject"/>
+
+	<!--
+		Determines wither or not a unit test project actually exist in
+		a sub-directory under the project. The system is looking for a .csproj file that exists
+		under a directory that ends with "Tests" under the root.
+		Creates a flag (UnitTestsExist) that indicates with to run the remainder of the targets
+		
+		[IN]
+		$(MCSProjectName)		The name of the 
+		@(Compile)				The source code files being compiled in the project
+		$(ArtifactsDirectory)	The output path of the assembly to check for the assembly file in
+		
+		[OUT]
+		@(UnitTestsAssembly)	The assembly file to test
+		@(UnitTestFiles)		The unit test source code files
+		@(UnitTestsExist)		A value ('true') if unit tests exist
+	-->
+	<Target Name="CheckTestsExist">
+		<CreateItem Include=".\*Tests\*.csproj">
+			<Output TaskParameter="Include" ItemName="UnitTestsProject" />
+		</CreateItem>
+		<CreateProperty Value="true" Condition="'@(UnitTestsProject)' != ''">
+			<Output TaskParameter="Value" PropertyName="UnitTestsExist" />
+		</CreateProperty>
+	</Target>
+
+	<!--
+		Runs the unit tests for the project. Puts the .xml results file in the output test directory
+		
+		[CONDITION]
+		Unit Tests Exist ($(UnitTestsExist)' == 'true')
+		
+		[IN]
+		@(UnitTestsAssembly)		The Assemblies to test
+		$(ArtifactsDirectory)		The output path of the assembly to run the test in
+		$(NUnitTestOutputDir)		The test report output directory
+		$(NUnitAssemblyDirectory)	The NUnit binaries directory
+		
+	-->
+	<Target Name="UnitTestProject"  DependsOnTargets="CompileUnitTestProject" Condition="'$(UnitTestsExist)' == 'true'">
+		<MakeDir Directories="$(NUnitTestOutputDir)" Condition="!Exists('$(NUnitTestOutputDir)')" />
+		<NUnit Assemblies="@(UnitTestsAssembly)" ToolPath="$(NUnitAssemblyDirectory)"
+		  OutputXmlFile="$(NUnitTestOutputDir)$(MCSProjectName).xml" />
+	</Target>
+
+	<!--
+		Compiles the unit test project solution and marks the output for testing.
+		
+		[IN]
+		$(ArtifactsDirectory)	  The artifacts directory for references
+		$(NUnitAssemblyDirectory) The NUnit assembly directory for references
+		
+		[OUT]
+		@(UnitTestsAssembly)	The Unit test assembly name built by the project
+		
+	-->
+	<Target Name="CompileUnitTestProject">
+		<MSBuild Projects="@(UnitTestsProject)" Targets="Build" Properties="ReferencePath=$(ArtifactsDirectory);$(NUnitAssemblyDirectory)" >
+			<Output TaskParameter="TargetOutputs" ItemName="UnitTestsAssembly" />
+		</MSBuild>
+	</Target>
+
+</Project>

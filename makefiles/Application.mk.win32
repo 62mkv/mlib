@@ -1,0 +1,24 @@
+!include $(MLIBDIR)\makefiles\ApplicationLibs.mk.win32
+
+PDBNAME=$(APPNAME)
+
+!ifdef MAPFILE
+MAPFLAG=/map:$(MAPFILE)
+!endif
+
+default: $(APPNAME).exe
+
+hinstall:
+
+install-software:
+	@$(INSTALL) $(APPNAME).exe $(BINDIR)
+	@$(INSTALL) $(APPNAME).pdb $(BINDIR)
+
+clean: clean-tempfiles
+	-@del /q $(APPNAME).exe *.obj *.pdb *.manifest
+
+$(APPNAME).exe: $(PREREQS) $(OFILES)
+        $(CC) $(OFILES) \
+        /link $(LINKFLAGS) $(LIBS) \
+        /pdb:$*.pdb /out:$*.exe
+	mt /nologo /manifest $(APPNAME).exe.manifest /outputresource:$(APPNAME).exe;#1

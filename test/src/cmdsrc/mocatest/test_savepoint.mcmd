@@ -1,0 +1,7 @@
+<command>
+<name>test savepoint</name>
+<type>C Function</type>
+<function>testSavepoint</function>
+<argument name="table_name" datatype="string">table_name</argument>
+<argument name="row_count" datatype="integer">row_count</argument>
+</command>

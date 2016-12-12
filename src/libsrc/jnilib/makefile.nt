@@ -1,4 +1,4 @@
-!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
 
 LIBNAME=MOCAjni
 
@@ -27,11 +27,11 @@ native.obj: native.c native.h
 javalib.obj: javalib.c
 	$(CC) $(CFLAGS) -c javalib.c -Fo$@
 
-results.h: $(MOCADIR)\lib\moca-server.jar
-	"$(JAVA_HOME)\bin\javah" -classpath "$(MOCADIR)\build\core\classes;$(MOCADIR)\build\server\classes;$(MOCADIR)\build\native\classes;$(MOCADIR)\lib\moca-core.jar;$(MOCADIR)\lib\moca-native.jar;$(MOCADIR)\lib\moca-server.jar" -jni -o results.h com.redprairie.moca.server.legacy.WrappedResults
+#results.h: $(MLIBDIR)\lib\moca-server.jar
+#	"$(JAVA_HOME)\bin\javah" -classpath "$(MLIBDIR)\build\core\classes;$(MLIBDIR)\build\server\classes;$(MLIBDIR)\build\native\classes;$(MLIBDIR)\lib\moca-core.jar;$(MLIBDIR)\lib\moca-native.jar;$(MLIBDIR)\lib\moca-server.jar" -jni -o results.h com.redprairie.moca.server.legacy.WrappedResults
+#
+#native.h: $(MLIBDIR)\lib\moca-server.jar
+#	"$(JAVA_HOME)\bin\javah" -classpath "$(MLIBDIR)\build\core\classes;$(MLIBDIR)\build\native\classes;$(MLIBDIR)\build\server\classes;$(MLIBDIR)\lib\moca-core.jar;$(MLIBDIR)\lib\moca-native.jar;$(MLIBDIR)\lib\moca-server.jar" -jni -o native.h com.redprairie.moca.server.legacy.InternalNativeProcess
 
-native.h: $(MOCADIR)\lib\moca-server.jar
-	"$(JAVA_HOME)\bin\javah" -classpath "$(MOCADIR)\build\core\classes;$(MOCADIR)\build\native\classes;$(MOCADIR)\build\server\classes;$(MOCADIR)\lib\moca-core.jar;$(MOCADIR)\lib\moca-native.jar;$(MOCADIR)\lib\moca-server.jar" -jni -o native.h com.redprairie.moca.server.legacy.InternalNativeProcess
-
-!include $(MOCADIR)\makefiles\Library.mk.win32
-!include $(MOCADIR)\makefiles\StandardFooter.mk.win32
+!include $(MLIBDIR)\makefiles\Library.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

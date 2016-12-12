@@ -1,0 +1,6 @@
+<command>
+<name>test sleep</name>
+<type>C Function</type>
+<function>testSleep</function>
+<argument name="duration" datatype="int" required="yes">Duration of Sleep</argument>
+</command>

@@ -1,0 +1,12 @@
+<trigger>
+ <name>my trigger</name>
+ <on-command>command name</on-command>
+ <description>
+  This is a trigger on the test command name command.
+ </description>
+ <local-syntax>
+  [select * from dual]
+ </local-syntax>
+ <fire-sequence>100</fire-sequence>
+</trigger>
+

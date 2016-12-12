@@ -1,0 +1,7 @@
+<command>
+<name>test sql bind value</name>
+<type>C Function</type>
+<function>testSQLBindValue</function>
+<argument name="name" datatype="string">name</argument>
+<argument name="value" datatype="string">value</argument>
+</command>

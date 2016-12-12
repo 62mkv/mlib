@@ -1,0 +1,7 @@
+# include<$MOCADIR/test/src/java/com/redprairie/moca/server/registry/test/pre.registry.import>
+
+[SERVER]
+COMPRESSION=true
+PORT=4500
+
+# include<$MOCADIR/test/src/java/com/redprairie/moca/server/registry/test/post.registry.import>

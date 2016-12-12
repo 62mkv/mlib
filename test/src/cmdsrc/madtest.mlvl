@@ -1,0 +1,7 @@
+<component-level>
+<name>MADtest</name>
+<library>MADtest</library>
+<package>com.redprairie.moca.components.mocatest</package>
+<description>MAD Test Functions</description>
+<sort-sequence>1000</sort-sequence>
+</component-level>

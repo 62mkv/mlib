@@ -1,0 +1,6 @@
+<command>
+<name>test sql bind date</name>
+<type>C Function</type>
+<function>testSQLBindDate</function>
+<argument name="arg" datatype="string">arg</argument>
+</command>

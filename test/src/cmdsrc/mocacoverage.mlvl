@@ -1,0 +1,6 @@
+<component-level>
+<name>MOCAcoverage</name>
+<package>com.redprairie.moca.components.coverage</package>
+<description>MOCA Test Coverage Functions</description>
+<sort-sequence>1000</sort-sequence>
+</component-level>

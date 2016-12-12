@@ -1,0 +1,7 @@
+<command>
+<name>test cache remove</name>
+<type>C Function</type>
+<function>testCacheRemove</function>
+<argument name="cache" datatype="pointer" required="yes">Cache</argument>
+<argument name="key" datatype="string" required="yes">Key</argument>
+</command>

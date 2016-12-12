@@ -1,0 +1,37 @@
+<command>
+<name>sample local syntax</name>
+<description>LS Command</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+test test test
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command executes a console command from MSQL.  
+ <br/>
+ An alternative to executing a console command is to telnet to the console port.
+]]>
+</remarks>
+<example>console command where password='foo' and command = 'show options'
+
+    data
+    -----------------------------
+    Normal Port:     9900
+    Console Port:    9901
+    Initial Servers: 1
+    Max Servers:     200
+    Max Idle Servers:50
+    Memory File:
+    Server Program:  &quot;mocasrvprc&quot;</example>
+<retrows>The number of rows returned is dependent on the console command that was 
+ executed.</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+<exception value="eERROR">A general error occurred while executing the command.</exception>
+<exception value="eINVALID_ARGS">One or more invalid arguments were passed to the command.</exception>
+<exception value="eMOCA_INVALID_PASSWORD">The given console password is incorrect.</exception>
+</documentation>
+</command>
+

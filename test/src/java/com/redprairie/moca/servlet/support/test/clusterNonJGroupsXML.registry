@@ -1,0 +1,17 @@
+# A simple test cluster configuration section.
+# We do not use the JGroups XML setting so
+# it should not be picked up by MOCA.
+[CLUSTER]
+name=test-cluster
+jgroups-protocol=udp
+jgroups-mcast-port=45588
+jgroups-bind-port=7840
+jgroups-compress=true
+role-manager=preferred
+roles=NODE1
+
+# A simple test version of the Server section.
+# The prod-dirs is required so the test JGroups
+# configuration is potentially picked up.
+[Server]
+prod-dirs=%MOCADIR%/test

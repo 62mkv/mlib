@@ -1,0 +1,6 @@
+<command>
+<name>test compiled command</name>
+<type>C Function</type>
+<function>testCompiledCommand</function>
+<argument name="arg" datatype="string">arg</argument>
+</command>

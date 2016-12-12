@@ -1,0 +1,186 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>RedPrairie.MOCA.Client</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>RedPrairie.MOCA.Client</RootNamespace>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <ProjectGuid>{17638118-1D33-423F-A3FD-91DC1BF16AD2}</ProjectGuid>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\..\..\mcs\client\bin\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>RedPrairie.MOCA.Client.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml">
+      <Name>System.Xml</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="Encoding\Xml\ContentHandlerBase.cs" />
+    <Compile Include="Encoding\Xml\DataTableContentHandler.cs" />
+    <Compile Include="Encoding\Xml\IContentHandler.cs" />
+    <Compile Include="Encoding\Xml\XmlRequestEncoder.cs" />
+    <Compile Include="Interfaces\IMocaArgument.cs" />
+    <Compile Include="Interfaces\MocaOperator.cs" />
+    <Compile Include="MocaArgument.cs" />
+    <Compile Include="ObjectMapping\ObjectResultItem.cs" />
+    <Compile Include="ObjectMapping\ObjectMapperContentHandler.cs" />
+    <Compile Include="Encoding\Xml\ResultItem.cs" />
+    <Compile Include="Encoding\Xml\SaxAttribute.cs" />
+    <Compile Include="Encoding\Xml\SAXParser.cs" />
+    <Compile Include="InternalObjectCommand.cs" />
+    <Compile Include="GetDataCallBackEventArgs.cs" />
+    <Compile Include="GetDataResult.cs" />
+    <Compile Include="IInternalCommand.cs" />
+    <Compile Include="InternalCallBackEventArgs.cs" />
+    <Compile Include="ExecuteCommandResultBase.cs" />
+    <Compile Include="FullConnection.Objects.cs" />
+    <Compile Include="Interfaces\IMocaDataProvider.cs" />
+    <Compile Include="Interfaces\IDataObjectProvider.cs" />
+    <Compile Include="InternalCommand.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\BinaryMappingDelegate.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\BooleanMappingDelegate.cs" />
+    <Compile Include="ObjectMapping\ColumnMap.cs" />
+    <Compile Include="ConnectionBase.cs" />
+    <Compile Include="Crypto\BlowfishCryptoTransform.cs" />
+    <Compile Include="Crypto\RPBFCryptoTransform.cs" />
+    <Compile Include="Encoding\CommandBuilder.cs" />
+    <Compile Include="Exceptions\LockOutException.cs" />
+    <Compile Include="FullConnectionEventArgs.cs" />
+    <Compile Include="LoginInfo.cs" />
+    <Compile Include="FullConnection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ObjectMapping\MappingDelegates\DynamicBuildPlanGenerationContext.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\EnumMappingDelegate.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\DateMappingDelegate.cs" />
+    <Compile Include="ObjectMapping\DefaultObjectResolver.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\DoubleMappingDelegate.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\EmptyMappingDelegate.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\IntegerMappingDelegate.cs" />
+    <Compile Include="Interfaces\IObjectResolver.cs" />
+    <Compile Include="ObjectMapping\MappingData.cs" />
+    <Compile Include="MultiThreadQueueConnection.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\MappingDelegate.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\UnmappedPropertyMapper.cs" />
+    <Compile Include="ObjectMapping\ObjectMapper.cs" />
+    <Compile Include="ObjectMapping\ObjectMappingDecoder.cs" />
+    <Compile Include="ObjectMapping\ReflectionColumnMapper.cs" />
+    <Compile Include="ObjectMapping\MappingDelegates\StringMappingDelegate.cs" />
+    <Compile Include="ServerInfo.cs" />
+    <Compile Include="SmartConnection.cs" />
+    <Compile Include="Util\Constants.cs" />
+    <Compile Include="Encoding\DirectConnectionResultsDecoder.cs" />
+    <Compile Include="Encoding\EncodingBase.cs" />
+    <Compile Include="ExecuteCallBackEventArgs.cs" />
+    <Compile Include="ExecuteCommandResult.cs" />
+    <Compile Include="HeaderData.cs" />
+    <Compile Include="Encoding\ResultsEncoder.cs" />
+    <Compile Include="Util\LoginUtils.cs" />
+    <Compile Include="Util\MocaErrors.cs" />
+    <Compile Include="WebConnection.cs">
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\ConnectionFailedException.cs" />
+    <Compile Include="Util\ConnectionUtils.cs" />
+    <Compile Include="Crypto\BlowfishEncryptionStrategy.cs" />
+    <Compile Include="Crypto\RPBFEncryptionStrategy.cs" />
+    <Compile Include="DirectConnection.cs" />
+    <Compile Include="Exceptions\LoginFailedException.cs" />
+    <Compile Include="Interfaces\IMocaConnection.cs" />
+    <Compile Include="Exceptions\ProtocolException.cs" />
+    <Compile Include="Exceptions\ReadResponseException.cs" />
+    <Compile Include="Encoding\ResultsDecoderBase.cs" />
+    <Compile Include="Exceptions\SendRequestException.cs" />
+    <Compile Include="Exceptions\ServerExecutionException.cs" />
+    <Compile Include="Exceptions\MocaException.cs" />
+    <Compile Include="Util\MocaType.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Util\StringReplacer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MocaClientClassDiagram.cd" />
+    <None Include="ObjectMappingDiagram.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

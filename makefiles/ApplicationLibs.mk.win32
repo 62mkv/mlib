@@ -1,0 +1,5 @@
+!ifndef NOMOCALIBS
+MOCALIBS=MOCA.lib
+!endif
+
+LIBS=$(MOCALIBS) $(STDLIBS) $(EXTRALIBS) 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- Define image build specific properties -->
+	<PropertyGroup>
+		<OptimizeFileCopy>true</OptimizeFileCopy>
+		<MCSProjectType>DllImport</MCSProjectType>
+	</PropertyGroup>
+
+	<Import Project="config.targets"/>
+	<Import Project="common.targets"/>
+
+	<!-- Import custom tasks -->
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.VersionExternalDllsTask" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"/>
+
+	<!-- Define the .dll files -->
+	<ItemGroup>
+		<BaseCopyFiles Include="*.dll"/>
+	</ItemGroup>
+	<ItemGroup>
+		<BaseSupportFiles Include="*.pdb"/>
+		<BaseSupportFiles Include="*.xml" Exclude="@(BaseSupportFileExclude)"/>
+	</ItemGroup>
+
+	<Import Project="filebase.targets"/>
+
+	<Target Name="VersionItems" DependsOnTargets="CreateVersionPropery">
+		<VersionExternalDllsTask Files="@(BaseCopyFiles)" ProjectName="$(MSBuildProjectName)" GroupName="$(ProductGroupName)" Version="$(ProductCompileVersion)">
+			<Output TaskParameter="OutputFile" PropertyName="ProjCSVFile"/>
+		</VersionExternalDllsTask>
+	</Target>
+</Project>

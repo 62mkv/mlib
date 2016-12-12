@@ -1,0 +1,23 @@
+all:
+	msbuild.exe msbuild.proj /t:build	
+
+hinstall:
+
+superclean:
+	msbuild.exe msbuild.proj /t:superclean
+
+clean:
+	msbuild.exe msbuild.proj /t:clean 
+
+install: 
+	msbuild.exe msbuild.proj /t:install 
+
+verInstall:
+	msbuild.exe msbuild.proj /t:install /property:Configuration=release
+
+cut:
+	msbuild.exe msbuild.proj /t:cut 
+
+fix:
+	msbuild.exe msbuild.proj /t:fix 
+	

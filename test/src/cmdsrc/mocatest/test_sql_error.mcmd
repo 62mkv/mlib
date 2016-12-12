@@ -1,0 +1,5 @@
+<command>
+<name>test sql error</name>
+<type>C Function</type>
+<function>testSQLError</function>
+</command>

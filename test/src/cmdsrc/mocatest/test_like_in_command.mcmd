@@ -1,0 +1,8 @@
+<command>
+<name>test like in command</name>
+<type>Java Method</type>
+<class>TU_TestLikeInCommandArgument</class>
+<method>testLikeInCommandArgument</method>
+<argument name="usedWildcard" required="yes" datatype="boolean"></argument>
+<argument name="value" required="yes" datatype="string"></argument>
+</command>

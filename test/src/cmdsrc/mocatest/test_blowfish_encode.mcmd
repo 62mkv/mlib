@@ -1,0 +1,6 @@
+<command>
+<name>test blowfish encode</name>
+<type>C Function</type>
+<function>testBlowfishEncodePassword</function>
+<argument name="password" datatype="string">password</argument>
+</command>

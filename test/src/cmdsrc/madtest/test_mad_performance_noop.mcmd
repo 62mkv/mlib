@@ -1,0 +1,6 @@
+<command>
+<name>test mad performance noop</name>
+<type>C Function</type>
+<function>testPerformanceNoop</function>
+<argument name="duration" required="no" datatype="integer"></argument>
+</command>

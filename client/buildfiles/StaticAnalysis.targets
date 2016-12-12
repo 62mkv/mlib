@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <NDependProject>wcsf_ndepend.xml</NDependProject>
+    <NDependExeDir>$(MOCADIR)\Client\Tools\NDepend</NDependExeDir>
+    <CCNetLabel>localbuild</CCNetLabel>
+    <NDependHistory>$(ArtifactsDir)\NDepend\$(CCNetLabel)</NDependHistory>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FxCopCriticalErrors>0</FxCopCriticalErrors>
+    <FxCopErrors>0</FxCopErrors>
+    <FxCopCriticalWarnings>0</FxCopCriticalWarnings>
+    <FxCopWarnings>0</FxCopWarnings>
+  </PropertyGroup>
+
+  <Target Name="StaticAnalysisBuild" DependsOnTargets="Clean;CleanCodeCoverage;CleanNDepend;Build;Test;RunStaticAnalysis;AnalizeFxCopResults" />
+
+  <Target Name="RunStaticAnalysis" DependsOnTargets="NDepend;StartCodeCoverage;FxCop">
+    <Message Text="RunStaticAnalysis" />
+  </Target>
+
+  <Target Name="CleanCodeCoverage" >
+    <RemoveDir Directories="$(CodeCoverageOutput)" Condition="Exists($(CodeCoverageOutput))" />
+  </Target>
+  <Target Name="CleanNDepend" >
+    <RemoveDir Directories="$(NDependOutputDir)" Condition="Exists($(NDependOutputDir))" />
+  </Target>
+
+  <!--<Import Project="CodeCoverage.targets" /> -->
+
+  <!-- Run NDepend -->
+  <Target Name="NDepend" Condition="'$(RunNDepend)'=='true' and '$(BuildConfiguration)'=='Debug'">
+
+    <Message Text="NDepend" />
+
+    <MakeDir Directories="$(NDependOutputDir)" Condition="!Exists($(NDependOutputDir))" />
+    <Copy
+			SourceFiles="$(NDependProject)"
+			DestinationFiles="fixed_$(NDependProject)" />
+
+    <File.RegEx Path="fixed_$(NDependProject)"
+			RegularExpression="#DEVENVDIR#"
+			NewValue="$(DevEnvDir)"/>
+    <File.RegEx Path="fixed_$(NDependProject)"
+			RegularExpression="#FRAMEWORKDIR#"
+			NewValue="$(FrameworkDir)"/>
+    <File.RegEx Path="fixed_$(NDependProject)"
+			RegularExpression="#PROGRAMFILES#"
+			NewValue="$(ProgramFiles)"/>
+    <File.RegEx Path="fixed_$(NDependProject)"
+			RegularExpression="#CODEROOT#"
+			NewValue="$(CompileTargetDir)"/>
+
+    <Exec Command="&quot;$(NDependExeDir)\NDepend.Console.exe&quot; &quot;fixed_$(NDependProject)&quot; /OutDir &quot;$(NDependOutputDir)&quot;" ContinueOnError="true"/>
+
+    <CreateItem Include="$(NDependOutputDir)*.png" >
+      <Output TaskParameter="Include" ItemName="NDependGraphics" />
+    </CreateItem>
+
+    <MakeDir Directories="@(NDependHistory)" Condition="!Exists(@(NDependHistory))" />
+    <Copy SourceFiles="@(NDependGraphics)" DestinationFiles="@(NDependGraphics->'$(NDependHistory)\%(FileName)%(Extension)')" />
+
+  </Target>
+
+  <Target Name="FxCop" Condition="'$(RunFxCop)'=='true'">
+    <CreateItem Include="@(FxCopAnalysisTarget->'$(BuildWorkingDir)%(Location)%(Identity)')"
+      AdditionalMetadata="ReportFileName=%(FxCopAnalysisTarget.Identity).FxCop.xml">
+      <Output ItemName="FxCopAssembliesToAnalyze" TaskParameter="Include"/>
+    </CreateItem>
+    <MakeDir Directories="$(FxCopOutputDir)" Condition="!Exists('$(FxCopOutputDir)')" />
+    <FxCop ProjectFile="WCSF.FxCop"
+      AnalysisReportFileName="$(FxCopOutputDir)%(FxCopAssembliesToAnalyze.ReportFileName)"
+      TargetAssemblies="%(FxCopAssembliesToAnalyze.Identity)"
+			DependencyDirectories="@(DependencyDirectories)" />
+  </Target>
+
+  <Target Name="AnalizeFxCopResults" Condition="'$(RunFxCop)'=='true'">
+    <CreateItem Include="$(FxCopOutputDir)\*.FxCop.xml">
+      <Output ItemName="FxCopResultFiles" TaskParameter="Include"/>
+    </CreateItem>
+  </Target>
+
+  <UsingTask AssemblyFile="tasks\MSBuild.Community.Tasks.dll" TaskName="FxCop" />
+</Project>

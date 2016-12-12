@@ -1,0 +1,31 @@
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MOCAtest
+
+OFILES=MOCAlicense.obj \
+       MOCAversion.obj \
+       testBlowfish.obj \
+       testCache.obj \
+       testCompiledCommand.obj \
+       testConvertToBinaryPointer.obj \
+       testExecute.obj \
+       testGenericPointer.obj \
+       testGetNeededElementPointer.obj \
+       testGetNeededElementResult.obj \
+       testIndirectCrash.obj \
+       testKeepalive.obj \
+       testNativeOutput.obj \
+       testNullReturn.obj \
+       testResolvedError.obj \
+       testRetrieveResults.obj \
+       testSavepoint.obj \
+       testSimpleComponent.obj \
+       testSimpleSQL.obj \
+       testSleep.obj \
+       testSrvExecuteAfterRollback.obj \
+       testSQLBind.obj \
+       testSQLError.obj \
+       testVar.obj
+
+!include $(MLIBDIR)\makefiles\Component.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

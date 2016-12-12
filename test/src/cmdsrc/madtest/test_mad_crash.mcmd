@@ -1,0 +1,5 @@
+<command>
+<name>test mad crash</name>
+<type>C Function</type>
+<function>testMadCrash</function>
+</command>

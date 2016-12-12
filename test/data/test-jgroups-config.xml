@@ -1,0 +1,108 @@
+<!--
+  ~ JBoss, Home of Professional Open Source
+  ~ Copyright 2010 Red Hat Inc. and/or its affiliates and other
+  ~ contributors as indicated by the @author tags. All rights reserved.
+  ~ See the copyright.txt in the distribution for a full listing of
+  ~ individual contributors.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 2.1 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+<config xmlns="urn:org:jgroups"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="urn:org:jgroups file:schema/JGroups-2.8.xsd">
+    <!-- IP Multicast for messages to all members. UDP datagrams for single member messages. Usually used for clusters whose nodes are on the same subnet. May not work across subnets if IP multicast across subnets is not enabled. -->
+    <UDP
+            mcast_addr="${jgroups.udp.mcast_addr:228.6.7.8}"
+            mcast_port="${jgroups.udp.mcast_port:46655}"
+            tos="8"
+            ucast_recv_buf_size="20m"
+            ucast_send_buf_size="640k"
+            mcast_recv_buf_size="25m"
+            mcast_send_buf_size="640k"
+            ip_ttl="${jgroups.udp.ip_ttl:2}"
+
+            max_bundle_size="64000"
+            max_bundle_timeout="30"
+            loopback="true"
+            enable_diagnostics="false"
+            bundler_type="old"
+            thread_naming_pattern="pl"
+
+            thread_pool.enabled="true"
+            thread_pool.min_threads="2"
+            thread_pool.max_threads="30"
+            thread_pool.keep_alive_time="60000"
+            thread_pool.queue_enabled="true"
+            thread_pool.queue_max_size="100"
+            thread_pool.rejection_policy="Discard"
+
+            oob_thread_pool.enabled="true"
+            oob_thread_pool.min_threads="2"
+            oob_thread_pool.max_threads="30"
+            oob_thread_pool.keep_alive_time="60000"
+            oob_thread_pool.queue_enabled="false"
+            oob_thread_pool.queue_max_size="100"
+            oob_thread_pool.rejection_policy="Discard" />
+
+    <!-- This is the discovery protocol. It uses IP multicast (by default) to find initial members. Once found, the current coordinator can be determined and a unicast JOIN request will be sent to it in order to join the cluster. -->
+    <PING timeout="3000" num_initial_members="2"/>
+    
+    <!-- Will merge sub-clusters back into one cluster, kicks in after a network partition healed. -->
+    <MERGE2 max_interval="30000" min_interval="10000"/>
+    
+    <!-- Failure detection based on TCP sockets (in a ring form between members). Generates notification if a member fails -->
+    <FD_SOCK/>
+    
+    <!-- Failure detection based on multicast heartbeat are-you-alive messages. Generates notification if a member fails -->
+    <FD_ALL interval="3000" timeout="15000"/>
+    
+    <!-- Double-checks whether a suspected member is really dead, otherwise the suspicion generated from protocol below is discarded -->
+    <VERIFY_SUSPECT num_msgs="3" timeout="2000"/>
+    
+    <!-- Ensures (a) message reliability and (b) FIFO. Message reliability guarantees that a message will be received. If not, the receiver(s) will request retransmission. FIFO guarantees that all messages from sender P will be received in the order P sent them -->
+    <pbcast.NAKACK  exponential_backoff="0"
+            use_mcast_xmit="true"
+            retransmit_timeout="300,600,1200"
+            discard_delivered_msgs="true"/>
+    
+    <!-- Same as NAKACK for unicast messages: messages from sender P will not be lost (retransmission if necessary) and will be in FIFO order (conceptually the same as TCP in TCP/IP) -->
+    <UNICAST2 stable_interval="5000"
+            max_bytes="1m"/>
+    
+    <!-- Deletes messages that have been seen by all members (distributed message garbage collection) -->
+    <pbcast.STABLE stability_delay="500" desired_avg_gossip="5000" max_bytes="1m"/>
+    
+    <!-- Membership protocol. Responsible for joining/leaving members and installing new views. -->
+    <pbcast.GMS print_local_addr="true" join_timeout="3000" merge_timeout="15000" view_bundling="true"/>
+    
+    <!-- Unicast Flow Control. Provides flow control between 2 members. -->
+    <UFC max_credits="200k" min_threshold="0.20"/>
+    
+    <!-- Multicast Flow Control. Provides flow control between a sender and all cluster members. -->
+    <MFC max_credits="200k" min_threshold="0.20"/>
+    
+    <!-- Fragments large messages into smaller ones and reassembles them back at the receiver side. For both multicast and unicast messages -->
+    <FRAG2 frag_size="8000"  />
+    
+    <!--<COMPRESS compression_level="9" min_size="500" pool_size="2" />-->
+    <RSVP timeout="60000" resend_interval="500" ack_on_delivery="false" />
+    
+    <CENTRAL_LOCK num_backups="2" />
+    
+    <com.redprairie.moca.cluster.jgroups.MocaCentralExecutor
+            num_backups="2" />
+
+</config>

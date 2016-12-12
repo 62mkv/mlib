@@ -1,0 +1,6 @@
+<command>
+<name>test simple component</name>
+<type>C Function</type>
+<function>testSimpleComponent</function>
+<argument name="arg" datatype="string">arg</argument>
+</command>

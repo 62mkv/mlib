@@ -1,4 +1,4 @@
-!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
 
 LIBNAME=MOCAos
 
@@ -51,5 +51,5 @@ OFILES=osAccess.obj \
        osVar.obj \
        os_MapInfo.obj 
 
-!include $(MOCADIR)\makefiles\Library.mk.win32
-!include $(MOCADIR)\makefiles\StandardFooter.mk.win32
+!include $(MLIBDIR)\makefiles\Library.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

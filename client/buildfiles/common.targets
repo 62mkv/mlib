@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- Import tasks -->
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.CopyFileVersioned" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"/>
+	
+	<!-- 
+		Create the default output folder directories based on the project type.
+		
+		Forms: 
+			server->forms	
+			client->Product Group Directory	
+			do server copy -> on release
+		
+		Resources: 
+			server->res	
+			client->images	
+			server copy -> always
+			
+		Help: 
+			server->help	
+			client->help	
+			server copy -> always
+		XSL: 
+			server->xsl	
+			client->xsl	
+			server copy -> always
+		
+		All Others:
+			server-> components	
+			client-> artifacts root directory	
+			do server copy -> on release
+		
+		[IN]
+		$(MCSProjectType)		The MCS project type - from project file (Form, Executable, CoreComponent, etc.)
+		$(Configuration)		The release configuration - defined at build
+		$(DownloadsDirectory)	The root server download directory for the product - from config.targets
+		$(ArtifactsDirectory)	The client build directory - from config.targets
+		
+		[OUT]
+		$(ServerDownloadDirectory)	The server sub-directory to put the assembly files in
+		$(LocalClientDirectory)		The client build sub-directory to put the assembly files in
+		$(DoServerCopy)				If 'true' files will be copied to the server download directories
+		
+	-->
+	<Choose>
+		<When Condition="$(MCSProjectType) == 'Form'">
+			<PropertyGroup>
+				<ServerDownloadDirectory>$(DownloadsDirectory)\forms</ServerDownloadDirectory>
+				<LocalClientDirectory>$(ArtifactsDirectory)\$(ProductGroupName)</LocalClientDirectory>
+				<DoServerCopy Condition ="'$(DoServerCopy)' == '' AND '$(Configuration)' == 'release'">true</DoServerCopy>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(MCSProjectType) == 'LoaderModule'">
+			<PropertyGroup>
+				<ServerDownloadDirectory>$(DownloadsDirectory)\components</ServerDownloadDirectory>
+				<LocalClientDirectory>$(ArtifactsDirectory)\$(ProductGroupName)</LocalClientDirectory>
+				<DoServerCopy Condition ="'$(DoServerCopy)' == '' AND '$(Configuration)' == 'release'">true</DoServerCopy>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(MCSProjectType) == 'Resources'">
+			<PropertyGroup>
+				<ServerDownloadDirectory>$(DownloadsDirectory)\res</ServerDownloadDirectory>
+				<LocalClientDirectory>$(ArtifactsDirectory)\images</LocalClientDirectory>
+				<DoServerCopy>true</DoServerCopy>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(MCSProjectType) == 'Help'">
+			<PropertyGroup>
+				<ServerDownloadDirectory>$(DownloadsDirectory)\help</ServerDownloadDirectory>
+				<LocalClientDirectory>$(ArtifactsDirectory)\help</LocalClientDirectory>
+				<DoServerCopy>true</DoServerCopy>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(MCSProjectType) == 'XSL'">
+			<PropertyGroup>
+				<ServerDownloadDirectory>$(DownloadsDirectory)\xsl</ServerDownloadDirectory>
+				<LocalClientDirectory>$(ArtifactsDirectory)\xsl</LocalClientDirectory>
+				<DoServerCopy>true</DoServerCopy>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<ServerDownloadDirectory>$(DownloadsDirectory)\components</ServerDownloadDirectory>
+				<LocalClientDirectory>$(ArtifactsDirectory)</LocalClientDirectory>
+				<!--<DoServerCopy Condition ="'$(DoServerCopy)' == '' AND '$(MCSProjectType)' == 'DllImport'">true</DoServerCopy>-->
+				<DoServerCopy Condition ="'$(DoServerCopy)' == '' AND '$(Configuration)' == 'release'">true</DoServerCopy>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<!-- ====================================================================================== -->
+	<!--                           Public File Copy /Clean Tasks                                -->
+	<!-- ====================================================================================== -->
+	
+	<!-- 
+		Cleans the general output file types. 
+		Depends on _CreateItemLists to generate the list of files to clean.
+		
+		[IN]
+		@(ServerCopyFiles)	A list of files to remove from the server
+		@(CoreCopyFiles)	A list of files to remove from the core directory
+		@(LocalCopyFiles)	A list of files to remove from the local output directory
+		$(ComponentCSVDirectory) The comp_ver directory from config.targets
+		$(MCSProjectName)		The generated project .csv file name
+		
+	-->
+	<Target Name="CleanOutputFiles" DependsOnTargets="_CreateMainAssembly;_CreateItemLists" Condition="'$(IsServerProduct)' != 'true'">
+		<Delete Files="@(ServerCopyDestinationFiles)"/>
+		
+		<Delete Files="@(CoreCopyFiles->'$(CoreFilesDirectory)\%(Filename)%(Extension)')"
+					   Condition="$(MCSProjectType) == 'CoreComponent'"/>
+
+		<Delete Files="@(LocalCopyFiles->'$(LocalClientDirectory)\%(Filename)%(Extension)')"/>
+
+		<Delete Files="@(ExternalResourceFiles->'$(DownloadResourceDirectory)\%(Filename)%(Extension)')" />
+
+		<Delete Files="$(ComponentCSVDirectory)\$(MCSProjectName).csv" 
+				Condition="$(MCSProjectName) != '' AND Exists('$(ComponentCSVDirectory)\$(MCSProjectName).csv')" />
+
+		<Delete Files="*.csv"/>
+	</Target>
+
+	<!-- 
+		Copies files based on build configuration and file types.
+		Depends on _CreateItemLists to generate the list of items to copy
+		
+		[IN]
+		@(ServerCopySourceFiles)		A list of files to copy to the server
+		@(ServerCopyDestinationFiles)	A list of files name when copying to the server
+		@(CoreCopyFiles)	A list of files to copy to the core directory
+		@(LocalCopyFiles)	A list of files to copy to the local output directory
+		$(MCSProjectType)	Checks to see if it is 'CoreComponent' to enable core copy
+		$(DoServerCopy)		If 'true' files will be copied to the server download directories
+		@(ExternalResourceFiles) Any resources in the project file that need to be copied to the server
+		$(OptimizeFileCopy) Indicates if file copies should be optimized
+	-->
+	<Target Name="CopyBinariesToOutput" DependsOnTargets="_CheckClientDirectories;_CheckDefaultProperites;_CreateItemLists">
+		<Message Importance="low" Text="Beginning output copies, Copy to server:$(DoServerCopy) Optimize Copy:$(OptimizeFileCopy)" />
+		
+		<Copy SourceFiles="@(ServerCopySourceFiles)"
+			  DestinationFiles="@(ServerCopyDestinationFiles)"
+			  SkipUnchangedFiles="$(OptimizeFileCopy)"
+			  Condition="'$(DoServerCopy)' == 'true'"/>
+		
+		<Copy SourceFiles="@(CoreCopyFiles)"   
+			  DestinationFolder="$(CoreFilesDirectory)" 
+			  SkipUnchangedFiles="$(OptimizeFileCopy)" 
+			  Condition="$(MCSProjectType) == 'CoreComponent'"/>
+
+		<Copy SourceFiles="@(LocalCopyFiles)" 
+			  DestinationFolder="$(LocalClientDirectory)" 
+			  SkipUnchangedFiles="$(OptimizeFileCopy)"
+			  Condition="Exists('%(Identity)')" />
+
+		<!--This copy line helps for additional form projects that need resources copied -->
+		<Copy SourceFiles="@(ExternalResourceFiles)" 
+			  DestinationFolder="$(DownloadResourceDirectory)" 
+			  SkipUnchangedFiles="$(OptimizeFileCopy)" 
+			  Condition="Exists('%(Identity)')"/>
+	</Target>
+
+	<!-- 
+		An Execution order debug runner that verifies which projects are being run.
+		Use to determine if projects are being executed in the correct order.
+	-->
+	<Target Name="ExecuteOrder">
+		<Message Text="Project '$(MSBuildProjectDirectory)' Executed" />
+	</Target>
+
+	<!--
+		The master project versioning task. Creates the .CSV file and copies to the comp_ver directory.
+		Depends on the other files to impliment the "VersionItems" task to determine how to create the .csv file
+		
+		[CONDITION]
+		$(SkipProjectVersioning) If 'true' versining is skipped. This is a hardcode mainly for imports from other projects.
+		
+		[IN]
+		$(ComponentCSVDirectory) The server comp_ver directory - from config.targets
+		$(DoMLOAD)				 [Optional] if not empty the destination file is mloaded
+		
+		[OUT]
+		$(ProjCSVFile)	The generated .csv file name and path
+		
+	-->
+	<Target Name="VersionProject" DependsOnTargets="VersionItems" Condition="'$(SkipProjectVersioning)' == 'false' OR $(Configuration) == 'Release'">
+		<Copy SourceFiles="$(ProjCSVFile)"
+			  DestinationFolder="$(ComponentCSVDirectory)"
+			  Condition="$(ProjCSVFile) != '' AND Exists($(ProjCSVFile))">
+			<Output TaskParameter="CopiedFiles" ItemName="FilesToMload"/>
+		</Copy>
+
+		<Exec  Condition="$(DoMLOAD) != ''" 
+			   WorkingDirectory="$(ComponentCSVDirectory)" 
+			   Command="mload.exe -H -c ..\comp_ver.ctl -d @(FilesToMload->'%(FileName)%(Extension)')"/>
+		
+	</Target>
+
+		
+	<!-- ====================================================================================== -->
+	<!--            Internally used targets - Do not reference from other build files           -->
+	<!-- ====================================================================================== -->
+	
+	<!--
+		Checks for the existance of properties and sets their defaults for the file copy
+		
+		[IN]
+		$(OptimizeFileCopy) [optional] true or false, this method defaults it to 'false'
+		$(DoServerCopy) [optional] true or false, this method defaults it to 'false'
+	-->	
+	<Target Name="_CheckDefaultProperites">
+		<!-- Create a property indicating wither the file copy optimization should be used -->
+		<CreateProperty Value="false" Condition="$(OptimizeFileCopy) == ''">
+			<Output TaskParameter="Value" PropertyName="OptimizeFileCopy"/>
+		</CreateProperty>
+
+		<!-- Create a property indicating wither the server copy should be done -->
+		<CreateProperty Value="false" Condition="$(DoServerCopy) == ''">
+			<Output TaskParameter="Value" PropertyName="DoServerCopy"/>
+		</CreateProperty>
+	</Target>
+
+	<!-- 
+		Checks the client Core and Product directores to determine if they need to be created 
+		
+		[IN]
+		$(LocalClientDirectory) - See above for poential values.
+		$(CoreFilesDirectory) - The core directory (typically $(MCSDIR)\client\bin\core)
+	-->
+	<Target Name="_CheckClientDirectories">
+		<MakeDir Directories="$(LocalClientDirectory)" Condition="!Exists('$(LocalClientDirectory)')" />
+		<MakeDir Directories="$(CoreFilesDirectory)" Condition="!Exists('$(CoreFilesDirectory)')" />
+	</Target>
+
+	<!-- 
+		Creates the base item list based on release configuration.
+	    Also creates a copy of the form or config files for server copying
+		
+		[CONDITION]
+		@(MainAssembly) must exist meaning we've finished a core compile
+		
+		[IN]
+		@(MainAssembly)		The main assembly file generated from compilation (RedPrairie.MCS.Defines.dll)
+		@(FileWrites)		All files generated during the compilation process (.dll, .xml, .pdb etc.)
+		$(Configuration)	The release configuration
+		
+		[OUT]
+		@(BaseCopyFiles)	The base files to copy, generally the same as @(MainAssembly)
+		@(BaseSupportFiles)	Any .pdb or .config files created
+		@(BaseDocFiles)		The XML documentation file name 
+	-->
+	<Target Name="_CreateBaseItemList" Condition="@(MainAssembly) != ''">
+		<CreateItem Include="@(MainAssembly)">
+			<Output TaskParameter="Include" ItemName="BaseCopyFiles"/>
+		</CreateItem>
+		
+		<!-- Create the App.config file if necessary -->
+		<CreateItem Include="@(FileWrites)" Condition = "%(Extension) == '.config'">
+			<Output TaskParameter="Include" ItemName="BaseCopyFiles"/>
+		</CreateItem>
+		
+		<!-- Add the supporting files -->
+		<CreateItem Include="@(MainAssembly->'%(RelativeDir)%(Filename).pdb')"
+						Condition = "$(Configuration) != 'Release'">
+			<Output TaskParameter="Include" ItemName="BaseSupportFiles"/>
+		</CreateItem>
+		<CreateItem Include="@(MainAssembly->'%(RelativeDir)%(Filename).xml')">
+			<Output TaskParameter="Include" ItemName="DocumentationOutputFile"/>
+		</CreateItem>
+		<CreateItem Include="@(DocumentationOutputFile)" 
+					Condition="@(DocumentationOutputFile) != '' AND Exists('@(DocumentationOutputFile)') AND $(Configuration) != 'Release'">
+			<Output TaskParameter="Include" ItemName="BaseDocFiles"/>
+		</CreateItem>
+	</Target>
+
+	<!--
+		Creates all the item lists for copying to the base directories.
+		Depends on _CreateItemLists to generate the base lists if
+		@(MainAssembly) exists. If it doesn't the bases listed below must be defined
+		
+		[IN]
+		@(MainAssembly)		The main assembly file generated from compilation (RedPrairie.MCS.Defines.dll)
+		@(FileWrites)		All files generated during the compilation process (.dll, .xml, .pdb etc.)
+		$(Configuration)	The release configuration
+		@(BaseCopyFiles)	The base files to copy, generally the same as @(MainAssembly)
+		@(BaseSupportFiles)	Any .pdb or .config files created
+		@(BaseDocFiles)		The XML documentation file name
+		$(MCSProjectType)	Checks to see if it is 'CoreComponent' to enable core copy
+		$(DoServerCopy)		If 'true' files will be copied to the server download directories
+		
+		[OUT]
+		@(ServerCopySourceFiles)		A list of files to copy to the server
+		@(ServerCopyDestinationFiles)	A list of files name when copying to the server
+		@(CoreCopyFiles)	A list of files to copy to the core directory
+		@(LocalCopyFiles)	A list of files to copy to the local output directory
+	
+	-->
+	<Target Name="_CreateItemLists" DependsOnTargets="_CreateBaseItemList">
+		
+		<!--Server Directory Copy Files -->
+		<CreateItem Include="@(BaseCopyFiles)">
+			<Output TaskParameter="Include" ItemName="ServerCopySourceFiles"/>
+		</CreateItem>
+		<CopyFileVersioned SourceFiles="@(BaseCopyFiles)" DestinationFolder="$(ServerDownloadDirectory)" 
+						   ProjectType="$(MCSProjectType)" Condition="Exists('%(Identity)')">
+			<Output TaskParameter="DestinationFiles" ItemName="ServerCopyDestinationFiles"/>
+		</CopyFileVersioned>
+
+		<!--Core Directory Copy Files -->
+		<CreateItem Include="@(BaseCopyFiles);*.gif" 
+					Condition="$(MCSProjectType) == 'CoreComponent'">
+			<Output TaskParameter="Include" ItemName="CoreCopyFiles"/>
+		</CreateItem>
+		
+		<!--Local Directory Copy Files -->
+		<CreateItem Include="@(BaseCopyFiles);@(BaseSupportFiles);@(BaseDocFiles)">
+			<Output TaskParameter="Include" ItemName="LocalCopyFiles"/>
+		</CreateItem>
+	</Target>
+
+	<!--
+		Creates the @(MainAssembly), @(BaseDocFiles) and @(FileWrites) items for cleaning procedures
+		
+		[CONDITION]
+		All input arguments exist
+		
+		[IN]
+		$(AssemblyName)		The name of the resulting assembly without the extension (RedPrairie.MCS.Controls)
+		$(TargetExt)		The output type of the project (dll, exe etc.)
+		
+		[OUT]
+		@(MainAssembly)	The output name and path of the assembly item
+		@(FileWrites)	Additional support files (generally .config files that otherwise wouldn't get cleaned)
+		
+	-->
+	<Target Name="_CreateMainAssembly" Condition="'$(AssemblyName)' != '' AND '$(TargetExt)' != ''">
+		<CreateItem Include="$(OutDir)$(AssemblyName)$(TargetExt)">
+			<Output TaskParameter="Include" ItemName="MainAssembly"/>
+		</CreateItem>
+		
+		<!--Add the .exe.config file if the project is an executable -->
+		<CreateItem Include="$(OutDir)$(AssemblyName)$(TargetExt).config" Condition="'$(TargetExt)' == '.exe'">
+			<Output TaskParameter="Include" ItemName="FileWrites"/>
+		</CreateItem>
+
+		<!--Add the .xml file if the project notes a doc file -->
+		<CreateItem Include="$(OutDir)$(AssemblyName).xml">
+			<Output TaskParameter="Include" ItemName="BaseDocFiles"/>
+		</CreateItem>
+
+		<!--This item exists to create items for the server if they don't actually exist on a clean-->
+		<CreateItem Include="@(MainAssembly->'$(ServerDownloadDirectory)\%(FileName)*%(Extension)')" Condition="!Exists('%(Identity)')">
+			<Output TaskParameter="Include" ItemName="ServerCopyDestinationFiles"/>
+		</CreateItem>
+	</Target>
+</Project>

@@ -1,0 +1,7 @@
+default: 
+
+hinstall: install-software
+
+install-software: $(TARGETS)
+
+clean: clean-tempfiles

@@ -1,0 +1,91 @@
+<command>
+<name>get cluster cache contents</name>
+<description>Gets the contents of an Infinispan cache</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+import org.infinispan.manager.EmbeddedCacheManager;
+import com.redprairie.moca.cache.infinispan.InfinispanCacheProvider;
+import com.redprairie.moca.cluster.infinispan.InfinispanNode;
+import com.redprairie.moca.server.ServerUtils;
+import com.redprairie.moca.EditableResults;
+import com.redprairie.moca.MocaType;
+import com.redprairie.moca.SimpleResults;
+import java.util.HashMap;
+import java.util.HashSet;
+import org.infinispan.Cache;
+import java.util.Map.Entry;
+
+final String RETURN_COLUMN = "result";
+EditableResults r = new SimpleResults();
+
+r.addColumn(RETURN_COLUMN, MocaType.OBJECT);
+r.addRow();
+
+Cache<Object, Object> cache = InfinispanCacheProvider.getInfinispanCacheManager(ServerUtils.globalContext()).getCache(cacheName);
+
+switch (mode) {
+case "keys":
+    r.setValue(RETURN_COLUMN, new HashSet<Object>(cache.keySet()));
+    break;
+case "values":
+    r.setValue(RETURN_COLUMN, new HashSet<Object>(cache.values()));
+    break;
+case "keys-tostring":
+    Set<Object> set = new HashSet<Object>();
+    for (Object s: cache.keySet()) {
+        set.add(s.toString());
+    }
+    r.setValue(RETURN_COLUMN, set);
+    break;
+case "key-address-tostring":
+    Set<Object> set = new HashSet<Object>();
+    for (Object s: cache.keySet()) {
+        if (!s instanceof InfinispanNode) {
+            throw new IllegalArgumentException("Cannot use " + mode + " comparison mode because key is not an InfinispanNode.");
+        }
+        set.add(((InfinispanNode) s).getAddress().toString());
+    }
+    r.setValue(RETURN_COLUMN, set);
+    break;
+case "map":
+    Map<Object, Object> map = new HashMap<Object, Object>();
+    map.putAll(cache);
+    r.setValue(RETURN_COLUMN, map);
+    break;
+case "map-key-tostring":
+    Map<Object, Object> map = new HashMap<Object, Object>();
+    for (Map.Entry<Object, Object> entry : cache.entrySet()) {
+        map.put(entry.getKey().toString(), entry.getValue());
+    }
+    r.setValue(RETURN_COLUMN, map);
+    break;
+case "readable":
+    r = new SimpleResults();
+    r.addColumn("key", MocaType.STRING);
+    r.addColumn("value", MocaType.STRING);
+    int rows = 0;
+    for (Entry<Object, Object> entry : cache.entrySet()) {
+          r.addRow();
+          r.setRow(rows);
+          r.setValue(0, entry.getKey().toString());
+          r.setValue(1, entry.getValue().toString());
+          rows += 1;
+    }
+    break;
+default: throw new IllegalArgumentException("Unknown cache comparison mode " + mode);
+}
+
+r;
+]]
+]]>
+</local-syntax>
+<argument name="cacheName" datatype="string"/>
+<argument name="mode" datatype="string"/>
+<documentation>
+<retrows>One</retrows>
+<retcol name="result" type="object">Returns the cache contents as a Map&lt;Object, Object&gt; if map mode was requested
+    or Set&lt;Object&gt; for keys or values mode.</retcol>
+</documentation>
+</command>

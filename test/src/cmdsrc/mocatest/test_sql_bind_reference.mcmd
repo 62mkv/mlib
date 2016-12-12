@@ -1,0 +1,5 @@
+<command>
+<name>test sql bind reference</name>
+<type>C Function</type>
+<function>testSQLBindReference</function>
+</command>

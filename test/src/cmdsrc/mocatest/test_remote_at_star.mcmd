@@ -1,0 +1,11 @@
+<command>
+<name>test remote at star</name>
+<description>done very little</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+remote(@url)
+publish data where @*
+]]>
+</local-syntax>
+</command>

@@ -1,0 +1,10 @@
+<command>
+<name>test get args indirect</name>
+<description>Publishes the arguments passed in by calling another component</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+test get args where @*
+]]>
+</local-syntax>
+</command>

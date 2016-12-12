@@ -1,0 +1,6 @@
+<command>
+<name>test simple sql</name>
+<type>C Function</type>
+<function>testSimpleSQL</function>
+<argument name="arg" datatype="string">arg</argument>
+</command>

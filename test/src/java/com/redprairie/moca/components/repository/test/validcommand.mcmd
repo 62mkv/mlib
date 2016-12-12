@@ -1,0 +1,11 @@
+<command>
+ <name>command name</name>
+ <description>This is a sample command description</description>
+ <type>Local Syntax</type>
+ <local-syntax>
+  [
+	select * from dual
+  ]
+ </local-syntax>
+</command>
+

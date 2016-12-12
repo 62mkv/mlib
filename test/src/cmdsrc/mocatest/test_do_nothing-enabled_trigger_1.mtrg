@@ -1,0 +1,22 @@
+<trigger>
+<name>enabled_trigger_1</name>
+<on-command>test do nothing</on-command>
+<fire-sequence>1000</fire-sequence>
+<enable>yes</enable>
+
+<local-syntax>
+<![CDATA[
+test add counter where name = 'nothing_trigger_1'
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+  <p>
+  Some stuff
+  </p>
+]]>
+</remarks>
+</documentation>
+</trigger>
+

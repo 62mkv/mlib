@@ -1,0 +1,6 @@
+<command>
+<name>test keepalive cache get</name>
+<type>C Function</type>
+<function>testKeepaliveCacheGet</function>
+<argument name="key" datatype="string" required="yes">Key</argument>
+</command>

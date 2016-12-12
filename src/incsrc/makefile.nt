@@ -1,4 +1,4 @@
-!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
 
 IFILES=cmdlib.h \
        common.h \
@@ -123,5 +123,5 @@ $(INCDIR)\usrtbldef.h: usrtbldef.h
 $(INCDIR)\vartbldef.h: vartbldef.h
 	@$(INSTALL) $? $(INCDIR)
 
-!include $(MOCADIR)\makefiles\Header.mk.win32
-!include $(MOCADIR)\makefiles\StandardFooter.mk.win32
+!include $(MLIBDIR)\makefiles\Header.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

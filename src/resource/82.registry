@@ -18,13 +18,13 @@ MOCA_ENVNAME=82
 JAVA_HOME=C:\jdk1.7
 JAVA64_HOME=C:\jdk1.8
 
-LESDIR=F:\MFC\mlib
+LESDIR=D:\MFC\mlib
 #MCSDIR=D:\dev\8.2\mcs
 #DCSDIR=D:\dev\8.2\wmd
 #MTFDIR=D:\dev\8.2\mtf
 #MTFCLIENT=D:\dev\8.2\wmd\mtfclient
 
-MOCADIR=F:\MFC\mlib
+MOCADIR=D:\MFC\mlib
 #SALDIR=D:\dev\8.2\sal
 #SLDIR=D:\dev\8.2\seamles
 #REFSDIR=D:\dev\8.2\rpweb
@@ -72,16 +72,16 @@ wms-event-url=tcp://localhost:61616
 wms-event-queue=WMS-WMA
 
 [SERVER]
-test-disable-native=true
+test-disable-native=false
 inhibit-tasks=false
 inhibit-jobs=false
 max-async-thread=10
-command-profile=F:\MFC\mlib\data\commandprofile
+command-profile=D:\MFC\mlib\data\commandprofile
 port=%MOCA_PORT%
 prod-dirs=%MOCADIR%;
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
-memory-file=F:\MFC\mlib\data\%MOCA_ENVNAME%.mem
+memory-file=D:\MFC\mlib\data\%MOCA_ENVNAME%.mem
 #config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
 #commands-dir=%REPORTINGDIR%\src\cmdsrc;
 #session-idle-timeout=10
@@ -131,13 +131,13 @@ password=RedPrairie1
 #url=jdbc:sqlserver://localhost;databaseName=%MOCA_ENVNAME%
 #url=jdbc:sqlserver://localhost;databaseName=rpw82
 ###url=jdbc:sqlserver://localhost;databaseName=20141
-##url=jdbc:sqlserver://localhost;databaseName=mlib
+url=jdbc:sqlserver://localhost;databaseName=mlib
 #url=jdbc:sqlserver://localhost;databaseName=fit-8.2
-##driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
-username=sam2
-password=sam2
-url=jdbc:oracle:thin:@localhost:1521:orcl
-driver=oracle.jdbc.OracleDriver
+driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+#username=sam2
+#password=sam2
+#url=jdbc:oracle:thin:@localhost:1521:orcl
+#driver=oracle.jdbc.OracleDriver
 
 
 [EMS]

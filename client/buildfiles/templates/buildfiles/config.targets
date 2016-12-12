@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project InitialTargets="CreateVersionPropery" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!--General Properties for the product based on the directory-->
+	<PropertyGroup>
+		<ProductGroupName>!PRODNAME!</ProductGroupName>
+		<ProductDirRoot>$(!PRODDIR!)</ProductDirRoot>
+	</PropertyGroup>	
+</Project>

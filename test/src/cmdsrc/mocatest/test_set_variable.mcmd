@@ -1,0 +1,7 @@
+<command>
+<name>test set variable</name>
+<type>C Function</type>
+<function>testSetVar</function>
+<argument name="name" datatype="string" required="yes">Cache key name</argument>
+<argument name="value" datatype="string">Value in Cache</argument>
+</command>

@@ -1,0 +1,6 @@
+<command>
+<name>test cache close</name>
+<type>C Function</type>
+<function>testCacheClose</function>
+<argument name="cache" datatype="pointer" required="yes">Cache</argument>
+</command>

@@ -1,0 +1,44 @@
+!include $(MLIBDIR)\makefiles\LibraryLibs.mk.win32
+
+PDBNAME=$(LIBNAME)
+
+!ifdef BASEADDRESS
+BASEFLAG=/base:$(BASEADDRESS)
+!endif
+
+!ifdef MAPFILE
+MAPFLAG=/map:$(MAPFILE)
+!endif
+
+default: $(PREREQS) $(LIBNAME).dll
+
+hinstall: $(IFILES)
+!ifdef IFILES
+	@$(INSTALL) $** $(INCDIR)
+!endif
+
+install-software:
+!ifndef LIBPART
+	@$(INSTALL) $(LIBNAME).dll $(BINDIR)
+	@$(INSTALL) $(LIBNAME).pdb $(BINDIR)
+	@$(INSTALL) $(LIBNAME).lib $(LIBDIR)
+!endif
+
+clean: clean-tempfiles
+        -@del /q $(LIBNAME).dll $(LIBNAME).lib $(LIBNAME)-static.lib 
+	-@del /q *.exp *.obj *.pdb *.manifest
+
+makestatic: force
+!if "$(LIBPART)" == "yes"
+	lib /nologo /out:$(LIBNAME)-static.lib $(OFILES)
+!endif
+
+$(LIBNAME).dll: $(OFILES) $(LIBDEPEND) makestatic
+!ifndef LIBPART
+	$(CC) /LDd $(DEFFILE) $(OFILES) \
+        /link /dll $(LINKFLAGS) $(LIBS) \
+        /implib:$*.lib /pdb:$(LIBNAME).pdb /out:$*.dll
+        mt /nologo /manifest $(LIBNAME).dll.manifest /outputresource:$(LIBNAME).dll;#2
+!endif
+
+force:

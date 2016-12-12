@@ -1,0 +1,10 @@
+<command>
+<name>test_function</name>
+<description>Publishes the value passed in</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where value = @moca_farg1
+]]>
+</local-syntax>
+</command>

@@ -1,0 +1,6 @@
+<command>
+    <name>test register srv execute after rollback</name>
+    <description>Simply Registers a srvExecuteAfterRollback Hook.</description>
+    <type>Simple C Function</type>
+    <function>testSrvExecuteAfterRollback</function>
+</command>

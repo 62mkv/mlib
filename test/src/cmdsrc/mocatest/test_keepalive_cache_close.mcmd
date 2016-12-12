@@ -1,0 +1,5 @@
+<command>
+<name>test keepalive cache close</name>
+<type>C Function</type>
+<function>testKeepaliveCacheClose</function>
+</command>

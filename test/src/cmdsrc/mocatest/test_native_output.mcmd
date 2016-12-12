@@ -1,0 +1,6 @@
+<command>
+<name>test native output</name>
+<type>C Function</type>
+<function>testNativeOutput</function>
+<argument name="arg" datatype="string">arg</argument>
+</command>

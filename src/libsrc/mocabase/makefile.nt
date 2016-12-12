@@ -1,4 +1,4 @@
-!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
 
 LIBNAME=MOCAbase
 
@@ -12,5 +12,5 @@ OFILES=mocaDumpCore.obj \
        mocaSetProcessPriority.obj \
        mocaSprintfData.obj
 
-!include $(MOCADIR)\makefiles\Component.mk.win32
-!include $(MOCADIR)\makefiles\StandardFooter.mk.win32
+!include $(MLIBDIR)\makefiles\Component.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

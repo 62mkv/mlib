@@ -1,0 +1,137 @@
+all: install
+
+install: install-server install-client
+
+client: install-client
+
+server: install-server
+
+test: install-test
+
+install-server: ant-server
+	cd "$(MAKEDIR)\src"
+	$(MAKE) -nologo -fmakefile.nt install
+
+install-client: 
+!if EXIST (client)
+	cd "$(MAKEDIR)\client"
+	$(MAKE) -nologo -fmakefile.nt install
+!endif
+
+install-test: ant-test
+	cd "$(MAKEDIR)\test\src"
+	$(MAKE) -nologo -fmakefile.nt install
+
+config: FRC
+	cd "$(MAKEDIR)\config"
+	$(MAKE) -nologo -fmakefile.nt
+
+clean: clean-server clean-client clean-test
+
+clean-server:
+	cd "$(MAKEDIR)\src"
+	$(MAKE) -nologo -fmakefile.nt clean
+
+clean-client: 
+!if EXIST (client)
+	cd "$(MAKEDIR)\client"
+	$(MAKE) -nologo -fmakefile.nt clean
+!endif
+
+clean-test:
+	cd "$(MAKEDIR)\test\src"
+	$(MAKE) -nologo -fmakefile.nt clean
+
+superclean: clean 
+	cd "$(MAKEDIR)"
+	-del /q include\*.*
+	-del /q bin\*.*
+	-del /q lib\*.*
+#	-del /s /q javalib\*.*
+
+rebuild: clean install
+
+ant-server: FRC
+	cd "$(MAKEDIR)"
+#	call mvn package
+#	call mvn wars
+
+#ant-test: FRC
+#	cd "$(MAKEDIR)"
+#	call ant test
+#	call ant testwars
+
+reg: 
+!if EXIST ($(MLIBDIR)\bin\MMDA.dll)
+	regsvr32 /s $(MLIBDIR)\bin\MMDA.dll
+!endif
+!if EXIST ($(MLIBDIR)\bin\MOCASrvObj.dll)
+	regsvr32 /s $(MLIBDIR)\bin\MOCASrvObj.dll
+!endif
+
+unreg: 
+!if EXIST ($(MLIBDIR)\bin\MMDA.dll)
+	regsvr32 /u /s $(MLIBDIR)\bin\MMDA.dll
+!endif
+!if EXIST ($(MLIBDIR)\bin\MOCASrvObj.dll)
+	regsvr32 /u /s $(MLIBDIR)\bin\MOCASrvObj.dll
+!endif
+
+cut:
+!if EXIST (client)
+        cd "$(MAKEDIR)\client"
+        $(MAKE) -nologo -fmakefile.nt cut
+!endif
+
+fix:
+!if EXIST (client)
+        cd "$(MAKEDIR)\client"
+        $(MAKE) -nologo -fmakefile.nt fix
+!endif
+
+deploy: 
+!ifdef INSTALLDIR
+	-mkdir $(INSTALLDIR)
+	-mkdir $(INSTALLDIR)\bin
+	-copy bin $(INSTALLDIR)\bin
+	-mkdir $(INSTALLDIR)\lib
+	-copy lib $(INSTALLDIR)\lib
+	-mkdir $(INSTALLDIR)\scripts
+	-copy scripts $(INSTALLDIR)\scripts
+	-mkdir $(INSTALLDIR)\include
+	-copy include $(INSTALLDIR)\include
+	-xcopy samples $(INSTALLDIR)\samples /s /i
+!else
+	@echo INSTALLDIR NOT SET
+!endif
+
+size:
+	$(MLIBDIR)\scripts\calc_size.pl $(MLIBDIR)
+
+FRC:
+
+help:
+        @echo.
+        @echo Creating a major/minor release
+        @echo.
+        @echo ^ ^ ^ NOTE: This should only be done once,
+        @echo ^ ^ ^ ^ ^ ^ ^ ^ ^ ^when the first alpha cut is made.
+        @echo.
+        @echo ^ ^ ^     Verify that a database upgrade directory exists.
+        @echo.
+        @echo ^ ^ ^     vi ^%MLIBDIR^%\config\TaggedVersion
+        @echo ^ ^ ^     make config 
+        @echo ^ ^ ^     make cut
+        @echo ^ ^ ^     svn commit
+        @echo ^ ^ ^     svntag.pl moca . ^<version^>
+        @echo.
+        @echo Creating a revision/service pack release
+        @echo.
+        @echo ^ ^ ^     Verify that a database upgrade directory exists.
+        @echo.
+        @echo ^ ^ ^     vi ^%MLIBDIR^%\config\TaggedVersion
+        @echo ^ ^ ^     make config
+        @echo ^ ^ ^     make fix
+        @echo ^ ^ ^     svn commit
+        @echo ^ ^ ^     svntag.pl moca . ^<version^>
+        @echo.

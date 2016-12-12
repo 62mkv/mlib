@@ -1,0 +1,123 @@
+﻿<!--
+Debugging Microsoft .NET 2.0 Applications
+Copyright © 1997 - 2006 John Robbins All rights reserved. 
+
+The targets for doing code coverage from the command line.  This assumes
+that you've run VSVARS32.BAT in the command window to set the Visual 
+Studio .NET environment variables.
+
+You'll need the Wintellect.Build.Tasks.DLL assembly as it's loaded by 
+this .targets file.  Set the environment variable 
+WINTELLECTBUILDTASKSDIR to specify the directory where the file resides.
+
+Example usage:
+////////////////////////////////////////////////////////////////////////
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        ** Specifies the output directory for the compiled binaries **
+        ** This will be created if it does not exist.               **
+        <CodeCoverageOutput>.\Output</CodeCoverageOutput>
+        ** The .SNK file used to resign signed assemblies.  Can be  **
+        ** omitted if assemblies are not signed.                    **
+        <StrongNameFile>..\Shared\Shared.SNK</StrongNameFile>
+        ** The location and name of the output .COVERAGE file.      **
+        <OutputCoverageFile>$(CodeCoverageOutput)\Cov</OutputCoverageFile>
+    </PropertyGroup>
+
+    ** The list of assemblies to instrument.  Any number of         **
+    ** assemblies can be specified.                                 **
+    <ItemGroup>
+        <InputCoverageBinaries Include ="One.dll"/>
+        <InputCoverageBinaries Include ="Two.dll"/>
+    </ItemGroup>
+
+    ** This file. :)                                                **
+    <Import Project ="..\Build\Coverage.targets"/>
+</Project>
+////////////////////////////////////////////////////////////////////////
+
+Targets:
+    CodeCoverageInstrumentTarget - Instruments binaries.
+    StartCoverageMonitorTarget   - Starts the monitor process for 
+                                   coverage.
+    InstrumentAndMonitor         - Instruments and starts the monitor.    
+    StopCoverageMonitorTarget    - Stops the monitor.
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- The task to wrap VSPerfMon.EXE since it has trouble with 
+         console I/O redirection.-->
+    <UsingTask TaskName="VSPerfMonTask" 
+               AssemblyFile="$(WINTELLECTBUILDTASKSDIR)\Wintellect.Build.Tasks.DLL"/>
+
+    <!-- **************** Properties Used By All ******************* -->
+    <!-- These are here in case you need to set them from the command 
+         line. -->
+    <PropertyGroup>
+        <BASEDIR>$(VSINSTALLDIR)\Team Tools\Performance Tools\</BASEDIR>
+        <VSINSTR>&quot;$(BASEDIR)VSINSTR.EXE&quot;</VSINSTR>
+        <VSPERFCMD>&quot;$(BASEDIR)VSPERFCMD.EXE&quot;</VSPERFCMD>
+    </PropertyGroup>
+
+    <!-- ************* Instrument and Monitor Target *************** -->
+    <Target Name="InstrumentAndMonitor" 
+            DependsOnTargets="CodeCoverageInstrumentTarget;StartCoverageMonitorTarget">
+    </Target>
+
+    <!-- **************** Instrumentation Target ******************* -->
+    
+    <!-- Always turn off the following VSINSTR.EXE warning:
+         warning VSP2013: Instrumenting this image requires it to run as 
+         a 32-bit process.  The CLR header flags have been updated to 
+         reflect this.    
+         If a strong name file is specified, turn off 
+         warning VSP2001: 'assembly' is a strongly named assembly.  It 
+         will need to be re-signed before it can be executed.
+    -->
+    <Choose>
+        <When Condition="$(StrongNameFile) != ''">
+            <PropertyGroup>
+                <OffVsInstrWarnings>$(DisableInstrumentationWarnings);2001;2013</OffVsInstrWarnings>
+            </PropertyGroup>
+        </When>
+        <Otherwise>
+            <PropertyGroup>
+                <OffVsInstrWarnings>$(DisableInstrumentationWarnings);2013</OffVsInstrWarnings>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
+    
+	<!-- The target for instrumenting. -->
+    <Target Name="CodeCoverageInstrumentTarget" 
+            Condition="'$(VSINSTALLDIR)' != ''"
+            Inputs="@(InputCoverageBinaries)"
+            Outputs="@(OutputCoverageBinaries->$(CodeCoverageOutput)\%(filename)%(extension)">
+
+        <!-- Make the output directory if it doesn't exist. -->
+        <MakeDir Condition ="!Exists('$(CodeCoverageOutput)')" 
+                 Directories ="$(CodeCoverageOutput)" />
+        <!-- Run VSINSTR.EXE on the individual binary. -->
+        <!-- <Exec Command='$(VSINSTR) /NOWARN:$(OffVsInstrWarnings) /COVERAGE /OUTPUTPATH:$(CodeCoverageOutput) "%(InputCoverageBinaries.Identity)"'/>	-->
+		
+		<!-- Attempting to instrument in place -->
+		<Exec Command='$(VSINSTR) /NOWARN:$(OffVsInstrWarnings) /COVERAGE "%(InputCoverageBinaries.Identity)"'/>
+		
+		<!-- If a strong name key file was specified, run SN.EXE to 
+             resign it.-->
+        <Exec Condition="$(StrongNameFile) != ''"  
+              Command="sn -q -R $(CodeCoverageOutput)\%(InputCoverageBinaries.filename)%(InputCoverageBinaries.extension) $(StrongNameFile)"/>
+    </Target>
+
+    <!-- ***************** Start Monitor Target ******************** -->
+    <Target Name="StartCoverageMonitorTarget"
+            Condition="'$(VSINSTALLDIR)' != ''">
+        <VSPerfMonTask OutputFile="$(OutputCoverageFile)"
+                       MonitorType="Coverage"
+                       User="$(User)"/>
+    </Target>
+
+    <!-- ***************** Stop Monitor Target ********************* -->
+    <Target Name="StopCoverageMonitorTarget"
+            Condition="'$(VSINSTALLDIR)' != ''">
+        <Exec Command="$(VSPERFCMD) /SHUTDOWN:10" ContinueOnError="true"/>
+    </Target>
+</Project>

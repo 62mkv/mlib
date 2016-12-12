@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-config SYSTEM "service-config.dtd">
+<service-config>
+    <service name="myservice" class="MyServiceCustom" package="com.redprairie.services.core" generate="false">
+    </service>    
+</service-config>
+

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Import Project="config.targets"/>
+	<Import Project="CreateDocs.targets"/>
+	
+	<PropertyGroup>
+		<!--Set some default options in case they don't exist-->
+		<StopOnFailure Condition="'$(StopOnFailure)' == ''">true</StopOnFailure>
+	</PropertyGroup>
+	
+	<ItemGroup Condition="'$(ArtifactsDirectory)' != ''">
+		<!-- Create an override properties list that will propogate through -->
+		<OverrideProperties Include="ReferencePath=$(ArtifactsDirectory)" />
+	</ItemGroup>
+
+	<Target Name="Clean">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="$(StopOnFailure)"
+				 Targets="Clean"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="Superclean">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="$(StopOnFailure)"
+				 Targets="Superclean"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="Build">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="$(StopOnFailure)"
+				 Targets="Build"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="Install">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="$(StopOnFailure)"
+				 Targets="Install"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="Rebuild">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="$(StopOnFailure)"
+				 Targets="Rebuild"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="Test">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="$(StopOnFailure)"
+				 Targets="Test"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="Fix">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="false"
+				 Targets="Fix"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="AutoFix">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="false"
+				 Targets="AutoFix"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+
+	<Target Name="Cut">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="false"
+				 Targets="Cut"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="ForceFix">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="false"
+				 Targets="ForceFix"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="AutoForceFix">
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="false"
+				 Targets="AutoForceFix"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="ExecuteOrder">
+		<Message Text="Folder Executing: $(MSBuildProjectDirectory)" />
+		<MSBuild Projects="@(SubProjects)"
+				 StopOnFirstFailure="$(StopOnFailure)"
+				 Targets="ExecuteOrder"
+				 Properties="@(OverrideProperties)"/>
+	</Target>
+
+	<Target Name="NewProject" Condition="'$(projdir)' != '' AND '$(PRODDIR)' != ''">
+		<Exec Command='$(MOCADIR)\client\buildfiles\templates\buildfiles\DevTreeConverter.exe /n $(ProductGroupName) /a $(PRODDIR) /s .\$(projdir) /q /b"' 
+	              WorkingDirectory=".\" />
+	</Target>
+</Project>

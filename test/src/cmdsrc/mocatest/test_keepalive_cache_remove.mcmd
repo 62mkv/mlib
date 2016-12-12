@@ -1,0 +1,6 @@
+<command>
+<name>test keepalive cache remove</name>
+<type>C Function</type>
+<function>testKeepaliveCacheRemove</function>
+<argument name="key" datatype="string" required="yes">Key</argument>
+</command>

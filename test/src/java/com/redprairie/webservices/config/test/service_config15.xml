@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-config SYSTEM "service-config.dtd">
+<service-config>
+    <service name="myservice" class="MyService" package="com.redprairie.services.core">
+        <operation name="operation1">
+            <input>
+                <argument name="argName" type="string"/>
+                <argument name="something" type="integer"/>
+                <argument name="somethingElse" type="double"/>
+            </input>
+            <command><![CDATA[some MOCA command | some other moca command where x=@something]]></command>
+            <output multirow="true" class="MyResult">
+                <field name="field1" type="string" nullable="true"/>
+                <field name="field2" type="integer" nullable="true"/>
+                <field name="field3" type="boolean" nullable="false"/>
+                <field name="field4" type="double" nullable="true"/>
+            </output>
+        </operation>
+		<operation name="operation2">
+            <input>
+                <argument name="argName2" type="string"/>
+                <argument name="something2" type="integer"/>
+                <argument name="somethingElse2" type="double"/>
+            </input>
+            <command><![CDATA[some MOCA command2 | some other moca command where x=@something]]></command>
+            <output multirow="true" class="MyResult2">
+                <field name="field12" type="string" nullable="true"/>
+                <field name="field22" type="integer" nullable="true"/>
+                <field name="field32" type="boolean" nullable="false"/>
+                <field name="field42" type="double" nullable="true"/>
+            </output>
+        </operation>
+    </service>
+    <service name="myservice" class="MyService" package="com.redprairie.services.core">
+        <operation name="operation3">
+            <input>
+                <argument name="argName3" type="string"/>
+                <argument name="something3" type="integer"/>
+                <argument name="somethingElse3" type="double"/>
+            </input>
+            <command><![CDATA[some MOCA command3 | some other moca command where x=@something]]></command>
+            <output multirow="false" class="MyResult3">
+                <field name="field13" type="string" nullable="true"/>
+                <field name="field23" type="integer" nullable="true"/>
+                <field name="field33" type="boolean" nullable="false"/>
+                <field name="field43" type="double" nullable="true"/>
+            </output>
+        </operation>
+		<operation name="operation4">
+            <input>
+                <argument name="argName4" type="string"/>
+                <argument name="something4" type="integer"/>
+                <argument name="somethingElse4" type="double"/>
+            </input>
+            <command><![CDATA[some MOCA command4 | some other moca command where x=@something]]></command>
+            <output multirow="true" class="MyResult4">
+                <field name="field14" type="string" nullable="true"/>
+                <field name="field24" type="integer" nullable="true"/>
+                <field name="field34" type="boolean" nullable="false"/>
+                <field name="field44" type="double" nullable="true"/>
+            </output>
+        </operation>
+    </service>    
+</service-config>
+

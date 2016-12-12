@@ -1,0 +1,11 @@
+[LICENSE]
+licensee=RedPrairie Internal Development
+product-list=All
+users=10
+expdate=99999999
+key=zwimh ej5e1 r2mn4 dkqpu rh58s g7rg6
+
+[CACHE]
+foo.timeout=10
+foo.factory=com.redprairie.moca.cache.TestCacheProvider
+baz.size=100

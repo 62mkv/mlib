@@ -1,0 +1,126 @@
+﻿<?xml version="1.0"?>
+
+<project name="MocaClient" default="test">
+
+    <!-- PROPERTIES -->
+    <property name="debug" value="true"/>
+    <property name="verbosity" value="true"/>
+
+    <target name="all" depends="clean, compile, test"/>
+
+	<target name="clean" description="cleans up everything">
+		<foreach item="File" property="filename">
+			<in>
+				<items>
+					<include name="*.dll" />
+					<include name="*.pdb" />
+					<include name="*.csv" />
+					<include name="*.resources" />
+				</items>
+			</in>
+			<do>
+				<delete file="${filename}" />
+			</do>
+		</foreach>
+	</target>
+
+	<target name="clean-vs" description="Delete Visual Studio artifacts">
+		<!-- NB - this target will likely fail if you have the solution open in Visual Studio -->
+		<foreach item="File" property="filename">
+			<in>
+				<items>
+					<include name="*.suo" />
+					<include name="*.resharper" />
+					<include name="*\*.user" />
+					<include name="Ankh.load" />
+				</items>
+			</in>
+			<do>
+				<delete file="${filename}" />
+			</do>
+		</foreach>
+		<foreach item="Folder" property="foldername">
+			<in>
+				<items>
+					<include name="bin" />
+					<include name="obj" />
+					<!-- can't seem to pick this up using a wild card -->
+					<include name="_ReSharper.${project::get-name()}" />
+					<include name="doc" />
+				</items>
+			</in>
+			<do>
+				<delete dir="${foldername}" />
+			</do>
+		</foreach>
+	</target>
+
+	<!-- COMPILE -->
+	<target name="compile" description="compiles everything to be released">
+        <msbuild></msbuild>
+	</target>
+
+	<!-- TEST -->
+	<target name="test" depends="compile, test.unit" />
+
+	<target name="test.unit" description="runs unit tests">
+		<nunit2 verbose="true">
+			<formatter type="Plain" />
+			<test assemblyname="RedPrairie.Moca.Client.dll">
+				<categories>
+					<include name="BuildTests" />
+				</categories>
+			</test>
+		</nunit2>
+	</target>
+
+	<target name="document" depends="compile">
+		<ndoc>
+			<assemblies basedir="${directory::get-current-directory()}">
+				<include name="*.dll" />
+				<exclude name="nunit*" />
+			</assemblies>
+			<summaries basedir="${directory::get-current-directory()}">
+				<include name="NamespaceSummary.xml" />
+			</summaries>
+			<documenters>
+				<documenter name="MSDN">
+					<property name="OutputDirectory" value="doc\MSDN" />
+					<property name="HtmlHelpName" value="MCS Documentation" />
+					<property name="HtmlHelpCompilerFilename" value="hhc.exe" />
+					<property name="IncludeFavorites" value="False" />
+					<property name="Title" value="MOCA Client Library Documentation" />
+					<property name="SplitTOCs" value="False" />
+					<property name="DefaulTOC" value="" />
+					<property name="ShowVisualBasic" value="False" />
+					<property name="ShowMissingSummaries" value="True" />
+					<property name="ShowMissingRemarks" value="False" />
+					<property name="ShowMissingParams" value="True" />
+					<property name="ShowMissingReturns" value="True" />
+					<property name="ShowMissingValues" value="True" />
+					<property name="DocumentInternals" value="False" />
+					<property name="DocumentProtected" value="True" />
+					<property name="DocumentPrivates" value="False" />
+					<property name="DocumentEmptyNamespaces" value="False" />
+					<property name="IncludeAssemblyVersion" value="False" />
+					<property name="CopyrightText" value="Copyright © 2007 RedPrairie Inc." />
+					<property name="CopyrightHref" value="" />
+				</documenter>
+			</documenters>
+		</ndoc>
+	</target>
+
+	<target name="createAssemblyInfo" description="Create an assembly info file with the current build number" >
+	   <asminfo output="AssemblyInfo.cs" language="CSharp">
+		<imports>
+		    <import namespace="System.Reflection" />
+		</imports>
+		<attributes>
+		    <attribute type="AssemblyVersionAttribute" value="2007.2.0" />
+		    <attribute type="AssemblyCopyrightAttribute" value="Copyright © 2007 RedPrairie Inc." />
+		    <attribute type="AssemblyCompanyAttribute" value="RedPrairie" />
+		    <attribute type="AssemblyProductAttribute" value="MOCA" />
+		</attributes>
+	    </asminfo>
+	</target>   
+</project>

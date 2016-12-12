@@ -1,0 +1,15 @@
+# A simple test cluster configuration section.
+# We are using the JGroups XML setting so
+# that configuration should be used by MOCA
+# and be included in the Support Zip file.
+[CLUSTER]
+name=test-cluster
+jgroups-xml=test-jgroups-config.xml
+role-manager=preferred
+roles=NODE1
+
+# A simple test version of the Server section.
+# The prod-dirs is required so the test JGroups
+# configuration is potentially picked up.
+[Server]
+prod-dirs=%MOCADIR%/test

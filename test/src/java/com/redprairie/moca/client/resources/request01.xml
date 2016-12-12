@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<moca-request autocommit="true">
+        <session id="82bc3c9551e45acf"/>
+        <environment></environment>
+        <context>
+                <field name="a" type="STRING" oper="EQ" null="false">a</field>
+                <field name="b" type="STRING" oper="EQ" null="false">xyz</field>
+        </context>
+        <query>publish data where @+a and @+b</query>
+</moca-request>

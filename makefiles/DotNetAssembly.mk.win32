@@ -1,0 +1,19 @@
+CSC = csc.exe
+CSFLAGS = /nologo /warn:4 /debug
+
+default: $(LIBNAME).dll
+
+hinstall:
+
+install-software: 
+        $(INSTALL) $(LIBNAME).dll $(MLIBDIR)\bin
+        $(INSTALL) $(LIBNAME).pdb $(MLIBDIR)\bin
+        gacutil /nologo /i $(MLIBDIR)\bin\$(LIBNAME).dll
+
+clean: force
+        -del /q $(LIBNAME).dll $(LIBNAME).pdb 
+
+$(LIBNAME).dll: $(CSFILES)  
+        $(CSC) $(CSFLAGS) $(EXTRALIBS) /keyfile:$(LIBNAME).snk /target:library /out:$(LIBNAME).dll $(CSFILES)
+
+force:

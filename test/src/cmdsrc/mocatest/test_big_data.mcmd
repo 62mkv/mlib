@@ -1,0 +1,9 @@
+<command>
+    <name>test big data</name>
+    <description>iterate with large results.</description>
+    <type>C Function</type>
+    <function>testBigData</function>
+    <argument name="count" datatype="integer" required="yes">
+    </argument>
+</command>
+

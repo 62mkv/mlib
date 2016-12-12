@@ -1,0 +1,5 @@
+<command>
+<name>test mad</name>
+<type>C Function</type>
+<function>testMad</function>
+</command>

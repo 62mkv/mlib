@@ -1,0 +1,14 @@
+<command>
+<name>test get counter</name>
+<description>done very little</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    def counter = moca.getSessionAttribute('moca.test.counters');
+    name = name
+    value = counter ? counter[name] : 0
+]]
+]]>
+</local-syntax>
+</command>

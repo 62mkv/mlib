@@ -1,0 +1,6 @@
+<command>
+<name>test get needed element result</name>
+<type>C Function</type>
+<function>testGetNeededElementResult</function>
+<argument name="arg" datatype="string">arg</argument>
+</command>

@@ -1,0 +1,6 @@
+<command>
+<name>test null return</name>
+<type>C Function</type>
+<function>testNullReturn</function>
+<argument name="arg" datatype="string">arg</argument>
+</command>

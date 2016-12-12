@@ -1,0 +1,11 @@
+<command>
+<name>test srv execute new transaction</name>
+<description>Executes the given command in a different transaction</description>
+<type>Local Syntax</type>
+<transaction>requiresnew</transaction>
+<local-syntax>
+<![CDATA[
+execute server command where cmd = @cmd
+]]>
+</local-syntax>
+</command>

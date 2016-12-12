@@ -1,0 +1,22 @@
+DIRS=..\bin \
+     ..\include \
+     ..\javalib \
+     ..\lib \
+     ..\downloads \
+     ..\downloads\components 
+
+DEVDIRS=..\log \
+        ..\temp
+
+default: $(DIRS) $(DEVDIRS) config
+
+devdirs: $(DEVDIRS)
+
+config: 
+	perl .\configure.nt.pl
+
+$(DIRS):
+	md $@
+
+$(DEVDIRS):
+	md $@

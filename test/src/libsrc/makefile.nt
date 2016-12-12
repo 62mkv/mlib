@@ -1,0 +1,6 @@
+!include $(MLIBDIR)\makefiles\StandardDirHeader.mk.win32
+
+SUBDIR=mocatest \
+       madtest
+
+!include $(MLIBDIR)\makefiles\StandardDirFooter.mk.win32

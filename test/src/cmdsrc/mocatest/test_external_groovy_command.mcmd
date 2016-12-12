@@ -1,0 +1,10 @@
+<command>
+<name>test external groovy command</name>
+<description>test external groovy command</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[@mocatest/testGroovyCommand.groovy]]
+]]>
+</local-syntax>
+</command>

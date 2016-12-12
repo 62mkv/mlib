@@ -1,0 +1,6 @@
+<command>
+<name>list nodes to roles</name>
+<type>Java Method</type>
+<class>ClusterTestComponent</class>
+<method>getNodesToRoles</method>
+</command>

@@ -1,0 +1,6 @@
+<command>
+    <name>test register srv execute after rollback count</name>
+    <description>Simply returns count of how many time the srvExecuteAfterRollback Hook was called.</description>
+    <type>C Function</type>
+    <function>testGetCount</function>
+</command>

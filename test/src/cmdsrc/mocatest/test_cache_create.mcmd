@@ -1,0 +1,5 @@
+<command>
+<name>test cache create</name>
+<type>C Function</type>
+<function>testCacheCreate</function>
+</command>

@@ -1,0 +1,6 @@
+Do not remove
+
+This file is used by the rpset.cmd script to determine how to set up the
+development environment.  If this file exists the rpset.cmd script will
+set up a VS 2008 development environment.  Otherwise it will set up a
+VS 6/2003 development environment.

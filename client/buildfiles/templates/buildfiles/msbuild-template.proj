@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup>
+        <MCSProjectName>!PROJNAME!</MCSProjectName>
+   	<MCSProjectType>!FORMTYPE!</MCSProjectType>
+   </PropertyGroup>
+   <Import Project="!PROJNAME!.csproj" />
+   <Import Project="$(!PRODDIR!)\client\buildfiles\project.targets" />
+</Project>

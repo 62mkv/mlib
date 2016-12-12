@@ -1,0 +1,7 @@
+<component-level>
+<name>MOCAbase</name>
+<description>MOCA Base Components</description>
+<library>MOCAbase</library>
+<package>com.redprairie.moca.components.base</package>
+<sort-sequence>0</sort-sequence>
+</component-level>

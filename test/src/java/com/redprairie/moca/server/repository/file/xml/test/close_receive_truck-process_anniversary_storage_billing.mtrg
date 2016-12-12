@@ -1,0 +1,42 @@
+<trigger>
+
+<name>process_anniversary_storage_billing</name>
+
+<on-command>close receive truck</on-command>
+
+<fire-sequence>4000</fire-sequence>
+
+<local-syntax>
+<![CDATA[
+	get installed configuration where component = 'CLIENT-BILLING'
+                                          and wh_id = @wh_id 
+	|
+	if (@installed=1)
+	{
+	   process anniversary storage billing 
+	     where wh_id = @wh_id
+	}
+]]>
+</local-syntax>
+
+<documentation>
+
+<remarks>
+<![CDATA[
+  <p> 
+       This trigger calls the process anniversary storage billing
+       which established the anniversary storage charges on 
+       received product.  This is run when the reveive truck
+       is closed. This must run off of receive truck close because this
+       is the only point when all the product has been received into
+       inventory and anniversary storage calculations can commence.
+ </p>
+]]>
+
+</remarks>
+<seealso cref="close receive truck"> </seealso>
+<seealso cref="process anniversary storage billing"> </seealso>
+
+</documentation>
+
+</trigger>

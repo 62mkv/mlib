@@ -1,0 +1,6 @@
+<component-level>
+<name>MOCAMCSStub</name>
+<package>com.redprairie.moca.components.mcsstub</package>
+<description>MOCA MCS Stub Functions</description>
+<sort-sequence>1000</sort-sequence>
+</component-level>

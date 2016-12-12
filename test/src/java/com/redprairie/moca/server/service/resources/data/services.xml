@@ -1,0 +1,41 @@
+<services>
+
+  <service>
+    <application>java</application>
+    <displayName>My java display name</displayName>
+    <description>My java description</description>
+
+    <start>
+      <mode>java</mode>
+      <class>com.redprairie.moca.server.service.Manager</class>
+      <argument>start</argument>
+    </start>
+
+    <stop>
+      <mode>java</mode>
+      <class>com.redprairie.moca.server.service.Manager</class>
+      <argument>stop</argument>
+    </stop>
+
+    <dependsOn>
+      <service>mssqlserver</service>
+    </dependsOn>
+  </service>
+
+  <service>
+    <application>exe</application>
+    <displayName>My exe display name</displayName>
+    <description>My exe description</description>
+
+    <start>
+      <mode>exe</mode>
+      <command>start.sh foo</command>
+    </start>
+
+    <stop>
+      <mode>exe</mode>
+      <command>stop.sh foo</command>
+    </stop>
+  </service>
+  
+</services>

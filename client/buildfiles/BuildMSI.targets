@@ -1,0 +1,303 @@
+<Project DefaultTargets="Start" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- Custom Tasks -->
+
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.WixFragments" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"  />
+	
+	<UsingTask TaskName="Microsoft.Tools.WindowsInstallerXml.Build.Tasks.Candle" AssemblyFile="tasks\wix\WixTasks.dll" />
+	<UsingTask TaskName="Microsoft.Tools.WindowsInstallerXml.Build.Tasks.Light" AssemblyFile="tasks\wix\WixTasks.dll" />
+	<UsingTask TaskName="Microsoft.Tools.WindowsInstallerXml.Build.Tasks.Lit" AssemblyFile="tasks\wix\WixTasks.dll" />
+	<UsingTask TaskName="Microsoft.Tools.WindowsInstallerXml.Build.Tasks.CreateProjectReferenceDefineConstants" 
+			   AssemblyFile="tasks\wix\WixTasks.dll" />
+
+	<UsingTask TaskName="MSBuild.Community.Tasks.Time" AssemblyFile="tasks\MSBuild.Community.Tasks.dll"/>
+	<UsingTask TaskName="MSBuild.Community.Tasks.FileUpdate" AssemblyFile="tasks\MSBuild.Community.Tasks.dll"/>
+
+	<!--The common tools properties and location for WIX template files-->
+	<PropertyGroup>
+		<WixToolsDir Condition="'$(WixToolsDir)' == ''">$(MOCADIR)\client\buildfiles\tasks\wix\</WixToolsDir>
+		<WixMasterDir Condition="'$(WixMasterDir)' == ''"> $(MOCADIR)\client\buildfiles\templates\installer</WixMasterDir>
+	</PropertyGroup>
+
+	<!--Specifies the common extensions to load for packaging, right now it's just the installer UI-->
+	<ItemGroup>
+		<LightExtensions Include="WixUIExtension" />
+	</ItemGroup>
+
+	<!--
+	  Uninstalls the MCS for the product if necessary
+	-->
+	<Target Name="InstallMSI" Condition="'$(ProductId)' != ''" DependsOnTargets="MSI">
+		<Exec Command="msiexec $(MSIPath)" />
+	</Target>
+	
+	<!--
+	  Uninstalls the MCS for the product if necessary
+	-->
+	<Target Name="UninstallMSI" Condition="'$(ProductId)' != ''">
+		<Exec Command="msiexec /x {$(ProductId)} /quiet" />
+	</Target>
+
+	<!--
+		Creates the MSI installer package based on the dependencies of the install and
+		the provided configuration setting.
+		
+		[IN]
+	
+		[OUT]
+		$(MSIPath)	The final output path of the installed package
+	-->
+	<Target Name="MSI" DependsOnTargets="ConfigureMSIDirectory;CopyMSIFiles;CreateWSXFiles">
+		
+		<!--Gather all the WSX files-->
+		<CreateItem Include="$(TemplateDir)\*.wxs">
+			<Output TaskParameter="Include" ItemName="WxsFiles"/>
+		</CreateItem>
+		
+		<!--Do replacements on any veriables in the template files -->
+		<FileUpdate Files="@(WxsFiles)" Regex="%PRODUCT_ID%"        ReplacementText="$(ProductId)" />
+		<FileUpdate Files="@(WxsFiles)" Regex="%UPGRADE_CODE%"      ReplacementText="$(UpgradeCode)" />
+		<FileUpdate Files="@(WxsFiles)" Regex="%PRODUCT_NAME%"      ReplacementText="$(ProductName)" />
+                <FileUpdate Files="@(WxsFiles)" Regex="%PRODUCT_NAME_ID%"   ReplacementText="$(ProductNameID)" />
+		<FileUpdate Files="@(WxsFiles)" Regex="%INSTALLDIR%"        ReplacementText="$(InstallDir)" />
+		<FileUpdate Files="@(WxsFiles)" Regex="%EULA%"              ReplacementText="$(LicenseFile)" />
+		<FileUpdate Files="@(WxsFiles)" Regex="%BUILDCONFIG%"       ReplacementText="$(BuildConfig)" />
+		
+		<!--Create the pre-compiler  files-->
+		<Candle
+			ToolPath="$(WixToolsDir)"
+			SourceFiles="@(WxsFiles)"
+			OutputFile="$(TemplateDir)\"
+			ContinueOnError="false"/>
+		
+		<!--Get the object file list and create the MSI package name-->
+		<CreateItem Include="$(TemplateDir)\*.wixobj">
+			<Output TaskParameter="Include" ItemName="WixObjFiles"/>
+		</CreateItem>
+		
+		<!--Remove the old MSI if it exists -->
+		<Delete Files="$(MSIPath)" Condition="Exists('$(MSIPath)')" />
+		
+		<!--Create the MSI package -->
+		<Light
+			ToolPath="$(WixToolsDir)"
+			Extensions="@(LightExtensions)"
+			Cultures="en-us"
+			ObjectFiles="@(WixObjFiles)"
+			OutputFile="$(MSIPath)" />
+		
+		<!--Report and clean working directory -->
+		<RemoveDir Directories="$(TemplateDir)" />
+		<Message Importance="high" Text="MSI Created! Location: $(MSIPath)" />
+		
+		
+	</Target>
+
+	<!--Sub Targets that break the MSI process into stages -->
+	
+	<!--Performs the initial MSI working directory configuration and sets defaults -->
+	<Target Name="ConfigureMSIDirectory" DependsOnTargets="_SetupWorkingDir;_CheckPackageSettings;" />
+
+	<!--Copies all necessary files to appropriate places in the working directory -->
+	<Target Name="CopyMSIFiles" DependsOnTargets="_CopyDependentFilesToTemplateDir;_CopySolutionsFiles;_CopyTemplateFiles" />
+
+	<!--Creates the WSX files and allows the user to add their own build steps if necessary-->
+	<Target Name="CreateWSXFiles" DependsOnTargets="_ConvertWSXFiles;BeforeMSIPackage" />
+	
+	<!--An empty task that can be overridden by project to perform WSX configuration tasks-->
+	<Target Name="BeforeMSIPackage" />
+
+	<!-- Internal Helper Methods -->
+
+	<!--
+		Sets the default packaging settings if not specified
+		
+		[IN/OUT]
+		$(MSIPath) The path and name of the produced MSI file
+		$(BuildConfig) The build configuration
+		$(InstallDir) The installation directory
+		$(ProductName) The product name, defaults to the assembly name
+		$(UpgradeCode) An upgrade code GUID
+		$(ProductID)   A product ID guid
+                $(ProductNameID) A product name ID to be used that defaults to the assembly name
+		
+	-->
+	<Target Name="_CheckPackageSettings">
+		<CreateProperty Value="a7fca2ce-57e4-426e-a316-eed7880f6b83" Condition="'$(ProductId)' == ''">
+			<Output TaskParameter="Value" PropertyName="ProductId"/>
+		</CreateProperty>
+		<CreateProperty Value="b1aa5394-7b80-4508-b9ef-f43ea47092d2" Condition="'$(UpgradeCode)' == ''">
+			<Output TaskParameter="Value" PropertyName="UpgradeCode"/>
+		</CreateProperty>
+		<CreateProperty Value="$(AssemblyName)" Condition="'$(ProductName)' == ''">
+			<Output TaskParameter="Value" PropertyName="ProductName"/>
+		</CreateProperty>
+		<CreateProperty Value="$(AssemblyName)" Condition="'$(ProductNameID)' == ''">
+			<Output TaskParameter="Value" PropertyName="ProductNameID"/>
+		</CreateProperty>
+		<CreateProperty Value="$(ProductName)" Condition="'$(InstallDir)' == ''">
+			<Output TaskParameter="Value" PropertyName="InstallDir"/>
+		</CreateProperty>
+		
+		<CreateProperty Value="Release|$(Platform)" Condition="'$(BuildConfig)' == ''">
+			<Output TaskParameter="Value" PropertyName="BuildConfig"/>
+		</CreateProperty>
+
+		<!--Create the MSI package name-->
+		<Time Format="yyyy-MM-dd">
+			<Output TaskParameter="FormattedTime" PropertyName="BuildDate" />
+		</Time>
+		<CreateProperty Value="$(ReleaseDir)\$(ProductName) ($(BuildDate)).msi">
+			<Output TaskParameter="Value" PropertyName="MSIPath" />
+		</CreateProperty>
+		
+	</Target>
+	
+	<!--
+		Uses the WixFragements task to create WSX template files based on the project setup
+		
+		[IN]
+		$(WixMasterDir) The WIX file template directory
+		$(TemplateDir)  The template working directory
+		@(FilesToPackage) The files that need to be included with the installer
+		@(MainExecutablePackage) The path of the main executable
+		
+		[OUT]
+		WSX files are produced but not added to any item lists
+	-->
+	<Target Name="_ConvertWSXFiles">
+		<!--Create and copy reference and satilite file fragments -->
+		<CreateItem Include="$(WixMasterDir)\WixFileTemplate.template">
+			<Output TaskParameter="Include" ItemName="_WixFileTemplate"/>
+		</CreateItem>
+
+		<WixFragments
+				WixFile="@(_WixFileTemplate)"
+				OutputPath="$(TemplateDir)\ProjectReferences.wxs"
+				SourceFiles="@(FilesToPackage)">
+		</WixFragments>
+
+		<!-- Create master feature component list-->
+		<CreateItem Include="$(WixMasterDir)\WixComponentGroupTemplate.template">
+			<Output TaskParameter="Include" ItemName="_WixComponentGroupTemplate"/>
+		</CreateItem>
+		<WixFragments
+				WixFile="@(_WixComponentGroupTemplate)"
+				OutputPath="$(TemplateDir)\MainComponentGroup.wxs"
+				SourceFiles="@(FilesToPackage)">
+		</WixFragments>
+
+		<!--Create Main Executable -->
+		<CreateItem Include="$(WixMasterDir)\WixInstallTemplate.template">
+			<Output TaskParameter="Include" ItemName="_WixInstallTemplate"/>
+		</CreateItem>
+		<WixFragments
+				WixFile="@(_WixInstallTemplate)"
+				OutputPath="$(TemplateDir)\WixInstallTemplate.wxs"
+				SourceFiles="@(MainExecutablePackage)">
+		</WixFragments>
+	</Target>
+	
+	<!--
+		Copies all dependent assemblies to the appropriate directory
+		
+		[IN]
+		@(ReferencePath) The list of all referenced assemblies
+		$(ArtifactsDirectory) The output path to use to copy all the files from
+		
+		[OUT]
+		@(FilesToPackage) All the files to package
+	-->
+	<Target Name="_CopyDependentFilesToTemplateDir">
+		<FindUnderPath Files="@(ReferencePath)" Path="$(ArtifactsDirectory)">
+			<Output TaskParameter="InPath" ItemName="_FilesToCopyToTemInst"/>
+		</FindUnderPath>
+		<Copy	SourceFiles="@(_FilesToCopyToTemInst)"
+				DestinationFolder="$(TemplateDir)" 
+				SkipUnchangedFiles="false">
+			<Output TaskParameter="DestinationFiles" ItemName="FilesToPackage"/>
+		</Copy>
+	</Target>
+
+	<!--
+		Copies all dependent project files to the appropriate directory
+		
+		[IN]
+		@(ServerCopySourceFiles) The list of all core output files
+				
+		[OUT]
+		@(FilesToPackage) All the files to package
+		@(MainExecutablePackage) The main executable
+	-->
+	<Target Name="_CopySolutionsFiles">
+		<Copy	SourceFiles="@(MainAssembly)"
+				DestinationFolder="$(TemplateDir)"
+				SkipUnchangedFiles="false">
+			<Output TaskParameter="DestinationFiles" ItemName="MainExecutablePackage"/>
+		</Copy>
+
+		<CreateItem Include="@(FileWrites)" Condition = "%(Extension) == '.config'">
+			<Output TaskParameter="Include" ItemName="ApplicationConfigFile"/>
+		</CreateItem>
+		<Copy	SourceFiles="@(ApplicationConfigFile)"
+				DestinationFolder="$(TemplateDir)"
+				SkipUnchangedFiles="false"
+			    Condition = "%(Extension) == '.config'">
+			<Output TaskParameter="DestinationFiles" ItemName="FilesToPackage"/>
+		</Copy>
+	</Target>
+
+	<!--
+		Copies any Wix user template files and Master include files into the working directory
+		
+		[IN]
+		Any files in the "installer" directory of the project
+		
+		[OUT]
+		$(LicenseFile) The path of the license file
+	-->
+	<Target Name="_CopyTemplateFiles">
+		<!--Copy Project Wix Templates-->
+		<CreateItem Include="installer\*.*" Condition="Exists('%Identity%')">
+			<Output TaskParameter="Include" ItemName="WixProjectFiles"/>
+		</CreateItem>
+		<Copy SourceFiles="@(WixProjectFiles)" DestinationFolder="$(TemplateDir)" />
+
+		<!--Copy Any Template Master Files-->
+		<CreateItem Include="$(WixMasterDir)\*.*" Exclude="$(WixMasterDir)\*.template">
+			<Output TaskParameter="Include" ItemName="WixProjectFiles"/>
+		</CreateItem>
+		<Copy SourceFiles="@(WixProjectFiles)" DestinationFolder="$(TemplateDir)" />
+		<CreateProperty Value="License.rtf" Condition="Exists('$(TemplateDir)\License.rtf')">
+			<Output TaskParameter="Value" PropertyName="LicenseFile"/>
+		</CreateProperty>
+	</Target>
+
+	<!--
+		Setup the working directory for building the installer
+		
+		[IN]
+		$(TemplateDir)  The temp directory to create the installer package in
+		
+		[OUT]
+		$(TemplateDir)  The temp directory to create the installer package in if not created
+		$(ReleaseDir)   The folder the MSI is created in
+	-->
+	<Target Name="_SetupWorkingDir">
+		<!-- Create a default working and release directory if not defined -->
+		<CreateProperty Value="$(ProductDirRoot)\working" Condition="'$(TemplateDir)' == ''">
+			<Output TaskParameter="Value" PropertyName="TemplateDir"/>
+		</CreateProperty>
+		
+		<!--Re-create the template directory if necessary-->
+		<RemoveDir Directories="$(TemplateDir)" Condition="Exists('$(TemplateDir)')"/>
+		<MakeDir Directories="$(TemplateDir)" Condition="!Exists('$(TemplateDir)')" />
+
+		<!-- Create the release directory if necessary -->
+		<CreateProperty Value="$(ArtifactsDirectory)" Condition="'$(ReleaseDir)' == ''">
+			<Output TaskParameter="Value" PropertyName="ReleaseDir" />
+		</CreateProperty>
+		<MakeDir Directories="$(ReleaseDir)" Condition="!Exists('$(ReleaseDir)')" />
+	</Target>
+
+</Project>

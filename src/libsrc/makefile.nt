@@ -1,4 +1,4 @@
-!include $(MOCADIR)\makefiles\StandardDirHeader.mk.win32
+!include $(MLIBDIR)\makefiles\StandardDirHeader.mk.win32
 
 SUBDIR=dblib \
        evtlib \
@@ -16,4 +16,4 @@ SUBDIR=dblib \
        mocasrvobj-nt \
        moca.net
 
-!include $(MOCADIR)\makefiles\StandardDirFooter.mk.win32
+!include $(MLIBDIR)\makefiles\StandardDirFooter.mk.win32

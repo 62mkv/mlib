@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- Import config project if it hasn't been done yet -->
+	<Import Project="config.targets"/>
+		
+	<!--
+		Override properties defined in core MSBuild during our build process
+	    This is necessary since the .csproj file we import has already transformed some
+		of the project properties into internal variables.
+	-->
+	<PropertyGroup>
+		<AssemblySearchPaths>$(AssemblySearchPaths);$(ArtifactsDirectory)</AssemblySearchPaths>
+		<OutDir>bin\Debug\</OutDir>
+		<_DisabledWarnings Condition="'$(_DisabledWarnings)'!=''">$(_DisabledWarnings),</_DisabledWarnings>
+		<_DisabledWarnings>$(_DisabledWarnings)1591</_DisabledWarnings>
+		<OptimizeFileCopy Condition="$(Configuration) != 'Release'">true</OptimizeFileCopy>
+	</PropertyGroup>
+
+	<Target Name="Build" DependsOnTargets="FilterUnitTestsForRelease;CheckForLicense;CoreBuild;InjectManifest;VersionProject;CopyBinariesToOutput" />
+
+	<Target Name="Install" DependsOnTargets="_configureInstall;Build" />
+
+	<Target Name="Superclean" DependsOnTargets="Clean;SuperCleanProject"/>
+		
+	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+	
+	<Target Name="Test" DependsOnTargets="Build;RunNUnitTestProjects" />
+
+	<Target Name="Package" DependsOnTargets="Install;MSI" Condition="$(MCSProjectType) == 'Executable'" />
+		
+	<!--Note: Fix, Cut and ForceFix targets are in CompileAndTest.targets-->
+	
+	<!--
+		Configures the install with specific settings to perform items like versioning
+		and file copies
+	-->
+	<Target Name="_configureInstall">
+		<!--Enable server copy functionality -->
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="DoServerCopy"/>
+		</CreateProperty>
+		<!--Enable component versioning -->
+		<CreateProperty Value="false" Condition="'$(SkipProjectVersioning)' == ''">
+			<Output TaskParameter="Value" PropertyName="SkipProjectVersioning"/>
+		</CreateProperty>
+	</Target>
+
+	<!-- Import modular target files -->
+	<Import Project="common.targets" />
+	<Import Project="CompileAndTest.targets"/>
+	<Import Project="StaticAnalysis.targets"/>
+	<Import Project="BuildMSI.targets"/>
+</Project>

@@ -1,0 +1,25 @@
+!include $(MLIBDIR)\makefiles\ComponentLibs.mk.win32
+
+PDBNAME=$(LIBNAME)
+
+!ifdef MAPFILE
+MAPFLAG=/map:$(MAPFILE)
+!endif
+
+default: $(LIBNAME).dll
+
+hinstall: 
+
+install-software:
+	@$(INSTALL) $(LIBNAME).dll $(BINDIR)
+	@$(INSTALL) $(LIBNAME).pdb $(BINDIR)
+
+clean: clean-tempfiles
+	-@del /q $(LIBNAME).dll $(LIBNAME).lib $(LIBNAME)-static.lib
+	-@del /q *.obj *.pdb *.manifest
+
+$(LIBNAME).dll: $(OFILES)
+        $(CC) /LDd $(OFILES) \
+        /link /dll $(LINKFLAGS) $(LIBS) \
+        /implib:$*.lib /pdb:$(LIBNAME).pdb /out:$*.dll
+	mt /nologo /manifest $(LIBNAME).dll.manifest /outputresource:$(LIBNAME).dll;#2

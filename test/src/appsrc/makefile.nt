@@ -1,0 +1,6 @@
+!include $(MLIBDIR)\makefiles\StandardDirHeader.mk.win32
+
+SUBDIR=mbuildcoverage \
+	   mcoveragereport
+
+!include $(MLIBDIR)\makefiles\StandardDirFooter.mk.win32

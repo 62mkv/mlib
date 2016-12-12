@@ -1,0 +1,65 @@
+#-------------------------------------------------------------------------------
+#
+# SOURCE FILE: .profile
+#
+# DESCRIPTION: MOCA environment setup script.
+#
+# NOTE(S): Only "MOCA-generic" environment variables are set in this
+#          script.  All environment variables specific to a particular
+#          environment should be set in the environment's profile, which 
+#          should then call this script.
+#
+#-------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
+# Setup the product's directory.
+# ------------------------------------------------------------------------------
+
+MOCADIR=@MOCADIR@
+export MOCADIR
+
+# ------------------------------------------------------------------------------
+# Setup the search path.
+# ------------------------------------------------------------------------------
+
+PATH=$PATH:$MOCADIR/bin
+PATH=$PATH:$MOCADIR/scripts
+export PATH
+
+# ------------------------------------------------------------------------------
+# Setup the search path for cd.
+# ------------------------------------------------------------------------------
+
+CDPATH=$CDPATH:$MOCADIR
+CDPATH=$CDPATH:$MOCADIR/src
+CDPATH=$CDPATH:$MOCADIR/src/appsrc
+CDPATH=$CDPATH:$MOCADIR/src/libsrc
+export CDPATH
+
+# ------------------------------------------------------------------------------
+# Setup the search path for shared libraries.
+# ------------------------------------------------------------------------------
+
+case $(@UNAME_PATH@ -s | @TR_PATH@ -d - | @TR_PATH@ '[A-Z]' '[a-z]') in
+aix)	
+    LIBPATH=$LIBPATH:$MOCADIR/lib
+    export LIBPATH
+    ;;
+darwin)	
+    DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$MOCADIR/lib
+    export DYLD_LIBRARY_PATH
+    ;;
+*)    
+    LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$MOCADIR/lib
+    export LD_LIBRARY_PATH
+    ;;
+esac
+
+# ------------------------------------------------------------------------------
+# Setup the class path.
+# ------------------------------------------------------------------------------
+
+CLASSPATH=$CLASSPATH:$MOCADIR/build/classes
+CLASSPATH=$CLASSPATH:$MOCADIR/lib/*:
+CLASSPATH=$CLASSPATH:$MOCADIR/javalib/*
+export CLASSPATH

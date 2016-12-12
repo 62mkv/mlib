@@ -1,0 +1,7 @@
+<command>
+    <name>test publish pointer</name>
+    <description>testPublishPointer</description>
+    <type>C Function</type>
+    <function>testPublishPointer</function>
+    <argument name="arg" alias="name" datatype="string" required="yes"/>
+</command>

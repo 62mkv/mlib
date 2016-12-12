@@ -1,0 +1,10 @@
+<command>
+    <name>test convert to binary pointer</name>
+    <description>Try converts the characters to a binary pointer
+                 in native code using the default character set.</description>
+    <type>C Function</type>
+    <function>testConvertToBinaryPointer</function>
+    <argument name="value" datatype="string" required="yes">
+      The value to convert to binary.
+    </argument>
+</command>

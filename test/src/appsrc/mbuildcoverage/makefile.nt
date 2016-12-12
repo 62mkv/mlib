@@ -1,0 +1,9 @@
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
+
+APPNAME=mbuildcoverage
+
+OFILES=mbuildcoverage.obj
+
+!include $(MLIBDIR)\makefiles\Application.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32
+

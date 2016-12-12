@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment Id="ProjectReferences">
+		<DirectoryRef Id="INSTALLDIR">
+			%ReplaceStart% <Component Id="%FILE_NAME%" Guid="%FILE_ID%">
+				<File Id="%FILE_NAME%" Name="%Filename%%Extension%"
+					  Source="%Filename%%Extension%" Vital="yes" DiskId="1"/>
+			</Component>
+			%ReplaceEnd%
+		</DirectoryRef>
+	</Fragment>
+</Wix>

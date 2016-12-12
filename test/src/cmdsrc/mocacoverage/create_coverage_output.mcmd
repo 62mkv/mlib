@@ -1,0 +1,7 @@
+<command>
+<name>create coverage output</name>
+<type>Java Method</type>
+<class>CodeCoverageService</class>
+<method>createCodeCoverageOutput</method>
+<argument name="directory" datatype="string" required="true">Directory to write the code coverage output file.</argument>
+</command>

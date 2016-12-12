@@ -1,4 +1,4 @@
-!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
 
 LIBNAME=MOCA
 
@@ -19,5 +19,5 @@ LIBDEPEND=..\dblib\MOCAdb-static.lib \
 
 EXTRALIBS=$(LIBDEPEND) ole32.lib winspool.lib wininet.lib ole32.lib oleaut32.lib
 
-!include $(MOCADIR)\makefiles\Library.mk.win32
-!include $(MOCADIR)\makefiles\StandardFooter.mk.win32
+!include $(MLIBDIR)\makefiles\Library.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

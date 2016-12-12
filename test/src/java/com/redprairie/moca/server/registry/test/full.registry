@@ -1,0 +1,58 @@
+[CONMGR]
+port=20002
+initial-servers=1
+max-servers=30
+max-idle-servers=30
+server-timeout=4
+send-close=N
+conmgr-list=CONMGR
+client-timeout=10
+
+[Contact Information]
+[EMS]
+[Environment]
+CLASSPATH=%MOCADIR%\build\classes;%MOCADIR%\lib\moca.jar
+DCS_RPT=%DCSDIR%\Reports
+DCSDIR=c:\dev\trunk\wmd
+JAVA_HOME=c:\Tools\jdk1.5.0
+LESDIR=c:\dev\trunk\les
+MCSDIR=c:\dev\trunk\mcs
+MOCA_JAVA_LIBPATH=%LESDIR%\javalib;%LESDIR%\lib;%DCSDIR%\javalib;%DCSDIR%\lib;%SALDIR%\javalib;%SALDIR%\lib;%MCSDIR%\javalib;%MCSDIR%\lib;%SLDIR%\javalib;%SLDIR%\lib;%MOCADIR%\javalib;%MOCADIR%\lib
+MOCADIR=c:\dev\tng\moca
+PATH=%LESDIR%\scripts;%LESDIR%\bin;%DCSDIR%\scripts;%DCSDIR%\bin;%DCSDIR%\client\bin;%SALDIR%\scripts;%SALDIR%\bin;%SALDIR%\client\bin;%MCSDIR%\scripts;%MCSDIR%\bin;%MCSDIR%\client\bin;%SLDIR%\scripts;%SLDIR%\bin;%MOCADIR%\scripts;%MOCADIR%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%PATH%
+SALDIR=c:\dev\trunk\sal
+SLDIR=c:\dev\trunk\int
+
+[License]
+key=ZWIMH EJ5E1 R2MN4 DKQPU RH58S G7RG6
+licensee=RedPrairie Internal Development
+product-list=ALL
+users=10
+expdate=99999999
+version=2008.1
+
+[Security]
+domain=wm-dev
+enabled=y
+encryption=blowfish
+ldap-auth-type=NONE
+
+[Server]
+memory-file=%LESDIR%\data\commands-ng.wm-dev
+commands-dir=%MOCADIR%\src\cmdsrc;%LESDIR%\src\cmdsrc;%SLDIR%\src\cmdsrc;%SALDIR%\src\cmdsrc;%MCSDIR%\src\cmdsrc;%DCSDIR%\src\cmdsrc
+app-library=%DCSDIR%\bin\DCSmsi.dll
+dbuser=wmdqa
+dbpass=|B|Fba3fyjbFS2xvh0KTGiyE7/GqWF094le
+dbengine=SQL Server
+dblib=MOCAjava.dll
+dbdriver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+dbconn=jdbc:sqlserver://localhost;;sendStringParametersAsUnicode=false;responseBuffering=adaptive
+sql-convert=Y
+
+[Service]
+Output=%LESDIR%/log/moca.log
+
+[Trace Server]
+start=N
+use=N
+

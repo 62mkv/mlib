@@ -1,0 +1,16 @@
+<command>
+<name>get cluster member size</name>
+<description>Gets what Infinispan thinks is the cluster size</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+  import javax.management.ObjectName;
+  import java.lang.management.ManagementFactory;
+
+  def objName = new ObjectName("com.redprairie.moca.cache.cluster:type=CacheManager,name=\"MOCA-Distributed Cache\",component=CacheManager")
+  return ManagementFactory.getPlatformMBeanServer().getAttribute(objName, "clusterSize")
+]]
+]]>
+</local-syntax>
+</command>

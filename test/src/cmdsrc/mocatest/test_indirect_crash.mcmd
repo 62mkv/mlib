@@ -1,0 +1,5 @@
+<command>
+<name>test indirect crash</name>
+<type>C Function</type>
+<function>testIndirectCrash</function>
+</command>

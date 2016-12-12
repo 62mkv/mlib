@@ -1,0 +1,3 @@
+!include $(MLIBDIR)\makefiles\Config.mk
+
+all: default

@@ -1,0 +1,12 @@
+<documentation>
+<name>MOCAbase</name>
+<description>MOCA Base Components</description>
+<command>
+<name>add job</name>
+<uri>..\..\commands\mocabase\add_job-cmd.html</uri>
+</command>
+<command>
+<name>add task</name>
+<uri>..\..\commands\mocabase\add_task-cmd.html</uri>
+</command>
+</documentation>

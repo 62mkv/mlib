@@ -1,0 +1,8 @@
+<command>
+    <name>test until zero</name>
+    <description>Recurse down to zero.</description>
+    <type>C Function</type>
+    <function>testUntilZero</function>
+    <argument name="value" datatype="integer" required="yes"/>
+    <argument name="arg" datatype="string" required="yes"/>
+</command>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-config SYSTEM "service-config.dtd">
+<service-config>
+    <service name="commandService" class="CommandService" package="com.redprairie.services.core">
+        <operation name="listAllCommands">
+            <command><![CDATA[list active commands]]></command>
+            <output multirow="true" class="ActiveCommand">
+                <field name="verb" type="string" nullable="false"/>
+                <field name="noun" type="string" nullable="false"/>
+                <field name="command" type="string" nullable="false"/>
+                <field name="cmdtyp" type="string" nullable="false"/>
+                <field name="cmplvl" type="string" nullable="false"/>
+                <field name="cmplvlseq" type="integer" nullable="false"/>
+                <field name="functn" type="string" nullable="true"/>
+                <field name="syntax" type="string" nullable="true"/>
+                <field name="insflg" type="boolean" nullable="false"/>
+            </output>
+        </operation>
+    </service>
+</service-config>
+

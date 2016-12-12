@@ -1,0 +1,14 @@
+install: all hinstall install-software $(POST_INSTALL)
+
+clean-tempfiles:
+!if "$(TEMPFILES)" != ""
+        -@del /q $(TEMPFILES)
+!endif
+
+.SUFFIXES: .cpp
+
+.c.obj:
+	$(CC) $(CFLAGS) /c $< /Fo$@
+
+.cpp.obj:
+	$(CC) $(CFLAGS) /c $< /Fo$@

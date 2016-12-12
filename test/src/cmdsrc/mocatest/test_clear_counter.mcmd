@@ -1,0 +1,13 @@
+<command>
+<name>test clear counter</name>
+<description>clear a session-based counter</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+[[
+    moca.setSessionAttribute('moca.test.counters', [:])
+    result = 0
+]]
+]]>
+</local-syntax>
+</command>

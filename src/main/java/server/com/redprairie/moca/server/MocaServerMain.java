@@ -144,8 +144,8 @@ public class MocaServerMain {
      */
     public static void main(String[] args) throws SystemConfigurationException {
         System.out.println("now start test");
-        System.setProperty("com.redprairie.moca.config","F:\\MFC\\mlib\\src\\resource\\82.registry");
-        System.setProperty("LESDIR","F:\\MFC\\mlib");
+        System.setProperty("com.redprairie.moca.config","D:\\MFC\\mlib\\src\\resource\\82.registry");
+        System.setProperty("LESDIR","D:\\MFC\\mlib");
         String lesdir = System.getenv("LESDIR");
         System.out.println(lesdir);
         args = new String[3];

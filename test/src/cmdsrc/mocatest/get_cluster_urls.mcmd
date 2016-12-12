@@ -1,0 +1,6 @@
+<command>
+<name>get cluster urls</name>
+<type>Java Method</type>
+<class>ClusterTestComponent</class>
+<method>getClusterUrls</method>
+</command>

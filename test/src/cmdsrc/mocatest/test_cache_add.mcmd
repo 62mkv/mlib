@@ -1,0 +1,8 @@
+<command>
+<name>test cache add</name>
+<type>C Function</type>
+<function>testCacheAdd</function>
+<argument name="cache" datatype="pointer" required="yes">Cache</argument>
+<argument name="key" datatype="string" required="yes">Key</argument>
+<argument name="value" datatype="string" required="yes">Value</argument>
+</command>

@@ -1,0 +1,25 @@
+default: $(SUBDIR)
+
+hinstall:
+	$(MAKE) /nologo /fmakefile.nt TARGET=hinstall
+
+install: hinstall
+	$(MAKE) /nologo /fmakefile.nt TARGET=install
+
+verInstall:
+	$(MAKE) /nologo /fmakefile.nt TARGET=verInstall
+
+clean:
+	$(MAKE) /nologo /fmakefile.nt TARGET=clean
+
+cut:
+	$(MAKE) /nologo /fmakefile.nt TARGET=cut
+
+fix:
+	$(MAKE) /nologo /fmakefile.nt TARGET=fix
+
+$(SUBDIR): FRC
+	cd "$(MAKEDIR)\$@"
+	$(MAKE) /nologo /fmakefile.nt $(TARGET)
+
+FRC:

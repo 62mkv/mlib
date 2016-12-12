@@ -1,0 +1,6 @@
+<command>
+<name>test mad performance</name>
+<type>C Function</type>
+<function>testPerformance</function>
+<argument name="duration" required="no" datatype="integer"></argument>
+</command>

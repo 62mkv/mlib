@@ -1,0 +1,26 @@
+!include $(MLIBDIR)\makefiles\Config.mk
+
+all: default
+
+INSTALL=copy /y
+
+INCDIR=$(MLIBDIR)\include
+LIBDIR=$(MLIBDIR)\lib
+BINDIR=$(MLIBDIR)\bin
+OBJDIR=$(MLIBDIR)\downloads\components
+CSVDIR=$(MLIBDIR)\db\data\load\base\safetoload\comp_ver
+
+INCLUDES=/I$(MLIBDIR)\include
+
+CFLAGS=/nologo /GF /MD \
+       /DWIN32 /DWIN32_LEAN_AND_MEAN \
+       /W3 /Zi /Fd$(PDBNAME).pdb $(EXTRACFLAGS) $(INCLUDES) $(JAVACFLAGS)
+
+LINKFLAGS=/nologo /release /debug \
+          /incremental:no /fixed:no \
+	  /machine:x86 \
+          $(MAPFLAG) $(BASEFLAG) \
+          /libpath:$(MLIBDIR)\lib \
+          $(EXTRALINKFLAGS)
+
+STDLIBS=kernel32.lib user32.lib shell32.lib gdi32.lib advapi32.lib ws2_32.lib wininet.lib

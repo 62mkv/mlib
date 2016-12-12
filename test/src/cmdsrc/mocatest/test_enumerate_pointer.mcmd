@@ -1,0 +1,6 @@
+<command>
+    <name>test enumerate pointer</name>
+    <description>testEnumeratePointer</description>
+    <type>C Function</type>
+    <function>testEnumeratePointer</function>
+</command>

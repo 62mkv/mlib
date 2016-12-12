@@ -1,4 +1,4 @@
-!include $(MOCADIR)\makefiles\StandardHeader.mk.win32
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
 
 LIBNAME=MOCASrvObjNG
 
@@ -26,16 +26,16 @@ MOCASrvObj.res: MOCASrvObj.rc MOCAResults.rgs MOCAServerAccess.rgs
 	rc $(RELFLAGS) MOCASrvObj.rc
 
 MOCASrvObj.h: MOCASrvObj.idl
-	midl /I$(MOCADIR)\include /Oicf MOCASrvObj.idl
+	midl /I$(MLIBDIR)\include /Oicf MOCASrvObj.idl
 
 MOCAResults.cpp: MOCASrvObj.h
 
 MOCAServerAccess.cpp: MOCASrvObj.h
 
 post-install:
-	regsvr32 /s $(MOCADIR)\bin\MOCASrvObjNG.dll
+	regsvr32 /s $(MLIBDIR)\bin\MOCASrvObjNG.dll
 
 FRC:
 
-!include $(MOCADIR)\makefiles\Library.mk.win32
-!include $(MOCADIR)\makefiles\StandardFooter.mk.win32
+!include $(MLIBDIR)\makefiles\Library.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

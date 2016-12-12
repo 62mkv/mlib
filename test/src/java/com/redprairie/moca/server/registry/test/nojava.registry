@@ -1,0 +1,11 @@
+[Environment]
+FOO=value
+BAR=BAR is [%FOO%]
+BAZ=baz is not (${BAR})
+MIXED=HOME:$HOME
+BAD=ZZZ -- ${ZZZ}
+XYZ=value xyz + $XYZ
+
+[Test]
+command-a=$JAVA $FOO
+command-b=%java32% %FOO%

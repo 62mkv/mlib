@@ -1,0 +1,8 @@
+<resultset columns="4" rows="1">
+<row number="1">
+<scard_host_port isnull="true"/>
+<scard_host_nam isnull="true"/>
+<scard_ena_flg>T</scard_ena_flg>
+<lmvocollect_ena_flg>T</lmvocollect_ena_flg>
+</row>
+</resultset>

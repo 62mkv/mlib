@@ -1,0 +1,21 @@
+# include<$MOCA_REGISTRY_ORIGINAL>
+
+# Above we import in the original registry which is bootstrapped
+# as an environment variable from the test
+
+[SERVER]
+# Disable some stuff to speed up startup times for the server
+test-disable-native=true
+mad-probing-enabled=false
+
+[CLUSTER]
+name=MOCA_TEST_CLUSTER
+# All nodes are on the same machine
+jgroups-protocol=udp
+role-manager=%ROLE_MANAGER_ENV_VAR%
+roles=%ROLES_ENV_VAR%
+role-check-rate=1
+jgroups-mcast-port=47655
+
+[MONITORING]
+csv-reporter-enabled=false

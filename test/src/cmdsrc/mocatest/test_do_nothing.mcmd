@@ -1,0 +1,10 @@
+<command>
+<name>test do nothing</name>
+<description>done very little</description>
+<type>Local Syntax</type>
+<local-syntax>
+<![CDATA[
+publish data where result = 'Working'
+]]>
+</local-syntax>
+</command>

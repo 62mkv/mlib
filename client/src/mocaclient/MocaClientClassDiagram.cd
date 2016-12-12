@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Segoe UI" Size="9" />
+  <Class Name="RedPrairie.MOCA.Client.ConnectionBase" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ConnectionBase.cs</FileName>
+      <HashCode>AAAAABACAAABAAAgEAAAIAAAAASAAAgAAAgEAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.DirectConnection" Collapsed="true">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>DirectConnection.cs</FileName>
+      <HashCode>BAMAGABCACAMQUQQEBAAQJAACAAACAAGCAAQAACAQAY=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="commandBuilder" />
+    </ShowAsAssociation>
+    <InheritanceLine Type="RedPrairie.MOCA.Client.ConnectionBase" FixedToPoint="true">
+      <Path>
+        <Point X="13.25" Y="5.312" />
+        <Point X="13.25" Y="6.625" />
+        <Point X="13" Y="6.625" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="commandBuilder" Type="RedPrairie.MOCA.Client.Encoding.CommandBuilder" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.625" Y="6.25" />
+        <Point X="11.625" Y="5.408" />
+        <Point X="7.5" Y="5.408" />
+      </Path>
+    </AssociationLine>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.ExecuteCommandResult" Collapsed="true">
+    <Position X="15" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <FileName>ExecuteCommandResult.cs</FileName>
+      <HashCode>AAAAAAIAABAAAQAAAAgABAAAAAwAAFAAKAAQACAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.FullConnection">
+    <Position X="4.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>FullConnection.cs</FileName>
+      <HashCode>ABGQAoRIAIAZSQXAAhEFgYhAAAQAAQCIBCgQAAUQEAU=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Connection" />
+      <Property Name="LoginInfo" />
+      <Property Name="ServerInfo" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="KnownServers" />
+    </ShowAsCollectionAssociation>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Connection" Type="RedPrairie.MOCA.Client.Interfaces.IMocaConnection">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.1" Y="0.164" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="ServerInfo" Type="RedPrairie.MOCA.Client.ServerInfo" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.25" Y="11.265" />
+        <Point X="3.875" Y="11.265" />
+        <Point X="3.875" Y="12.062" />
+        <Point X="2.75" Y="12.062" />
+      </Path>
+    </AssociationLine>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.HeaderData">
+    <Position X="11.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>HeaderData.cs</FileName>
+      <HashCode>AAQAAQAEUAEAAAIEACBCBEBgQgBAQgAACAAAIAgQAiA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.MultiThreadQueueConnection" Collapsed="true">
+    <Position X="13.5" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>MultiThreadQueueConnection.cs</FileName>
+      <HashCode>BAsAAIACACAEQQUBAAAAAIAIAACICAAACAAAADKACAA=</HashCode>
+    </TypeIdentifier>
+    <InheritanceLine Type="RedPrairie.MOCA.Client.ConnectionBase" FixedToPoint="true">
+      <Path>
+        <Point X="13.25" Y="5.312" />
+        <Point X="13.25" Y="6.625" />
+        <Point X="13.5" Y="6.625" />
+      </Path>
+    </InheritanceLine>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.MocaType" Collapsed="true">
+    <Position X="15.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Util\MocaType.cs</FileName>
+      <HashCode>EAAAAAhCABIAAAQEgCMAJAoAAQAAAIQIAAAAAAAggmA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.WebConnection" Collapsed="true">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>WebConnection.cs</FileName>
+      <HashCode>AACAAAAAACAAAAAAEBAAAIAAAAAAIEAAAAAAAACAEAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.Crypto.BlowfishEncryptionStrategy" Collapsed="true">
+    <Position X="4.25" Y="6.25" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>Crypto\BlowfishEncryptionStrategy.cs</FileName>
+      <HashCode>AAAgAAAAAAAAACAEAAAgAgADAAAQAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.Crypto.RPBFEncryptionStrategy" Collapsed="true">
+    <Position X="6.75" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <FileName>Crypto\RPBFEncryptionStrategy.cs</FileName>
+      <HashCode>AAAgAAAAAAAAACAEAAAAAAABAAAQAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.Encoding.CommandBuilder" Collapsed="true">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Encoding\CommandBuilder.cs</FileName>
+      <HashCode>AACBCAACAAgAAACAAABEgAAEAAAERAAAAEIAAAACAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.Encoding.DirectConnectionResultsDecoder" Collapsed="true">
+    <Position X="1.5" Y="6.25" Width="2.5" />
+    <TypeIdentifier>
+      <FileName>Encoding\DirectConnectionResultsDecoder.cs</FileName>
+      <HashCode>AAAACAAAAAAAAAQAQAAAAAAAAAABAEAIAAELAAAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.Encoding.EncodingBase" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Encoding\EncodingBase.cs</FileName>
+      <HashCode>AoAAAIAQAACAAAAAAKAAAQAAAACAAAAAAAIAAAAAAAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.Encoding.ResultsDecoderBase" Collapsed="true">
+    <Position X="1.75" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>Encoding\ResultsDecoderBase.cs</FileName>
+      <HashCode>AAQAgAAAEAAAgEAAAAAAAAAAAAABAEAAAAEIwAAAEAI=</HashCode>
+    </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.Encoding.ResultsEncoder" Collapsed="true">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Encoding\ResultsEncoder.cs</FileName>
+      <HashCode>AAAAAQAAQAAAAAAAgAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.ConnectionFailedException" Collapsed="true">
+    <Position X="8.5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>Exceptions\ConnectionFailedException.cs</FileName>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.LoginFailedException" Collapsed="true">
+    <Position X="13.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>Exceptions\LoginFailedException.cs</FileName>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.MocaException" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Exceptions\MocaException.cs</FileName>
+      <HashCode>AAAAAAAAAgAAAAAEAEAAAAAADAgAAAQAAAAAEAAABQA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.NotFoundException" Collapsed="true">
+    <Position X="15.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>Exceptions\NotFoundException.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.ProtocolException" Collapsed="true">
+    <Position X="17.25" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>Exceptions\ProtocolException.cs</FileName>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.ReadResponseException" Collapsed="true">
+    <Position X="1.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <FileName>Exceptions\ReadResponseException.cs</FileName>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.UniqueConstraintException" Collapsed="true">
+    <Position X="3.75" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>Exceptions\ReadResponseException.cs</FileName>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.SendRequestException" Collapsed="true">
+    <Position X="6.25" Y="2" Width="2" />
+    <TypeIdentifier>
+      <FileName>Exceptions\SendRequestException.cs</FileName>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Exceptions.ServerExecutionException" Collapsed="true">
+    <Position X="11" Y="2" Width="2" />
+    <TypeIdentifier>
+      <FileName>Exceptions\ServerExecutionException.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Util.ConnectionUtils" Collapsed="true">
+    <Position X="11.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Util\ConnectionUtils.cs</FileName>
+      <HashCode>IAAEAIAIAABAAQAAAAAAAAAAAgIACAAAAAAQAAAAAAE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Util.Constants" Collapsed="true">
+    <Position X="13.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Util\Constants.cs</FileName>
+      <HashCode>IAIgBCIAAAAoAAAAAIImCAAgAAAAAAARAAAQAAACQAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Util.MocaErrors" Collapsed="true">
+    <Position X="13.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Util\MocaErrors.cs</FileName>
+      <HashCode>uCzetzPtpt8GhLzb+sUHE34OK7JS39jb5Zqxpf1NpDw=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Util.StringReplacer" Collapsed="true">
+    <Position X="15.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Util\StringReplacer.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAEAAAQAAEAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_strategy" />
+    </ShowAsAssociation>
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <AssociationLine Name="_strategy" Type="RedPrairie.MOCA.Util.IReplacementStrategy">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.082" />
+      </MemberNameLabel>
+    </AssociationLine>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.ServerInfo" Collapsed="true">
+    <Position X="1.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ServerInfo.cs</FileName>
+      <HashCode>iAAgAAACAAAAAgAAikACAg5ACAAECAgCAAgCAgoAIAA=</HashCode>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ServerType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RedPrairie.MOCA.Client.LoginInfo" Collapsed="true">
+    <Position X="1.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>LoginInfo.cs</FileName>
+      <HashCode>AEIAAIgAAEQiEAAwBAAAAAqQCAQgAAEEAApAAAwAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RedPrairie.MOCA.Client.Interfaces.IMocaConnection" Collapsed="true">
+    <Position X="4.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Interfaces\IMocaConnection.cs</FileName>
+      <HashCode>BAEAAAACAAAFQQQgAAAAAIAAAASAAAAAAAAAAACAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RedPrairie.MOCA.Util.IReplacementStrategy" Collapsed="true">
+    <Position X="13.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Util\StringReplacer.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="RedPrairie.MOCA.Client.ServerTypes" Collapsed="true">
+    <Position X="1.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ServerInfo.cs</FileName>
+      <HashCode>BAAAAAAAAAAAAABAAAAAgAAAAAAAAAAACAAACAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Enum>
+</ClassDiagram>

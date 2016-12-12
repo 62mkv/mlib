@@ -1,0 +1,7 @@
+!include $(MLIBDIR)\makefiles\StandardDirHeader.mk.win32
+
+SUBDIR=mocaclient mping
+
+TODO = mmda
+
+!include $(MLIBDIR)\makefiles\StandardDirFooter.mk.win32

@@ -1,0 +1,243 @@
+##START#########################################################################
+#
+# $URL$
+# $Revision$
+# $Author$
+#
+# Description: Autoconf input file for MOCA.
+#
+# $Copyright-Start$
+#
+# Copyright (c) 2002-2009
+# RedPrairie Corporation
+# All Rights Reserved
+#
+# This software is furnished under a corporate license for use on a
+# single computer system and can be copied (with inclusion of the
+# above copyright) only for use on such a system.
+#
+# The information in this document is subject to change without notice
+# and should not be construed as a commitment by RedPrairie Corporation.
+#
+# RedPrairie Corporation assumes no responsibility for the use of the
+# software described in this document on equipment which has not been
+# supplied or approved by RedPrairie Corporation.
+#
+# $Copyright-End$
+#
+##END###########################################################################
+
+dnl ----------------------------------------------------------------------------
+dnl Define the AC_TAGGED_VERSION function.
+dnl ----------------------------------------------------------------------------
+
+AC_DEFUN(AC_TAGGED_VERSION,
+[
+    if test ! -r TaggedVersion; then
+	AC_MSG_RESULT( )
+        AC_MSG_ERROR(You must have a TaggedVersion file.)
+    fi
+    TAGGED_VERSION=`cat TaggedVersion`;
+])
+
+dnl ----------------------------------------------------------------------------
+dnl Process this file with autoconf to produce a configure script.
+dnl ----------------------------------------------------------------------------
+
+AC_INIT(../build.xml)
+
+AC_CONFIG_AUX_DIR(./)
+
+dnl ----------------------------------------------------------------------------
+dnl Get the tagged version and set the release version.
+dnl ----------------------------------------------------------------------------
+
+AC_MSG_CHECKING(release)
+
+AC_TAGGED_VERSION
+RELEASE_VERSION="\"$TAGGED_VERSION\""
+DB_RELEASE_VERSION="$TAGGED_VERSION"
+JAVA_RELEASE_VERSION="$TAGGED_VERSION"
+
+AC_MSG_RESULT($DB_RELEASE_VERSION)
+
+AC_SUBST(RELEASE_VERSION)
+AC_SUBST(DB_RELEASE_VERSION)
+AC_SUBST(JAVA_RELEASE_VERSION)
+
+dnl ----------------------------------------------------------------------------
+dnl Get the platform we're running on.
+dnl ----------------------------------------------------------------------------
+
+AC_CANONICAL_HOST
+
+dnl ----------------------------------------------------------------------------
+dnl Set the platform name as MOCA defines it.
+dnl ----------------------------------------------------------------------------
+
+case "$host_os" in
+aix5*)
+    platform="aix5-powerpc"
+    jniplatform="aix"
+    shlibext="so"
+    ;;
+aix6*)
+    platform="aix6-powerpc"
+    jniplatform="aix"
+    shlibext="so"
+    ;;
+aix7*)
+    platform="aix7-powerpc"
+    jniplatform="aix"
+    shlibext="so"
+    ;;
+hpux11*) 
+    case "$host_cpu" in
+        ia64*)
+            platform="hpux11-ia64"
+            shlibext="so"
+            ;;
+        *)
+            AC_MSG_ERROR(You are on an unsupported platform.)
+            ;;
+    esac
+    jniplatform="hp-ux"
+    ;;
+linux*)
+    case "$host_cpu" in
+        x86_64*)
+            platform="linux-x64"
+            ;;
+        *)
+            platform="linux-x86"
+            ;;
+    esac
+    jniplatform="linux"
+    shlibext="so"
+    ;;
+darwin*)
+    case "$host_cpu" in
+        x86_64*)
+            platform="darwin-x64"
+            ;;
+        *)
+            platform="darwin-x86"
+            ;;
+    esac
+    jniplatform="darwin"
+    shlibext="dylib"
+    ;;
+solaris*10)
+    platform="solaris10-sparc"
+    jniplatform="solaris"
+    shlibext="so"
+    ;;
+solaris*11)
+    platform="solaris11-sparc"
+    jniplatform="solaris"
+    shlibext="so"
+    ;;
+*)
+    AC_MSG_ERROR(You are on an unsupported platform.)
+    ;;
+esac
+
+AC_MSG_CHECKING(MOCA platform)
+AC_MSG_RESULT($platform)
+
+dnl ----------------------------------------------------------------------------
+dnl Set the top level directory.
+dnl ----------------------------------------------------------------------------
+
+AC_MSG_CHECKING(MOCA directory)
+MOCADIR=`dirname \`pwd\``
+AC_SUBST(MOCADIR)
+AC_MSG_RESULT($MOCADIR)
+
+dnl ----------------------------------------------------------------------------
+dnl Get the Java directory to use.
+dnl
+dnl NOTE: This is a little different because we're looking for the JDK
+dnl       if this is a development environment, but the JRE if it's a 
+dnl       release environment.
+dnl ----------------------------------------------------------------------------
+
+if test "$JAVA_HOME" != ""; then
+
+    AC_MSG_CHECKING(for Java Development Kit)
+    AC_ARG_WITH(JAVA, 
+        --with-JAVA=JAVA_HOME,
+        JAVA_HOME="$withval")
+    
+    AC_MSG_RESULT($JAVA_HOME)
+    JAVACFLAGS="-I\$(JAVA_HOME)/include -I\$(JAVA_HOME)/include/$jniplatform"
+    AC_SUBST(JAVACFLAGS)
+   
+fi
+
+dnl ----------------------------------------------------------------------------
+dnl Checks for the pathnames to programs.
+dnl ----------------------------------------------------------------------------
+
+AC_PATH_PROG(PERL_PATH,  perl,  perl)
+AC_PATH_PROG(TR_PATH,    tr,    tr)
+AC_PATH_PROG(UNAME_PATH, uname, uname)
+
+dnl ----------------------------------------------------------------------------
+dnl Build the output file argument list.  This involves just looking for files
+dnl that end with a '.in' extension and adding it to the AC_OUTPUT arg list.
+dnl ----------------------------------------------------------------------------
+
+my_output_arg="../.profile:profile.in"
+
+my_output_arg="$my_output_arg ../release.properties:../release.properties.in"
+
+if test -d ../makefiles; then
+    my_input_file="Config.mk.$platform"
+    my_output_file="../makefiles/Config.mk"
+    my_output_arg="$my_output_arg $my_output_file:$my_input_file"
+fi
+
+for my_input_file in `find ../scripts -type f -name "*.in"`
+do
+    my_output_file=`echo $my_input_file | sed -e "s/\.in$//g"`
+    my_output_arg="$my_output_arg $my_output_file:$my_input_file"
+done
+
+if test -d ../src/incsrc; then
+    my_input_file="mocaconfig.h.$platform"
+    my_output_file="../src/incsrc/mocaconfig.h"
+    my_output_arg="$my_output_arg $my_output_file:$my_input_file"
+
+fi
+
+if test -d ../src/incsrc; then
+    for my_input_file in `find ../src/incsrc -type f -name "*.in"`
+    do
+        my_output_file=`echo $my_input_file | sed -e "s/\.in$//g"`
+        my_output_arg="$my_output_arg $my_output_file:$my_input_file"
+    done
+fi
+
+for my_input_file in `find ../db/data/load -type f -name "*.csv.in"`
+do
+    my_output_file=`echo $my_input_file | sed -e "s/\.in$//g"`
+    my_output_arg="$my_output_arg $my_output_file:$my_input_file"
+done
+
+dnl ----------------------------------------------------------------------------
+dnl Generate output files.
+dnl ----------------------------------------------------------------------------
+
+AC_OUTPUT($my_output_arg)
+
+dnl ----------------------------------------------------------------------------
+dnl Make Perl scripts executable.
+dnl ----------------------------------------------------------------------------
+
+echo "making scripts executable"
+for my_input_file in `find ../scripts -type f -name "*.pl.in"`
+do
+    my_script=`echo $my_input_file | sed -e "s/\.in$//g"`
+    chmod 555 $my_script
+done

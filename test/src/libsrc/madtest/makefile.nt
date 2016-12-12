@@ -1,0 +1,13 @@
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=MADtest
+
+OFILES=MOCAlicense.obj \
+       MOCAversion.obj \
+       testMad.obj \
+       testMadCrash.obj \
+       testMadTaskId.obj \
+       testPerformance.obj 
+
+!include $(MLIBDIR)\makefiles\Component.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

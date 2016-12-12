@@ -1,0 +1,7 @@
+<command>
+    <name>test retrieve pointer</name>
+    <description>testRetrievePointer</description>
+    <type>C Function</type>
+    <function>testRetrievePointer</function>
+    <argument name="arg" alias="name" datatype="string" required="yes"/>
+</command>

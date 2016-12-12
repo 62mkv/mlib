@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Product Id="%PRODUCT_ID%"
+		 Name="%PRODUCT_NAME%"
+		 Language="1033"
+		 Version="%FILE_VERSION%"
+		 Manufacturer="RedPrairie Corporation"
+		 UpgradeCode="%UPGRADE_CODE%">
+	
+	<Package InstallerVersion="200" Compressed="yes" />
+	<Media Id="1" Cabinet="MainCab.cab" EmbedCab="yes" />
+
+	<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+	<WixVariable Id="WixUILicenseRtf" Value="%EULA%" />
+	<UIRef Id="WixUI_FeatureTree" />
+	
+	<Directory Id="TARGETDIR" Name="SourceDir">
+		<Directory Id="ProgramFilesFolder" Name="PMenu">
+			<Directory Id="RPProgramFilesFolder" Name="RedPrairie">
+				<Directory Id="INSTALLDIR" Name="%INSTALLDIR%">
+					<Component Id="MainExecutable" Guid="%FILE_ID%" DiskId="1">
+						<File Id="MainExecutable" Name="%Filename%%Extension%" Source="%Filename%%Extension%">
+							<Shortcut Id="%PRODUCT_NAME_ID%shortcut" 
+									  Directory="RPProgramMenuFolder" 
+									  Name="%PRODUCT_NAME%"
+									  IconIndex="0" 
+									  Show="normal" 
+									  WorkingDirectory="TARGETDIR"
+									  Icon="%Filename%%Extension%"
+									  Description="Shortcut to %PRODUCT_NAME%" 
+									  Advertise="yes">
+								<Icon Id="%Filename%%Extension%" SourceFile="%Filename%%Extension%" />
+							</Shortcut>
+						</File>
+						<RemoveFolder Id="RemoveRPProgramShorcutFolder" Directory="RPProgramMenuFolder" On="uninstall" />
+						<RemoveFolder Id="RemoveRPProgramFilesFolder" Directory="RPProgramFilesFolder" On="uninstall" />
+					</Component>
+				</Directory>	
+			</Directory>
+		</Directory>
+		<Directory Id="ProgramMenuFolder" Name="ProgMenu">
+			<Directory Id="RPProgramMenuFolder" Name="RedPrairie" />
+		</Directory>
+		<Directory Id="DesktopFolder" Name="Desktop" />
+	</Directory>
+	
+	<Feature Id="ProductFeature" Title="%PRODUCT_NAME%" Level="1">
+		<ComponentGroupRef Id="ProductComponent" />
+	</Feature>
+</Product>
+</Wix>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- Define build specific properties -->
+	<PropertyGroup>
+		<OptimizeFileCopy>true</OptimizeFileCopy>
+		<MCSProjectType>XSL</MCSProjectType>
+	</PropertyGroup>
+
+	<Import Project="config.targets"/>
+	<Import Project="common.targets"/>
+
+	<!-- Import custom tasks -->
+	<UsingTask TaskName="RedPrairie.MSBuild.Tasks.VersionResourcesTask" AssemblyFile="tasks\RedPrairie.MSBuild.Tasks.dll"/>
+
+	<!-- Define the xsl files -->
+	<ItemGroup>
+		<BaseCopyFiles Include="*.xsl"/>
+	</ItemGroup>
+
+	<Import Project="filebase.targets"/>
+
+	<!-- Implimentation Tasks -->
+	<Target Name="VersionItems" DependsOnTargets="CreateVersionPropery">
+		<VersionResourcesTask Files="@(BaseCopyFiles)" ProjectName="xsl" GroupName="$(ProductGroupName)" Version="$(ProductCompileVersion)">
+			<Output TaskParameter="OutputFile" PropertyName="ProjCSVFile"/>
+		</VersionResourcesTask>
+	</Target>
+</Project>

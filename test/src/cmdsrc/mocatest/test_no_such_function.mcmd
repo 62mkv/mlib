@@ -1,0 +1,5 @@
+<command>
+<name>test no such function</name>
+<type>C Function</type>
+<function>testNoSuchFunction</function>
+</command>

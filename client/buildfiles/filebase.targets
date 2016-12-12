@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- These targets override or modify the global targets for items like resources and help files -->
+	
+	<Target Name="Clean" DependsOnTargets="CleanOutputFiles"/>
+
+	<Target Name="Build" DependsOnTargets="VersionProject;CopyBinariesToOutput" />
+
+	<Target Name="Install" DependsOnTargets="_configureInstall;Build" />
+
+	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+
+	<Target Name="Superclean" DependsOnTargets="Clean" />
+
+	<Target Name="Test"/>
+
+	<Target Name="Fix"/>
+
+	<Target Name="AutoFix"/>
+	
+	<Target Name="Cut"/>
+	
+	<Target Name="ForceFix"/>
+
+	<Target Name="AutoForceFix"/>
+
+	<!--
+		Configures the install with specific settings to perform items like versioning
+		and file copies
+	-->
+	<Target Name="_configureInstall">
+		<!--Enable component versioning -->
+		<CreateProperty Value="false" Condition="'$(SkipProjectVersioning)' == ''">
+			<Output TaskParameter="Value" PropertyName="SkipProjectVersioning"/>
+		</CreateProperty>
+	</Target>
+	
+</Project>

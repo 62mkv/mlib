@@ -1,0 +1,5 @@
+<command>
+<name>test mad task id</name>
+<type>C Function</type>
+<function>testMadTaskId</function>
+</command>

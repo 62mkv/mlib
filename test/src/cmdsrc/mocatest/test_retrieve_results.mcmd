@@ -1,0 +1,8 @@
+<command>
+    <name>test retrieve results</name>
+    <description>testRetrieveResults</description>
+    <type>C Function</type>
+    <function>testRetrieveResults</function>
+    <argument name="name1" datatype="string" required="yes"/>
+    <argument name="name2" datatype="string" required="yes"/>
+</command>

@@ -1,0 +1,7 @@
+<command>
+<name>test no alias arg</name>
+<type>Java Method</type>
+<class>TestComponent</class>
+<method>testAliasArg</method>
+<argument name="arg" datatype="string">arg</argument>
+</command>

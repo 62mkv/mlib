@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project InitialTargets="CreateVersionPropery" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	
+	<!--General Properties for the product based on the directory-->
+	<PropertyGroup Condition="$(ProductGroupName) == ''">
+		<ProductGroupName>MOCA</ProductGroupName>
+	</PropertyGroup>
+
+	<!--
+		General Properties for the product based on the directory.
+		Only written if the directory has not been defined. This
+		only happens if we're at the MOCA level.
+	-->
+	<PropertyGroup Condition="$(ProductDirRoot) == ''">
+		<ProductDirRoot>$(MOCADIR)</ProductDirRoot>
+		<ArtifactsDirectory>$(MOCADIR)\bin</ArtifactsDirectory>
+		<CoreFilesDirectory>$(MOCADIR)\bin</CoreFilesDirectory>
+		<NUnitTestOutputDir>$(MOCADIR)\TestResults\</NUnitTestOutputDir>
+	</PropertyGroup>
+
+	<!-- Global Compile Paths and Properties-->
+	<PropertyGroup>
+		<ArtifactsDirectory Condition="$(ArtifactsDirectory) == ''">$(MCSDIR)\client\bin</ArtifactsDirectory>
+		<CoreFilesDirectory Condition="$(CoreFilesDirectory) == ''">$(ArtifactsDirectory)\core</CoreFilesDirectory>
+		<DownloadsDirectory>$(ProductDirRoot)\downloads</DownloadsDirectory>
+		<DownloadResourceDirectory>$(DownloadsDirectory)\res</DownloadResourceDirectory>
+		<DownloadHelpDirectory>$(DownloadsDirectory)\help</DownloadHelpDirectory>
+		<ComponentCSVDirectory>$(ProductDirRoot)\db\data\load\base\safetoload\comp_ver</ComponentCSVDirectory>
+	</PropertyGroup>
+	
+	<!--Testing Configuration Properties-->
+	<PropertyGroup>
+		<NUnitAssemblyDirectory>$(MOCADIR)\client\tools\NUnit\bin</NUnitAssemblyDirectory>
+		<NUnitTestOutputDir Condition="$(NUnitTestOutputDir) == ''">$(MCSDIR)\TestResults\</NUnitTestOutputDir>
+	</PropertyGroup>
+
+	<!-- Assembly Tagging Properties -->
+	<ItemGroup>
+		<AssemblyTag Include="AssemblyCompany">
+			<replace>RedPrairie Corporation</replace>
+			<assemblyLine></assemblyLine>
+		</AssemblyTag>
+		<AssemblyTag Include="AssemblyCopyright">
+			<replace>Copyright 2008</replace>
+			<assemblyLine></assemblyLine>
+		</AssemblyTag>
+		<AssemblyTag Include="AssemblyProduct">
+			<replace>E2e</replace>
+			<assemblyLine></assemblyLine>
+		</AssemblyTag>
+	</ItemGroup>
+
+	<!-- 
+		Debugging environment target to determine what the root directories are.
+		
+		[IN] (See Message Text lines)	
+	-->
+	<Target Name="ListDirs">
+		<Message Text="Product Group Name: $(ProductGroupName)" />
+		<Message Text="Product Root: $(ProductDirRoot)" />
+		<Message Text="Artifacts Directory: $(ArtifactsDirectory)" />
+		<Message Text="Downloads Directory: $(DownloadsDirectory)" />
+		<Message Text="Component CSV Directory: $(ComponentCSVDirectory)" />
+		<Message Text="Tagged Version: $(ProductCompileVersion)" />
+	</Target>
+
+	<!--
+		A global target that reads the TaggedVersion file of the product to 
+		determine the product compile version.
+		
+		[CONDITION]
+		The product compile version has not yet been defined
+		
+		[IN]
+		$(ProductDirRoot)	The product's root directory from which to find the tagged version file
+		
+		[OUT]
+		$(ProductCompileVersion) The TaggedVersion file value i.e. 2008.1.0a13	
+	-->
+	<Target Name="CreateVersionPropery" Condition="$(ProductCompileVersion) == ''">
+		<ReadLinesFromFile File="$(ProductDirRoot)\config\TaggedVersion">
+			<Output TaskParameter="Lines" ItemName="ItemsFromFile"/>
+		</ReadLinesFromFile>
+		<CreateProperty Value="@(ItemsFromFile->'%(Identity)')">
+			<Output TaskParameter="Value" PropertyName="ProductCompileVersion" />
+		</CreateProperty>
+	</Target>
+</Project>
