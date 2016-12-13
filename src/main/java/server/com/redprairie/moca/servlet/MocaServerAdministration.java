@@ -15,7 +15,7 @@ import com.redprairie.moca.task.TaskManager;
  * This administration object is used to perform various operations.
  * 
  * <b><pre>
- * Copyright (c) 2009 RedPrairie Corporation
+ * Copyright (c) 2016 Sam Corporation
  * All Rights Reserved
  * </pre></b>
  * 

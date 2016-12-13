@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007, 2011 XStream Committers.
+ * Copyright (c) 20167, 2011 XStream Committers.
  * All rights reserved.
  *
  * The software in this package is published under the terms of the BSD

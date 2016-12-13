@@ -6,8 +6,8 @@
  *  
  *  $Copyright-Start$
  *
- *  Copyright (c) 2008
- *  RedPrairie Corporation
+ *  Copyright (c) 20168
+ *  Sam Corporation
  *  All Rights Reserved
  *
  *  This software is furnished under a corporate license for use on a
@@ -15,11 +15,11 @@
  *  above copyright) only for use on such a system.
  *
  *  The information in this document is subject to change without notice
- *  and should not be construed as a commitment by RedPrairie Corporation.
+ *  and should not be construed as a commitment by Sam Corporation.
  *
- *  RedPrairie Corporation assumes no responsibility for the use of the
+ *  Sam Corporation assumes no responsibility for the use of the
  *  software described in this document on equipment which has not been
- *  supplied or approved by RedPrairie Corporation.
+ *  supplied or approved by Sam Corporation.
  *
  *  $Copyright-End$
  */
@@ -33,7 +33,7 @@ import java.util.Random;
 /**
  * 
  * Utility methods to allow common encryption tools to match the implementation
- * of RedPrairie's legacy misMD5 tool.
+ * of Sam's legacy misMD5 tool.
  * 
  * The equivalent legacy C code:
  * 
@@ -51,7 +51,7 @@ import java.util.Random;
 
  * </pre>
  * <b><pre>
- * Copyright (c) 2008 RedPrairie Corporation
+ * Copyright (c) 20168 Sam Corporation
  * All Rights Reserved
  * </pre></b>
  * 
@@ -62,7 +62,7 @@ public class MD5Utils {
 
     /**
      * Our own private base64 encoder...sort of.  This is designed to match 
-     * the implementation of the RedPrairie legacy misMD5 base64 encoder.  Note:
+     * the implementation of the Sam legacy misMD5 base64 encoder.  Note:
      * this implementation of base64 is NOT a real base64 encoder.  It's also not
      * a valid two-way encoder/decoder, since there's no way to reliably determine
      * the length of the original array if the <code>bits</code> argument is not a

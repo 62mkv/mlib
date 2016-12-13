@@ -1,7 +1,7 @@
 /*
  * @(#)FtpsMdownloadExample.java
  *
- * Copyright (c) 2001-2002 JScape
+ * Copyright (c) 2016 JScape
  * 1147 S. 53rd Pl., Mesa, Arizona, 85206, U.S.A.
  * All rights reserved.
  *

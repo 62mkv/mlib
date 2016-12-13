@@ -27,7 +27,7 @@ import javax.swing.KeyStroke;
  * Dialog box to present command history and allow the user to select a history element.
  * 
  * <b><pre>
- * Copyright (c) 2007 RedPrairie Corporation
+ * Copyright (c) 20167 Sam Corporation
  * All Rights Reserved
  * </pre></b>
  * 

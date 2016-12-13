@@ -6,8 +6,8 @@
  *  
  *  $Copyright-Start$
  *
- *  Copyright (c) 2005
- *  RedPrairie Corporation
+ *  Copyright (c) 2016
+ *  Sam Corporation
  *  All Rights Reserved
  *
  *  This software is furnished under a corporate license for use on a
@@ -15,11 +15,11 @@
  *  above copyright) only for use on such a system.
  *
  *  The information in this document is subject to change without notice
- *  and should not be construed as a commitment by RedPrairie Corporation.
+ *  and should not be construed as a commitment by Sam Corporation.
  *
- *  RedPrairie Corporation assumes no responsibility for the use of the
+ *  Sam Corporation assumes no responsibility for the use of the
  *  software described in this document on equipment which has not been
- *  supplied or approved by RedPrairie Corporation.
+ *  supplied or approved by Sam Corporation.
  *
  *  $Copyright-End$
  */
@@ -130,7 +130,7 @@ import com.redprairie.util.ClassUtils;
  * <b>
  * 
  * <pre>
- * Copyright (c) 2005 RedPrairie Corporation
+ * Copyright (c) 2016 Sam Corporation
  * All rights reserved.
  * </pre>
  * 
@@ -199,7 +199,7 @@ public class JDBCAdapter implements DBAdapter {
         String envname = system.getVariable("MOCA_ENVNAME");
         String taskId = system.getVariable("MOCA_TASK_ID");
         // TODO: need to do something to mark the server since it will always be unique, but maybe do a random value for other processes?  This is because some transaction managers don't allow reuse of names across processes
-        final String poolName = ((envname != null) ? envname : "RedPrairie") +
+        final String poolName = ((envname != null) ? envname : "Sam") +
                        ((taskId != null) ? "-" + taskId : "");
         
         // Now we create the data source pool

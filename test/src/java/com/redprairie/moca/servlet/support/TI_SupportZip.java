@@ -5,8 +5,8 @@
  *  
  *  $Copyright-Start$
  *
- *  Copyright (c) 2014
- *  RedPrairie Corporation
+ *  Copyright (c) 2016
+ *  Sam Corporation
  *  All Rights Reserved
  *
  *  This software is furnished under a corporate license for use on a
@@ -14,11 +14,11 @@
  *  above copyright) only for use on such a system.
  *
  *  The information in this document is subject to change without notice
- *  and should not be construed as a commitment by RedPrairie Corporation.
+ *  and should not be construed as a commitment by Sam Corporation.
  *
- *  RedPrairie Corporation assumes no responsibility for the use of the
+ *  Sam Corporation assumes no responsibility for the use of the
  *  software described in this document on equipment which has not been
- *  supplied or approved by RedPrairie Corporation.
+ *  supplied or approved by Sam Corporation.
  *
  *  $Copyright-End$
  */
@@ -58,7 +58,7 @@ import static org.junit.Assert.fail;
 /**
  * Support Zip Integration Tests
  * 
- * Copyright (c) 2014 RedPrairie Corporation
+ * Copyright (c) 2016 Sam Corporation
  * All Rights Reserved
  * 
  * @author j1014843
@@ -152,7 +152,7 @@ public class TI_SupportZip {
         final File fake = new File(logdir, "fakelog.log");
         final File installedProds = new File(logdir, "installed-products.dat");
         final File userInstall = new File(logdir, "userinstall-20140320-183239.log");
-        final File rpinstall = new File(logdir, "RedPrairieServerInstall-20140411-085121.log");
+        final File rpinstall = new File(logdir, "SamServerInstall-20140411-085121.log");
         final File installProd = new File(logdir, "install-waffle-20140320-145635.log");
         final File installLog = new File(installDir, "Install.log");
         
@@ -190,7 +190,7 @@ public class TI_SupportZip {
                 zipCheck.getEntry("log" + File.separatorChar + installedProds.getName()));
             assertNotNull("userinstall log wasn't picked up.",
                 zipCheck.getEntry("log" + File.separatorChar + userInstall.getName()));
-            assertNotNull("RedPrairieServerInstall log wasn't picked up.",
+            assertNotNull("SamServerInstall log wasn't picked up.",
                 zipCheck.getEntry("log" + File.separatorChar + rpinstall.getName()));
             assertNotNull("Individual product install log wasn't picked up.",
                 zipCheck.getEntry("log" + File.separatorChar + installProd.getName()));

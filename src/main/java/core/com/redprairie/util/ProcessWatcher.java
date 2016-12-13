@@ -18,7 +18,7 @@ import com.redprairie.moca.MocaInterruptedException;
  * not need any input, and to have its error stream redirected to the normal
  * output stream (see <code>ProcessBuilder.redirectErrorStream</code>).
  * 
- * Copyright (c) 2009 RedPrairie Corporation
+ * Copyright (c) 2016 Sam Corporation
  * All Rights Reserved
  * 
  * @author dinksett

@@ -5,8 +5,8 @@
  *  
  *  $Copyright-Start$
  *
- *  Copyright (c) 2014
- *  RedPrairie Corporation
+ *  Copyright (c) 2016
+ *  Sam Corporation
  *  All Rights Reserved
  *
  *  This software is furnished under a corporate license for use on a
@@ -14,11 +14,11 @@
  *  above copyright) only for use on such a system.
  *
  *  The information in this document is subject to change without notice
- *  and should not be construed as a commitment by RedPrairie Corporation.
+ *  and should not be construed as a commitment by Sam Corporation.
  *
- *  RedPrairie Corporation assumes no responsibility for the use of the
+ *  Sam Corporation assumes no responsibility for the use of the
  *  software described in this document on equipment which has not been
- *  supplied or approved by RedPrairie Corporation.
+ *  supplied or approved by Sam Corporation.
  *
  *  $Copyright-End$
  */
@@ -101,7 +101,7 @@ import com.redprairie.util.SimpleFilenameFilter;
  * class assumes that you have a valid MOCA session BEFORE calling
  * generateSupportZip().
  * 
- * Copyright (c) 2014 RedPrairie Corporation All Rights Reserved
+ * Copyright (c) 2016 Sam Corporation All Rights Reserved
  * 
  * @author j1014843
  */
@@ -649,7 +649,7 @@ public class SupportZip {
         File logdir = new File(System.getenv("LESDIR"), "log");
         if (logdir.isDirectory()) {
             writeFilesToZipMatchingRegex(zip, writer, logdir, 
-                "RedPrairieServerInstall-\\d+-\\d+\\.log",
+                "SamServerInstall-\\d+-\\d+\\.log",
                 "userinstall-\\d+-\\d+\\.log",
                 "install-\\w+-\\d+-\\d+\\.log",
                 "installed-products\\.dat");

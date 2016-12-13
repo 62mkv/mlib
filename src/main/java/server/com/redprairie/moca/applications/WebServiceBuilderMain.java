@@ -8,7 +8,7 @@ import com.redprairie.moca.applications.wsdeploy.WebServiceBuilder;
  * <b>
  * 
  * <pre>
- * Copyright (c) 2012 RedPrairie Corporation
+ * Copyright (c) 2012 Sam Corporation
  * All Rights Reserved
  * </pre>
  * 
