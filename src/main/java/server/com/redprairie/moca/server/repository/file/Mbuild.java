@@ -71,8 +71,6 @@ import com.redprairie.moca.util.OptionsException;
 public class Mbuild {
     public static void main(String[] args) {
         // Parse Command-line arguments
-        System.setProperty("com.redprairie.moca.config","F:\\MFC\\mlib\\src\\resource\\82.registry");
-        System.setProperty("LESDIR","F:\\MFC\\mlib");
         Options opts;
         try {
             opts = Options.parse("lvdp:D:h", args);

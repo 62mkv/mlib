@@ -416,9 +416,9 @@ public class LoggingConfigurator {
     public final static String RUNTIME_LOGGING_XML = "runtime-logging.xml";
     public final static String LOGGING_XML = "logging.xml";
     // %LESDIR%/data/runtime-logging.xml
-    //public final static String RUNTIME_LOGGING_XML_PATH = System.getenv("LESDIR") + File.separator +
-    //                                          "data" + File.separator + RUNTIME_LOGGING_XML;
-    public final static String RUNTIME_LOGGING_XML_PATH = System.getProperty("LESDIR") + File.separator +
-            "data" + File.separator + RUNTIME_LOGGING_XML;
+    public final static String RUNTIME_LOGGING_XML_PATH = System.getenv("LESDIR") + File.separator +
+                                              "data" + File.separator + RUNTIME_LOGGING_XML;
+    //public final static String RUNTIME_LOGGING_XML_PATH = System.getProperty("LESDIR") + File.separator +
+    //        "data" + File.separator + RUNTIME_LOGGING_XML;
     private final static AtomicBoolean _isConfigured = new AtomicBoolean(false);
 }

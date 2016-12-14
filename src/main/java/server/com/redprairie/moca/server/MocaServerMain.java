@@ -144,10 +144,20 @@ public class MocaServerMain {
      */
     public static void main(String[] args) throws SystemConfigurationException {
         System.out.println("now start test");
-        System.setProperty("com.redprairie.moca.config","F:\\MFC\\mlib\\src\\resource\\82.registry");
-        System.setProperty("LESDIR","F:\\MFC\\mlib");
         String lesdir = System.getenv("LESDIR");
-        System.out.println(lesdir);
+        if (lesdir == null || lesdir.isEmpty()) {
+            System.out.println("Environment LESDIR is not set, it should be set to the dir of Mlib.");
+        }
+        else {
+            System.out.println(lesdir);
+        }
+        String mocareg = System.getenv("MOCA_REGISTRY");
+        if (mocareg == null || mocareg.isEmpty()) {
+            System.out.println("Environment MOCA_REGISTRY is not set, it should be set to the dir of 82.registry.");
+        }
+        else {
+            System.out.println(mocareg);
+        }
         args = new String[3];
         args[0] = "-R";
         args[1] = "-t*";
