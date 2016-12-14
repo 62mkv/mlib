@@ -3,10 +3,61 @@
 <description>Get User Privileges</description>
 <type>Local Syntax</type>
 <local-syntax>
-
-publish data
-  where opt_nam ='optMocaConsoleAdmin'
-
+<![CDATA[
+if (@opt_nam#onstack)
+{
+    [[
+        opt_nam = opt_nam
+        opt_typ = opt_typ
+        pmsn_lvls = -1
+        ena_flg = true
+        exec_nam = opt_nam
+        exec_parm = null
+        btn_img_id = null
+        ath_id = null
+        ath_typ = null
+        pmsn_mask = -1
+        mls_text = 'Option: ' + opt_nam
+    ]]
+}
+else
+{
+    /* When not going after a specific opt_nam we just stub
+     * this out to indicate that the user is a console admin
+     * for when using standalone MOCA.
+     */
+    if(@opt_typ = 'P') 
+    {
+        publish data
+            where opt_nam = 'optMocaConsoleAdmin'
+            and opt_typ = 'P'
+            and pmsn_lvls = -1
+            and ena_flg = true
+            and exec_nam = null
+            and exec_parm = null
+            and btn_img_id = null
+            and ath_id = null
+            and ath_typ = null
+            and pmsn_mask = -1
+            and mls_text = 'MOCA Console Administrator'
+    } 
+    else if(@opt_typ = 'U') 
+    {
+        publish data
+            where opt_nam = 'optMocaAdmin'
+            and opt_typ = 'U'
+            and pmsn_lvls = -1
+            and ena_flg = true
+            and exec_nam = null
+            and exec_parm = null
+            and btn_img_id = null
+            and ath_id = null
+            and ath_typ = null
+            and pmsn_mask = -1
+            and mls_text = 'MOCA Admin Role Option'
+    }
+}
+]]>
 </local-syntax>
 <documentation>
 dummy command

@@ -214,8 +214,8 @@ public class XMLCommandReader implements CommandReader{
                 securityLevel = SecurityLevel.OPEN;
             }
             else {
-                //securityLevel = SecurityLevel.PUBLIC;
-            	securityLevel = SecurityLevel.OPEN;
+                securityLevel = SecurityLevel.PUBLIC;
+            	//securityLevel = SecurityLevel.OPEN;
             }
         }
         
