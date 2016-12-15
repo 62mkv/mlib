@@ -1,0 +1,124 @@
+<html >
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOCA Monitor</title>
+        <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#btn_Login").click(function(){
+    	var logincmd="login user where usr_id ='" + $('#userid').val() + "' and usr_pswd='" + $('#pwd').val() + "'";
+    	alert(logincmd);
+        $.ajax({
+        	  type: "POST",
+            url: "http://localhost:4600/service",
+            data:{Query: logincmd},
+            dataType: "xml",
+            error:function(xml) {
+                alert("error"+xml);
+            },
+            success: function(xml) {
+                //alert("Now parse xml:" + xml);
+                var env = {};
+                $(xml).find("field").each(function(i) {
+                	var t = $(this).text();
+                	//alert("i:"+i+" text:" + t);
+                	if (i==0) {
+                		env = "USR_ID=" + t;
+                	}
+                	else if (i==1) {
+                		env = env + ":LOCALE_ID=" + t;
+                	}
+                	else if (i == 4) {
+                		env = env + ":SESSION_KEY=" + t;
+                		//alert("i is 4, env" + env);
+                	}
+                });
+                if (env == undefined) {
+                	alert("Invalid login!");
+                }
+                else {
+                alert(env);
+                $("[name=Environment]").attr('value', env);
+                toggleQueryLogin();
+                }
+            }
+        });
+    });
+});
+
+$(function(){
+    $("#doCommand").click(function(){
+    	//alert("doCommand");
+    	//var com=$("[name=commandtorun]").val();
+    	//alert(com);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:4600/service",
+            data:{Query: $("[name=commandtorun]").val(),
+            	  Environment: $("[name=Environment]").attr('value')},
+            dataType: "xml",
+            error:function(xml) {
+                alert("error"+xml);
+            },
+            success: function(xml) {
+                var env = {};
+                $(xml).find("data").each(function(i) {
+                    var t = $(this).text();
+                    alert("got:" + t)
+                    $('#result').append("<div>" + t + "</div");
+                });
+                toggleQueryLogin();
+            }
+        });
+    });
+});
+
+$(function(){
+	toggleQueryLogin();
+})
+function toggleQueryLogin()
+{
+	   var hasSessionKey = $("[name=Environment]").attr('value');
+	    if (hasSessionKey) {
+	        $(".loginform").hide();
+	        $(".queryform").show();
+	    }
+	    else {
+	          $(".loginform").show();
+	          $(".queryform").hide();
+	    }
+}
+</script>
+</head>
+
+<body>
+
+<div class="loginform" align="center">
+<label>User ID:</label>
+<input type="text" id="userid" name="usr_id" placeholder="　输入账号" value="">
+<label>Password:</label>
+<input type="password" id="pwd" name="usr_pswd" placeholder="　输入密码" value="">
+<input type="hidden" name="Query" value="login user"/>
+<input type="text" name="Environment" value=""/>
+<button id="btn_Login" type="button">Login</button>
+</div>
+
+<div class="queryform" align="center">
+<label>Command:</label>
+<input type="text" name="commandtorun" value="">
+<div id="result"></div>
+<button id="doCommand" type="button">Execute</button>
+</div>
+
+<div id="footer" align="center">
+<footer><p>Copyright &copy; 2016.Sam Ni All rights reserved.</p>
+</footer>
+</div>
+
+
+</body>
+
+</html>
