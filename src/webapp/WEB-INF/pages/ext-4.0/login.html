@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<title>Login Moca Test</title>
+<head>
+	<script type="text/javascript" src="ext-debug.js"></script>
+	<link href="resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<script type="text/javascript">
+		Ext.onReady(function(){
+			//alert('aaaa');
+			Ext.create('Ext.form.Panel',
+			           {
+			           	  title:'Login',
+			           	  bodyPadding:5,
+			           	  width:350,
+			           	  layout:'anchor',
+			           	  defaults: {
+			           	  	anchor: '100%'
+			           	  },
+			           	  defaultType: 'textfield',
+			           	  fieldDefaults: {
+			           	  	labelAlign:'left',
+			           	  	labelWidth: 100
+			           	  },
+			           	  items:[
+			           	    {
+			           	    	  fieldLabel: 'User Name',
+			           	    	  name: 'name',
+			           	    	allowBlank: false
+			           	    },
+			           	    {
+			           	    	  fieldLabel: 'User Password',
+			           	    	  name: 'pswd',
+			           	    	allowBlank: false
+			           	    }
+			           	   ],
+			           	   buttons:[
+			           	    {
+			           	    	text:'Reset',
+			           	    	handler:function()
+			           	    	{
+			           	    		this.up('form').getForm().reset();
+			           	    	}
+			           	    },
+			           	    {
+			           	    	text:'TiJiao',
+			           	    	formBind:true,
+			           	    	disabled:true,
+			           	    	handler:function()
+			           	    	{
+                            alert("aaaaabbb");
+                            var form=this.up('form').getForm();
+                            	  form.standardSubmit=true;
+                            if (form.isValid())
+                            {
+                            	   form.submit(
+                            	   {
+                            	   			url: 'http://localhost:4900/service',
+			           	                    params:{Query: 'login user where usr_id ="sam" and usr_pswd="111"',
+			           	                    	      ResponseFormat:'json'},
+			           	                    method: 'POST',
+			           	                    target: Ext.getCmp('#resulttext'),
+                            	   	    success: function(form)
+                            	   	    {
+                            	   	    	   Ext.Msg.alert('Success');
+                            	   	    },
+                            	   	    failure: function(form, action)
+                            	   	    {
+                            	   	    	   switch(action.failureType)
+                            	   	    	   {
+                            	   	    	   	   case Ext.form.action.Action.CLIENT_INVALID:
+                            	   	    	   	   	    Ext.Msg.alert('Fail1:', Ext.form.action.Action.CLIENT_INVALID);
+                            	   	    	   	   	    break;
+                            	   	    	   	   case Ext.form.action.Action.CONNECT_FAILURE:
+                            	   	    	   	   	    Ext.Msg.alert('Fail2:', Ext.form.action.Action.CONNECT_FAILURE);
+                            	   	    	   	   	    break;
+                            	   	    	   	   case Ext.form.action.Action.SERVER_INVALID:
+                            	   	    	   	   	    Ext.Msg.alert('Fail3:', Ext.form.action.Action.SERVER_INVALID);
+                            	   	    	   	   	    break;
+                            	   	    	   }
+                            	   	    	   	   
+                            	   	    	   Ext.Msg.alert('failed','bbbb');
+                            	   	    },
+                            	   	    callback:function(p1,p2,p3)
+                            	   	    {
+                            	   	    		Ext.Msg.alert('completed','ccc');
+                            	   	    }
+                            	   	    
+                            	   	});
+                            }
+
+			           	    	}
+			           	    }
+			           	   ],
+			           	   renderTo: Ext.getBody()
+			        });
+      });
+</script>
+<div id='resulttext'></div>
+</body>
+</html>
