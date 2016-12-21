@@ -23,20 +23,20 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.redprairie.moca.MocaArgument;
-import com.redprairie.moca.MocaContext;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.exec.SystemContext;
-import com.redprairie.moca.util.MocaUtils;
+import com.sam.moca.MocaArgument;
+import com.sam.moca.MocaContext;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.MocaResults;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.exec.SystemContext;
+import com.sam.moca.util.MocaUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

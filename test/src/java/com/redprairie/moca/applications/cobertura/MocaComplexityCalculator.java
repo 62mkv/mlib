@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.cobertura;
+package com.sam.moca.applications.cobertura;
 
 import java.util.Collection;
 import java.util.SortedSet;
@@ -33,8 +33,8 @@ import net.sourceforge.cobertura.coveragedata.PackageData;
 import net.sourceforge.cobertura.coveragedata.ProjectData;
 import net.sourceforge.cobertura.coveragedata.SourceFileData;
 
-import com.redprairie.moca.coverage.repository.MocaClassData;
-import com.redprairie.moca.coverage.repository.MocaProjectData;
+import com.sam.moca.coverage.repository.MocaClassData;
+import com.sam.moca.coverage.repository.MocaProjectData;
 
 /**
  * TODO Class Description
@@ -46,7 +46,7 @@ import com.redprairie.moca.coverage.repository.MocaProjectData;
  */
 public class MocaComplexityCalculator implements ComplexityCalculator {
 
-    // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForProject(net.sourceforge.cobertura.coveragedata.ProjectData)
+    // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForProject(net.sourceforge.cobertura.coveragedata.ProjectData)
     @Override
     public double getCCNForProject(ProjectData projectData) {
         if (!(projectData instanceof MocaProjectData)) {
@@ -58,7 +58,7 @@ public class MocaComplexityCalculator implements ComplexityCalculator {
         return findAverage(classDatas);
     }
 
-    // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForPackage(net.sourceforge.cobertura.coveragedata.PackageData)
+    // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForPackage(net.sourceforge.cobertura.coveragedata.PackageData)
     @Override
     public double getCCNForPackage(PackageData packageData) {
         @SuppressWarnings("unchecked")
@@ -66,7 +66,7 @@ public class MocaComplexityCalculator implements ComplexityCalculator {
         return findAverage(classDatas);
     }
 
-    // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForSourceFile(net.sourceforge.cobertura.coveragedata.SourceFileData)
+    // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForSourceFile(net.sourceforge.cobertura.coveragedata.SourceFileData)
     @Override
     public double getCCNForSourceFile(SourceFileData sourceFile) {
         @SuppressWarnings("unchecked")
@@ -74,7 +74,7 @@ public class MocaComplexityCalculator implements ComplexityCalculator {
         return findAverage(classDatas);
     }
 
-    // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForClass(net.sourceforge.cobertura.coveragedata.ClassData)
+    // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForClass(net.sourceforge.cobertura.coveragedata.ClassData)
     @Override
     public double getCCNForClass(ClassData classData) {
         if (!(classData instanceof MocaClassData)) {

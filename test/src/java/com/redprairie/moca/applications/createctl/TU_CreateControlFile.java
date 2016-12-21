@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.createctl;
+package com.sam.moca.applications.createctl;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +32,8 @@ import java.util.Map;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.applications.msql.Msql;
+import com.sam.moca.MocaException;
+import com.sam.moca.applications.msql.Msql;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -50,7 +50,7 @@ import static org.junit.Assert.assertTrue;
 public class TU_CreateControlFile {
 
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -80,7 +80,7 @@ public class TU_CreateControlFile {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -114,7 +114,7 @@ public class TU_CreateControlFile {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -158,7 +158,7 @@ public class TU_CreateControlFile {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#loadControlFiles(java.io.File, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -203,7 +203,7 @@ public class TU_CreateControlFile {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -233,7 +233,7 @@ public class TU_CreateControlFile {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -267,7 +267,7 @@ public class TU_CreateControlFile {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -311,7 +311,7 @@ public class TU_CreateControlFile {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */
@@ -360,7 +360,7 @@ public class TU_CreateControlFile {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
+     * Test method for {@link com.sam.moca.applications.createctl.CreateControlFile#unloadControlFiles(java.io.File, java.lang.String, boolean, java.lang.String[])}.
      * @throws IOException 
      * @throws MocaException 
      */

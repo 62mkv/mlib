@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -38,13 +38,13 @@ import java.util.concurrent.Executors;
 
 import junit.framework.TestCase;
 
-import com.redprairie.moca.MocaArgument;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaInterruptedException;
-import com.redprairie.moca.MocaOperator;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.MocaType;
-import com.redprairie.moca.NotFoundException;
+import com.sam.moca.MocaArgument;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaInterruptedException;
+import com.sam.moca.MocaOperator;
+import com.sam.moca.MocaResults;
+import com.sam.moca.MocaType;
+import com.sam.moca.NotFoundException;
 
 /**
  * Unit tests for ComponentAdapter
@@ -168,7 +168,7 @@ public abstract class TU_AbstractConnection extends TestCase {
             conn.executeCommand("publish data where x='hello' and y = 200 and z = 3.14159 >> res | " +
                                 "[[" +
                                 "    while (res.next()) res.removeRow();" +
-                                "    throw new com.redprairie.moca.NotFoundException(-1403, res)" +
+                                "    throw new com.sam.moca.NotFoundException(-1403, res)" +
                                 "]]");
             fail("Expected NotFoundException");
         }

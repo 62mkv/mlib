@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager.simulator;
+package com.sam.moca.cluster.manager.simulator;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,17 +36,17 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaInterruptedException;
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.MocaRuntimeException;
-import com.redprairie.moca.client.ConnectionUtils;
-import com.redprairie.moca.client.LoginFailedException;
-import com.redprairie.moca.client.MocaConnection;
-import com.redprairie.moca.cluster.jgroups.JGroupsChannelFactory;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.util.ArgCheck;
-import com.redprairie.util.ProcessWatcher;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaInterruptedException;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.MocaRuntimeException;
+import com.sam.moca.client.ConnectionUtils;
+import com.sam.moca.client.LoginFailedException;
+import com.sam.moca.client.MocaConnection;
+import com.sam.moca.cluster.jgroups.JGroupsChannelFactory;
+import com.sam.moca.server.ServerUtils;
+import com.sam.util.ArgCheck;
+import com.sam.util.ProcessWatcher;
 
 /**
  * 

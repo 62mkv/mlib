@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,11 +31,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-import com.redprairie.moca.cluster.manager.simulator.ClusterManager;
-import com.redprairie.moca.cluster.manager.simulator.ClusterNode;
-import com.redprairie.moca.cluster.manager.simulator.ClusterState;
-import com.redprairie.moca.cluster.manager.simulator.ClusterTestUtils;
-import com.redprairie.moca.cluster.manager.simulator.NodeConfiguration;
+import com.sam.moca.cluster.manager.simulator.ClusterManager;
+import com.sam.moca.cluster.manager.simulator.ClusterNode;
+import com.sam.moca.cluster.manager.simulator.ClusterState;
+import com.sam.moca.cluster.manager.simulator.ClusterTestUtils;
+import com.sam.moca.cluster.manager.simulator.NodeConfiguration;
 
 import static org.junit.Assert.*;
 

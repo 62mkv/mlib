@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.jgroups;
+package com.sam.moca.cluster.jgroups;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -31,10 +31,10 @@ import java.io.StringReader;
 import org.junit.Test;
 
 import com.google.common.base.Joiner;
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.exec.SystemContext;
-import com.redprairie.moca.server.registry.RegistryReader;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.exec.SystemContext;
+import com.sam.moca.server.registry.RegistryReader;
 
 import static org.junit.Assert.assertTrue;
 

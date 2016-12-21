@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.msql;
+package com.sam.moca.applications.msql;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,13 +39,13 @@ import java.util.List;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
-import com.redprairie.moca.EditableResults;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaType;
-import com.redprairie.moca.NotFoundException;
-import com.redprairie.moca.applications.msql.MsqlEventHandler.TraceType;
-import com.redprairie.moca.client.MocaConnection;
-import com.redprairie.moca.util.AbstractMocaTestCase;
+import com.sam.moca.EditableResults;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaType;
+import com.sam.moca.NotFoundException;
+import com.sam.moca.applications.msql.MsqlEventHandler.TraceType;
+import com.sam.moca.client.MocaConnection;
+import com.sam.moca.util.AbstractMocaTestCase;
 
 /**
  * This test class is to test the various behaviors of msql.

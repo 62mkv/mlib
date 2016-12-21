@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.async;
+package com.sam.moca.async;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,19 +49,19 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import com.redprairie.moca.AsynchronousExecutor.AsynchronousExecutorCallback;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaInterruptedException;
-import com.redprairie.moca.advice.ServerContextConfig;
-import com.redprairie.moca.advice.SessionAdministration;
-import com.redprairie.moca.advice.SessionAdministrationManager;
-import com.redprairie.moca.advice.SessionAdministrationManagerBean;
-import com.redprairie.moca.server.ServerContextFactory;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.exec.RequestContext;
-import com.redprairie.moca.server.exec.ServerContext;
-import com.redprairie.moca.server.exec.SessionContext;
+import com.sam.moca.AsynchronousExecutor.AsynchronousExecutorCallback;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaInterruptedException;
+import com.sam.moca.advice.ServerContextConfig;
+import com.sam.moca.advice.SessionAdministration;
+import com.sam.moca.advice.SessionAdministrationManager;
+import com.sam.moca.advice.SessionAdministrationManagerBean;
+import com.sam.moca.server.ServerContextFactory;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.exec.RequestContext;
+import com.sam.moca.server.exec.ServerContext;
+import com.sam.moca.server.exec.SessionContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -101,7 +101,7 @@ public class TU_MocaAsynchronousExecutor {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.async.MocaAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable)}.
+     * Test method for {@link com.sam.moca.async.MocaAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable)}.
      * @throws ExecutionException 
      * @throws InterruptedException 
      * @throws TimeoutException 
@@ -137,7 +137,7 @@ public class TU_MocaAsynchronousExecutor {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.async.MocaAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable)}.
+     * Test method for {@link com.sam.moca.async.MocaAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable)}.
      * @throws ExecutionException 
      * @throws InterruptedException 
      * @throws TimeoutException 
@@ -182,7 +182,7 @@ public class TU_MocaAsynchronousExecutor {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.async.MocaAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable, com.redprairie.moca.AsynchronousExecutor.AsynchronousExecutorCallback)}.
+     * Test method for {@link com.sam.moca.async.MocaAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable, com.sam.moca.AsynchronousExecutor.AsynchronousExecutorCallback)}.
      * @throws InterruptedException 
      * @throws TimeoutException 
      * @throws MocaException 
@@ -235,7 +235,7 @@ public class TU_MocaAsynchronousExecutor {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.async.MocaAsynchronousExecutor#executeGroupAsynchronously(java.util.concurrent.Callable<V>[])}.
+     * Test method for {@link com.sam.moca.async.MocaAsynchronousExecutor#executeGroupAsynchronously(java.util.concurrent.Callable<V>[])}.
      * @throws InterruptedException 
      * @throws ExecutionException 
      * @throws MocaException 

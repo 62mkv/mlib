@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.preprocessor;
+package com.sam.moca.applications.preprocessor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,8 +34,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.redprairie.moca.server.db.DBType;
-import com.redprairie.moca.util.AbstractMocaTestCase;
+import com.sam.moca.server.db.DBType;
+import com.sam.moca.util.AbstractMocaTestCase;
 
 /**
  * This class is used to test the Moca C Preprocessor

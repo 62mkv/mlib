@@ -24,13 +24,13 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.util.Map;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.server.ServerUtils;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.server.ServerUtils;
 
 /**
  * Unit tests for DirectConnection.

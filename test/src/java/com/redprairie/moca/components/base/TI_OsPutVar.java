@@ -23,13 +23,13 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.components.base;
+package com.sam.moca.components.base;
 
 import org.junit.Test;
 
-import com.redprairie.moca.MocaArgument;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.util.AbstractMocaTestCase;
+import com.sam.moca.MocaArgument;
+import com.sam.moca.MocaException;
+import com.sam.moca.util.AbstractMocaTestCase;
 
 
 /**
