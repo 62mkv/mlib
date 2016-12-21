@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.traceanalyzer;
+package com.sam.moca.applications.traceanalyzer;
 
 import org.junit.Test;
 

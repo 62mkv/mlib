@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -50,11 +50,11 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import com.redprairie.moca.cluster.Node;
-import com.redprairie.moca.cluster.RoleDefinition;
-import com.redprairie.moca.cluster.jgroups.JGroupsLockManager;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.SystemConfigurationException;
+import com.sam.moca.cluster.Node;
+import com.sam.moca.cluster.RoleDefinition;
+import com.sam.moca.cluster.jgroups.JGroupsLockManager;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.SystemConfigurationException;
 
 /**
  * Abstract class to share some common requirements for ClusterRoleManagers

@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications;
+package com.sam.moca.applications;
 
 import java.io.File;
 
@@ -36,13 +36,13 @@ import net.sourceforge.cobertura.util.Header;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.redprairie.moca.applications.cobertura.CoberturaComplexityCalculator;
-import com.redprairie.moca.applications.cobertura.ComplexityCalculator;
-import com.redprairie.moca.applications.cobertura.HTMLReport;
-import com.redprairie.moca.applications.cobertura.MocaComplexityCalculator;
-import com.redprairie.moca.applications.cobertura.SummaryXMLReport;
-import com.redprairie.moca.applications.cobertura.XMLReport;
-import com.redprairie.moca.coverage.repository.MocaProjectData;
+import com.sam.moca.applications.cobertura.CoberturaComplexityCalculator;
+import com.sam.moca.applications.cobertura.ComplexityCalculator;
+import com.sam.moca.applications.cobertura.HTMLReport;
+import com.sam.moca.applications.cobertura.MocaComplexityCalculator;
+import com.sam.moca.applications.cobertura.SummaryXMLReport;
+import com.sam.moca.applications.cobertura.XMLReport;
+import com.sam.moca.coverage.repository.MocaProjectData;
 
 /**
  * TODO Class Description

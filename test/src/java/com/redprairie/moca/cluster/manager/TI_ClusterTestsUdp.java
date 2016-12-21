@@ -23,9 +23,9 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
-import com.redprairie.moca.cluster.manager.simulator.NodeConfiguration;
+import com.sam.moca.cluster.manager.simulator.NodeConfiguration;
 
 /**
  * 
@@ -34,7 +34,7 @@ import com.redprairie.moca.cluster.manager.simulator.NodeConfiguration;
  */
 public class TI_ClusterTestsUdp extends AbstractClusterTests {
 
-    // @see com.redprairie.moca.cluster.manager.TI_ClusterTests#getBaseNodeConfiguration()
+    // @see com.sam.moca.cluster.manager.TI_ClusterTests#getBaseNodeConfiguration()
     @Override
     protected NodeConfiguration getBaseNodeConfiguration() {
         return newNodeConfiguration(RoleManagerType.PREFERRED, clusterName, "", false);

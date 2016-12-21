@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,10 +39,10 @@ import org.mockito.Mockito;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.redprairie.moca.cluster.ClusterRoleAware;
-import com.redprairie.moca.cluster.Node;
-import com.redprairie.moca.cluster.RoleDefinition;
-import com.redprairie.moca.cluster.dao.RoleDefinitionDAO;
+import com.sam.moca.cluster.ClusterRoleAware;
+import com.sam.moca.cluster.Node;
+import com.sam.moca.cluster.RoleDefinition;
+import com.sam.moca.cluster.dao.RoleDefinitionDAO;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;

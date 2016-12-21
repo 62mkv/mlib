@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.advice;
+package com.sam.moca.advice;
 
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -60,41 +60,41 @@ import org.springframework.jmx.MBeanServerNotFoundException;
 
 import com.redprairie.mad.client.MadFactory;
 import com.redprairie.mad.client.MadMetrics;
-import com.redprairie.moca.MocaContext;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaInterruptedException;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.RowIterator;
-import com.redprairie.moca.TooManyRowsException;
-import com.redprairie.moca.client.ProtocolException;
-import com.redprairie.moca.client.XMLResultsDecoder;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.ServerUtils.CurrentValues;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.TestServerUtils;
-import com.redprairie.moca.server.db.BindList;
-import com.redprairie.moca.server.db.BindMode;
-import com.redprairie.moca.server.db.DBAdapter;
-import com.redprairie.moca.server.db.MocaTransaction;
-import com.redprairie.moca.server.dispatch.MessageResolver;
-import com.redprairie.moca.server.exec.ArgumentSource;
-import com.redprairie.moca.server.exec.DefaultServerContextFactory;
-import com.redprairie.moca.server.exec.LocalSessionContext;
-import com.redprairie.moca.server.exec.MocaScriptException;
-import com.redprairie.moca.server.exec.RemoteConnectionFactory;
-import com.redprairie.moca.server.exec.RequestContext;
-import com.redprairie.moca.server.exec.ScriptAdapter;
-import com.redprairie.moca.server.exec.ServerContext;
-import com.redprairie.moca.server.exec.SessionContext;
-import com.redprairie.moca.server.exec.SessionType;
-import com.redprairie.moca.server.legacy.NativeAdapterFactory;
-import com.redprairie.moca.server.legacy.NativeProcessPoolBuilder;
-import com.redprairie.moca.server.profile.CommandPath;
-import com.redprairie.moca.server.profile.CommandUsage;
-import com.redprairie.moca.server.repository.CommandRepository;
-import com.redprairie.moca.server.session.SessionToken;
-import com.redprairie.moca.util.ConcatString;
-import com.redprairie.moca.util.MocaUtils;
+import com.sam.moca.MocaContext;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaInterruptedException;
+import com.sam.moca.MocaResults;
+import com.sam.moca.RowIterator;
+import com.sam.moca.TooManyRowsException;
+import com.sam.moca.client.ProtocolException;
+import com.sam.moca.client.XMLResultsDecoder;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.ServerUtils.CurrentValues;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.TestServerUtils;
+import com.sam.moca.server.db.BindList;
+import com.sam.moca.server.db.BindMode;
+import com.sam.moca.server.db.DBAdapter;
+import com.sam.moca.server.db.MocaTransaction;
+import com.sam.moca.server.dispatch.MessageResolver;
+import com.sam.moca.server.exec.ArgumentSource;
+import com.sam.moca.server.exec.DefaultServerContextFactory;
+import com.sam.moca.server.exec.LocalSessionContext;
+import com.sam.moca.server.exec.MocaScriptException;
+import com.sam.moca.server.exec.RemoteConnectionFactory;
+import com.sam.moca.server.exec.RequestContext;
+import com.sam.moca.server.exec.ScriptAdapter;
+import com.sam.moca.server.exec.ServerContext;
+import com.sam.moca.server.exec.SessionContext;
+import com.sam.moca.server.exec.SessionType;
+import com.sam.moca.server.legacy.NativeAdapterFactory;
+import com.sam.moca.server.legacy.NativeProcessPoolBuilder;
+import com.sam.moca.server.profile.CommandPath;
+import com.sam.moca.server.profile.CommandUsage;
+import com.sam.moca.server.repository.CommandRepository;
+import com.sam.moca.server.session.SessionToken;
+import com.sam.moca.util.ConcatString;
+import com.sam.moca.util.MocaUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -478,12 +478,12 @@ public class TU_ServerContextConfig {
         rowIter.next();
         assertEquals(1, rowIter.getInt("stack_level"));
         assertEquals(
-                "(SCRIPT:  com.redprairie.moca.advice.TU_ServerContextConfig.registerRunning() )", rowIter.getString("stack_command"));
+                "(SCRIPT:  com.sam.moca.advice.TU_ServerContextConfig.registerRunning() )", rowIter.getString("stack_command"));
         
         rowIter.next();
         assertEquals(0, rowIter.getInt("stack_level"));
         assertEquals(
-                "{(SCRIPT:  com.redprairie.moca.advice.TU_ServerContextConfig.registerRunning() ) | go to sleep WHERE time EQ (TYPE: INTEGER, VALUE: 10000)}", rowIter.getString("stack_command"));
+                "{(SCRIPT:  com.sam.moca.advice.TU_ServerContextConfig.registerRunning() ) | go to sleep WHERE time EQ (TYPE: INTEGER, VALUE: 10000)}", rowIter.getString("stack_command"));
     
         thread.join(THREAD_JOIN_TIMEOUT);
     }
@@ -574,12 +574,12 @@ public class TU_ServerContextConfig {
         rowIter.next();
         assertEquals(5, rowIter.getInt("stack_level"));
         assertEquals(
-                "(SCRIPT:  com.redprairie.moca.advice.TU_ServerContextConfig.registerRunning() )", rowIter.getString("stack_command"));
+                "(SCRIPT:  com.sam.moca.advice.TU_ServerContextConfig.registerRunning() )", rowIter.getString("stack_command"));
 
         rowIter.next();
         assertEquals(4, rowIter.getInt("stack_level"));
         assertEquals(
-                "{(SCRIPT:  com.redprairie.moca.advice.TU_ServerContextConfig.registerRunning() ) | go to sleep WHERE time EQ (TYPE: INTEGER, VALUE: 10000)}", rowIter.getString("stack_command"));
+                "{(SCRIPT:  com.sam.moca.advice.TU_ServerContextConfig.registerRunning() ) | go to sleep WHERE time EQ (TYPE: INTEGER, VALUE: 10000)}", rowIter.getString("stack_command"));
         
         // Verify that the levels that aren't in context are empty
         for (int i = 3; i >= 0; --i) {

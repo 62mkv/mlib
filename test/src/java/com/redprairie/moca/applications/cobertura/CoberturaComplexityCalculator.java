@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.cobertura;
+package com.sam.moca.applications.cobertura;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -151,7 +151,7 @@ public class CoberturaComplexityCalculator implements ComplexityCalculator {
                 }
         }
 
-        // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForProject(net.sourceforge.cobertura.coveragedata.ProjectData)
+        // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForProject(net.sourceforge.cobertura.coveragedata.ProjectData)
         
         @Override
         @SuppressWarnings("rawtypes")
@@ -167,7 +167,7 @@ public class CoberturaComplexityCalculator implements ComplexityCalculator {
                 return act.averageCCN();
         }
         
-        // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForPackage(net.sourceforge.cobertura.coveragedata.PackageData)
+        // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForPackage(net.sourceforge.cobertura.coveragedata.PackageData)
         
         @Override
         public double getCCNForPackage(PackageData packageData) {
@@ -195,7 +195,7 @@ public class CoberturaComplexityCalculator implements ComplexityCalculator {
         }
 
         
-        // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForSourceFile(net.sourceforge.cobertura.coveragedata.SourceFileData)
+        // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForSourceFile(net.sourceforge.cobertura.coveragedata.SourceFileData)
         
         @Override
         public double getCCNForSourceFile(SourceFileData sourceFile) {
@@ -221,7 +221,7 @@ public class CoberturaComplexityCalculator implements ComplexityCalculator {
                 return result;
         }
 
-        // @see com.redprairie.moca.applications.cobertura.ComplexityCalculator#getCCNForClass(net.sourceforge.cobertura.coveragedata.ClassData)
+        // @see com.sam.moca.applications.cobertura.ComplexityCalculator#getCCNForClass(net.sourceforge.cobertura.coveragedata.ClassData)
         
         @Override
         public double getCCNForClass(ClassData classData) {

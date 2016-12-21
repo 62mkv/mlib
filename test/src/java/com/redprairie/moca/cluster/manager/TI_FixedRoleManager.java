@@ -23,16 +23,16 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.util.UUID;
 
 import org.junit.Test;
 
-import com.redprairie.moca.cluster.manager.simulator.ClusterManager;
-import com.redprairie.moca.cluster.manager.simulator.ClusterState;
-import com.redprairie.moca.cluster.manager.simulator.NodeConfiguration;
-import com.redprairie.moca.cluster.manager.simulator.NodeState;
+import com.sam.moca.cluster.manager.simulator.ClusterManager;
+import com.sam.moca.cluster.manager.simulator.ClusterState;
+import com.sam.moca.cluster.manager.simulator.NodeConfiguration;
+import com.sam.moca.cluster.manager.simulator.NodeState;
 
 /**
  * Integration tests using Fixed role managers

@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,13 +34,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.MocaRuntimeException;
-import com.redprairie.moca.cluster.manager.simulator.ClusterManager;
-import com.redprairie.moca.cluster.manager.simulator.ClusterTestUtils;
-import com.redprairie.moca.cluster.manager.simulator.NodeConfiguration;
-import com.redprairie.moca.util.AbstractMocaJunit4TestCase;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.MocaRuntimeException;
+import com.sam.moca.cluster.manager.simulator.ClusterManager;
+import com.sam.moca.cluster.manager.simulator.ClusterTestUtils;
+import com.sam.moca.cluster.manager.simulator.NodeConfiguration;
+import com.sam.moca.util.AbstractMocaJunit4TestCase;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

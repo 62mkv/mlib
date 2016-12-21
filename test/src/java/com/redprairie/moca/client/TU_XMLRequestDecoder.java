@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import org.junit.Test;
 

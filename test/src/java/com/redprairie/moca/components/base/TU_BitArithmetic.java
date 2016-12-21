@@ -24,15 +24,15 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.components.base;
+package com.sam.moca.components.base;
 
 import junit.framework.TestCase;
 
-import com.redprairie.moca.MocaContext;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.util.MocaUtils;
+import com.sam.moca.MocaContext;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaResults;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.util.MocaUtils;
 
 /**
  * Unit test for BitArithmetic

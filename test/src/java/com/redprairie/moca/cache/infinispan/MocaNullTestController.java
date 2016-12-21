@@ -23,11 +23,11 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cache.infinispan;
+package com.sam.moca.cache.infinispan;
 
 import java.util.concurrent.ConcurrentMap;
 
-import com.redprairie.moca.cache.CacheController;
+import com.sam.moca.cache.CacheController;
 
 /**
  * A test controller that always returns null.
@@ -39,14 +39,14 @@ import com.redprairie.moca.cache.CacheController;
  */
 public class MocaNullTestController implements CacheController<String,String>{
 
-    // @see com.redprairie.moca.cache.CacheController#loadEntry(java.lang.Object)
+    // @see com.sam.moca.cache.CacheController#loadEntry(java.lang.Object)
     
     @Override
     public String loadEntry(String key) {
         return null;
     }
 
-    // @see com.redprairie.moca.cache.CacheController#loadAll(java.util.concurrent.ConcurrentMap)
+    // @see com.sam.moca.cache.CacheController#loadAll(java.util.concurrent.ConcurrentMap)
     
     @Override
     public void loadAll(ConcurrentMap<String, String> cache) {

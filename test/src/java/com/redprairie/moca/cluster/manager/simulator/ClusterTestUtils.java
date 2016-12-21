@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager.simulator;
+package com.sam.moca.cluster.manager.simulator;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -45,10 +45,10 @@ import com.google.common.collect.MapDifference.ValueDifference;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaInterruptedException;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.util.ArgCheck;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaInterruptedException;
+import com.sam.moca.MocaResults;
+import com.sam.util.ArgCheck;
 
 import static org.junit.Assert.*;
 
@@ -655,7 +655,7 @@ public final class ClusterTestUtils {
         final MocaResults r = node.getConnection().executeCommand("[[\r\n" + 
             "  import javax.management.ObjectName;\r\n" + 
             "  import java.lang.management.ManagementFactory;\r\n" + 
-            "  def objName = new ObjectName(\"com.redprairie.moca.cache.cluster:type=CacheManager,name=\\\"MOCA-Distributed Cache\\\",component=CacheManager\")\r\n" + 
+            "  def objName = new ObjectName(\"com.sam.moca.cache.cluster:type=CacheManager,name=\\\"MOCA-Distributed Cache\\\",component=CacheManager\")\r\n" + 
             "  return ManagementFactory.getPlatformMBeanServer().getAttribute(objName, \"clusterMembers\")\r\n" + 
             "]]");
         
@@ -787,24 +787,24 @@ public final class ClusterTestUtils {
     private static final String CACHENAME_MARK = "@CACHENAME";
     private static final String INSERT_INTO_CACHE_COMMAND = "[[\r\n" +
             "import org.infinispan.manager.EmbeddedCacheManager;\r\n" + 
-            "import com.redprairie.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
-            "import com.redprairie.moca.server.ServerUtils;\r\n" + 
+            "import com.sam.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
+            "import com.sam.moca.server.ServerUtils;\r\n" + 
             "import org.infinispan.Cache;\r\n" + 
             "Cache<Object, Object> cache = InfinispanCacheProvider.getInfinispanCacheManager(ServerUtils.globalContext()).getCache(\"" + CACHENAME_MARK + "\");\r\n" + 
             "cache.put(\"" + KEY_MARK + "\", \"" + VALUE_MARK + "\");\r\n" +
         "]]";
     private static final String REMOVE_FROM_CACHE_COMMAND = "[[\r\n" +
             "import org.infinispan.manager.EmbeddedCacheManager;\r\n" + 
-            "import com.redprairie.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
-            "import com.redprairie.moca.server.ServerUtils;\r\n" + 
+            "import com.sam.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
+            "import com.sam.moca.server.ServerUtils;\r\n" + 
             "import org.infinispan.Cache;\r\n" + 
             "Cache<Object, Object> cache = InfinispanCacheProvider.getInfinispanCacheManager(ServerUtils.globalContext()).getCache(\"" + CACHENAME_MARK + "\");\r\n" + 
             "cache.remove(\"" + KEY_MARK + "\");\r\n" +
         "]]";
     private static final String GET_FROM_CACHE_COMMAND = "[[\r\n" +
             "import org.infinispan.manager.EmbeddedCacheManager;\r\n" + 
-            "import com.redprairie.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
-            "import com.redprairie.moca.server.ServerUtils;\r\n" + 
+            "import com.sam.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
+            "import com.sam.moca.server.ServerUtils;\r\n" + 
             "import org.infinispan.Cache;\r\n" +
             "final String RETURN_COLUMN = \"result\";\r\n" + 
             "final Cache<Object, Object> cache = InfinispanCacheProvider.getInfinispanCacheManager(ServerUtils.globalContext()).getCache(\"" + CACHENAME_MARK + "\");\r\n" + 
@@ -816,8 +816,8 @@ public final class ClusterTestUtils {
         "]]";
     private static final String CLEAR_CACHE_COMMAND = "[[\r\n" +
             "import org.infinispan.manager.EmbeddedCacheManager;\r\n" + 
-            "import com.redprairie.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
-            "import com.redprairie.moca.server.ServerUtils;\r\n" + 
+            "import com.sam.moca.cache.infinispan.InfinispanCacheProvider;\r\n" + 
+            "import com.sam.moca.server.ServerUtils;\r\n" + 
             "import java.util.HashMap;\r\n" + 
             "import org.infinispan.Cache;\r\n" +
             "Cache<Object, Object> cache = InfinispanCacheProvider.getInfinispanCacheManager(ServerUtils.globalContext()).getCache(\"" + CACHENAME_MARK + "\");\r\n" + 

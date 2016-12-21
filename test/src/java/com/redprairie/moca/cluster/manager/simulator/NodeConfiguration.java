@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager.simulator;
+package com.sam.moca.cluster.manager.simulator;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -31,7 +31,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.redprairie.util.ArgCheck;
+import com.sam.util.ArgCheck;
 
 import static org.junit.Assert.*;
 

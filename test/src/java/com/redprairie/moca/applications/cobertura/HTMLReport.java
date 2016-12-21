@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.cobertura;
+package com.sam.moca.applications.cobertura;
 
 import org.apache.logging.log4j.LogManager;
 import java.io.BufferedReader;
@@ -59,8 +59,8 @@ import net.sourceforge.cobertura.util.StringUtil;
 
 import org.apache.logging.log4j.Logger;
 
-import com.redprairie.moca.coverage.repository.MocaClassData;
-import com.redprairie.moca.coverage.repository.MocaClassData.ClassType;
+import com.sam.moca.coverage.repository.MocaClassData;
+import com.sam.moca.coverage.repository.MocaClassData.ClassType;
 
 /**
  * This is an html report copied from cobertura but customized to have

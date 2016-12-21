@@ -24,11 +24,11 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.components.base;
+package com.sam.moca.components.base;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.util.AbstractMocaTestCase;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaResults;
+import com.sam.moca.util.AbstractMocaTestCase;
 
 /**
  * This class is to test the components that deal with base 64 encoding

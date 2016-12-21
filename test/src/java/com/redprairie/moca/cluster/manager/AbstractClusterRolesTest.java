@@ -23,10 +23,10 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
-import com.redprairie.moca.MocaArgument;
-import com.redprairie.moca.MocaException;
+import com.sam.moca.MocaArgument;
+import com.sam.moca.MocaException;
 
 
 /**

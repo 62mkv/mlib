@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
@@ -37,12 +37,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.redprairie.moca.MocaArgument;
-import com.redprairie.moca.MocaOperator;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.MocaType;
-import com.redprairie.moca.SimpleResults;
-import com.redprairie.moca.util.MocaUtils;
+import com.sam.moca.MocaArgument;
+import com.sam.moca.MocaOperator;
+import com.sam.moca.MocaResults;
+import com.sam.moca.MocaType;
+import com.sam.moca.SimpleResults;
+import com.sam.moca.util.MocaUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -64,7 +64,7 @@ import static org.junit.Assert.assertTrue;
 public class TU_XMLRequestEncoder {
 
     /**
-     * Test method for {@link com.redprairie.moca.client.XMLRequestEncoder#encodeRequest(java.lang.String, java.lang.String, java.lang.String, boolean, com.redprairie.moca.MocaArgument[], com.redprairie.moca.MocaArgument[], java.lang.Appendable)}.
+     * Test method for {@link com.sam.moca.client.XMLRequestEncoder#encodeRequest(java.lang.String, java.lang.String, java.lang.String, boolean, com.sam.moca.MocaArgument[], com.sam.moca.MocaArgument[], java.lang.Appendable)}.
      */
     @Test
     public void testEncodeSimpleRequest() throws Exception {
@@ -74,7 +74,7 @@ public class TU_XMLRequestEncoder {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.client.XMLRequestEncoder#buildXMLEnvironmentString(java.util.Map)}.
+     * Test method for {@link com.sam.moca.client.XMLRequestEncoder#buildXMLEnvironmentString(java.util.Map)}.
      */
     @Test
     public void testEncodeDecodeComplexRequest() throws Exception {
@@ -122,7 +122,7 @@ public class TU_XMLRequestEncoder {
     }
     
     /**
-     * Test method for {@link com.redprairie.moca.client.XMLRequestEncoder#buildXMLEnvironmentString(java.util.Map)}.
+     * Test method for {@link com.sam.moca.client.XMLRequestEncoder#buildXMLEnvironmentString(java.util.Map)}.
      */
     @Test
     public void testEncodeDecodeResultRequest() throws Exception {

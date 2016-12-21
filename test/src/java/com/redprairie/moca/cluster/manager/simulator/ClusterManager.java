@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager.simulator;
+package com.sam.moca.cluster.manager.simulator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +34,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 
-import com.redprairie.moca.MocaInterruptedException;
-import com.redprairie.moca.cluster.manager.AbstractClusterManagerTest;
+import com.sam.moca.MocaInterruptedException;
+import com.sam.moca.cluster.manager.AbstractClusterManagerTest;
 
 import static org.junit.Assert.*;
 

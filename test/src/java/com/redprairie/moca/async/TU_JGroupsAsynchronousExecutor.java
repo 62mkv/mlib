@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.async;
+package com.sam.moca.async;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
@@ -43,8 +43,8 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import com.redprairie.moca.AsynchronousExecutor.AsynchronousExecutorCallback;
-import com.redprairie.moca.cluster.jgroups.MocaExecutionService;
+import com.sam.moca.AsynchronousExecutor.AsynchronousExecutorCallback;
+import com.sam.moca.cluster.jgroups.MocaExecutionService;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -61,7 +61,7 @@ import static org.junit.Assert.fail;
 public class TU_JGroupsAsynchronousExecutor {
     
     /**
-     * Test method for {@link com.redprairie.moca.async.JGroupsAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable)}.
+     * Test method for {@link com.sam.moca.async.JGroupsAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable)}.
      * @throws InterruptedException 
      * @throws ExecutionException 
      * @throws TimeoutException 
@@ -137,7 +137,7 @@ public class TU_JGroupsAsynchronousExecutor {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.async.JGroupsAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable, com.redprairie.moca.AsynchronousExecutor.AsynchronousExecutorCallback)}.
+     * Test method for {@link com.sam.moca.async.JGroupsAsynchronousExecutor#executeAsynchronously(java.util.concurrent.Callable, com.sam.moca.AsynchronousExecutor.AsynchronousExecutorCallback)}.
      * @throws InterruptedException 
      * @throws ExecutionException 
      * @throws TimeoutException 
@@ -217,7 +217,7 @@ public class TU_JGroupsAsynchronousExecutor {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.async.JGroupsAsynchronousExecutor#executeGroupAsynchronously(java.util.concurrent.Callable<V>[])}.
+     * Test method for {@link com.sam.moca.async.JGroupsAsynchronousExecutor#executeGroupAsynchronously(java.util.concurrent.Callable<V>[])}.
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
@@ -296,7 +296,7 @@ public class TU_JGroupsAsynchronousExecutor {
     }
 
     /**
-     * Test method for {@link com.redprairie.moca.async.JGroupsAsynchronousExecutor#executeGroupAsynchronously(java.util.concurrent.Callable<V>[])}.
+     * Test method for {@link com.sam.moca.async.JGroupsAsynchronousExecutor#executeGroupAsynchronously(java.util.concurrent.Callable<V>[])}.
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test

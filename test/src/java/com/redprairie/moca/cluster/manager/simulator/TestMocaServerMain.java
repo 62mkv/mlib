@@ -23,15 +23,15 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager.simulator;
+package com.sam.moca.cluster.manager.simulator;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.management.MalformedObjectNameException;
 
-import com.redprairie.moca.server.MocaServerMain;
-import com.redprairie.moca.server.MocaServiceFunctions;
+import com.sam.moca.server.MocaServerMain;
+import com.sam.moca.server.MocaServiceFunctions;
 
 /**
  * 

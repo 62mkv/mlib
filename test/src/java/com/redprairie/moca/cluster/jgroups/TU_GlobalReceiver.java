@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.jgroups;
+package com.sam.moca.cluster.jgroups;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +34,10 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import com.redprairie.moca.cluster.MocaClusterMembershipListener;
-import com.redprairie.moca.cluster.Node;
-import com.redprairie.moca.cluster.infinispan.GlobalListener;
-import com.redprairie.moca.cluster.infinispan.InfinispanNode;
+import com.sam.moca.cluster.MocaClusterMembershipListener;
+import com.sam.moca.cluster.Node;
+import com.sam.moca.cluster.infinispan.GlobalListener;
+import com.sam.moca.cluster.infinispan.InfinispanNode;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

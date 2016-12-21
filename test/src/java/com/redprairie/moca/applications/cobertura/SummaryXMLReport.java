@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications.cobertura;
+package com.sam.moca.applications.cobertura;
 
 import java.io.File;
 import java.io.IOException;
