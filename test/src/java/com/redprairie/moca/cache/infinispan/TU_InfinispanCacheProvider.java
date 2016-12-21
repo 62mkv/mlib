@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cache.infinispan;
+package com.sam.moca.cache.infinispan;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -61,16 +61,16 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.advice.SessionAdministrationManager;
-import com.redprairie.moca.advice.SessionAdministrationManagerBean;
-import com.redprairie.moca.cache.infinispan.loaders.MocaCacheStore;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.TestServerUtils;
-import com.redprairie.moca.server.TransactionManagerUtils;
-import com.redprairie.moca.server.exec.SystemContext;
-import com.redprairie.moca.util.MocaUtils;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.advice.SessionAdministrationManager;
+import com.sam.moca.advice.SessionAdministrationManagerBean;
+import com.sam.moca.cache.infinispan.loaders.MocaCacheStore;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.TestServerUtils;
+import com.sam.moca.server.TransactionManagerUtils;
+import com.sam.moca.server.exec.SystemContext;
+import com.sam.moca.util.MocaUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

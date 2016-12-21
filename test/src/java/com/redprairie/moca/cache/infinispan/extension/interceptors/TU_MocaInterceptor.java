@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cache.infinispan.extension.interceptors;
+package com.sam.moca.cache.infinispan.extension.interceptors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,13 +44,13 @@ import org.infinispan.remoting.transport.Address;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.redprairie.moca.cache.infinispan.extension.MocaVisitor;
-import com.redprairie.moca.cache.infinispan.extension.commands.visitable.ClusterRequestRuntimeException;
-import com.redprairie.moca.cache.infinispan.extension.commands.visitable.GetNodeUrlsCommand;
-import com.redprairie.moca.cache.infinispan.extension.commands.visitable.NodeResponse;
-import com.redprairie.moca.cache.infinispan.extension.commands.visitable.NodeSpecificCommand;
-import com.redprairie.moca.cache.infinispan.extension.commands.visitable.ScheduleJobsCommand;
-import com.redprairie.moca.cluster.infinispan.InfinispanNode;
+import com.sam.moca.cache.infinispan.extension.MocaVisitor;
+import com.sam.moca.cache.infinispan.extension.commands.visitable.ClusterRequestRuntimeException;
+import com.sam.moca.cache.infinispan.extension.commands.visitable.GetNodeUrlsCommand;
+import com.sam.moca.cache.infinispan.extension.commands.visitable.NodeResponse;
+import com.sam.moca.cache.infinispan.extension.commands.visitable.NodeSpecificCommand;
+import com.sam.moca.cache.infinispan.extension.commands.visitable.ScheduleJobsCommand;
+import com.sam.moca.cluster.infinispan.InfinispanNode;
 
 import static org.junit.Assert.*;
 

@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.alerts;
+package com.sam.moca.alerts;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,10 +35,10 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.alerts.util.AlertUtils;
-import com.redprairie.moca.components.ems.AlertReader;
-import com.redprairie.moca.util.AbstractMocaTestCase;
+import com.sam.moca.MocaException;
+import com.sam.moca.alerts.util.AlertUtils;
+import com.sam.moca.components.ems.AlertReader;
+import com.sam.moca.util.AbstractMocaTestCase;
 
 /**
  * Unit test for EMS Alerts

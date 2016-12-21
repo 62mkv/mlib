@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,11 +36,11 @@ import java.util.concurrent.TimeUnit;
 import org.infinispan.Cache;
 import org.junit.Test;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.cache.infinispan.InfinispanCacheProvider;
-import com.redprairie.moca.cluster.manager.simulator.ClusterManager;
-import com.redprairie.moca.cluster.manager.simulator.ClusterNode;
-import com.redprairie.moca.server.ServerUtils;
+import com.sam.moca.MocaException;
+import com.sam.moca.cache.infinispan.InfinispanCacheProvider;
+import com.sam.moca.cluster.manager.simulator.ClusterManager;
+import com.sam.moca.cluster.manager.simulator.ClusterNode;
+import com.sam.moca.server.ServerUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

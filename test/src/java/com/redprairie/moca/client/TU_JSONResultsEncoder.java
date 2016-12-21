@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.io.PipedReader;
 import java.io.PipedWriter;
@@ -38,10 +38,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.redprairie.moca.EditableResults;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.MocaType;
-import com.redprairie.moca.SimpleResults;
+import com.sam.moca.EditableResults;
+import com.sam.moca.MocaResults;
+import com.sam.moca.MocaType;
+import com.sam.moca.SimpleResults;
 
 
 /**
@@ -54,7 +54,7 @@ import com.redprairie.moca.SimpleResults;
  */
 public class TU_JSONResultsEncoder extends TU_AbstractResultsEncoder {
 
-    // @see com.redprairie.moca.client.TU_AbstractResultsEncoder#_makeCopy(com.redprairie.moca.MocaResults)
+    // @see com.sam.moca.client.TU_AbstractResultsEncoder#_makeCopy(com.sam.moca.MocaResults)
     @Override
     protected MocaResults _makeCopy(MocaResults res) throws Exception {
         PipedWriter sink = new PipedWriter();

@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cache;
+package com.sam.moca.cache;
 
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -33,12 +33,12 @@ import java.util.concurrent.ConcurrentMap;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.TestServerUtils;
-import com.redprairie.moca.server.exec.SystemContext;
-import com.redprairie.moca.server.registry.RegistryReader;
-import com.redprairie.moca.util.AbstractMocaTestCase;
+import com.sam.moca.MocaException;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.TestServerUtils;
+import com.sam.moca.server.exec.SystemContext;
+import com.sam.moca.server.registry.RegistryReader;
+import com.sam.moca.util.AbstractMocaTestCase;
 
 /**
  * Unit test for Cache Manager
@@ -107,7 +107,7 @@ public class TU_CacheManager extends AbstractMocaTestCase{
 //    
 
 //    private static class TestNullCacheController extends BaseCacheController<String,String> {
-//        // @see com.redprairie.moca.cache.BaseCacheController#loadEntry(java.lang.Object)
+//        // @see com.sam.moca.cache.BaseCacheController#loadEntry(java.lang.Object)
 //        
 //        @Override
 //        public String loadEntry(String key) {

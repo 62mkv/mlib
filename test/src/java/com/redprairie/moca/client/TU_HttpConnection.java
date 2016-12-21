@@ -24,16 +24,16 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.util.Map;
 
 import org.junit.Test;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.exec.SystemContext;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.exec.SystemContext;
 
 /**
  * Unit tests for HttpConnection.
@@ -48,7 +48,7 @@ import com.redprairie.moca.server.exec.SystemContext;
  */
 public class TU_HttpConnection extends TU_AbstractConnection {
     
-    // @see com.redprairie.moca.client.TU_AbstractConnection#_getConnection(java.util.Map)
+    // @see com.sam.moca.client.TU_AbstractConnection#_getConnection(java.util.Map)
     @Override
     protected MocaConnection _getConnection(String host, Map<String, String> env) throws MocaException {
         SystemContext ctx = ServerUtils.globalContext();

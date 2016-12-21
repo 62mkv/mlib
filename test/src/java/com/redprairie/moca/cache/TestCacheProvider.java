@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cache;
+package com.sam.moca.cache;
 
 import java.util.Collection;
 import java.util.Map;
@@ -157,7 +157,7 @@ public class TestCacheProvider implements MocaCacheProvider {
         
     }
 
-    // @see com.redprairie.moca.cache.CacheProvider#createCache(java.lang.String, java.util.Map, com.redprairie.moca.cache.CacheController)
+    // @see com.sam.moca.cache.CacheProvider#createCache(java.lang.String, java.util.Map, com.sam.moca.cache.CacheController)
     @Override
     public <K, V> ConcurrentMap<K, V> createCache(String name,
                                                   Map<String, String> params,

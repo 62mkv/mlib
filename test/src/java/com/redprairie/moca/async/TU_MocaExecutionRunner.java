@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.async;
+package com.sam.moca.async;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
@@ -49,9 +49,9 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import com.redprairie.moca.server.ServerContextFactory;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.SystemConfigurationException;
+import com.sam.moca.server.ServerContextFactory;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.SystemConfigurationException;
 
 import static org.junit.Assert.assertEquals;
 

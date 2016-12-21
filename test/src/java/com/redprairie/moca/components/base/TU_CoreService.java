@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.components.base;
+package com.sam.moca.components.base;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,17 +37,17 @@ import org.junit.Test;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
-import com.redprairie.moca.EditableResults;
-import com.redprairie.moca.MocaArgument;
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.MocaType;
-import com.redprairie.moca.NotFoundException;
-import com.redprairie.moca.RequiredArgumentException;
-import com.redprairie.moca.RowIterator;
-import com.redprairie.moca.SimpleResults;
-import com.redprairie.moca.util.AbstractMocaTestCase;
-import com.redprairie.moca.util.test.FileCreationTestUtility;
+import com.sam.moca.EditableResults;
+import com.sam.moca.MocaArgument;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaResults;
+import com.sam.moca.MocaType;
+import com.sam.moca.NotFoundException;
+import com.sam.moca.RequiredArgumentException;
+import com.sam.moca.RowIterator;
+import com.sam.moca.SimpleResults;
+import com.sam.moca.util.AbstractMocaTestCase;
+import com.sam.moca.util.test.FileCreationTestUtility;
 
 /**
  * Unit test for CoreService
@@ -1688,7 +1688,7 @@ public class TU_CoreService extends AbstractMocaTestCase {
         assertEquals("MOCAbase", rowIter.getString("category"));
         assertEquals("MOCAbase", rowIter.getString("library_name"));
         assertEquals("Java", rowIter.getString("library_type"));
-        assertEquals("com.redprairie.moca.components.base", rowIter.getString(
+        assertEquals("com.sam.moca.components.base", rowIter.getString(
                 "package_name"));
         assertEquals("moca", rowIter.getString("product"));
         assertFalse("We should have only gotten 1 row", rowIter.next());

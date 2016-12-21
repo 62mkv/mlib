@@ -23,16 +23,16 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.cluster.manager.simulator.ClusterManager;
-import com.redprairie.moca.cluster.manager.simulator.ClusterNode;
-import com.redprairie.moca.cluster.manager.simulator.NodeConfiguration;
+import com.sam.moca.MocaException;
+import com.sam.moca.cluster.manager.simulator.ClusterManager;
+import com.sam.moca.cluster.manager.simulator.ClusterNode;
+import com.sam.moca.cluster.manager.simulator.NodeConfiguration;
 
 import org.junit.Test;
 

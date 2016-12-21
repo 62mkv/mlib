@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -34,7 +34,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import com.redprairie.moca.MocaResults;
+import com.sam.moca.MocaResults;
 
 /**
  * Tests that ResultsEncoder and ResultsDecoder work together in all legal

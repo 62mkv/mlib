@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -33,11 +33,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.redprairie.moca.MocaArgument;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.MocaType;
-import com.redprairie.moca.RowIterator;
-import com.redprairie.moca.SimpleResults;
+import com.sam.moca.MocaArgument;
+import com.sam.moca.MocaResults;
+import com.sam.moca.MocaType;
+import com.sam.moca.RowIterator;
+import com.sam.moca.SimpleResults;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

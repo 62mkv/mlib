@@ -24,12 +24,12 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import com.redprairie.moca.MocaResults;
+import com.sam.moca.MocaResults;
 
 /**
  * Tests that ResultsEncoder and ResultsDecoder work together in all legal

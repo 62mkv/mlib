@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager.simulator;
+package com.sam.moca.cluster.manager.simulator;
 
 import java.util.Arrays;
 import java.util.Collections;

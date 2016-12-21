@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.applications;
+package com.sam.moca.applications;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -31,22 +31,22 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 
-import com.redprairie.moca.MocaRegistry;
-import com.redprairie.moca.coverage.repository.CoberturaCommandRepository;
-import com.redprairie.moca.coverage.repository.MocaProjectData;
-import com.redprairie.moca.coverage.repository.XmlCoverageRepositoryFileReader;
-import com.redprairie.moca.server.ServerUtils;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.exec.SystemContext;
-import com.redprairie.moca.server.log.LoggingConfigurator;
-import com.redprairie.moca.server.repository.CommandRepository;
-import com.redprairie.moca.server.repository.ComponentLibraryFilter;
-import com.redprairie.moca.server.repository.RegularExpressionComponentLibraryNameFilter;
-import com.redprairie.moca.server.repository.file.Mbuild;
-import com.redprairie.moca.server.repository.file.Mbuild.MbuildLogger;
-import com.redprairie.moca.util.AppUtils;
-import com.redprairie.moca.util.Options;
-import com.redprairie.moca.util.OptionsException;
+import com.sam.moca.MocaRegistry;
+import com.sam.moca.coverage.repository.CoberturaCommandRepository;
+import com.sam.moca.coverage.repository.MocaProjectData;
+import com.sam.moca.coverage.repository.XmlCoverageRepositoryFileReader;
+import com.sam.moca.server.ServerUtils;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.exec.SystemContext;
+import com.sam.moca.server.log.LoggingConfigurator;
+import com.sam.moca.server.repository.CommandRepository;
+import com.sam.moca.server.repository.ComponentLibraryFilter;
+import com.sam.moca.server.repository.RegularExpressionComponentLibraryNameFilter;
+import com.sam.moca.server.repository.file.Mbuild;
+import com.sam.moca.server.repository.file.Mbuild.MbuildLogger;
+import com.sam.moca.util.AppUtils;
+import com.sam.moca.util.Options;
+import com.sam.moca.util.OptionsException;
 
 /**
  * This is the mainline for mbuild coverage.

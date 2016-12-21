@@ -23,11 +23,11 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cache.infinispan;
+package com.sam.moca.cache.infinispan;
 
 import java.util.concurrent.ConcurrentMap;
 
-import com.redprairie.moca.cache.CacheController;
+import com.sam.moca.cache.CacheController;
 
 /**
  * A test controller that returns bar if given foo, otherwise 'blah'
@@ -39,7 +39,7 @@ import com.redprairie.moca.cache.CacheController;
  */
 public class MocaTestController implements CacheController<String,String>{
 
-    // @see com.redprairie.moca.cache.CacheController#loadEntry(java.lang.Object)
+    // @see com.sam.moca.cache.CacheController#loadEntry(java.lang.Object)
     public String _key = "foo";
     public String _value = "bar";
     
@@ -49,7 +49,7 @@ public class MocaTestController implements CacheController<String,String>{
         return key.equals(_key) ? _value : "blah";
     }
 
-    // @see com.redprairie.moca.cache.CacheController#loadAll(java.util.concurrent.ConcurrentMap)
+    // @see com.sam.moca.cache.CacheController#loadAll(java.util.concurrent.ConcurrentMap)
     
     @Override
     public void loadAll(ConcurrentMap<String, String> cache) {

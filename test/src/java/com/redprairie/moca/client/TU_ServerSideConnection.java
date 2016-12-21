@@ -24,12 +24,12 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.util.Map;
 
-import com.redprairie.moca.MocaException;
-import com.redprairie.moca.server.ServerUtils;
+import com.sam.moca.MocaException;
+import com.sam.moca.server.ServerUtils;
 
 /**
  * Unit tests for DirectConnection.
@@ -56,7 +56,7 @@ public class TU_ServerSideConnection extends TU_AbstractConnection {
        // Server side connections don't support timeout.
     }
     
-    // @see com.redprairie.moca.client.TU_AbstractConnection#_getConnection(java.util.Map)
+    // @see com.sam.moca.client.TU_AbstractConnection#_getConnection(java.util.Map)
     @Override
     protected MocaConnection _getConnection(String host, Map<String, String> env) throws MocaException {
         return _getConnection(env);

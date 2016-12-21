@@ -23,7 +23,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.cluster.manager;
+package com.sam.moca.cluster.manager;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -39,11 +39,11 @@ import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
 
 import com.google.common.base.Joiner;
-import com.redprairie.moca.MocaRuntimeException;
-import com.redprairie.moca.cluster.jgroups.JGroupsChannelFactory;
-import com.redprairie.moca.server.SystemConfigurationException;
-import com.redprairie.moca.server.exec.SystemContext;
-import com.redprairie.moca.server.registry.RegistryReader;
+import com.sam.moca.MocaRuntimeException;
+import com.sam.moca.cluster.jgroups.JGroupsChannelFactory;
+import com.sam.moca.server.SystemConfigurationException;
+import com.sam.moca.server.exec.SystemContext;
+import com.sam.moca.server.registry.RegistryReader;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

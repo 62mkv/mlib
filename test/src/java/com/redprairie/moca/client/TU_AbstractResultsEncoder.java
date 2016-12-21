@@ -24,7 +24,7 @@
  *  $Copyright-End$
  */
 
-package com.redprairie.moca.client;
+package com.sam.moca.client;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -33,10 +33,10 @@ import java.util.Random;
 
 import junit.framework.TestCase;
 
-import com.redprairie.moca.EditableResults;
-import com.redprairie.moca.MocaResults;
-import com.redprairie.moca.MocaType;
-import com.redprairie.moca.SimpleResults;
+import com.sam.moca.EditableResults;
+import com.sam.moca.MocaResults;
+import com.sam.moca.MocaType;
+import com.sam.moca.SimpleResults;
 
 /**
  * Tests that ResultsEncoder and ResultsDecoder work together in all legal
