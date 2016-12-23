@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration packages="com.redprairie.moca.server.log" monitorInterval="30">
+<configuration packages="com.sam.moca.server.log" monitorInterval="30">
   <appenders>
     <Console name="Console" target="SYSTEM_OUT">
       <!-- %T is a custom pattern converter which prints the thread id instead
            of the thread name.  The implementation can be found at 
-           com.redprairie.moca.server.log.pattern.ThreadIdPattern -->
+           com.sam.moca.server.log.pattern.ThreadIdPattern -->
       <!-- %X moca-session and moca-stack-level are placed a custom 
            LoggerConfig which puts the moca session and stack level into
            the ThreadContext before logging.  The implementation that does
-           this is com.redprairie.moca.server.log.config.MocaLoggerConfig -->
+           this is com.sam.moca.server.log.config.MocaLoggerConfig -->
       <PatternLayout pattern="%d{ISO8601} %-5p [%-3T %-4.4X{moca-session}] %c{1} [%X{moca-stack-level}] %m []%n"/>
     </Console>
 
@@ -17,7 +17,7 @@
          was required due to client tracing having possibly unique names and
          not wanting to run out of file pointers by keeping those files open.
          The implementation can be found at 
-         com.redprairie.moca.server.log.MocaRoutingAppender-->
+         com.sam.moca.server.log.MocaRoutingAppender-->
     <MocaRouting name="RoutingAppender">
       <!-- The moca-trace-file context value is set at 2 different times, either
            by setting the trace file option on the command line or if the 
@@ -86,7 +86,7 @@
         If the given package/classname is found to be excluded it will always
         return a NEUTRAL result forcing the log levels defined in <loggers> to be obeyed.
         The implementation can be found at 
-        com.redprairie.moca.server.log.filter.PackageFilter-->
+        com.sam.moca.server.log.filter.PackageFilter-->
   <!--  The moca-trace-level thread value is set in 2 circumstances.  When the
         server is configured to run with tracing (ie. -t* argument) or if the
         client or application code enables tracing for the given thread.
@@ -98,7 +98,7 @@
         includesPackages could be changed to "com.redprairie,org.hibernate" - after the configuration 
         change is synced (30 seconds by default) the client can enable session tracing and all
         hibernate log messages (debug, trace, etc.) will be included in the log output for the session.-->
-  <PackageFilter includePackages="com.redprairie">
+  <PackageFilter includePackages="com.sam">
     <ThreadContextMapFilter onMatch="ACCEPT" onMismatch="NEUTRAL">
       <KeyValuePair key="moca-trace-level" value="*"/>
     </ThreadContextMapFilter>
@@ -109,13 +109,13 @@
       <appender-ref ref="RoutingAppender"/>
   </root>
     <!--<asyncLogger name="com.redprairie" level="INFO" includeLocation="true"/>-->
-    <logger name="com.redprairie" level="INFO"/>
+    <logger name="com.sam" level="INFO"/>
     <logger name="org.eclipse" level="INFO"/>
 	
 	<!-- This is the logger you would enable to get the MOCA
 	     activity log into a trace file. You can specify the specific appender.
 		 The Moca activity will always be logged as debug in the server trace.
-	<logger name="com.redprairie.moca.Activity" level="INFO">
+	<logger name="com.sam.moca.Activity" level="INFO">
 	  <appender-ref ref="ActivityAppender"/>
 	</logger>-->
   </loggers>

@@ -211,7 +211,7 @@ static jobject sWrapResults(JNIEnv *env, RETURN_STRUCT *srvres)
  * Method:    _initIDs
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1initIDs
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1initIDs
   (JNIEnv *env, jclass cls)
 {
     long status;
@@ -382,7 +382,7 @@ void jni_AddAccumulatedArg(void *ptr, void (*destructor)(void *))
  * Method:    _callCFunction
  * Signature: (J[Ljava/lang/Object;ZZ)Lcom/redprairie/moca/server/legacy/NativeReturnStruct;
  */
-JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1callCFunction
+JNIEXPORT jobject JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1callCFunction
   (JNIEnv *env, jobject obj, jobject server, jint function, jcharArray types, jobjectArray args, jboolean simpleFunction, jboolean traceEnabled)
 {
     RETURN_STRUCT *srvres = NULL;
@@ -487,7 +487,7 @@ JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeP
  * Method:    _loadLibrary
  * Signature: (Ljava/lang/String;)J
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1loadLibrary
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1loadLibrary
   (JNIEnv *env, jobject obj, jstring libname)
 {
     void *handle;
@@ -525,7 +525,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProc
  * Method:    _initializeLibrary
  * Signature: (I)Lcom/redprairie/moca/MocaLibInfo;
  */
-JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1initializeLibrary
+JNIEXPORT jobject JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1initializeLibrary
   (JNIEnv *env, jobject obj, jint longHandle)
 {
     void *handle;
@@ -581,7 +581,7 @@ JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeP
  * Method:    _initializeAppLibrary
  * Signature: (Lcom/redprairie/moca/server/legacy/MocaServerAdapter;I)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1initializeAppLibrary
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1initializeAppLibrary
   (JNIEnv *env, jobject obj, jobject server, jint longHandle)
 {
     void *handle;
@@ -615,7 +615,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProc
  * Method:    _findCFunction
  * Signature: (JLjava/lang/String;)J
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1findCFunction
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1findCFunction
   (JNIEnv *env, jobject obj, jint longLibHandle, jstring name)
 {
     OSFPTR functionHandle;
@@ -644,7 +644,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProc
  * Method:    _initializeCOMLibrary
  * Signature: (Ljava/lang/String;)Lcom/redprairie/moca/MocaLibInfo;
  */
-JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1initializeCOMLibrary
+JNIEXPORT jobject JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1initializeCOMLibrary
   (JNIEnv *env, jobject obj, jstring progid)
 {
     return NULL;
@@ -655,7 +655,7 @@ JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeP
  * Method:    _callCOMMethod
  * Signature: (Ljava/lang/String;Ljava/lang/String;[C[Ljava/lang/Object;Z)Lcom/redprairie/moca/server/legacy/NativeReturnStruct;
  */
-JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1callCOMMethod
+JNIEXPORT jobject JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1callCOMMethod
   (JNIEnv *env, jobject obj, jobject server, jstring progID, jstring methodName,
   jcharArray types, jobjectArray args, jboolean traceEnabled)
 {
@@ -775,7 +775,7 @@ JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeP
  * Method:    _preCommit
  * Signature: (Lcom/redprairie/moca/server/legacy/MocaServerAdapter;)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1preCommit
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1preCommit
   (JNIEnv *env, jobject obj, jobject server)
 {
     RETURN_STRUCT *srvres = NULL;
@@ -797,7 +797,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProc
  * Method:    _postTransaction
  * Signature: (Lcom/redprairie/moca/server/legacy/MocaServerAdapter;Z)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1postTransaction
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1postTransaction
   (JNIEnv *env, jobject obj, jobject server, jboolean isCommit)
 {
     RETURN_STRUCT *srvres = NULL;
@@ -832,7 +832,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProc
  * Method:    _getKeepaliveCounter
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1getKeepaliveCounter
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1getKeepaliveCounter
   (JNIEnv *env, jobject obj)
 {
     return srv_KeepaliveLevel();
@@ -843,7 +843,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProc
  * Method:    _release
  * Signature: (Lcom/redprairie/moca/server/legacy/MocaServerAdapter;)I
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1release
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1release
   (JNIEnv *env, jobject obj, jobject server)
 {
     JNIEnv *tmpEnv;
@@ -869,7 +869,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProc
  * Method:    _setEnvironment
  * Signature: (Ljava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_InternalNativeProcess__1setEnvironment
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_InternalNativeProcess__1setEnvironment
   (JNIEnv * env, jobject obj, jstring name, jstring value)
 {
     const char *nameUTF;

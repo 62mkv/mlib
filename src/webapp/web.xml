@@ -7,7 +7,7 @@
     <servlet-name>MocaServlet</servlet-name>
     <display-name>MOCA Servlet</display-name>
     <servlet-class>
-        com.redprairie.moca.servlet.MocaServlet
+        com.sam.moca.servlet.MocaServlet
     </servlet-class>
 
     <init-param>
@@ -21,7 +21,7 @@
     <servlet-name>MocaConsoleServlet</servlet-name>
     <display-name>MOCA Console Servlet</display-name>
     <servlet-class>
-        com.redprairie.moca.servlet.MocaConsoleServlet
+        com.sam.moca.servlet.MocaConsoleServlet
     </servlet-class>
   </servlet>
 

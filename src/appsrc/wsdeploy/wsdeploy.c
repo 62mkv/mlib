@@ -33,7 +33,7 @@ static char RCS_Id[] = "$Id$";
 #include <oslib.h>
 
 #define APPNAME    "wsdeploy"
-#define CLASSNAME  "com.redprairie.moca.applications.WebServiceBuilderMain"
+#define CLASSNAME  "com.sam.moca.applications.WebServiceBuilderMain"
 
 int main(int argc, char **argv)
 {

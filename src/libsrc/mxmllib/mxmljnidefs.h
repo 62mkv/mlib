@@ -114,7 +114,7 @@ static jmethodID removeNamedItemMethod;
  * Class Names
  */
 
-const char *xmlAdapterClassName = "com/redprairie/moca/xml/XMLAdapter";
+const char *xmlAdapterClassName = "com/sam/moca/xml/XMLAdapter";
 
 /*
  * Method Names and Signatures
@@ -193,12 +193,12 @@ const char *addAttributeSig  =
 const char *applyStylesheetFromFileName =
 	"applyStylesheetFromFile";
 const char *applyStylesheetFromFileSig  =
-	"(Ljava/lang/String;)Lcom/redprairie/moca/xml/XMLAdapter;";
+	"(Ljava/lang/String;)Lcom/sam/moca/xml/XMLAdapter;";
 
 const char *applyStylesheetFromStringName =
 	"applyStylesheetFromString";
 const char *applyStylesheetFromStringSig  =
-	"(Ljava/lang/String;Ljava/lang/String;)Lcom/redprairie/moca/xml/XMLAdapter;";
+	"(Ljava/lang/String;Ljava/lang/String;)Lcom/sam/moca/xml/XMLAdapter;";
 
 const char *createDocumentName =
 	"createDocument";

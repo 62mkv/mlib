@@ -8,7 +8,7 @@
  *
  *  $Copyright-Start$
  *
- *  Copyright (c) 2016
+ *  Copyright (c) 2002
  *  RedPrairie Corporation
  *  All Rights Reserved
  *

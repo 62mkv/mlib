@@ -102,7 +102,7 @@
     
     <CENTRAL_LOCK num_backups="2" />
     
-    <com.redprairie.moca.cluster.jgroups.MocaCentralExecutor
+    <com.sam.moca.cluster.jgroups.MocaCentralExecutor
             num_backups="2" />
 
 </config>

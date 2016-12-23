@@ -3,13 +3,13 @@
 <aspectj>
             <aspects>
               <!-- Aspect used for cluster testing to simulate network failure -->
-              <aspect name="com.redprairie.moca.cluster.manager.simulator.ClusterTestingAspect"/>
+              <aspect name="com.sam.moca.cluster.manager.simulator.ClusterTestingAspect"/>
 
             </aspects>
             <weaver options="-warn:none -Xlint:ignore">
                  <include within="java.net..*" />
                  <include within="org.jgroups..*"/>
-                 <include within="com.redprairie.moca.cluster.manager.simulator.ClusterTestingAspect"/>
+                 <include within="com.sam.moca.cluster.manager.simulator.ClusterTestingAspect"/>
             </weaver>
 
 </aspectj>

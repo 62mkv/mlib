@@ -7,13 +7,13 @@
 
     <start>
       <mode>java</mode>
-      <class>com.redprairie.moca.server.MocaServerMain</class>
+      <class>com.sam.moca.server.MocaServerMain</class>
       <debug/>
     </start>
 
     <stop>
       <mode>java</mode>
-      <class>com.redprairie.moca.server.MocaServiceFunctions</class>
+      <class>com.sam.moca.server.MocaServiceFunctions</class>
       <argument>stop</argument>
     </stop>
 

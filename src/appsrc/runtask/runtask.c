@@ -33,7 +33,7 @@ static char RCS_Id[] = "$Id$";
 #include <oslib.h>
 
 #define APPNAME    "runtask"
-#define CLASSNAME  "com.redprairie.moca.applications.TaskRunnerMain"
+#define CLASSNAME  "com.sam.moca.applications.TaskRunnerMain"
 
 int main(int argc, char **argv)
 {

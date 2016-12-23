@@ -39,7 +39,7 @@ static char RCS_Id[] = "$Id: servicemgr.c 393281 2011-11-08 15:25:31Z mlange $";
 #include "servicemgr.h"
 
 #define APPNAME    "servicemgr"
-#define CLASSNAME  "com.redprairie.moca.server.service.ServiceManager"
+#define CLASSNAME  "com.sam.moca.server.service.ServiceManager"
 
 /*
  * The Service Manager code below is a little different in that we don't 

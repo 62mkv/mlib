@@ -33,7 +33,7 @@ static char RCS_Id[] = "$Id$";
 #include <oslib.h>
 
 #define APPNAME    "mcoveragereport"
-#define CLASSNAME  "com.redprairie.moca.applications.CoverageReportMain"
+#define CLASSNAME  "com.sam.moca.applications.CoverageReportMain"
 
 int main(int argc, char **argv)
 {

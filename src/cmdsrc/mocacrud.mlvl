@@ -1,6 +1,6 @@
 <component-level>
 <name>MOCAcrud</name>
-<package>com.redprairie.moca.components.crud</package>
+<package>com.sam.moca.components.crud</package>
 <description>MOCA CRUD Operations Library</description>
 <sort-sequence>60</sort-sequence>
 </component-level>

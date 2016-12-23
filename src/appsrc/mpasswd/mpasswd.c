@@ -33,7 +33,7 @@ static char RCS_Id[] = "$Id$";
 #include <oslib.h>
 
 #define APPNAME    "mpasswd"
-#define CLASSNAME  "com.redprairie.moca.applications.MPasswdMain"
+#define CLASSNAME  "com.sam.moca.applications.MPasswdMain"
 
 int main(int argc, char **argv)
 {

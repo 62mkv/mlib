@@ -66,35 +66,35 @@ static const char *SQLExceptionClassName =
 
 /* MOCA Classes */
 static const char *MocaSessionClassName = 
-	"com/redprairie/moca/server/legacy/MocaSession";
+	"com/sam/moca/server/legacy/MocaSession";
 static const char *MocaClientAdapterClassName = 
-	"com/redprairie/moca/server/legacy/MocaClientAdapter";
+	"com/sam/moca/server/legacy/MocaClientAdapter";
 static const char *MocaServerAdapterClassName =
-	"com/redprairie/moca/server/legacy/MocaServerAdapter";
+	"com/sam/moca/server/legacy/MocaServerAdapter";
 static const char *InProcessMocaServerAdapterClassName =
-        "com/redprairie/moca/server/legacy/ServerModeInProcessMocaServerAdapter";
+        "com/sam/moca/server/legacy/ServerModeInProcessMocaServerAdapter";
 static const char *WrappedResultsClassName =
-	"com/redprairie/moca/server/legacy/WrappedResults";
+	"com/sam/moca/server/legacy/WrappedResults";
 static const char *CommandInvocationExceptionClassName =
-	"com/redprairie/moca/server/legacy/CommandInvocationException";
+	"com/sam/moca/server/legacy/CommandInvocationException";
 static const char *MocaLibInfoClassName =
-        "com/redprairie/moca/MocaLibInfo";
+        "com/sam/moca/MocaLibInfo";
 static const char *MocaExceptionClassName =
-	"com/redprairie/moca/MocaException";
+	"com/sam/moca/MocaException";
 static const char *MocaRuntimeExceptionClassName =
-	"com/redprairie/moca/MocaRuntimeException";
+	"com/sam/moca/MocaRuntimeException";
 static const char *MocaExceptionArgsClassName =
-	"com/redprairie/moca/MocaException$Args";
+	"com/sam/moca/MocaException$Args";
 static const char *BindListClassName =
-	"com/redprairie/moca/server/db/BindList";
+	"com/sam/moca/server/db/BindList";
 static const char *GenericPointerClassName =
-        "com/redprairie/moca/server/legacy/GenericPointer";
+        "com/sam/moca/server/legacy/GenericPointer";
 static const char *NativeReturnStructName =
-        "com/redprairie/moca/server/legacy/NativeReturnStruct";
+        "com/sam/moca/server/legacy/NativeReturnStruct";
 static const char *NativeToolsClassName =
-        "com/redprairie/moca/server/legacy/NativeTools";
+        "com/sam/moca/server/legacy/NativeTools";
 static const char *MocaNativeExceptionClassName =
-        "com/redprairie/moca/server/legacy/MocaNativeException";
+        "com/sam/moca/server/legacy/MocaNativeException";
 
 /*
  * Method Names and Signatures
@@ -207,13 +207,13 @@ static const char *SQLException_getMessageName =
 static const char *SQLException_getMessageSig = 
         "()Ljava/lang/String;";
 
-/* com.redprairie.moca.server.legacy.MocaSession */
+/* com.sam.moca.server.legacy.MocaSession */
 static const char *MocaSession_newSessionKeyName = 
 	"newSessionKey";
 static const char *MocaSession_newSessionKeySig = 
 	"(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;";
 
-/* com.redprairie.moca.server.legacy.MocaClientAdapter */
+/* com.sam.moca.server.legacy.MocaClientAdapter */
 static const char *MocaClientAdapter_constructorName = 
 	"<init>";
 static const char *MocaClientAdapter_constructorSig = 
@@ -230,7 +230,7 @@ static const char *MocaClientAdapter_executeCommandSig =
 	"("
 	"Ljava/lang/String;"
 	")"
-	"Lcom/redprairie/moca/MocaResults;";
+	"Lcom/sam/moca/MocaResults;";
 
 static const char *MocaClientAdapter_loginName = 
 	"login";
@@ -257,7 +257,7 @@ static const char *MocaClientAdapter_setEnvironmentName =
 static const char *MocaClientAdapter_setEnvironmentSig = 
 	"(Ljava/lang/String;)V";
 
-/* com.redprairie.moca.server.legacy.MocaServerAdapter */
+/* com.sam.moca.server.legacy.MocaServerAdapter */
 static const char *MocaServerAdapter_getEnvironmentName = 
 	"getEnvironment";
 static const char *MocaServerAdapter_getEnvironmentSig = 
@@ -311,28 +311,28 @@ static const char *MocaServerAdapter_executeCommandSig =
         "Ljava/util/Map;"
         "Z"
         ")"
-        "Lcom/redprairie/moca/server/legacy/NativeReturnStruct;";
+        "Lcom/sam/moca/server/legacy/NativeReturnStruct;";
 
 static const char *MocaServerAdapter_executeSQLName = 
 	"executeSQL";
 static const char *MocaServerAdapter_executeSQLSig =
 	"("
         "Ljava/lang/String;"
-	"Lcom/redprairie/moca/server/db/BindList;"
+	"Lcom/sam/moca/server/db/BindList;"
         "ZZ"
         ")"
-        "Lcom/redprairie/moca/server/legacy/NativeReturnStruct;";
+        "Lcom/sam/moca/server/legacy/NativeReturnStruct;";
 
 static const char *MocaServerAdapter_getStackElementName = 
 	"getStackElement";
 static const char *MocaServerAdapter_getStackElementSig =
 	"(Ljava/lang/String;Ljava/lang/String;Z)"
-	"Lcom/redprairie/moca/MocaArgument;";
+	"Lcom/sam/moca/MocaArgument;";
 
 static const char *MocaServerAdapter_getStackArgsName = 
 	"getStackArgs";
 static const char *MocaServerAdapter_getStackArgsSig =
-	"(Z)[Lcom/redprairie/moca/MocaArgument;";
+	"(Z)[Lcom/sam/moca/MocaArgument;";
 
 static const char *MocaServerAdapter_getDBTypeName = 
 	"getDBType";
@@ -374,13 +374,13 @@ static const char *MocaServerAdapter_translateMessageName =
 static const char *MocaServerAdapter_translateMessageSig =
         "(Ljava/lang/String;)Ljava/lang/String;";
 
-/* com.redprairie.moca.server.legacy.ServerModeInProcessMocaServerAdapter */
+/* com.sam.moca.server.legacy.ServerModeInProcessMocaServerAdapter */
 static const char *InProcessMocaServerAdapter_constructorName = 
 	"<init>";
 static const char *InProcessMocaServerAdapter_constructorSig =
 	"(Ljava/lang/String;Z)V";
 
-/* com.redprairie.moca.server.legacy.WrappedResults */
+/* com.sam.moca.server.legacy.WrappedResults */
 static const char *WrappedResults_constructorName = 
 	"<init>";
 static const char *WrappedResults_constructorSig =
@@ -411,7 +411,7 @@ static const char *WrappedResults_allocateNullsName =
 static const char *WrappedResults_allocateNullsType = 
 	"Z";
 
-/* com.redprairie.moca.server.legacy.CommandInvocationException */
+/* com.sam.moca.server.legacy.CommandInvocationException */
 static const char *CommandInvocationException_constructorName = 
 	"<init>";
 static const char *CommandInvocationException_constructorSig =
@@ -419,7 +419,7 @@ static const char *CommandInvocationException_constructorSig =
 	"I"
 	"Ljava/lang/String;"
 	"Z"
-	"Lcom/redprairie/moca/MocaResults;"
+	"Lcom/sam/moca/MocaResults;"
 	")V";
 
 static const char *CommandInvocationException_addArgName = 
@@ -432,7 +432,7 @@ static const char *CommandInvocationException_addLookupArgName =
 static const char *CommandInvocationException_addLookupArgSig =
 	"(Ljava/lang/String;Ljava/lang/String;)V";
 
-/* com.redprairie.moca.server.legacy.MocaNativeException */
+/* com.sam.moca.server.legacy.MocaNativeException */
 static const char *MocaNativeException_constructorName = 
 	"<init>";
 static const char *MocaNativeException_constructorSig =
@@ -441,13 +441,13 @@ static const char *MocaNativeException_constructorSig =
 	"Ljava/lang/String;"
 	"Ljava/lang/String;"
 	")V";
-/* com.redprairie.moca.MocaLibInfo */
+/* com.sam.moca.MocaLibInfo */
 static const char *MocaLibInfo_constructorName = 
 	"<init>";
 static const char *MocaLibInfo_constructorSig =
 	"(Ljava/lang/String;Ljava/lang/String;)V";
 
-/* com.redprairie.moca.MocaException */
+/* com.sam.moca.MocaException */
 static const char *MocaException_getErrorCodeName = 
 	"getErrorCode";
 static const char *MocaException_getErrorCodeSig = 
@@ -461,19 +461,19 @@ static const char *MocaException_getMessageSig =
 static const char *MocaException_getArgListName = 
 	"getArgList";
 static const char *MocaException_getArgListSig = 
-	"()[Lcom/redprairie/moca/MocaException$Args;";
+	"()[Lcom/sam/moca/MocaException$Args;";
 
 static const char *MocaException_getResultsName = 
 	"getResults";
 static const char *MocaException_getResultsSig = 
-	"()Lcom/redprairie/moca/MocaResults;";
+	"()Lcom/sam/moca/MocaResults;";
 
 static const char *MocaException_isResolvedName = 
 	"isMessageResolved";
 static const char *MocaException_isResolvedSig = 
 	"()Z";
 
-/* com.redprairie.moca.MocaRuntimeException */
+/* com.sam.moca.MocaRuntimeException */
 static const char *MocaRuntimeException_getErrorCodeName = 
 	"getErrorCode";
 static const char *MocaRuntimeException_getErrorCodeSig = 
@@ -487,19 +487,19 @@ static const char *MocaRuntimeException_getMessageSig =
 static const char *MocaRuntimeException_getArgListName = 
 	"getArgList";
 static const char *MocaRuntimeException_getArgListSig = 
-	"()[Lcom/redprairie/moca/MocaException$Args;";
+	"()[Lcom/sam/moca/MocaException$Args;";
 
 static const char *MocaRuntimeException_getResultsName = 
 	"getResults";
 static const char *MocaRuntimeException_getResultsSig = 
-	"()Lcom/redprairie/moca/MocaResults;";
+	"()Lcom/sam/moca/MocaResults;";
 
 static const char *MocaRuntimeException_isResolvedName = 
 	"isMessageResolved";
 static const char *MocaRuntimeException_isResolvedSig = 
 	"()Z";
 
-/* com.redprairie.moca.MocaException$Args */
+/* com.sam.moca.MocaException$Args */
 static const char *MocaExceptionArgs_getNameName = 
 	"getName";
 static const char *MocaExceptionArgs_getNameSig =
@@ -515,7 +515,7 @@ static const char *MocaExceptionArgs_isLookupName =
 static const char *MocaExceptionArgs_isLookupSig =
 	"()Z";
 
-/* com.redprairie.moca.server.db.BindList */
+/* com.sam.moca.server.db.BindList */
 static const char *BindList_constructorName = 
 	"<init>";
 static const char *BindList_constructorSig =
@@ -551,7 +551,7 @@ static const char *BindList_getValueName =
 static const char *BindList_getValueSig =
         "(Ljava/lang/String;)Ljava/lang/Object;";
 
-/* com.redprairie.moca.server.legacy.GenericPointer */
+/* com.sam.moca.server.legacy.GenericPointer */
 static const char *GenericPointer_constructorName = 
 	"<init>";
 static const char *GenericPointer_constructorSig =
@@ -562,13 +562,13 @@ static const char *GenericPointer_32bitValueName =
 static const char *GenericPointer_32bitValueSig =
 	"()I";
 
-/* com.redprairie.moca.server.legacy.NativeReturnStruct */
+/* com.sam.moca.server.legacy.NativeReturnStruct */
 static const char *NativeReturnStruct_constructorName =
         "<init>";
 static const char *NativeReturnStruct_exceptionConstructorSig =
-        "(Lcom/redprairie/moca/MocaException;)V";
+        "(Lcom/sam/moca/MocaException;)V";
 static const char *NativeReturnStruct_resultsConstructorSig =
-        "(Lcom/redprairie/moca/MocaResults;)V";
+        "(Lcom/sam/moca/MocaResults;)V";
 
 static const char *NativeReturnStruct_getErrorCodeName =
         "getErrorCode";
@@ -578,7 +578,7 @@ static const char *NativeReturnStruct_getErrorCodeSig =
 static const char *NativeReturnStruct_getResultsName =
         "getResults";
 static const char *NativeReturnStruct_getResultsSig =
-        "()Lcom/redprairie/moca/MocaResults;";
+        "()Lcom/sam/moca/MocaResults;";
 
 static const char *NativeReturnStruct_getMessageName =
         "getMessage";
@@ -588,12 +588,12 @@ static const char *NativeReturnStruct_getMessageSig =
 static const char *NativeReturnStruct_getArgsName =
         "getArgs";
 static const char *NativeReturnStruct_getArgsSig =
-        "()[Lcom/redprairie/moca/MocaException$Args;";
+        "()[Lcom/sam/moca/MocaException$Args;";
 
 static const char *NativeReturnStruct_getBindListName =
         "getBindList";
 static const char *NativeReturnStruct_getBindListSig =
-        "()Lcom/redprairie/moca/server/db/BindList;";
+        "()Lcom/sam/moca/server/db/BindList;";
 
 static const char *NativeReturnStruct_isResolvedName =
         "isMessageResolved";
@@ -603,21 +603,21 @@ static const char *NativeReturnStruct_isResolvedSig =
 static const char *NativeTools_getArgValueName = 
 	"getArgValue";
 static const char *NativeTools_getArgValueSig =
-	"(Lcom/redprairie/moca/MocaArgument;)Ljava/lang/Object;";
+	"(Lcom/sam/moca/MocaArgument;)Ljava/lang/Object;";
 
 static const char *NativeTools_getArgTypeName = 
 	"getArgType";
 static const char *NativeTools_getArgTypeSig =
-	"(Lcom/redprairie/moca/MocaArgument;)C";
+	"(Lcom/sam/moca/MocaArgument;)C";
 
 static const char *NativeTools_getArgOperName = 
 	"getArgOper";
 static const char *NativeTools_getArgOperSig =
-	"(Lcom/redprairie/moca/MocaArgument;)I";
+	"(Lcom/sam/moca/MocaArgument;)I";
 
 static const char *NativeTools_getArgNameName = 
 	"getArgName";
 static const char *NativeTools_getArgNameSig =
-	"(Lcom/redprairie/moca/MocaArgument;)Ljava/lang/String;";
+	"(Lcom/sam/moca/MocaArgument;)Ljava/lang/String;";
 
 #endif

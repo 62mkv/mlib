@@ -33,7 +33,7 @@ static char RCS_Id[] = "$Id$";
 #include <oslib.h>
 
 #define APPNAME    "installsql"
-#define CLASSNAME  "com.redprairie.moca.applications.InstallSqlMain"
+#define CLASSNAME  "com.sam.moca.applications.InstallSqlMain"
 
 int main(int argc, char **argv)
 {

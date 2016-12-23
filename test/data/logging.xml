@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration packages="com.redprairie.moca.server.log" monitorInterval="30">
+<configuration packages="com.sam.moca.server.log" monitorInterval="30">
     <appenders>
         <!-- JGroups File Appender used for capturing JGroups debug output
         <File name="JGroupsAppender" fileName="${env:LESDIR}/log/${env:MOCA_NODE_NAME}-JGROUPS.log">
@@ -51,16 +51,16 @@
         </logger>
         -->
 
-        <logger name="com.redprairie.moca.cluster" level="TRACE">
+        <logger name="com.sam.moca.cluster" level="TRACE">
             <appender-ref ref="TestsRoutingAppender"/>
         </logger>
 
-        <logger name="com.redprairie.moca.task.TU_TaskManager" level="ALL">
+        <logger name="com.sam.moca.task.TU_TaskManager" level="ALL">
             <appender-ref ref="TestsRoutingAppender"/>
         </logger>
 
         <!-- Used for tests in TU_JBossLogging -->
-        <logger name="com.redprairie.moca.server.log.TU_JBossLogging.testActualLogging" additivity="false" level="TRACE">
+        <logger name="com.sam.moca.server.log.TU_JBossLogging.testActualLogging" additivity="false" level="TRACE">
             <appender-ref ref="TUJBossLoggingAppender"/>
         </logger>
     </loggers>

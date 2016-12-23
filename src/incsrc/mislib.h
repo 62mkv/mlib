@@ -102,7 +102,7 @@
 
 #define TRACE_COMM_LEN      20
 
-#define DEFAULT_TRACE_FILE  "$LESDIR/log/redprairie.log"
+#define DEFAULT_TRACE_FILE  "$LESDIR/log/sam.log"
 
 /*
  *  Execution Status Definitions

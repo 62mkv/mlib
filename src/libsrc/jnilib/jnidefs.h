@@ -121,10 +121,10 @@ STORAGE_CLASS jmethodID HashMap_constructor;
 STORAGE_CLASS jmethodID SQLException_getErrorCode;
 STORAGE_CLASS jmethodID SQLException_getMessage;
 
-/* com.redprairie.moca.server.legacy.MocaSession */
+/* com.sam.moca.server.legacy.MocaSession */
 STORAGE_CLASS jmethodID MocaSession_newSessionKey;
 
-/* com.redprairie.moca.server.legacy.MocaClientAdapter */
+/* com.sam.moca.server.legacy.MocaClientAdapter */
 STORAGE_CLASS jmethodID MocaClientAdapter_constructor;
 STORAGE_CLASS jmethodID MocaClientAdapter_close;
 STORAGE_CLASS jmethodID MocaClientAdapter_executeCommand;
@@ -134,7 +134,7 @@ STORAGE_CLASS jmethodID MocaClientAdapter_setAutoCommit;
 STORAGE_CLASS jmethodID MocaClientAdapter_setApplicationId;
 STORAGE_CLASS jmethodID MocaClientAdapter_setEnvironment;
 
-/* com.redprairie.moca.server.legacy.MocaServerAdapter */
+/* com.sam.moca.server.legacy.MocaServerAdapter */
 STORAGE_CLASS jmethodID MocaServerAdapter_getEnvironment;
 STORAGE_CLASS jmethodID MocaServerAdapter_putEnvironment;
 STORAGE_CLASS jmethodID MocaServerAdapter_removeEnvironment;
@@ -157,10 +157,10 @@ STORAGE_CLASS jmethodID MocaServerAdapter_setTraceLevel;
 STORAGE_CLASS jmethodID MocaServerAdapter_getTraceLevel;
 STORAGE_CLASS jmethodID MocaServerAdapter_translateMessage;
 
-/* com.redprairie.moca.server.legacy.InProcessMocaServerAdapter */
+/* com.sam.moca.server.legacy.InProcessMocaServerAdapter */
 STORAGE_CLASS jmethodID InProcessMocaServerAdapter_constructor;
 
-/* com.redprairie.moca.server.legacy.WrappedResults */
+/* com.sam.moca.server.legacy.WrappedResults */
 STORAGE_CLASS jmethodID WrappedResults_constructor;
 STORAGE_CLASS jfieldID  WrappedResults_internalRes;
 STORAGE_CLASS jfieldID  WrappedResults_internalRow;
@@ -168,37 +168,37 @@ STORAGE_CLASS jfieldID  WrappedResults_nextRow;
 STORAGE_CLASS jfieldID  WrappedResults_editRow;
 STORAGE_CLASS jfieldID  WrappedResults_allocateNulls;
 
-/* com.redprairie.moca.server.legacy.CommandInvocationExceptionClass */
+/* com.sam.moca.server.legacy.CommandInvocationExceptionClass */
 STORAGE_CLASS jmethodID CommandInvocationException_constructor;
 STORAGE_CLASS jmethodID CommandInvocationException_addArg;
 STORAGE_CLASS jmethodID CommandInvocationException_addLookupArg;
 
-/* com.redprairie.moca.server.legacy.MocaNativeExceptionClass */
+/* com.sam.moca.server.legacy.MocaNativeExceptionClass */
 STORAGE_CLASS jmethodID MocaNativeException_constructor;
 
-/* com.redprairie.moca.MocaLibInfo */
+/* com.sam.moca.MocaLibInfo */
 STORAGE_CLASS jmethodID MocaLibInfo_constructor;
 
-/* com.redprairie.moca.MocaException */
+/* com.sam.moca.MocaException */
 STORAGE_CLASS jmethodID MocaException_getErrorCode;
 STORAGE_CLASS jmethodID MocaException_getMessage;
 STORAGE_CLASS jmethodID MocaException_getArgList;
 STORAGE_CLASS jmethodID MocaException_getResults;
 STORAGE_CLASS jmethodID MocaException_isResolved;
 
-/* com.redprairie.moca.MocaRuntimeException */
+/* com.sam.moca.MocaRuntimeException */
 STORAGE_CLASS jmethodID MocaRuntimeException_getErrorCode;
 STORAGE_CLASS jmethodID MocaRuntimeException_getMessage;
 STORAGE_CLASS jmethodID MocaRuntimeException_getArgList;
 STORAGE_CLASS jmethodID MocaRuntimeException_getResults;
 STORAGE_CLASS jmethodID MocaRuntimeException_isResolved;
 
-/* com.redprairie.moca.MocaException$Args */
+/* com.sam.moca.MocaException$Args */
 STORAGE_CLASS jmethodID MocaExceptionArgs_getName;
 STORAGE_CLASS jmethodID MocaExceptionArgs_getValue;
 STORAGE_CLASS jmethodID MocaExceptionArgs_isLookup;
 
-/* com.redprairie.moca.server.db.BindList */
+/* com.sam.moca.server.db.BindList */
 STORAGE_CLASS jmethodID BindList_constructor;
 STORAGE_CLASS jmethodID BindList_addInt;
 STORAGE_CLASS jmethodID BindList_addDouble;
@@ -207,11 +207,11 @@ STORAGE_CLASS jmethodID BindList_addObject;
 STORAGE_CLASS jmethodID BindList_addObjectWithSize;
 STORAGE_CLASS jmethodID BindList_getValue;
 
-/* com.redprairie.moca.server.legacy.GenericPointer */
+/* com.sam.moca.server.legacy.GenericPointer */
 STORAGE_CLASS jmethodID GenericPointer_constructor;
 STORAGE_CLASS jmethodID GenericPointer_32bitValue;
 
-/* com.redprairie.moca.server.legacy.NativeReturnStruct */
+/* com.sam.moca.server.legacy.NativeReturnStruct */
 STORAGE_CLASS jmethodID NativeReturnStruct_exceptionConstructor;
 STORAGE_CLASS jmethodID NativeReturnStruct_resultsConstructor;
 STORAGE_CLASS jmethodID NativeReturnStruct_getErrorCode;
@@ -221,7 +221,7 @@ STORAGE_CLASS jmethodID NativeReturnStruct_getArgs;
 STORAGE_CLASS jmethodID NativeReturnStruct_getBindList;
 STORAGE_CLASS jmethodID NativeReturnStruct_isResolved;
 
-/* com.redprairie.moca.server.legacy.NativeTools */
+/* com.sam.moca.server.legacy.NativeTools */
 STORAGE_CLASS jmethodID NativeTools_getArgValue;
 STORAGE_CLASS jmethodID NativeTools_getArgType;
 STORAGE_CLASS jmethodID NativeTools_getArgOper;

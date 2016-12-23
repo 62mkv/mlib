@@ -49,7 +49,7 @@ static char RCS_Id[] = "$Id$";
  * Method:    _initIDs
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1initIDs(JNIEnv *env, jclass cls)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1initIDs(JNIEnv *env, jclass cls)
 {
     long status;
 
@@ -110,7 +110,7 @@ static void outOfMemoryError(JNIEnv *env)
  * Method:    _newResults
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1newResults(JNIEnv *env, jobject obj) 
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1newResults(JNIEnv *env, jobject obj) 
 {
     mocaDataRes *res;
     res = sql_AllocateResultHdr(0);
@@ -122,7 +122,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1n
  * Method:    _dispose
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1dispose(JNIEnv *env, jobject obj, jint intRes)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1dispose(JNIEnv *env, jobject obj, jint intRes)
 {
     mocaDataRes *res = (mocaDataRes *)intRes;
 
@@ -135,7 +135,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1d
  * Method:    _addColumn
  * Signature: (Ljava/lang/String;CIZ)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1addColumn(JNIEnv *env, jobject obj, jint intRes, jstring jColName, jchar dataType, jint maxSize, jboolean isNullable)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1addColumn(JNIEnv *env, jobject obj, jint intRes, jstring jColName, jchar dataType, jint maxSize, jboolean isNullable)
 {
     const char *colName;
     long colNum;
@@ -162,7 +162,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1a
  * Method:    _addRow
  * Signature: ()V
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1addRow(JNIEnv *env, jobject obj, jint intRes)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1addRow(JNIEnv *env, jobject obj, jint intRes)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -183,7 +183,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1a
  * Method:    _removeRow
  * Signature: ()V
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1removeRow(JNIEnv *env, jobject obj, jint intRes, jint intRow)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1removeRow(JNIEnv *env, jobject obj, jint intRes, jint intRow)
 {
     mocaDataRow *row, *next;
     mocaDataRes *res; 
@@ -215,7 +215,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1r
  * Method:    _setObjectValue
  * Signature: (ILjava/lang/Object;)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setObjectValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jobject objValue)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setObjectValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jobject objValue)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -246,7 +246,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _setInt
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setInt(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jint value)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setInt(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jint value)
 {
     char typeCode;
 
@@ -282,7 +282,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _setDouble
  * Signature: (ID)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setDouble(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jdouble value)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setDouble(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jdouble value)
 {
     char typeCode;
     mocaDataRow *row;
@@ -317,7 +317,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _setBoolean
  * Signature: (IZ)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setBoolean(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jboolean value)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setBoolean(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jboolean value)
 {
     char typeCode;
 
@@ -364,7 +364,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _setBinary
  * Signature: (I[B)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setBinary(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jbyteArray value)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setBinary(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jbyteArray value)
 {
     long encodedLength;
 
@@ -416,7 +416,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _setString
  * Signature: (ILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setString(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jbyteArray value)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setString(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jbyteArray value)
 {
     int length;
 
@@ -461,7 +461,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _setNull
  * Signature: (I)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setNull(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jboolean allocateNulls)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setNull(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jboolean allocateNulls)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -522,7 +522,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _firstRow
  * Signature: ()V
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1firstRow(JNIEnv *env, jobject obj, jint intRes)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1firstRow(JNIEnv *env, jobject obj, jint intRes)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -544,7 +544,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1f
  * Method:    _nextRow
  * Signature: ()V
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1nextRow(JNIEnv *env, jobject obj, jint intRes, jint intRow)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1nextRow(JNIEnv *env, jobject obj, jint intRes, jint intRow)
 {
     mocaDataRes *res; 
     mocaDataRow *row, *next = NULL;
@@ -571,7 +571,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1n
  * Method:    _hasNextRow
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1hasNextRow(JNIEnv *env, jobject obj, jint intRes, jint intRow, jboolean needsFirstRow) 
+JNIEXPORT jboolean JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1hasNextRow(JNIEnv *env, jobject obj, jint intRes, jint intRow, jboolean needsFirstRow) 
 {
     mocaDataRes *res; 
     mocaDataRow *row, *next = NULL;
@@ -614,7 +614,7 @@ JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults
  * Method:    _getStringValue
  * Signature: (I)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getStringValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jstring JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getStringValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     char *value;
 
@@ -650,7 +650,7 @@ JNIEXPORT jstring JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults_
  * Method:    _getIntValue
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getIntValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getIntValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     long value;
 
@@ -681,7 +681,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1g
  * Method:    _getDoubleValue
  * Signature: (I)D
  */
-JNIEXPORT jdouble JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getDoubleValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jdouble JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getDoubleValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     double value;
 
@@ -712,7 +712,7 @@ JNIEXPORT jdouble JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults_
  * Method:    _getBooleanValue
  * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getBooleanValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jboolean JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getBooleanValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -742,7 +742,7 @@ JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults
  * Method:    _getBinaryValue
  * Signature: (I)[B
  */
-JNIEXPORT jbyteArray JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getBinaryValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jbyteArray JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getBinaryValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     long length;
 
@@ -797,7 +797,7 @@ JNIEXPORT jbyteArray JNICALL Java_com_redprairie_moca_server_legacy_WrappedResul
  * Method:    _getObjectValue
  * Signature: (I)O
  */
-JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getObjectValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jobject JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getObjectValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -831,7 +831,7 @@ JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults_
  * Method:    _isNull
  * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1isNull(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jboolean JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1isNull(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -858,7 +858,7 @@ JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults
  * Method:    _getDataTypeCode
  * Signature: (I)C
  */
-JNIEXPORT jchar JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getDataTypeCode(JNIEnv *env, jobject obj, jint intRes, jint colNum)
+JNIEXPORT jchar JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getDataTypeCode(JNIEnv *env, jobject obj, jint intRes, jint colNum)
 {
     char typeCode;
 
@@ -881,7 +881,7 @@ JNIEXPORT jchar JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1
  * Method:    _isNullable
  * Signature: (I)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1isNullable(JNIEnv *env, jobject obj, jint intRes, jint colNum)
+JNIEXPORT jboolean JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1isNullable(JNIEnv *env, jobject obj, jint intRes, jint colNum)
 {
     mocaDataRes *res; 
 
@@ -900,7 +900,7 @@ JNIEXPORT jboolean JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults
  * Method:    _getColumnNum
  * Signature: (Ljava/lang/String;)I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getColumnNum(JNIEnv *env, jobject obj, jint intRes, jstring jColName)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getColumnNum(JNIEnv *env, jobject obj, jint intRes, jstring jColName)
 {
     const char *colName;
 
@@ -928,7 +928,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1g
  * Method:    _getColumnName
  * Signature: (I)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getColumnName(JNIEnv *env, jobject obj, jint intRes, jint colNum)
+JNIEXPORT jstring JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getColumnName(JNIEnv *env, jobject obj, jint intRes, jint colNum)
 {
     char *colName;
 
@@ -951,7 +951,7 @@ JNIEXPORT jstring JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults_
  * Method:    _getColumnCount
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getColumnCount(JNIEnv *env, jobject obj, jint intRes)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getColumnCount(JNIEnv *env, jobject obj, jint intRes)
 {
     mocaDataRes *res; 
 
@@ -970,7 +970,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1g
  * Method:    _getRowCount
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getRowCount(JNIEnv *env, jobject obj, jint intRes)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getRowCount(JNIEnv *env, jobject obj, jint intRes)
 {
     mocaDataRes *res; 
 
@@ -989,7 +989,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1g
  * Method:    _setResults
  * Signature: (ILjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setResults(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jobject value)
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setResults(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jobject value)
 {
     char typeCode;
 
@@ -1027,7 +1027,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _getResultsValue
  * Signature: (I)Lcom/redprairie/moca/exec/WrappedResults
  */
-JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getResultsValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
+JNIEXPORT jobject JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getResultsValue(JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum)
 {
     mocaDataRow *row;
     mocaDataRes *res; 
@@ -1064,7 +1064,7 @@ JNIEXPORT jobject JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults_
  * Method:    _getDefinedMaxLength
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getDefinedMaxLength(JNIEnv *env, jobject obj, jint intRes, jint colNum)
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getDefinedMaxLength(JNIEnv *env, jobject obj, jint intRes, jint colNum)
 {
     mocaDataRes *res; 
 
@@ -1083,7 +1083,7 @@ JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1g
  * Method:    _setPointer
  * Signature: (II)V
  */
-JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1setPointer
+JNIEXPORT void JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1setPointer
   (JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum, jint value)
 {
     char typeCode;
@@ -1122,7 +1122,7 @@ JNIEXPORT void JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1s
  * Method:    _getPointerValue
  * Signature: (I)I
  */
-JNIEXPORT jint JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getPointerValue
+JNIEXPORT jint JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getPointerValue
   (JNIEnv *env, jobject obj, jint intRes, jint intRow, jint colNum) 
 {
     void **valuePtr;
@@ -1170,7 +1170,7 @@ mocaDataRes *jni_ResultsValue(JNIEnv *env, jobject obj)
  * Method:    _getEncoding
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_redprairie_moca_server_legacy_WrappedResults__1getEncoding(JNIEnv *env, jobject obj) 
+JNIEXPORT jstring JNICALL Java_com_sam_moca_server_legacy_WrappedResults__1getEncoding(JNIEnv *env, jobject obj) 
 {
     return jni_Charset(env);
 }

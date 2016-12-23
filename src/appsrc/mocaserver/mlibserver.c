@@ -32,8 +32,8 @@ static char RCS_Id[] = "$Id$";
 #include <mocagendef.h>
 #include <oslib.h>
 
-#define APPNAME    "mocaserver"
-#define CLASSNAME  "com.redprairie.moca.server.MocaServerMain"
+#define APPNAME    "mlibserver"
+#define CLASSNAME  "com.sam.moca.server.MocaServerMain"
 
 int main(int argc, char **argv)
 {

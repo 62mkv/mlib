@@ -1,6 +1,6 @@
 <component-level>
 <name>MOCArepository</name>
 <description>MOCA Command Repository Components</description>
-<package>com.redprairie.moca.components.repository</package>
+<package>com.sam.moca.components.repository</package>
 <sort-sequence>30</sort-sequence>
 </component-level>

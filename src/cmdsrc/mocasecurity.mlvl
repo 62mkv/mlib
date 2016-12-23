@@ -1,6 +1,6 @@
 <component-level>
 <name>MOCAsecurity</name>
 <description>MOCA Security Components</description>
-<package>com.redprairie.moca.components.security</package>
+<package>com.sam.moca.components.security</package>
 <sort-sequence>40</sort-sequence>
 </component-level>

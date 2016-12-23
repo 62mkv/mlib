@@ -1,6 +1,6 @@
 <component-level>
   <name>MOCAems</name>
   <description>MOCA EMS Components</description>
-  <package>com.redprairie.moca.components.ems</package>
+  <package>com.sam.moca.components.ems</package>
   <sort-sequence>20</sort-sequence>
 </component-level>

@@ -4,11 +4,11 @@
         <transport distributedSyncTimeout="20000"/>
         <serialization>
             <advancedExternalizers>
-                <advancedExternalizer id="32768" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.SessionDataExternalizer"/>
-                <advancedExternalizer id="32769" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.MaybeExternalizer"/>
-                <advancedExternalizer id="32770" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.RoleDefinitionExternalizer"/>
-                <advancedExternalizer id="32771" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.InfinispanNodeExternalizer"/>
-                <advancedExternalizer id="32772" externalizerClass="com.redprairie.moca.cache.infinispan.externalizers.InstanceUrlExternalizer"/>
+                <advancedExternalizer id="32768" externalizerClass="com.sam.moca.cache.infinispan.externalizers.SessionDataExternalizer"/>
+                <advancedExternalizer id="32769" externalizerClass="com.sam.moca.cache.infinispan.externalizers.MaybeExternalizer"/>
+                <advancedExternalizer id="32770" externalizerClass="com.sam.moca.cache.infinispan.externalizers.RoleDefinitionExternalizer"/>
+                <advancedExternalizer id="32771" externalizerClass="com.sam.moca.cache.infinispan.externalizers.InfinispanNodeExternalizer"/>
+                <advancedExternalizer id="32772" externalizerClass="com.sam.moca.cache.infinispan.externalizers.InstanceUrlExternalizer"/>
             </advancedExternalizers>
         </serialization>
         <globalJmxStatistics enabled="true"/>
@@ -20,7 +20,7 @@
       <clustering mode="LOCAL"/>
       <!-- Used to register JMX statistics in any available MBean server -->
       <jmxStatistics enabled="true"/>
-      <transaction transactionManagerLookupClass="com.redprairie.moca.cache.infinispan.MocaTransactionManagerLookup" />
+      <transaction transactionManagerLookupClass="com.sam.moca.cache.infinispan.MocaTransactionManagerLookup" />
    </default>
 
    <namedCache name="moca-sessions">
@@ -77,7 +77,7 @@
    <namedCache name="date_format">
      <clustering mode="LOCAL" />
      <loaders passivation="false" shared="false" preload="true">
-       <loader class="com.redprairie.moca.server.expression.function.DateFormatCacheStore"
+       <loader class="com.sam.moca.server.expression.function.DateFormatCacheStore"
             ignoreModifications="true" />
      </loaders>
      <transaction transactionMode="NON_TRANSACTIONAL"/>

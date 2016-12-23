@@ -1395,6 +1395,7 @@ long jni_Initialize(JNIEnv *env)
 
     long status;
 
+    printf("1start jni_Initialize...");
     /* Don't bother if we've already initialized ourselves. */
     if (initd || initializing)
         return eOK;
@@ -1404,7 +1405,7 @@ long jni_Initialize(JNIEnv *env)
         return eJNI_INVALID_JNIENV;
 
     initializing = 1;
-
+    printf("2start jni_Initialize...");
     /* java.lang.Boolean */
     status = sInitialize_Boolean(env);
     if (status != eOK)
@@ -1622,6 +1623,7 @@ long jni_Initialize(JNIEnv *env)
         goto status;
     }
 
+printf("3start jni_Initialize...");
     /* Initialize the Java character set. */
     sInitialize_CharacterSet(env);
 
@@ -1630,6 +1632,7 @@ long jni_Initialize(JNIEnv *env)
 
     return eOK;
 status:
+printf("4start jni_Initialize...");
     initializing = 0;
     return status;
 }

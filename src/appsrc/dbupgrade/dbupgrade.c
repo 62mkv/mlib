@@ -33,7 +33,7 @@ static char RCS_Id[] = "$Id$";
 #include <oslib.h>
 
 #define APPNAME    "dbupgrade"
-#define CLASSNAME  "com.redprairie.moca.applications.DbupgradeMain"
+#define CLASSNAME  "com.sam.moca.applications.DbupgradeMain"
 
 int main(int argc, char **argv)
 {

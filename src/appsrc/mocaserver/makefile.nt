@@ -1,8 +1,8 @@
 !include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
 
-APPNAME=mocaserver
+APPNAME=mlibserver
 
-OFILES=mocaserver.obj
+OFILES=mlibserver.obj
 
 !include $(MLIBDIR)\makefiles\Application.mk.win32
 !include $(MLIBDIR)\makefiles\StandardFooter.mk.win32

@@ -33,7 +33,7 @@ static char RCS_Id[] = "$Id$";
 #include <oslib.h>
 
 #define APPNAME    "createctl"
-#define CLASSNAME  "com.redprairie.moca.applications.CreateControlFileMain"
+#define CLASSNAME  "com.sam.moca.applications.CreateControlFileMain"
 
 int main(int argc, char **argv)
 {

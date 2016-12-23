@@ -272,12 +272,12 @@ typedef enum MOCAErrors
     eCMD_UNKNOWN_DATATYPE        = 745,
     eCMD_UNKNOWN_FILE_FORMAT     = 746,
 
-    eMOCA_LDAP_CLIENT            = 750,       /* com.redprairie.moca.security */
+    eMOCA_LDAP_CLIENT            = 750,       /* com.sam.moca.security */
     eMOCA_LDAP_CLIENT_BIND       = 751, 
     eMOCA_LDAP_CLIENT_AUTH       = 752, 
     eMOCA_LDAP_CLIENT_SEARCH     = 753, 
 
-    eMOCA_BASE                   = 800,        /* com.redprairie.moca.components */
+    eMOCA_BASE                   = 800,        /* com.sam.moca.components */
     eMOCA_INVALID_PASSWORD       = 801,
     eMOCA_MISSING_ARG            = 802,
     eMOCA_SMTP_COM_FAILURE       = 803,
@@ -293,7 +293,7 @@ typedef enum MOCAErrors
     eMOCA_TASK_INVALID_STATE     = 812,
     eMOCA_LOAD_DATA_FAILED       = 813,
 
-    eMOCA_SERVICE_MANAGER        = 815,        /* com.redprairie.moca.esrver.service */
+    eMOCA_SERVICE_MANAGER        = 815,        /* com.sam.moca.esrver.service */
     eMOCA_SERVICE_READER         = 816,
 
     eMOCA_SQL_CONTAINS_REFS      = 820,        /* mocadbutl */
