@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Login Moca Test</title>
+<title>WMS</title>
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="pragma" content="no-cache">
@@ -17,41 +17,54 @@
 			//alert('aaaa');
 			var loginForm= Ext.create('Ext.form.Panel',
 			           {
-			           	  title:'Login',
+			           	  title:'请登录',
 			           	  bodyPadding:5,
-			           	  width:350,
+			           	  width:300,
+			           	  height:150,
 			           	  shadow:true,
-			           	  layout:'anchor',
+			           	  layout:'vbox',
 			           	  defaults: {
 			           	  	anchor: '100%'
 			           	  },
 			           	  defaultType: 'textfield',
 			           	  fieldDefaults: {
 			           	  	labelAlign:'left',
-			           	  	labelWidth: 100
+			           	  	labelWidth: 50
 			           	  },
 			           	  items:[
 			           	    {
-			           	    	  fieldLabel: 'User Name',
-			           	    	  name: 'name',
+			           	       fieldLabel: '用户名',
+			           	       name: 'name',
+			           	        width: 270,
+			           	        height:25,
+			           	    	minLength:4,
+			           	    	maxLength:10,
+			           	    	vtype:'alpha',//alphanum,email,url.
 			           	    	allowBlank: false
 			           	    },
 			           	    {
-			           	    	  fieldLabel: 'User Password',
+			           	    	  fieldLabel: '密码',
+			           	    	  width:270,
+			           	    	  height:25,
+			           	    	  inputType:'password',
 			           	    	  name: 'pswd',
 			           	    	allowBlank: false
 			           	    }
 			           	   ],
 			           	   buttons:[
 			           	    {
-			           	    	text:'Reset',
+			           	    	text:'重置',
+			           	    	  width:100,
+			           	    	  height:25,
 			           	    	handler:function()
 			           	    	{
 			           	    		this.up('form').getForm().reset();
 			           	    	}
 			           	    },
 			           	    {
-			           	    	text:'Submit',
+			           	    	text:'提交',
+			           	        width:100,
+			           	        height:25,
 			           	    	formBind:true,
 			           	    	disabled:true,
 			           	    	handler:function()
@@ -96,7 +109,7 @@
                             	   	    	   env ="USR_ID="+jsonv.values[0][0] + ":SESSION_KEY="+jsonv.values[0][1];
                             	   	    	   Ext.Msg.alert("Environment:", env);
                             	   	    	   loginForm.hide();
-                            	   	    	   commandForm.show();
+                            	   	    	   PagePanel.show();
                             	   	    	   //Ext.Msg.alert('failed','bbbb');
                             	   	    },
                             	   	    callback:function(p1,p2,p3)
@@ -107,12 +120,13 @@
                             }
 			           	    	}
 			           	    }
-			           	   ],
-			           	   renderTo: Ext.getBody()
+			           	   ]
+			           	   ,renderTo: Ext.getBody()
 			        });
+
 			        loginForm.center();
 			        
-			    		var commandForm= Ext.create('Ext.form.Panel',
+			        var commandForm= Ext.create('Ext.form.Panel',
 			        {
 			         	  title:'Command:',
 			         	  bodyPadding:5,
@@ -199,11 +213,87 @@
                             }
 			           	    	}
 			           	    }
-			           	   ],
-			           	renderTo: Ext.getBody()
+			           	   ]
+			           	//,renderTo: Ext.getBody()
 			        });
 			        commandForm.center();
-			        commandForm.hide();
+			        //commandForm.hide();
+			        var menuForm= Ext.create('Ext.panel.Panel',
+			        		{
+				         	  title:'菜单',
+				         	  bodyPadding:5,
+				         	  width:150,
+				         	 height:600,
+				         	  layout:'accordion',
+				         	  resizable: true,
+				         	  pinned: true,
+				         	  handles:'e',
+					           	items:[
+						           	{
+						           		id:'facility',
+						           		title: '设施',
+						           		html:'This area is for executing command...'
+						           	},
+						           	{
+						           		id:'inbound',
+						           		title: '入库',
+						           	    html: 'This area is for login...'
+						           	},
+						           	{
+						           		id:'outbound',
+						           		title: '出库',
+						           		html:'This area is for executing command...'
+						           	},
+						           	{
+						           		id:'inventory',
+						           		title: '库存',
+						           		html:'This area is for executing command...'
+						           	},
+						           	{
+						           		id:'count',
+						           		title: '盘点',
+						           		html:'This area is for executing command...'
+						           	},
+						           	{
+						           		id:'command',
+						           		title: '命令',
+						           		html:'This area is for executing command...'
+						           	},
+						           	{
+						           		id:'policy',
+						           		title: '方针',
+						           		html:'This area is for executing command...'
+						           	},
+						           	{
+						           		id:'print',
+						           		title: '打印',
+						           		html:'This area is for executing command...'
+						           	}]
+			        		});
+
+			        var scrn_w = document.body.style.width;
+			        var scrn_h = document.body.style.height;
+			        console.log("screen width:" + scrn_w);
+			        console.log("screen height:" + scrn_h);
+			        var PagePanel= Ext.create('Ext.panel.Panel',
+			        		{
+				         	  title:'WMS仓储系统',
+				         	  bodyPadding:5,
+				         	  layout:'hbox',
+					           	items:[
+					           		menuForm,
+					           		{
+					           			xtype: 'panel',
+					           			id: 'content',
+					           			title: '操作区',
+					           			html: 'texting area',
+					           			width: '100%',
+					           			height: '100%'
+					           		}
+						           	],
+						           	renderTo: Ext.getBody()
+			        }).hide();
+			        PagePanel.center();
       });
 </script>
 <div id='resulttext'></div>
