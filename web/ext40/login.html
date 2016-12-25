@@ -6,7 +6,8 @@
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
-	<script type="text/javascript" src="ext-debug.js"></script>
+	<script language="javascript" type="text/javascript" src="ext-debug.js"></script>
+	<script language="javascript" type="text/javascript" src="wms/user/adduser.js"></script>
 	<link href="resources/css/ext-all.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -218,17 +219,60 @@
 			        });
 			        commandForm.center();
 			        //commandForm.hide();
+			        var usermenu = new Ext.create('Ext.menu.Menu',
+			        		{
+			        		width: 120,
+			        		floating: false,
+			        		layout:'vbox',
+			        		items: [
+			        			{
+			        				text: '添加用户',
+			        				id: 'adduser',
+			        				handler: function(item, evt)
+			        				{
+			        					alert(item.text + " clicked!");
+			        					do_addUser(item, evt);
+			        				}
+			        			},
+			        			//{
+			        			//	xtype: 'menuseparator'
+			        			//},
+			        			{
+			        				text: '维护权限',
+			        				handler: function(item, evt)
+			        				{
+			        					alert(item.text + ' was clicked!');
+			        				}
+			        			}
+			        		]});
+			        
 			        var menuForm= Ext.create('Ext.panel.Panel',
 			        		{
 				         	  title:'菜单',
 				         	  bodyPadding:5,
-				         	  width:150,
+				         	  width:140,
 				         	 height:600,
-				         	  layout:'accordion',
 				         	  resizable: true,
+				         	  plain: true,
 				         	  pinned: true,
 				         	  handles:'e',
+				         	  layout:'accordion',
+//				         	 layoutConfig:{
+//			                     activeOnTop: true,
+//			                     fill: true,
+//			                     hideCollapseTool: true,
+//			                     titleCollapse: false,
+//			                     animate: false
+//			                  },
 					           	items:[
+					           		{
+						           		id:'user',
+						           		xtype: 'panel',
+						           		title: '用户',
+						           		items: [
+						           			usermenu
+						           			]
+						           	},
 						           	{
 						           		id:'facility',
 						           		title: '设施',
