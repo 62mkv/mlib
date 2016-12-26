@@ -18,33 +18,33 @@ MOCA_ENVNAME=82
 JAVA_HOME=C:\jdk1.7
 JAVA64_HOME=C:\jdk1.8
 
-LESDIR=D:\MFC\mlib
-#MCSDIR=D:\dev\8.2\mcs
-#DCSDIR=D:\dev\8.2\wmd
-#MTFDIR=D:\dev\8.2\mtf
-#MTFCLIENT=D:\dev\8.2\wmd\mtfclient
+LESDIR=F:\MFC\mlib
+#MCSDIR=F:\dev\8.2\mcs
+#DCSDIR=F:\dev\8.2\wmd
+#MTFDIR=F:\dev\8.2\mtf
+#MTFCLIENT=F:\dev\8.2\wmd\mtfclient
 
-MOCADIR=D:\MFC\mlib
-#SALDIR=D:\dev\8.2\sal
-#SLDIR=D:\dev\8.2\seamles
-#REFSDIR=D:\dev\8.2\rpweb
-#RPUXDIR=D:\dev\8.2\rpux
-#REPORTINGDIR=D:\dev\8.2\reporting
-#RPFITDIR=D:\dev\8.2\RPFitNesse
+MOCADIR=F:\MFC\mlib
+#SALDIR=F:\dev\8.2\sal
+#SLDIR=F:\dev\8.2\seamles
+#REFSDIR=F:\dev\8.2\rpweb
+#RPUXDIR=F:\dev\8.2\rpux
+#REPORTINGDIR=F:\dev\8.2\reporting
+#RPFITDIR=F:\dev\8.2\RPFitNesse
 
-DEVTOOLS=D:\dev\devtools\
+DEVTOOLS=F:\dev\devtools\
 
 
 USR_ID=SUPER
-#WAFFLEDIR=D:\dev\8.2\waffle
+#WAFFLEDIR=F:\dev\8.2\waffle
 #DISABLE_CLIENT_DATA_CACHE=1
-#DCSTESTDIR=D:\dev\8.2\wmd-testing
+#DCSTESTDIR=F:\dev\8.2\wmd-testing
 #DCSTESTINGDIR=%DCSTESTDIR%
 #DCS_FITDIR=%DCSTESTDIR%
 HIBERNATE_HOME=%MOCADIR%\javalib
 
 
-PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\bin;%SALDIR%\bin;%SALDIR%\scripts;%DCSDIR%\bin;%DCSDIR%\scripts;%LESDIR%\scripts;%LESDIR%\bin;%MOCADIR%\bin;%MOCADIR%\scripts;%SLDIR%\bin;%SLDIR%\scripts;%MTFDIR%\bin;%MTFDIR%\scripts;%MCSDIR%\bin;%MCSDIR%\client\bin;%MCSDIR%\scripts;%MOCARPTDIR%\scripts;%MOCARPTDIR%\bin;%REFSDIR%\bin;D:\DailyWork\bin;D:\dev\home;%PATH%;
+PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\bin;%SALDIR%\bin;%SALDIR%\scripts;%DCSDIR%\bin;%DCSDIR%\scripts;%LESDIR%\scripts;%LESDIR%\bin;%MOCADIR%\bin;%MOCADIR%\scripts;%SLDIR%\bin;%SLDIR%\scripts;%MTFDIR%\bin;%MTFDIR%\scripts;%MCSDIR%\bin;%MCSDIR%\client\bin;%MCSDIR%\scripts;%MOCARPTDIR%\scripts;%MOCARPTDIR%\bin;%REFSDIR%\bin;F:\DailyWork\bin;D:\dev\home;%PATH%;
 
 #TEST_CLASSPATH=%RPUXDIR%\server\mocarest\domain\build\classes-test\;
 #WEB_CLASSPATH=%RPUXDIR%\server\build\classes\*;%RPUXDIR%\server\artifacts\*;%RPUXDIR%\server\mocarest\domain\build\jar\*;%REFSDIR%\javalib\*;%REFSDIR%
@@ -76,19 +76,19 @@ test-disable-native=false
 inhibit-tasks=false
 inhibit-jobs=false
 max-async-thread=10
-command-profile=D:\MFC\mlib\data\commandprofile
+command-profile=F:\MFC\mlib\data\commandprofile
 port=%MOCA_PORT%
 prod-dirs=%MOCADIR%;
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
-memory-file=D:\MFC\mlib\data\%MOCA_ENVNAME%.mem
+memory-file=F:\MFC\mlib\data\%MOCA_ENVNAME%.mem
 #config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
 #commands-dir=%REPORTINGDIR%\src\cmdsrc;
 #session-idle-timeout=10
 #session-key-idle-timeout=10
 #session-transaction-timeout=10
 #classic-idle-timeout=10
-#trace-file=D:\dev\8.2\les\log\mocaServer.log
+#trace-file=F:\dev\8.2\les\log\mocaServer.log
 trace-level=*
 java-vmargs=-verbose:jni 
 #command-profile=<pathname>         # Default: off
@@ -131,13 +131,13 @@ password=RedPrairie1
 #url=jdbc:sqlserver://localhost;databaseName=%MOCA_ENVNAME%
 #url=jdbc:sqlserver://localhost;databaseName=rpw82
 ###url=jdbc:sqlserver://localhost;databaseName=20141
-url=jdbc:sqlserver://localhost;databaseName=mlib
+#url=jdbc:sqlserver://localhost;databaseName=mlib
 #url=jdbc:sqlserver://localhost;databaseName=fit-8.2
-driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
-#username=sam2
-#password=sam2
-#url=jdbc:oracle:thin:@localhost:1521:orcl
-#driver=oracle.jdbc.OracleDriver
+#driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+username=sam2
+password=sam2
+url=jdbc:oracle:thin:@localhost:1521:orcl
+driver=oracle.jdbc.OracleDriver
 
 
 [EMS]
