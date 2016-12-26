@@ -11,6 +11,7 @@ client/src/winmsql.net/obj/*
 *.lib
 *.dll
 *.obj
+*.jasper
 *.dll.*
 *.exe.*
 */*.mem
