@@ -1,0 +1,9 @@
+#define WH_ID_LEN 20
+#define AISLE_ID_LEN 20
+#define LOGIN_ID_LEN 20
+#define LOCALE_ID_LEN 20
+#define USR_ID_LEN 20
+#define CLIENT_ID_LEN 20
+#define USR_PSWD_LEN 8
+#define USR_STS_LEN 1
+#define ADR_ID_LEN 30

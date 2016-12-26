@@ -1,0 +1,33 @@
+#include <../../../include/mocaddl.h>
+#include <tablelen.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_TABLE(usr)
+(
+    usr_id 	      NSTRING_TY(USR_ID_LEN) not null,    /* PK */
+    login_id          NSTRING_TY(LOGIN_ID_LEN),
+    usr_pswd 	      NSTRING_TY(USR_PSWD_LEN),
+    locale_id  	      NSTRING_TY(LOCALE_ID_LEN) not null,
+    usr_sts  	      NSTRING_TY(USR_STS_LEN) 
+                 constraint wmsusr_usrsts check(usr_sts in ('A','I','E','T')),	
+    super_usr_flg     FLAG_TY
+		          FLAG_CONSTRAINT(wmsusr_suflgck, super_usr_flg),
+    acct_expir_dat    DATE_TY,
+    pswd_chg_dat      DATE_TY,
+    pswd_chg_flg      FLAG_TY
+		          FLAG_CONSTRAINT(wmsusr_pdchflck, pswd_chg_flg),
+    pswd_expir_flg    FLAG_TY
+             FLAG_CONSTRAINT(wmsusr_pdexflck, pswd_expir_flg),
+    adr_id        NSTRING_TY(ADR_ID_LEN),
+    client_id         NSTRING_TY(CLIENT_ID_LEN),
+    lst_dat	      DATE_TY,
+    lst_logout_dte    DATE_TY,
+    moddte	      DATE_TY,
+    mod_usr_id	      NSTRING_TY(USR_ID_LEN)
+)
+RUN_DDL
+
+#include <usr_pk.idx>
+#include <usr.tdoc>

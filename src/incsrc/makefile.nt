@@ -29,7 +29,8 @@ IFILES=cmdlib.h \
        sqllib.h \
        srvlib.h \
        usrtbldef.h \
-       vartbldef.h
+       vartbldef.h \
+       tablelen.h
 
 TARGETS=$(INCDIR)\cmdlib.h \
 	$(INCDIR)\common.h \
@@ -60,7 +61,8 @@ TARGETS=$(INCDIR)\cmdlib.h \
 	$(INCDIR)\sqllib.h \
 	$(INCDIR)\srvlib.h \
 	$(INCDIR)\usrtbldef.h \
-	$(INCDIR)\vartbldef.h
+	$(INCDIR)\vartbldef.h \
+	$(INCDIR)\tablelen.h
 
 $(INCDIR)\cmdlib.h: cmdlib.h
 	@$(INSTALL) $? $(INCDIR)
@@ -121,6 +123,8 @@ $(INCDIR)\srvlib.h: srvlib.h
 $(INCDIR)\usrtbldef.h: usrtbldef.h
 	@$(INSTALL) $? $(INCDIR)
 $(INCDIR)\vartbldef.h: vartbldef.h
+	@$(INSTALL) $? $(INCDIR)
+$(INCDIR)\tablelen.h: tablelen.h
 	@$(INSTALL) $? $(INCDIR)
 
 !include $(MLIBDIR)\makefiles\Header.mk.win32

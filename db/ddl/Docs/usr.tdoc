@@ -1,0 +1,22 @@
+mset command on
+
+create db documentation
+  where table = 'usr'
+    and table_comment = "This table represents a user."
+    and usr_id= "The unique identifier and user''s login."
+    and login_id= "This field is an alternate id for the user.  This is typically the long or full user name for a user.  Typically used for passport and single-sign on verifications."
+    and usr_pswd= "The user password"
+    and locale_id= "This is the default locale for this user."
+    and usr_sts= "Values: A=Active, I=Inactive, E=Expired"
+    and super_usr_flg= "Used to indicate the user is a super user, meaning they have access to all functionality on the system."
+    and acct_expir_dat= "If this field is not null, it defines the date this user''s account expires."
+    and pswd_chg_dat= "If this field is not null, it defines the date this user must change their password."
+    and pswd_chg_flg= "If this flag is set, it forces the user to change their password."
+    and pswd_expir_flg= "If this flag is set, the password will expire on the the pswd_chg_dat."
+    and adr_id= "This points to the address information for a user."
+    and client_id= "This field ties this user to a specific client for a 3PL system."
+    and lst_dat= "This is the last time this user logged into the system."
+    and moddte= "Last time this user''s information was modified."
+    and mod_usr_id="The user that last changed this user''s information."
+/
+mset command off 

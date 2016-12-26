@@ -1,0 +1,7 @@
+#include <tablelen.h>
+#include <sqlDataTypes.h>
+
+CREATE_PK_CONSTRAINT_BEGIN(usr, usr_pk )
+(usr_id)
+CREATE_PK_CONSTRAINT_END
+RUN_DDL
