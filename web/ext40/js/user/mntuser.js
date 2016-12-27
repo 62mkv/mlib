@@ -11,6 +11,24 @@ function mntUser(item, evt)
     if (!au_mntuser)
     {
         console.log("now creating panel au_adduser..");
+        //create validation for password:
+        Ext.apply(Ext.form.field.VTypes,
+        		{
+        	        password: function(val, field)
+        	        {
+        	        	var au_pswd2 = Ext.getCmp("au_pswd");
+        	        	if (au_pswd2)
+        	        	{
+        	        		return val == au_pswd2.value;
+        	        	}
+        	        	else
+        	        	{
+        	        		return true;
+        	        	}
+        	        },
+        	        passwordText: '两次输入的密码不同'
+        		});
+
         au_mntuser = Ext.create('Ext.form.Panel',
                 {
                    title:'用户维护',
@@ -33,13 +51,15 @@ function mntUser(item, evt)
                                      {
                                          xtype:'textfield',
                                          fieldLabel: '用户名',
-                                         name: 'au_name',
+                                         id: 'au_name',
                                           width: 270,
                                           height:25,
                                           minLength:4,
                                           maxLength:10,
-                                          vtype:'alpha',//alphanum,email,url.
-                                          allowBlank: false
+                                          emptyText: '请输入用户名',
+                                          vtype:'alpha',
+                                          allowBlank: false,
+                                          blankText: '用户名不能为空'
                                       },
                                      {
                                           text: '查询',
@@ -57,21 +77,24 @@ function mntUser(item, evt)
                                      width:270,
                                      height:25,
                                      inputType:'password',
-                                     name: 'au_pswd',
-                                   allowBlank: false
+                                     id: 'au_pswd',
+                                   allowBlank: false,
+                                   blankText: '密码不能为空'
                                },
                                {
                                    fieldLabel: '确认密码',
                                    width:270,
                                    height:25,
                                    inputType:'password',
-                                   name: 'au_pswd2',
-                                 allowBlank: false
+                                   id: 'au_pswd2',
+                                   vtype: 'password',
+                                 allowBlank: false,
+                                 blankText: '请再次输入密码'
                              },
                                {
                                  fieldLabel:'超级用户',
                                  xtype:'checkbox',
-                                 name:'sup_usr_flg',
+                                 id:'sup_usr_flg',
                                  width:270,
                                  height:25
                                }
@@ -101,11 +124,14 @@ function mntUser(item, evt)
                              //alert("aaaaabbb");
                              if (au_mntuser.isValid())
                              {
+                            	 var clause = " where usr_id ='" + Ext.getCmp("au_name").value
+                            	            + "' and usr_pswd ='" + Ext.getCmp("au_pswd").value
+                            	            + "' and super_usr_flg ='" + (Ext.getCmp("sup_usr_flg").value ? "1":"0") + "'";
                                  au_mntuser.submit(
                                     {
                                                 url: HOST_STRING,
-                                                params:{Query: 'create user where usr_id = 123 and usr_pswd=dsfds',
-                                                  ResponseFormat:'json'},
+                                                params:{Query: 'create user' + clause,
+                                                  ResponseFormat:'xml'},
                                                 method: 'POST',
                                                 submitEmptyText:false,
                                             //reader:Ext.data.reader.Xml,
@@ -128,10 +154,25 @@ function mntUser(item, evt)
                                                                   //break;
                                                    }
                                                    
-                                                   var jsonv = eval("("+action.response.responseText+")");
+                                                   //var jsonv = eval("("+action.response.responseText+")");
                                                    //Ext.Msg.alert('User', jsonv.values[0][0]);
                                                    //Ext.Msg.alert('Session_key', jsonv.values[0][1]);
-                                                   env ="USR_ID="+jsonv.values[0][0] + ":SESSION_KEY="+jsonv.values[0][1];
+                                                   var xmlDoc = action.response.responseXML;
+                                                   if(xmlDoc!=null)
+                                                   {
+                                                       var status = xmlDoc.getElementsByTagName("status");
+                                                       var msg = xmlDoc.getElementsByTagName("message");
+                                                       if (status && status[0].childNodes[0].nodeValue != 0)
+                                                       {
+                                                    	   Ext.Msg.alert(status[0].childNodes[0].nodeValue, msg[0].childNodes[0].nodeValue);
+                                                       }
+                                                       else
+                                                       {
+                                                    	   var un = xmlDoc.getElementsByTagName("field");
+                                                           Ext.Msg.alert("成功:", "用户:" + un[1].childNodes[0].nodeValue + "成功创建!");
+                                                           au_mntuser.getForm().reset();
+                                                       }
+                                                   }
                                             },
                                             callback:function(p1,p2,p3)
                                             {

@@ -1,0 +1,50 @@
+<command>
+  <name>create user</name>
+  <description>Create an user</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'usr_id'
+|
+validate stack variable not null
+where name = 'usr_pswd'
+|
+publish data where lst_dat = sysdate
+|
+publish data where moddte = sysdate
+|
+if (@locale_id = '')
+{
+    publish data
+     where locale_id ='SIMPLIFIED_CHINESE'
+}
+|
+if (@usr_sts = '')
+{
+    publish data where usr_sts ='A'
+}
+|
+if (@login_id = '')
+{
+    publish data where login_id = @usr_id
+}
+|
+create record
+ where table_name = 'usr'
+   and usr_id = @usr_id
+   and @*
+]]>
+  </local-syntax>
+  <argument name="usr_id" datatype="string"/>
+  <argument name="usr_pswd" datatype="string"/>
+  <argument name="usr_sts" datatype="string"/>
+  <argument name="super_usr_flg" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command create an user in usr table.
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  </documentation>
+</command>
