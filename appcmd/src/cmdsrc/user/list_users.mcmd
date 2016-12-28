@@ -1,0 +1,21 @@
+<command>
+  <name>list users</name>
+  <description>list users</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+[select *
+   from usr
+  where @+usr_id
+    and @*]
+]]>
+  </local-syntax>
+  <argument name="usr_id" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command list users in usr table.
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  </documentation>
+</command>

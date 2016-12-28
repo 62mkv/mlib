@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2016 Sam Corporation, All rights reserved.
+ */
 function mntUser(item, evt)
 {
     var arg = arguments;
@@ -29,6 +32,42 @@ function mntUser(item, evt)
         	        passwordText: '两次输入的密码不同'
         		});
 
+        var md_usr = Ext.define('User',
+        		{
+        		extend: 'Ext.data.Model',
+        		fields: [
+        			{name: 'usr_id', type:'string'},
+        			{name:  'usr_pswd', type:'string'},
+        			{name:  'super_usr_flg', type: 'int'}
+        		]
+                });
+        
+        var ds_usr = Ext.create('Ext.data.Store',
+        		{
+        	        model: md_usr,
+        	        proxy:
+        	        	{
+        	        	     type: 'ajax',
+        	        	     url: HOST_STRING,
+        	        	     reader: {
+        	        	    	 type: 'xml',
+        	        	    	 root: 'field'
+        	        	     }
+        	        	},
+        	        autoLoad: false
+        		});
+        var grd_usr = Ext.create('Ext.grid.Panel',
+        		{
+        	        title: '用户',
+                    width:page_panel.body.el.dom.clientWidth/2,
+                    height:page_panel.body.el.dom.clientHeight/2,
+        	        columns: [
+        	        	{text: '用户', dataIndex: 'usr_id', flex: 1},
+        	        	{text: '密码', dataIndex: 'usr_pswd', flex: 1},
+        	        	{text: '超级用户', dataIndex: 'super_usr_flg', flex: 1}
+        	        ],
+        	        store: ds_usr
+        		})
         au_mntuser = Ext.create('Ext.form.Panel',
                 {
                    title:'用户维护',
@@ -44,7 +83,7 @@ function mntUser(item, evt)
                    },
                    items:[
                           {
-                              xtype:'panel',
+                              xtype:'fieldcontainer',
                               layout:'hbox',
                               border: false,
                               items:[
@@ -68,6 +107,32 @@ function mntUser(item, evt)
                                            handler: function()
                                            {
                                                Ext.Msg.alert('find clicked');
+                                               var clause = "";
+                                               var usid = Ext.getCmp("au_name");
+                                               if (usid)
+                                               {
+                                               	clause = " where usr_id ='" + usid.value + "'";
+                                               }
+                                               else
+                                               {
+                                               	clause = " ";
+                                               }
+                                               ds_usr.load({
+                                            			    page: 3,
+                                            			    limit: 90,
+                                            			    params: {
+                                            			    	Query: 'list users' + clause
+                                            			    },
+                                            		    callback: function (records, operation, success) {
+                                            		    	Ext.Msg.alert("callback called");
+                                            		        if (success) {
+                                            		            var msg = [];
+                                            		            store.each(function (users) {
+                                            		                users.get('column');
+                                            		            });
+                                            		        }
+                                            		    }
+                                               });
                                            }
                                        },
                                      ]
@@ -97,7 +162,8 @@ function mntUser(item, evt)
                                  id:'sup_usr_flg',
                                  width:270,
                                  height:25
-                               }
+                               },
+                               grd_usr
                           ],
                    bbar:[
                          {xtype:'tbfill'},
