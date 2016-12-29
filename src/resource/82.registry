@@ -101,7 +101,8 @@ java-vmargs=-verbose:jni
 
 [JAVA]
 #vm=%JAVA_HOME%\jre\bin\java.exe
-vmargs=-Xms512m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=96m
+#vmargs=-Xms512m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=96m
+vmargs=-Xms512m -Xmx512m
 #vmargs32=-Xms1024M -Xmx1024M -XX:MaxPermSize=900m
 #vmargs=-server -Xrs -Xms1024
 #vm32=%JAVA_HOME%\jre\bin\java.exe

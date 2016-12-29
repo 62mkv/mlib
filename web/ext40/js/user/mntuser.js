@@ -117,22 +117,24 @@ function mntUser(item, evt)
                                                {
                                                	clause = " ";
                                                }
-                                               ds_usr.load({
-                                            			    page: 3,
-                                            			    limit: 90,
-                                            			    params: {
-                                            			    	Query: 'list users' + clause
-                                            			    },
-                                            		    callback: function (records, operation, success) {
-                                            		    	Ext.Msg.alert("callback called");
-                                            		        if (success) {
-                                            		            var msg = [];
-                                            		            store.each(function (users) {
-                                            		                users.get('column');
-                                            		            });
-                                            		        }
-                                            		    }
-                                               });
+                                               buildModeForCmd("list users");
+//                                               ds_usr.load({
+//                                            			    page: 3,
+//                                            			    limit: 90,
+//                                            			    params: {
+//                                            			    	Query: 'list users' + clause
+//                                            			    },
+//                                            		    callback: function (records, operation, success) {
+//                                            		    	Ext.Msg.alert("callback called");
+//                                            		        if (success) {
+//                                            		            var msg = [];
+//                                            		            store.each(function (users) {
+//                                            		                users.get('column');
+//                                            		            });
+//                                            		        }
+//                                            		    }
+//                                               });
+                                               alert("hhhhh");
                                            }
                                        },
                                      ]
