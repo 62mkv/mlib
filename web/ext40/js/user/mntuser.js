@@ -117,7 +117,8 @@ function mntUser(item, evt)
                                                {
                                                	clause = " ";
                                                }
-                                               buildModeForCmd("list users");
+                                               buildModeForCmd("list users", "User");
+//                                               console.log(model);
 //                                               ds_usr.load({
 //                                            			    page: 3,
 //                                            			    limit: 90,
