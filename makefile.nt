@@ -1,12 +1,14 @@
 all: install
 
-install: install-server install-client
+install: install-server install-client install-appcmd
 
 client: install-client
 
 server: install-server
 
 test: install-test
+
+appcmd: install-appcmd
 
 install-server: ant-server
 	cd "$(MAKEDIR)\src"
@@ -22,14 +24,24 @@ install-test: ant-test
 	cd "$(MAKEDIR)\test\src"
 	$(MAKE) -nologo -fmakefile.nt install
 
+install-appcmd:
+  -copy $(MLIBDIR)\3rdparty\tradelib\WAPIWrapperCpp.dll $(MLIBDIR)\bin
+  -copy $(MLIBDIR)\3rdparty\tradelib\WAPIWrapperCpp.lib $(MLIBDIR)\lib
+	cd "$(MAKEDIR)\appcmd\src"
+	$(MAKE) -nologo -fmakefile.nt install
+
 config: FRC
 	cd "$(MAKEDIR)\config"
 	$(MAKE) -nologo -fmakefile.nt
 
-clean: clean-server clean-client clean-test
+clean: clean-server clean-client clean-test clean-appcmd
 
 clean-server:
 	cd "$(MAKEDIR)\src"
+	$(MAKE) -nologo -fmakefile.nt clean
+
+clean-appcmd:
+	cd "$(MAKEDIR)\appcmd\src"
 	$(MAKE) -nologo -fmakefile.nt clean
 
 clean-client: 

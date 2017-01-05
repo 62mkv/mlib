@@ -1,0 +1,15 @@
+!include $(MLIBDIR)\makefiles\StandardHeader.mk.win32
+
+LIBNAME=TRADElib
+
+LIBPART=yes
+
+OFILES=doWindTrade.obj
+
+EXTRACFLAGS=$(EXTRACFLAGS) -D "_ATL_STATIC_REGISTRY" \
+            -D "_WINDOWS" -D "_USRDLL" -EHsc
+EXTRALIBS=WAPIWrapperCpp.lib
+
+!include $(MLIBDIR)\makefiles\Component.mk.win32
+!include $(MLIBDIR)\makefiles\StandardFooter.mk.win32
+

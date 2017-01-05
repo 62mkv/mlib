@@ -1,0 +1,5 @@
+!include $(MLIBDIR)\makefiles\StandardDirHeader.mk.win32
+
+SUBDIR=libsrc
+
+!include $(MLIBDIR)\makefiles\StandardDirFooter.mk.win32

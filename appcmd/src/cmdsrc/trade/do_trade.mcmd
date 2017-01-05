@@ -1,0 +1,17 @@
+<command>
+<name>do trade</name>
+<description>do wind trade.</description>
+<type>C Function</type>
+<function>doWindTrade</function>
+<argument name="acntID" datatype="string">
+</argument>
+<documentation>
+<remarks>
+<![CDATA[
+ This command will perform trade with wind interface.
+]]>
+</remarks>
+<retrows>One</retrows>
+<exception value="eOK">The command completed successfully.</exception>
+</documentation>
+</command>

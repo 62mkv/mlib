@@ -1,0 +1,6 @@
+<component-level>
+<name>TRADElib</name>
+<description>Wind Trade Component</description>
+<library>TRADElib</library>
+<sort-sequence>50</sort-sequence>
+</component-level>

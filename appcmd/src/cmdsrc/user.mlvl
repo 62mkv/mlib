@@ -1,7 +1,6 @@
 <component-level>
 <name>User</name>
 <description>User Components</description>
-<library>User</library>
 <package>com.wms.user</package>
 <sort-sequence>0</sort-sequence>
 </component-level>
