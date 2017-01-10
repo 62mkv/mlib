@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<moca-response>
+    <session-id>
+    </session-id>
+    <status>0</status>
+    <moca-results>
+        <metadata>
+            <column name="usr_id" type="S" length="20" nullable="false"/>
+            <column name="login_id" type="S" length="20" nullable="true"/>
+            <column name="usr_pswd" type="S" length="8" nullable="true"/>
+            <column name="locale_id" type="S" length="20" nullable="false"/>
+            <column name="usr_sts" type="S" length="1" nullable="true"/>
+            <column name="super_usr_flg" type="I" length="4" nullable="true"/>
+            <column name="acct_expir_dat" type="D" length="14" nullable="true"/>
+            <column name="pswd_chg_dat" type="D" length="14" nullable="true"/>
+            <column name="pswd_chg_flg" type="I" length="4" nullable="true"/>
+            <column name="pswd_expir_flg" type="I" length="4" nullable="true"/>
+            <column name="adr_id" type="S" length="30" nullable="true"/>
+            <column name="client_id" type="S" length="20" nullable="true"/>
+            <column name="lst_dat" type="D" length="14" nullable="true"/>
+            <column name="lst_logout_dte" type="D" length="14" nullable="true"/>
+            <column name="moddte" type="D" length="14" nullable="true"/>
+            <column name="mod_usr_id" type="S" length="20" nullable="true"/>
+        </metadata>
+        <data>
+            <row>
+                <field>aaaaa</field>
+                <field>aaaaa</field>
+                <field>aa</field>
+                <field>SIMPLIFIED_CHINESE</field>
+                <field>A</field>
+                <field>0</field>
+                <field null="true"></field>
+                <field null="true"></field>
+                <field null="true"></field>
+                <field null="true"></field>
+                <field null="true"></field>
+                <field null="true"></field>
+                <field>20161227181248</field>
+                <field null="true"></field>
+                <field>20161227181248</field>
+                <field>SUPER</field>
+            </row>
+        </data>
+    </moca-results>
+</moca-response>

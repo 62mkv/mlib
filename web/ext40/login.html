@@ -88,6 +88,7 @@
                             if (form.isValid())
                             {
                                 HOST_STRING = Ext.getCmp("host").value;
+                                MLIB_XML_PROXY.url = HOST_STRING;
                                 //alert('hoststring is:' + hoststring);
                                    form.submit(
                                    {
@@ -119,7 +120,7 @@
                                                   var jsonv = eval("("+action.response.responseText+")");
                                                   //Ext.Msg.alert('User', jsonv.values[0][0]);
                                                   //Ext.Msg.alert('Session_key', jsonv.values[0][1]);
-                                                  env ="USR_ID="+jsonv.values[0][0] + ":SESSION_KEY="+jsonv.values[0][1];
+                                                  ENV ="USR_ID="+jsonv.values[0][0] + ":SESSION_KEY="+jsonv.values[0][1];
                                                   //Ext.Msg.alert("Environment:", env);
                                                   loginForm.hide();
                                                   PagePanel.show();
@@ -243,7 +244,7 @@
                                     handler: function(item, evt)
                                     {
                                        // alert(item.text + " clicked!");
-                                       mntUser(item, evt);
+                                    	mntUser(item, evt);
                                     }
                                 },
                                 //{

@@ -32,28 +32,20 @@ function mntUser(item, evt)
         	        passwordText: '两次输入的密码不同'
         		});
 
-        var md_usr = Ext.define('User',
-        		{
-        		extend: 'Ext.data.Model',
-        		fields: [
-        			{name: 'usr_id', type:'string'},
-        			{name:  'usr_pswd', type:'string'},
-        			{name:  'super_usr_flg', type: 'int'}
-        		]
-                });
-        
+//        var md_usr = Ext.define('User',
+//        		{
+//        		extend: 'Ext.data.Model',
+//        		fields: [
+//        			{name: 'usr_id', type:'string'},
+//        			{name:  'usr_pswd', type:'string'},
+//        			{name:  'super_usr_flg', type: 'int'}
+//        		]
+//                });
+        var modelAndCols = buildModeAndColumnsForCmd("list users", "User");
         var ds_usr = Ext.create('Ext.data.Store',
         		{
-        	        model: md_usr,
-        	        proxy:
-        	        	{
-        	        	     type: 'ajax',
-        	        	     url: HOST_STRING,
-        	        	     reader: {
-        	        	    	 type: 'xml',
-        	        	    	 root: 'field'
-        	        	     }
-        	        	},
+        	        model: modelAndCols.model,
+        	        proxy: MLIB_XML_PROXY,
         	        autoLoad: false
         		});
         var grd_usr = Ext.create('Ext.grid.Panel',
@@ -61,11 +53,7 @@ function mntUser(item, evt)
         	        title: '用户',
                     width:page_panel.body.el.dom.clientWidth/2,
                     height:page_panel.body.el.dom.clientHeight/2,
-        	        columns: [
-        	        	{text: '用户', dataIndex: 'usr_id', flex: 1},
-        	        	{text: '密码', dataIndex: 'usr_pswd', flex: 1},
-        	        	{text: '超级用户', dataIndex: 'super_usr_flg', flex: 1}
-        	        ],
+        	        columns: modelAndCols.columns,
         	        store: ds_usr
         		})
         au_mntuser = Ext.create('Ext.form.Panel',
@@ -106,10 +94,10 @@ function mntUser(item, evt)
                                           name: 'au_find',
                                            handler: function()
                                            {
-                                               Ext.Msg.alert('find clicked');
+                                               //Ext.Msg.alert('find clicked');
                                                var clause = "";
                                                var usid = Ext.getCmp("au_name");
-                                               if (usid)
+                                               if (usid.value !== undefined && usid.value !== '')
                                                {
                                                	clause = " where usr_id ='" + usid.value + "'";
                                                }
@@ -117,25 +105,23 @@ function mntUser(item, evt)
                                                {
                                                	clause = " ";
                                                }
-                                               buildModeForCmd("list users", "User");
-//                                               console.log(model);
-//                                               ds_usr.load({
-//                                            			    page: 3,
-//                                            			    limit: 90,
-//                                            			    params: {
-//                                            			    	Query: 'list users' + clause
-//                                            			    },
-//                                            		    callback: function (records, operation, success) {
-//                                            		    	Ext.Msg.alert("callback called");
-//                                            		        if (success) {
-//                                            		            var msg = [];
-//                                            		            store.each(function (users) {
-//                                            		                users.get('column');
-//                                            		            });
-//                                            		        }
-//                                            		    }
-//                                               });
-                                               alert("hhhhh");
+                                               ds_usr.load({
+                                            			    page: 3,
+                                            			    limit: 90,
+                                            			    params: {
+                                            			    	Query: 'list users' + clause
+                                            			    },
+                                            		    callback: function (records, operation, success) {
+                                            		    	//Ext.Msg.alert("callback called");
+                                            		        if (success) {
+                                            		            var msg = [];
+                                            		            store.each(function (users) {
+                                            		                users.get('column');
+                                            		            });
+                                            		        }
+                                            		    }
+                                               });
+                                               //alert("hhhhh");
                                            }
                                        },
                                      ]
