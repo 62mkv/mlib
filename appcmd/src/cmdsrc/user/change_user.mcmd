@@ -1,0 +1,24 @@
+<command>
+  <name>change user</name>
+  <description>Change An User</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'usr_id'
+|
+change record
+ where table_name = 'usr'
+   and usr_id = @usr_id
+   and @*
+]]>
+  </local-syntax>
+  <argument name="usr_id" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command change a user from user table.
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  </documentation>
+</command>

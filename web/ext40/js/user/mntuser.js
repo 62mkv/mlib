@@ -48,11 +48,26 @@ function mntUser(item, evt)
         	        proxy: MLIB_XML_PROXY,
         	        autoLoad: false
         		});
+            ds_usr.on("load",
+            		  function(ds_usr)
+            		  {
+            	         if (ds_usr.data.items.length > 0)
+            	         {
+           	                  var savebtn = Ext.getCmp("bbar_save");
+        	                  savebtn.enable();
+            		     }
+            	         else
+            	         {
+          	                  var savebtn = Ext.getCmp("bbar_save");
+        	                  savebtn.disable();
+            	         }
+            		  });
         var grd_usr = Ext.create('Ext.grid.Panel',
         		{
         	        title: '用户',
-                    width:page_panel.body.el.dom.clientWidth/2,
-                    height:page_panel.body.el.dom.clientHeight/2,
+                    width:page_panel.body.el.dom.clientWidth * 2/3,
+                    height:page_panel.body.el.dom.clientHeight * 2/3,
+                    bodyPadding:5,
         	        columns: modelAndCols.columns,
         	        store: ds_usr
         		})
@@ -157,22 +172,71 @@ function mntUser(item, evt)
                    bbar:[
                          {xtype:'tbfill'},
                          {xtype:'button',
-                             text: '新增',
+                             text: '清除',
+                             id: 'bbar_clear',
                              handler: function(a,b)
                              {
-                                Ext.Msg.alert('New clicked!');
+                            	 ds_usr.removeAll();
+                            	 au_mntuser.getForm().reset();
+                            	 var savebtn = Ext.getCmp("bbar_save");
+                            	 savebtn.disable();
+                             }
+                            },
+                         {xtype:'button',
+                             text: '新增',
+                             id: 'bbar_new',
+                             handler: function(a,b)
+                             {
+                            	 var savebtn = Ext.getCmp("bbar_save");
+                            	 savebtn.enable();
                              }
                             },
                          {xtype:'button',
                                 text: '删除',
+                                id: 'bbar_delete',
                                 handler: function(a,b)
                                 {
-                                   Ext.Msg.alert('Del clicked!');
+                                	var usr_id_str = Ext.getCmp("au_name").value;
+                                    if (usr_id_str !== undefined && usr_id_str !== '')
+                                    {
+                                   	    var clause = " where usr_id ='" + usr_id_str + "'";
+                                   	    Ext.Ajax.request(
+                                        {
+                                               url: HOST_STRING,
+                                               params:{
+                                                	   Query: 'remove user' + clause,
+                                                       ResponseFormat:'xml'
+                                                      },
+                                               success: function(resp,opts)
+                                               {
+                                                   var xmlDoc = resp.responseXML;
+                                                   if(xmlDoc!=null)
+                                                   {
+                                                       var status = xmlDoc.getElementsByTagName("status");
+                                                       var msg = xmlDoc.getElementsByTagName("message");
+                                                       if (status && status[0].childNodes[0].nodeValue != 0)
+                                                       {
+                                                    	   Ext.Msg.alert(status[0].childNodes[0].nodeValue, msg[0].childNodes[0].nodeValue);
+                                                       }
+                                                       else
+                                                       {
+                                                           Ext.Msg.alert("成功删除:", "用户:" + usr_id_str + "!");
+                                                           ds_usr.removeAll();
+                                                           au_mntuser.getForm().reset();
+                                                       }
+                                                   }
+                                               }
+                                         });
+                                    }
+                                    else {
+                                   	 Ext.Msg.alert('错误','请指定用户ID！');
+                                    }
                                 }
                                },
                          {xtype:'button',
                           text: '保存',
-                          formBind: true,
+                          id: 'bbar_save',
+                          //formBind: true,
                           handler: function(a,b)
                           {
                              Ext.Msg.alert('Save clicked!');
@@ -235,10 +299,14 @@ function mntUser(item, evt)
                                             }
                                         });
                                  }
+                             else {
+                            	 Ext.Msg.alert('错误','数据不全！');
+                             }
                           }
                          },
                          {xtype:'button',
                           text: '取消',
+                          id: 'bbar_cancel',
                           handler: function(a,b)
                           {
                              Ext.getCmp("au_mntuser").hide();
@@ -248,6 +316,8 @@ function mntUser(item, evt)
                          {xtype:'tbfill'}
                          ]
         });
+   	    var savebtn = Ext.getCmp("bbar_save");
+	    savebtn.disable();
         page_panel.add(au_mntuser);
     }
     else {
@@ -256,3 +326,4 @@ function mntUser(item, evt)
     }
     page_panel.doLayout();
 }
+

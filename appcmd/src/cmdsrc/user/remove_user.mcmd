@@ -1,0 +1,23 @@
+<command>
+  <name>remove user</name>
+  <description>Remove An User</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'usr_id'
+|
+remove record
+ where table_name = 'usr'
+   and usr_id = @usr_id
+]]>
+  </local-syntax>
+  <argument name="usr_id" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command remove a user from user table.
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  </documentation>
+</command>
