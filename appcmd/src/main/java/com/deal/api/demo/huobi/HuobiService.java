@@ -65,7 +65,9 @@ public class HuobiService extends Base {
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
         paraMap.put("access_key", HUOBI_ACCESS_KEY);
+        System.out.println("HUOBI_ACCESS_KEY:" + HUOBI_ACCESS_KEY);
         paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        System.out.println("HUOBI_SECRET_KEY:" + HUOBI_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         paraMap.put("amount", amount);
         String md5 = sign(paraMap);
