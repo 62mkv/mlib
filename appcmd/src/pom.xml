@@ -7,16 +7,16 @@
 
 	<dependencies>
 		<dependency>
-		<!-- mvn install:install-file -Dfile="F:\dev\moca\test\3rdparty\jolokia\client\httpclient-4.3.6.jar" -DgroupId=sni.mlib -DartifactId=httpclient -Dversion=4.3.6 -Dpackaging=jar -->
+		<!-- mvn install:install-file -Dfile="D:\MFC\mlib\3rdparty\httpcomponents-client-4.3.3\httpclient-4.3.3.jar" -DgroupId=sni.mlib -DartifactId=httpclient -Dversion=4.3.3 -Dpackaging=jar -->
 			<groupId>sni.mlib</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.3.6</version>
+			<version>4.3.3</version>
 		</dependency>
 		      <dependency>
-        <!-- mvn install:install-file -Dfile="F:\dev\moca\test\3rdparty\jolokia\client\httpcore-4.3.3.jar" -DgroupId=sni.mlib -DartifactId=httpclient -Dversion=4.3.3 -Dpackaging=jar -->
+        <!-- mvn install:install-file -Dfile="D:\MFC\mlib\3rdparty\httpcomponents-client-4.3.3\httpcore-4.3.2.jar" -DgroupId=sni.mlib -DartifactId=httpcore -Dversion=4.3.2 -Dpackaging=jar -->
             <groupId>sni.mlib</groupId>
             <artifactId>httpcore</artifactId>
-            <version>4.3.3</version>
+            <version>4.3.2</version>
         </dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
