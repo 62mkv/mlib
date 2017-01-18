@@ -248,7 +248,8 @@ public class ComponentLevel implements Serializable {
             }
             catch (IllegalArgumentException e) {
                 _logger.debug(MocaUtils.concat("Done initializing Java package ", 
-                        _package, " - ComponentLibrary not present"));
+                        _package, " - ComponentLibrary not present") + e.getMessage());
+                e.printStackTrace();
             }
             if (initClass != null) {
                 Method initMethod = null;

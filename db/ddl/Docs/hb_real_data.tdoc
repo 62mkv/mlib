@@ -1,0 +1,18 @@
+mset command on
+
+create db documentation
+  where table = 'hb_real_data'
+    and table_comment = "This table contains the data of real trading from huobi net."
+    and symbol = "btccyn."
+    and time = "server passed timestamp."
+    and high = "high price."
+    and low = "low price."
+    and vol = "trading volume."
+    and buy = "buy price."
+    and sell = "sell price."
+    and last = "last deal price."
+    and first = "open price."
+    and ins_dt = "record insert time."
+/
+
+mset command off 

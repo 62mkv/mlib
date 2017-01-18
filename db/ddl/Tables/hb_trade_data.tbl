@@ -1,0 +1,26 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef HB_TRADE_DATA_TBL
+#define HB_TRADE_DATA_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define HB_TRADE_DATA_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define HB_TRADE_DATA_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define HB_TRADE_DATA_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define HB_TRADE_DATA_TBL
+#endif
+
+CREATE_TABLE(hb_trade_data)
+(
+    symbol STRING_TY(10) not null,
+    time STRING_TY(20) not null,
+    amount FLOAT_TY,
+    price FLOAT_TY,
+    type STRING_TY(20),
+    ins_dt DATE_TY
+)
+CREATE_TABLE_TABLESPACE(HB_TRADE_DATA_TBL_TBLSPC, HB_TRADE_DATA_TBL_STORAGE)
+RUN_DDL
+
+#include <hb_trade_data.tdoc>

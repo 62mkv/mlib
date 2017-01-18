@@ -112,12 +112,14 @@ public class HuobiService extends Base {
      * @return
      * @throws Exception
      */
-    public String getAccountInfo(String method) throws Exception {
+    public String getAccountInfo(String method, String HAK, String HSK) throws Exception {
+        String k1 = (HAK == null || HAK.isEmpty()) ? HUOBI_ACCESS_KEY : HAK;
+        String k2 = (HSK == null || HSK.isEmpty()) ? HUOBI_SECRET_KEY : HAK;
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        paraMap.put("access_key", k1);
+        paraMap.put("secret_key", k2);
         String md5 = sign(paraMap);
         paraMap.remove("secret_key");
         paraMap.put("sign", md5);

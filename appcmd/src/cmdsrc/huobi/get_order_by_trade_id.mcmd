@@ -1,0 +1,18 @@
+<command>
+<name>get order by trade id</name>
+<description>This command will return order by trade id.</description>
+<type>Java Method</type>
+<class>HuobiCmd</class>
+<method>getOrderIdByTradeId</method>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+币种: btc 比特币  ltc 莱特币
+</argument>
+<argument name="tradeid" required="yes" datatype="int">
+用户自定义订单号为数字(最多15位，唯一值)
+此项不参与sign签名过程
+</argument>
+<documentation>
+<retcol name="result" type="COMTYP_CHAR"> 成功状态 success </retcol>
+<retcol name="id" type="COMTYP_CHAR"> 委托id </retcol>
+</documentation>
+</command>

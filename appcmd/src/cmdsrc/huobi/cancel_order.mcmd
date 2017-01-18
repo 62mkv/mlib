@@ -1,0 +1,20 @@
+<command>
+<name>cancel order</name>
+<description>This command will cancel an order.</description>
+<type>Java Method</type>
+<class>HuobiCmd</class>
+<method>cancelOrder</method>
+<argument name="market" alias="mk" required="no" datatype="string" default="cny">
+交易市场(cny:人民币交易市场，usd:美元交易市场，默认是cny)
+</argument>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+币种: btc 比特币  ltc 莱特币
+</argument>
+<argument name="id" required="no" datatype="int">
+要取消的委托id
+</argument>
+<documentation>
+<retcol name="result" type="COMTYP_CHAR"> 成功状态 success </retcol>
+<retcol name="id" type="COMTYP_CHAR"> 委托id </retcol>
+</documentation>
+</command>

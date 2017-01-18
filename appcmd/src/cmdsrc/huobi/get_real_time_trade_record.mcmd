@@ -1,0 +1,18 @@
+<command>
+<name>get real time trade record</name>
+<description>Create a record in the real time trading table.</description>
+<type>Java Method</type>
+<class>HuobiCmd</class>
+<method>getRealTimeRecord</method>
+<argument name="market" alias="mk" required="yes" datatype="string">
+'US' or 'CHN'
+</argument>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+'btc' or 'ltc'
+</argument>
+<argument name="save_db_flg" alias="sdf" required="no" datatype="flag" default="false">
+If true, the value will be save to table hb_real_data as well.
+</argument>
+<documentation>
+</documentation>
+</command>

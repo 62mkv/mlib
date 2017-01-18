@@ -30,7 +30,7 @@ public class HuobiMain {
             // 取消订单接口
             System.out.println(service.cancelOrder(1, 160801, CANCEL_ORDER));
             // 获取账号详情
-            System.out.println(service.getAccountInfo(ACCOUNT_INFO));
+            System.out.println(service.getAccountInfo(ACCOUNT_INFO, null, null));
             // 查询个人最新10条成交订单
             System.out.println(service.getNewDealOrders(1, NEW_DEAL_ORDERS));
             // 根据trade_id查询oder_id

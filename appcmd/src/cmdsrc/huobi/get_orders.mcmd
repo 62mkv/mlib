@@ -1,0 +1,14 @@
+<command>
+<name>get orders</name>
+<description>This command will return all orders.</description>
+<type>Java Method</type>
+<class>HuobiCmd</class>
+<method>getOrders</method>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+币种: btc 比特币  ltc 莱特币
+</argument>
+<documentation>
+<retcol name="result" type="COMTYP_CHAR"> 成功状态 success </retcol>
+<retcol name="id" type="COMTYP_CHAR"> 委托id </retcol>
+</documentation>
+</command>
