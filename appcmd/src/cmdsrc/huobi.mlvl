@@ -1,6 +1,6 @@
 <component-level>
 <name>Huobi</name>
 <description>Huobi Components</description>
-<package>com.deal.api.cmd</package>
+<package>com.sam.deal.api.cmd</package>
 <sort-sequence>100</sort-sequence>
 </component-level>
