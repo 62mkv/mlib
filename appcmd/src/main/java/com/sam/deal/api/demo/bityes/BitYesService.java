@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.deal.api.demo.bityes.Base;
+import com.sam.deal.api.demo.bityes.Base;
 
 /**
  * @author yanjg 2014年11月22日

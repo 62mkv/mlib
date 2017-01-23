@@ -1,0 +1,32 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef HB_BUYSELL_DATA_TBL
+#define HB_BUYSELL_DATA_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define HB_BUYSELL_DATA_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define HB_BUYSELL_DATA_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define HB_BUYSELL_DATA_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define HB_BUYSELL_DATA_TBL
+#endif
+
+CREATE_TABLE(hb_BUYSELL_data)
+(
+    id STRING_TY(12) not null,
+    type STRING_TY(2) not null,
+    order_price FLOAT_TY,
+    order_amount FLOAT_TY,
+    processed_price FLOAT_TY,
+    processed_amount FLOAT_TY,
+    vot FLOAT_TY,
+    fee FLOAT_TY,
+    total FLOAT_TY,
+    status INTEGER_TY,
+    ins_dt DATE_TY
+)
+CREATE_TABLE_TABLESPACE(HB_BUYSELL_DATA_TBL_TBLSPC, HB_BUYSELL_DATA_TBL_STORAGE)
+RUN_DDL
+
+#include <hb_buysell_data_pk.idx>
+#include <hb_buysell_data.tdoc>

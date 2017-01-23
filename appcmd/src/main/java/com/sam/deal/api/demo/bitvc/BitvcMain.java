@@ -5,7 +5,7 @@
  */
 package com.sam.deal.api.demo.bitvc;
 
-import com.deal.api.demo.bitvc.BitvcService;
+import com.sam.deal.api.demo.bitvc.BitvcService;
 
 /**
  * bitvc现货

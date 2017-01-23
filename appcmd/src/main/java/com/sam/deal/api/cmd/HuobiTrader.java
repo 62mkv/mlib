@@ -89,7 +89,7 @@ import org.json.JSONObject;
  */
 public class HuobiTrader {
 
-    static HuoBiTradeStrategyImp hbs= null;
+    static HuoBiTradeStrategyImp hbts= null;
     /**
      * Creates a new HuoBiService class
      * 
@@ -115,7 +115,7 @@ public class HuobiTrader {
         
         mc = MocaUtils.currentContext();
         HuobiTrader s = new HuobiTrader(mc);
-        s.performTrade("chn", "btc");
+        s.performTrade("chn", "btc", 10, 2);
     }
     
     /**
@@ -124,20 +124,53 @@ public class HuobiTrader {
      * @param coinType:
      *            'btc','ltc'
      */
-    public void performTrade(String market, String coinType) throws MocaException {
+    @SuppressWarnings("static-access")
+    public void performTrade(String market,
+                             String coinType,
+                             Integer loopCount,
+                             Integer loopGap) throws MocaException {
+        _logger.info("Now performTrade");
+        HBBPS1 buypointselector = new HBBPS1();
+        HBSPS1 sellpointselector1 = new HBSPS1();
+        HuoBiCashAcnt huobicashacnt = new HuoBiCashAcnt();
+        HuoBiStock huobistock = new HuoBiStock(100);
+        hbts = new HuoBiTradeStrategyImp(market, coinType, huobistock, buypointselector, sellpointselector1, huobicashacnt);
         
-        if (hbs == null) {
-            HBBPS1 buypointselector = new HBBPS1();
-            HBSPS1 sellpointselector1 = new HBSPS1();
-            HuoBiCashAcnt huobicashacnt = new HuoBiCashAcnt();
-            HuoBiStock huobistock = new HuoBiStock(100);
-            hbs = new HuoBiTradeStrategyImp(market, coinType, huobistock, buypointselector, sellpointselector1, huobicashacnt);
+        boolean doInfiniteLoop = (loopCount == 0);
+        int lg = loopGap;
+        
+        if (doInfiniteLoop) {
+            while (true) {
+                
+                try {
+                    Thread.currentThread().sleep(lg*1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    _logger.error(e.getMessage());
+                }
+                
+                hbts.startTrading();
+            }
         }
-        hbs.startTrading();
+        else {
+            _logger.info("Go to sleep for " + lg + " seconds.");
+            for (int i = 0; i < loopCount; i++) {
+                //_moca.executeCommand("go to sleep where time = " + lg);
+                try {
+                    Thread.currentThread().sleep(lg*1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    _logger.error(e.getMessage());
+                }
+                hbts.startTrading();
+            }
+        }
     }
 
     // Private fields
     private final MocaContext _moca;
     private final CrudManager _manager;
-    private Logger _logger = LogManager.getLogger(HuobiCmd.class);
+    private Logger _logger = LogManager.getLogger(HuobiTrader.class);
 }

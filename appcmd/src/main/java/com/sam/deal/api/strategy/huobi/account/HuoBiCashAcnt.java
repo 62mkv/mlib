@@ -17,8 +17,7 @@ public class HuoBiCashAcnt implements ICashAccount {
 
 	static Logger _logger = LogManager.getLogger(HuoBiCashAcnt.class);
 	private String actId;
-	private double initMny;
-	private int splitNum;
+	private double mnyPerDeal;
 	private double total;
 	private double net_asset;
 	private double available_cny_display;
@@ -56,14 +55,12 @@ public class HuoBiCashAcnt implements ICashAccount {
         _manager = MocaUtils.crudManager(_moca);
         
 	    actId = "HuoBiAccount";
-	    initMny = 100;
-	    splitNum = 4;
+	    mnyPerDeal = 100;
 	    loadAccount();
 	    printAcntInfo();
 	}
 
 	private boolean loadAccount() {
-
         MocaResults rs = null;
         try {
             rs = _moca.executeCommand("get account info ");
@@ -90,6 +87,7 @@ public class HuoBiCashAcnt implements ICashAccount {
 	}
 	
 	public double getAvaQty(String coinType) {
+	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
 	        return available_cny_display;
 	    }
@@ -102,6 +100,7 @@ public class HuoBiCashAcnt implements ICashAccount {
 	}
 	
 	public double getFznQty(String coinType) {
+	    loadAccount();
 	     if (coinType.equalsIgnoreCase("cny")) {
 	         return frozen_cny_display;
 	     }
@@ -113,6 +112,7 @@ public class HuoBiCashAcnt implements ICashAccount {
 	     }
 	 }
 	public double getLoanQty(String coinType) {
+	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
 	        return loan_cny_display;
 	    }
@@ -125,29 +125,21 @@ public class HuoBiCashAcnt implements ICashAccount {
 	 }
 
 	@Override
-	public double getInitMny() {
-		return initMny;
-	}
-
-	@Override
-	public int getSplitNum() {
-		return splitNum;
-	}
-
-	@Override
     public String getAccountID() {
         return this.actId;
     }
     
     @Override
     public double getMaxAvaMny() {
+        loadAccount();
         return available_cny_display;
     }
     
     @Override
     public double getBuyableMny() {
-        if (available_cny_display > initMny / splitNum) {
-            return initMny / splitNum;
+        loadAccount();
+        if (available_cny_display > mnyPerDeal) {
+            return mnyPerDeal;
         } else {
             return available_cny_display;
         }
@@ -155,14 +147,14 @@ public class HuoBiCashAcnt implements ICashAccount {
     
     @Override
     public double getUsedMny() {
+        loadAccount();
         return frozen_cny_display;
     }
     
     @Override
     public void printAcntInfo() {
         _logger.info("AccountID:" + actId);
-        _logger.info("initMny:" + initMny);
-        _logger.info("splitNum:" + splitNum);
+        _logger.info("mnyPerDeal:" + mnyPerDeal);
         _logger.info("total:" + total);
         _logger.info("net_asset:" + net_asset);
         _logger.info("available_cny_display:" + available_cny_display);

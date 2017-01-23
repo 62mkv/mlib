@@ -5,7 +5,7 @@
  */
 package com.sam.deal.api.demo.bityes;
 
-import com.deal.api.demo.bityes.BitYesService;
+import com.sam.deal.api.demo.bityes.BitYesService;
 
 /**
  * @author yanjg 2014年11月22日

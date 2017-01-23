@@ -48,8 +48,8 @@ public class HBBPS1 implements IBuyPointSelector {
 	    if (s instanceof HuoBiStock) {
 	        HuoBiStock hs = (HuoBiStock) s;
 	        eSTOCKTREND et = hs.getStockTrend();
-	        if (et == eSTOCKTREND.CUP) {
-	            log.info("Stock trend goes CUP, HBBPS1 return true.");
+	        if (et == eSTOCKTREND.CUP || et == eSTOCKTREND.UP) {
+	            log.info("Stock trend goes CUP or UP, HBBPS1 return true.");
 	            return true;
 	        }
 	        else {
@@ -84,14 +84,15 @@ public class HBBPS1 implements IBuyPointSelector {
 	    if (s instanceof HuoBiStock && ac instanceof HuoBiCashAcnt) {
             HuoBiStock hs = (HuoBiStock)s;
             HuoBiCashAcnt hac = (HuoBiCashAcnt) ac;
-            String ct = hs.getSymbol().substring(0, 2);
-            double buyqty = getBuyQty(s, ac);
-            if (buyqty > 0) {
+            String ct = hs.getSymbol().substring(0, 3);
+            //double buyqty = getBuyQty(s, ac);
+            double buyMny = ac.getBuyableMny();
+            if (buyMny > 1) {
                 try {
                     _moca.executeCommand("create market price buy order"
                                        + " where market = 'CHN'"
                                        + "   and coinType ='" + ct + "'"
-                                       + "   and amount = " + buyqty);
+                                       + "   and amount = " + buyMny);
                 }
                 catch(Exception e) {
                     log.debug(e.getMessage());
@@ -100,7 +101,7 @@ public class HBBPS1 implements IBuyPointSelector {
                 return true;
             }
             else {
-                log.info("buyqty is 0, can not buy:" + buyqty);
+                log.info("buyMny is less then 1, can not buy:" + buyMny);
                 return false;
             }
 	    }

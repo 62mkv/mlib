@@ -158,11 +158,6 @@ public class MocaServerMain {
         else {
             System.out.println(mocareg);
         }
-        args = new String[3];
-        args[0] = "-R";
-        args[1] = "-t*";
-        args[2] ="-TJ";
-        System.out.println("hehe");
         try {
             setupSystemProperties();
         	bootstrapServer(args);

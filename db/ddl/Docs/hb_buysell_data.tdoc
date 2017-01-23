@@ -1,0 +1,19 @@
+mset command on
+
+create db documentation
+  where table = 'hb_buysell_data'
+    and table_comment = "This table contains the buy/sell record for huobi."
+    and id = "Order ID."
+    and type = "trade type."
+    and order_price = "order price."
+    and order_amount = "order money."
+    and processed_price = "processed price for order."
+    and processed_amount = "processed money for order."
+    and vot = "money used."
+    and fee = "trade fee."
+    and total = "total money used."
+    and status = "status for the trade."
+    and ins_dt = "record insert time."
+/
+
+mset command off 

@@ -30,8 +30,8 @@ public class HBSPS1 implements ISellPointSelector {
         if (s instanceof HuoBiStock) {
             HuoBiStock hs = (HuoBiStock) s;
             eSTOCKTREND et = hs.getStockTrend();
-            if (et == eSTOCKTREND.CDOWN) {
-                log.info("Stock trend goes CDOWN, HBSPS1 return true.");
+            if (et == eSTOCKTREND.CDOWN || et == eSTOCKTREND.DOWN) {
+                log.info("Stock trend goes CDOWN or DOWN, HBSPS1 return true.");
                 return true;
             }
             else {
@@ -50,7 +50,7 @@ public class HBSPS1 implements ISellPointSelector {
 	    if (ac instanceof HuoBiCashAcnt && s instanceof HuoBiStock) {
 	        HuoBiStock hs = (HuoBiStock)s;
 	        HuoBiCashAcnt hac = (HuoBiCashAcnt) ac;
-	        String ct = hs.getSymbol().substring(0, 2);
+	        String ct = hs.getSymbol().substring(0, 3);
 	        double sellable = hac.getAvaQty(ct);
 	        return sellable;
 	    }
@@ -62,7 +62,7 @@ public class HBSPS1 implements ISellPointSelector {
         if (s instanceof HuoBiStock && ac instanceof HuoBiCashAcnt) {
             HuoBiStock hs = (HuoBiStock)s;
             HuoBiCashAcnt hac = (HuoBiCashAcnt) ac;
-            String ct = hs.getSymbol().substring(0, 2);
+            String ct = hs.getSymbol().substring(0, 3);
             double sellqty = getSellQty(s, ac);
             if (sellqty > 0) {
                 try {

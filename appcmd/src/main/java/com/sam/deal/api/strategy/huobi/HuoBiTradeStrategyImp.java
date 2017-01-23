@@ -13,6 +13,8 @@ import com.sam.deal.api.strategy.huobi.buysell.HBBPS1;
 import com.sam.deal.api.strategy.huobi.buysell.HBSPS1;
 import com.sam.deal.api.strategy.huobi.buysell.IBuyPointSelector;
 import com.sam.deal.api.strategy.huobi.buysell.ISellPointSelector;
+import com.sam.moca.MocaContext;
+import com.sam.moca.util.MocaUtils;
 
 public class HuoBiTradeStrategyImp extends BaseTradeStrategyImp {
 
@@ -44,10 +46,30 @@ public class HuoBiTradeStrategyImp extends BaseTradeStrategyImp {
     }
     
     @Override
-    public boolean startTrading() {
+    public boolean beforeTrade(IStock s) {
+        log.info("run HuoBiTradeStrategyImp beforeTrade, loadMarketData.");
         hbs.loadMarketData(market, coinType);
-        super.performTrade(hbs);
         return true;
+    }
+    
+    @Override
+    public boolean afterTrade(IStock s) {
+        log.info("run HuoBiTradeStrategyImp afterTrade, clearMarketData.");
+        hbs.clearMarketData();
+        try {
+            MocaContext _moca = MocaUtils.currentContext();
+            _moca.commit();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+        return true;
+    }
+    
+    @Override
+    public boolean startTrading() {
+        return performTrade(hbs);
     }
     
 }

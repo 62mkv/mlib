@@ -17,5 +17,13 @@ public interface ITradeStrategy {
     public boolean calProfit();
     public boolean startTrading();
     
+    public boolean beforeBuy(IStock s);
+    public boolean afterBuy(IStock s);
+    public boolean beforeSell(IStock s);
+    public boolean afterSell(IStock s);
+    
+    public boolean beforeTrade(IStock s);
+    public boolean afterTrade(IStock s);
+    
     public boolean performTrade(IStock s);
 }

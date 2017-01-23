@@ -183,7 +183,7 @@ public class HuobiCmd {
      * @param coinType:
      *            1 'btc', 2 'ltc'
      */
-    public MocaResults getOrderInfo(String coinType, Integer id)
+    public MocaResults getOrderInfo(String coinType, String id)
             throws MocaException {
 
         int ct = 0;
@@ -195,22 +195,53 @@ public class HuobiCmd {
         HuobiService service = new HuobiService();
         String resultStr = "";
         EditableResults res = new SimpleResults();
-        res.addColumn("result", MocaType.STRING);
-        res.addColumn("id", MocaType.INTEGER);
+        JSONObject body = null;
+        _logger.info("id:" + id);
         try {
             // 提交限价单接口 1btc 2ltc
-            resultStr = service.getOrderInfo(ct, id, ORDER_INFO);
-            JSONObject body = new JSONObject(resultStr);
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
+            resultStr = service.getOrderInfo(ct, Long.valueOf(id), ORDER_INFO);
+            body = new JSONObject(resultStr);
+            
+            String oid = body.getString("id");
+            String type = body.getString("type");
+            double order_price = body.getDouble("order_price");
+            double order_amount = body.getDouble("order_amount");
+            double processed_price = body.getDouble("processed_price");
+            double processed_amount = body.getDouble("processed_amount");
+            double vot = body.getDouble("vot");
+            double fee = body.getDouble("fee");
+            double total = body.getDouble("total");
+            int status = body.getInt("status");
+            
+            res.addColumn("id", MocaType.STRING);
+            res.addColumn("type", MocaType.STRING);
+            res.addColumn("order_price", MocaType.DOUBLE);
+            res.addColumn("order_amount", MocaType.DOUBLE);
+            res.addColumn("processed_price", MocaType.DOUBLE);
+            res.addColumn("processed_amount", MocaType.DOUBLE);
+            res.addColumn("vot", MocaType.DOUBLE);
+            res.addColumn("fee", MocaType.DOUBLE);
+            res.addColumn("total", MocaType.DOUBLE);
+            res.addColumn("status", MocaType.INTEGER);
+            
             res.addRow();
-            res.setStringValue("result", msg);
-            res.setIntValue("id", code);
+            res.setStringValue("id", oid);
+            res.setStringValue("type", type);
+            res.setDoubleValue("order_price", order_price);
+            res.setDoubleValue("order_amount", order_amount);
+            res.setDoubleValue("processed_price", processed_price);
+            res.setDoubleValue("processed_amount", processed_amount);
+            res.setDoubleValue("vot", vot);
+            res.setDoubleValue("fee", fee);
+            res.setDoubleValue("total", total);
+            res.setIntValue("status", status);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            throw new MocaException(-1403, e.getMessage());
+            int code = body.getInt("code");
+            String msg = body.getString("msg");
+            throw new MocaException(code, msg);
         }
         return res;
     }
@@ -530,27 +561,57 @@ public class HuobiCmd {
         }
         HuobiService service = new HuobiService();
         String resultStr = "";
+        JSONObject body = null;
+        MocaResults rs = null;
         try {
             // 提交限价单接口 1btc 2ltc
             resultStr = service.buyMarket(ct, amount.toString(), tradePassword,
                     tradeid, BUY_MARKET);
 
-            JSONObject body = new JSONObject(resultStr);
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
-            EditableResults res = new SimpleResults();
-            res.addColumn("result", MocaType.STRING);
-            res.addColumn("id", MocaType.INTEGER);
-            res.addRow();
-            res.setStringValue("result", msg);
-            res.setIntValue("id", code);
-            return res;
+            body = new JSONObject(resultStr);
+            String orderid = body.getString("id");
+            String result = body.getString("result");
+            
+            rs = _moca.executeCommand("get order info where coinType = '"
+                    + coinType + "' and id = '" + orderid + "'");
+            
+            rs.next();
+            
+            String oid = rs.getString("id");
+            String type = rs.getString("type");
+            double order_price = rs.getDouble("order_price");
+            double order_amount = rs.getDouble("order_amount");
+            double processed_price = rs.getDouble("processed_price");
+            double processed_amount = rs.getDouble("processed_amount");
+            double vot = rs.getDouble("vot");
+            double fee = rs.getDouble("fee");
+            double total = rs.getDouble("total");
+            int status = rs.getInt("status");
+            
+            _moca.executeCommand("publish data "
+                               + "  where id = '" + oid + "'"
+                               + "    and type = '" + type + "'"
+                               + "    and order_price =" + order_price
+                               + "    and order_amount =" + order_amount
+                               + "    and processed_price =" + processed_price
+                               + "    and processed_amount =" + processed_amount
+                               + "    and vot =" + vot
+                               + "    and fee =" + fee
+                               + "    and total =" + total
+                               + "    and status =" + status
+                               + "    and ins_dt = sysdate "
+                               + "| "
+                               + "create record where table_name = 'hb_buysell_data' and @*");
+            rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            throw new MocaException(-1403, e.getMessage());
+            int code = body.getInt("code");
+            String msg = body.getString("msg");
+            throw new MocaException(code, msg);
         }
+        return rs;
     }
 
     /**
@@ -611,28 +672,58 @@ public class HuobiCmd {
         }
         HuobiService service = new HuobiService();
         String resultStr = "";
+        JSONObject body = null;
+        MocaResults rs = null;
         try {
             // 提交限价单接口 1btc 2ltc
             resultStr = service.sellMarket(ct, amount.toString(), tradePassword,
                     tradeid, SELL_MARKET);
 
 
-            JSONObject body = new JSONObject(resultStr);
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
-            EditableResults res = new SimpleResults();
-            res.addColumn("result", MocaType.STRING);
-            res.addColumn("id", MocaType.INTEGER);
-            res.addRow();
-            res.setStringValue("result", msg);
-            res.setIntValue("id", code);
-            return res;
+            body = new JSONObject(resultStr);
+            String orderid = body.getString("id");
+            String result = body.getString("result");
+            
+            rs = _moca.executeCommand("get order info where coinType = '"
+                    + coinType + "' and id = '" + orderid + "'");
+            
+            rs.next();
+            
+            String oid = rs.getString("id");
+            String type = rs.getString("type");
+            double order_price = rs.getDouble("order_price");
+            double order_amount = rs.getDouble("order_amount");
+            double processed_price = rs.getDouble("processed_price");
+            double processed_amount = rs.getDouble("processed_amount");
+            double vot = rs.getDouble("vot");
+            double fee = rs.getDouble("fee");
+            double total = rs.getDouble("total");
+            int status = rs.getInt("status");
+            
+            _moca.executeCommand("publish data "
+                               + "  where id = '" + oid + "'"
+                               + "    and type = '" + type + "'"
+                               + "    and order_price =" + order_price
+                               + "    and order_amount =" + order_amount
+                               + "    and processed_price =" + processed_price
+                               + "    and processed_amount =" + processed_amount
+                               + "    and vot =" + vot
+                               + "    and fee =" + fee
+                               + "    and total =" + total
+                               + "    and status =" + status
+                               + "    and ins_dt = sysdate "
+                               + "| "
+                               + "create record where table_name = 'hb_buysell_data' and @*");
+            rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            throw new MocaException(-1403, e.getMessage());
+            int code = body.getInt("code");
+            String msg = body.getString("msg");
+            throw new MocaException(code, msg);
         }
+        return rs;
     }
 
     /**

@@ -1,5 +1,5 @@
-import com.redprairie.moca.*
-import com.redprairie.moca.util.MocaUtils
+import com.sam.moca.*
+import com.sam.moca.util.MocaUtils
 
 ExpandoMetaClass.enableGlobally()
 

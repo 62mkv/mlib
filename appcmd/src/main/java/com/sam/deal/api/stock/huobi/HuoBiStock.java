@@ -23,7 +23,8 @@ public class HuoBiStock implements IStock{
     
     static public final int SECONDS_PER_FETCH = 5;
     static public final int STEP_FOR_CAL_TREND = 1;
-    static public final double PRICE_DIFF = 0.01;
+    static public final double BIG_PRICE_DIFF = 5;
+    static public final double SMALL_PRICE_DIFF = 2;
 
     /**
      * @param args
@@ -224,6 +225,14 @@ public class HuoBiStock implements IStock{
         this.calStockTrend();
     }
     
+    public void clearMarketData() {
+        clearTop10Data();
+        clearTradeData();
+        clearTickerData();
+        this.calStockTrend();
+        _logger.debug("cleared all market data, stock trend is:" + this.st);
+    }
+    
     private void loadTop10Data(String market, String coinType) {
         MocaResults rs = null;
         try {
@@ -283,6 +292,52 @@ public class HuoBiStock implements IStock{
         }
     }
     
+    private void clearTop10Data() {
+            top10.time_st.clear();
+            top10.b_amt1_lst.clear();
+            top10.b_amt2_lst.clear();
+            top10.b_amt3_lst.clear();
+            top10.b_amt4_lst.clear();
+            top10.b_amt5_lst.clear();
+            top10.b_amt6_lst.clear();
+            top10.b_amt7_lst.clear();
+            top10.b_amt8_lst.clear();
+            top10.b_amt9_lst.clear();
+            top10.b_amt10_lst.clear();
+            top10.b_pri1_lst.clear();
+            top10.b_pri2_lst.clear();
+            top10.b_pri3_lst.clear();
+            top10.b_pri4_lst.clear();
+            top10.b_pri5_lst.clear();
+            top10.b_pri6_lst.clear();
+            top10.b_pri7_lst.clear();
+            top10.b_pri8_lst.clear();
+            top10.b_pri9_lst.clear();
+            top10.b_pri10_lst.clear();
+            
+            top10.s_amt1_lst.clear();
+            top10.s_amt2_lst.clear();
+            top10.s_amt3_lst.clear();
+            top10.s_amt4_lst.clear();
+            top10.s_amt5_lst.clear();
+            top10.s_amt6_lst.clear();
+            top10.s_amt7_lst.clear();
+            top10.s_amt8_lst.clear();
+            top10.s_amt9_lst.clear();
+            top10.s_amt10_lst.clear();
+            top10.s_pri1_lst.clear();
+            top10.s_pri2_lst.clear();
+            top10.s_pri3_lst.clear();
+            top10.s_pri4_lst.clear();
+            top10.s_pri5_lst.clear();
+            top10.s_pri6_lst.clear();
+            top10.s_pri7_lst.clear();
+            top10.s_pri8_lst.clear();
+            top10.s_pri9_lst.clear();
+            top10.s_pri10_lst.clear();
+            _logger.debug("Top10 data cleared!");;
+    }
+    
     private void loadTradeData(String market, String coinType) {
         MocaResults rs = null;
         try {
@@ -300,6 +355,14 @@ public class HuoBiStock implements IStock{
             e.printStackTrace();
             _logger.debug("Exception:" + e.getMessage());;
         }
+    }
+    
+    private void clearTradeData() {
+        trd.time_st.clear();
+        trd.amount_lst.clear();
+        trd.price_lst.clear();
+        trd.type_st.clear();
+        _logger.debug("TradeData cleared!");
     }
     
     private void loadTickerData(String market, String coinType) {
@@ -325,6 +388,19 @@ public class HuoBiStock implements IStock{
             e.printStackTrace();
             _logger.debug("Exception:" + e.getMessage());;
         }
+    }
+    
+    private void clearTickerData() {
+            tid.symbol_st.clear();
+            tid.time_st.clear();
+            tid.vol_lst.clear();
+            tid.high_lst.clear();
+            tid.low_lst.clear();
+            tid.buy_lst.clear();
+            tid.sell_lst.clear();
+            tid.last_lst.clear();
+            tid.open_lst.clear();
+            _logger.debug("TickerData cleared!");
     }
     
     @Override
@@ -421,20 +497,24 @@ public class HuoBiStock implements IStock{
             _logger.info("middle:" + middle);
             _logger.info("last:" + last);
             
-            _logger.info("first + dif:" + (first + PRICE_DIFF));
-            _logger.info("middle + dif:" + (middle + PRICE_DIFF));
-            _logger.info("last + dif:" + (last + PRICE_DIFF));
+            _logger.info("first + SMALL_PRICE_DIFF:" + (first + SMALL_PRICE_DIFF));
+            _logger.info("middle + SMALL_PRICE_DIFF:" + (middle + SMALL_PRICE_DIFF));
+            _logger.info("last + SMALL_PRICE_DIFF:" + (last + SMALL_PRICE_DIFF));
             
-            if (first + PRICE_DIFF < middle && middle + PRICE_DIFF < last) {
+            _logger.info("first + BIG_PRICE_DIFF:" + (first + BIG_PRICE_DIFF));
+            _logger.info("middle + BIG_PRICE_DIFF:" + (middle + BIG_PRICE_DIFF));
+            _logger.info("last + BIG_PRICE_DIFF:" + (last + BIG_PRICE_DIFF));
+            
+            if (first + SMALL_PRICE_DIFF < middle && middle + SMALL_PRICE_DIFF < last) {
                 st = eSTOCKTREND.UP;
             }
-            else if (first > middle + PRICE_DIFF && middle > last + PRICE_DIFF) {
+            else if (first > middle + SMALL_PRICE_DIFF && middle > last + SMALL_PRICE_DIFF) {
                 st = eSTOCKTREND.DOWN;
             }
-            else if (first + PRICE_DIFF < middle && middle > last + PRICE_DIFF) {
+            else if (first + SMALL_PRICE_DIFF < middle && middle > last + BIG_PRICE_DIFF) {
                 st = eSTOCKTREND.CDOWN;
             }
-            else if (first > middle + PRICE_DIFF && middle + PRICE_DIFF < last) {
+            else if (first > middle + SMALL_PRICE_DIFF && middle + BIG_PRICE_DIFF < last) {
                 st = eSTOCKTREND.CUP;
             }
             else {

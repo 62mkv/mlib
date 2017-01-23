@@ -7,7 +7,7 @@
 <argument name="coinType" alias="ct" required="yes" datatype="string">
 币种: btc 比特币  ltc 莱特币
 </argument>
-<argument name="id" required="yes" datatype="int">
+<argument name="id" required="yes" datatype="string">
 订单号为数字(最多15位，唯一值)
 </argument>
 <documentation>

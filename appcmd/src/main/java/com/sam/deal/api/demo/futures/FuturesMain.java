@@ -7,7 +7,7 @@ package com.sam.deal.api.demo.futures;
 
 import java.math.BigDecimal;
 
-import com.deal.api.demo.futures.FuturesService;
+import com.sam.deal.api.demo.futures.FuturesService;
 
 /**
  * 期货api demo
