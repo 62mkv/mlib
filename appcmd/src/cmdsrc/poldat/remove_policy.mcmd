@@ -1,0 +1,47 @@
+<command>
+
+<name>remove policy</name>
+
+<description>Remove Policy</description>
+
+<type>Java Method</type>
+  <class>PolicyManager</class>
+  <method>removePolicy</method>
+
+<argument name="grp_id" datatype="string"> </argument>
+<argument name="polcod" datatype="string"> </argument>
+<argument name="polvar" datatype="string"> </argument>
+<argument name="polval" datatype="string"> </argument>
+<argument name="srtseq" datatype="integer"> </argument>
+
+
+<documentation>
+
+<remarks>
+</remarks>
+
+<retrows>No rows returned.</retrows>
+
+<exception value="eOK">Completed successfully (0)</exception>
+<exception value="eSRV_INSUFF_ARGUMENTS (507)">Insufficient Arguments Supplied.  Missing a policy code.</exception>
+
+<example>
+&lt;p&gt;This example would remove all policy data entries for the client update policies. &lt;/p&gt;
+
+remove policy 
+ where polcod = &quot;SYSTEM-INFORMATION&quot;
+   and polvar = &quot;CLIENT-UPDATE&quot; 
+   and wh_id  = &quot;WMD1&quot; 
+   
+&lt;p&gt;This example would remove a specific record in the client update policies. &lt;/p&gt;
+
+remove policy 
+ where polcod = &quot;SYSTEM-INFORMATION&quot;
+   and polvar = &quot;CLIENT-UPDATE&quot; 
+   and polval = &quot;UPDATE-PATH&quot; 
+   and wh_id  = &quot;WMD1&quot; 
+   and srtseq = 3
+</example>
+</documentation>
+
+</command>

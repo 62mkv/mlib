@@ -1,0 +1,11 @@
+<command>
+<name>list policies</name>
+<type>Java Method</type>
+<class>PolicyManager</class>
+<method>listPolicies</method>
+<argument name="grp_id" datatype="string" default-value="----">arg</argument>
+<argument name="polcod" datatype="string">arg</argument>
+<argument name="polvar" datatype="string">arg</argument>
+<argument name="polval" datatype="string">arg</argument>
+<argument name="srtseq" datatype="integer" default-value="0">arg</argument>
+</command>

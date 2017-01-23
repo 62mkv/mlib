@@ -1,0 +1,35 @@
+<command>
+
+<name>change policy</name>
+
+<description>This command changes an existing policy. (poldat table)</description>
+
+<type>Java Method</type>
+  <class>PolicyManager</class>
+  <method>changePolicy</method>
+
+<argument name="polcod" datatype="string"> </argument>
+<argument name="polvar" datatype="string"> </argument>
+<argument name="polval" datatype="string"> </argument>
+<argument name="srtseq" datatype="integer"> </argument>
+<argument name="rtstr1" datatype="string"> </argument>
+<argument name="rtstr2" datatype="string"> </argument>
+<argument name="rtnum1" datatype="integer"> </argument>
+<argument name="rtnum2" datatype="integer"> </argument>
+<argument name="rtflt1" datatype="float"> </argument>
+<argument name="rtflt2" datatype="float"> </argument>
+<argument name="grp_id" datatype="string"> </argument>
+
+<documentation>
+
+<remarks>
+&lt;p&gt;
+ This command changes an existing poldat record. 
+&lt;/p&gt;
+</remarks>
+
+<exception value="eOK">Completed successfully.</exception>
+<exception value="eINVALID_ARGS">Invalid argument(s) were given.</exception>
+</documentation>
+
+</command>

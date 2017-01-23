@@ -1,0 +1,35 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef HB_POLDAT_TBL
+#define HB_POLDAT_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define HB_POLDAT_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define HB_POLDAT_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define HB_POLDAT_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define HB_POLDAT_TBL
+#endif
+
+CREATE_TABLE(poldat)
+(
+    polcod      NSTRING_TY(20) not null,    /* PK */
+    polvar      NSTRING_TY(20) not null,    /* PK */
+    polval      NSTRING_TY(50) not null,    /* PK */
+    grp_id      NSTRING_TY(20) default '----' not null,    /* PK */
+    srtseq      INTEGER_TY not null,    /* PK */
+    rtstr1      NSTRING_TY(100),
+    rtstr2      NSTRING_TY(100),
+    rtnum1      INTEGER_TY,
+    rtnum2      INTEGER_TY,
+    rtflt1      FLOAT_TY,
+    rtflt2      FLOAT_TY,
+    moddte      DATE_TY,
+    mod_usr_id  NSTRING_TY(20)
+)
+CREATE_TABLE_TABLESPACE(POLDAT_TBL_TBLSPC, POLDAT_TBL_STORAGE)
+RUN_DDL
+
+#include <poldat_pk.idx>
+#include <poldat.tdoc>
+

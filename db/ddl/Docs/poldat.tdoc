@@ -1,0 +1,21 @@
+mset command on
+
+create db documentation
+  where table = 'poldat'
+    and table_comment = "This table provides a means of storing configuration data by users.  Any system component can uses this table to store relevant configuration data."
+    and polcod = "Part of the unique identifier.  Represents a top-level grouping of policies."
+    and polvar = "Part of the unique identifier.  Represents a grouping by name of policy variables."
+    and grp_id = "Group id this policy belongs to - The grp_id = '----' will represent a default part that will be shared by all groups. An entry with a usr_id != '----' is an override for that group."
+    and polval = "Part of the unique identifier.  Represents a specific instance of the polvar level."
+    and srtseq = "Part of the unique identifier.  Can be used to sort policies or as a unique identifier in policies that have more than one value."
+    and rtstr1 = "A string value for this policy."
+    and rtstr2 = "A string value for this policy."
+    and rtnum1 = "An integer value for this policy."
+    and rtnum2 = "An integer value for this policy."
+    and rtflt1 = "A floating point value for this policy."
+    and rtflt2 = "A floating point value for this policy."
+    and moddte= "Date this policy was last modified."
+    and mod_usr_id ="User id of the user last modifying this policy."
+/
+
+mset command off 

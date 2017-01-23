@@ -1,0 +1,48 @@
+<command>
+
+<name>create policy</name>
+
+<description>Create Policy</description>
+
+<type>Java Method</type>
+  <class>PolicyManager</class>
+  <method>createPolicy</method>
+<argument name="grp_id" required="yes" datatype="string"> </argument>
+<argument name="polcod" required="yes" datatype="string"> </argument>
+<argument name="polvar" required="yes" datatype="string"> </argument>
+<argument name="polval" required="yes" datatype="string"> </argument>
+<argument name="srtseq" datatype="integer"> </argument>
+<argument name="rtstr1" datatype="string"> </argument>
+<argument name="rtstr2" datatype="string"> </argument>
+<argument name="rtnum1" datatype="integer"> </argument>
+<argument name="rtnum2" datatype="integer"> </argument>
+<argument name="rtflt1" datatype="float"> </argument>
+<argument name="rtflt2" datatype="float"> </argument>
+
+<documentation>
+
+<remarks>
+&lt;p&gt;
+ This command creates a policy data (poldat) record. Policy data records are used to configure the system.  They are used by many different components to store configurations.
+&lt;/p&gt;
+</remarks>
+
+<retrows>No rows returned.</retrows>
+
+<exception value="eOK">Completed successfully.</exception>
+<exception value="eINVALID_ARGS">Invalid argument(s) were given.</exception>
+
+<example>
+&lt;p&gt;This example would create a policy data entry. &lt;/p&gt;
+
+create policy 
+ where polcod = &quot;SYSTEM-INFORMATION&quot;
+   and polvar = &quot;CLIENT-UPDATE&quot; 
+   and polval = &quot;UPDATE-PATH&quot;
+   and srtseq = 5
+   and rtstr1 = &quot;$MCSDIR\downloads\help&quot;
+   and wh_id  = &quot;WMD1&quot;
+</example>
+</documentation>
+
+</command>

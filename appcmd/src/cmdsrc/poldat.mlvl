@@ -1,0 +1,6 @@
+<component-level>
+<name>Poldat</name>
+<description>Poldat Components</description>
+<package>com.sam.deal.api.poldat</package>
+<sort-sequence>100</sort-sequence>
+</component-level>
