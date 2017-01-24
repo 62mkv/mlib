@@ -17,6 +17,8 @@ public class HuoBiCashAcnt implements ICashAccount {
 
 	static Logger _logger = LogManager.getLogger(HuoBiCashAcnt.class);
 	private String actId;
+	private String mk;
+	private String ct;
 	private double mnyPerDeal;
 	private double total;
 	private double net_asset;
@@ -46,16 +48,18 @@ public class HuoBiCashAcnt implements ICashAccount {
             e.printStackTrace();
         }
         
-	    HuoBiCashAcnt acnt = new HuoBiCashAcnt();
+	    HuoBiCashAcnt acnt = new HuoBiCashAcnt("chn", "btc");
 	}
 
-	public HuoBiCashAcnt() {
+	public HuoBiCashAcnt(String market, String coinType) {
 
         _moca = MocaUtils.currentContext();
         _manager = MocaUtils.crudManager(_moca);
         
 	    actId = "HuoBiAccount";
 	    mnyPerDeal = 100;
+	    mk = market;
+	    ct = coinType;
 	    loadAccount();
 	    printAcntInfo();
 	}
@@ -83,6 +87,22 @@ public class HuoBiCashAcnt implements ICashAccount {
             e.printStackTrace();
             _logger.debug("Exception:" + e.getMessage());
         }
+        
+        String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
+        try {
+            rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+                               + "' and polval ='MNYPERDEAL' and grp_id = '----'");
+            rs.next();
+            mnyPerDeal = rs.getInt("rtflt1");
+            _logger.info("got policy, MNYPERDEAL:" + mnyPerDeal);
+        } catch (MocaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            _logger.error(e.getMessage());
+            _logger.info("Get policy MNYPERDEAL error, use default value 1000.");
+            mnyPerDeal = 1000;
+        }
+        
         return true;
 	}
 	

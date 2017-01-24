@@ -10,12 +10,7 @@
 <argument name="coinType" alias="ct" required="yes" datatype="string">
 'btc' or 'ltc'
 </argument>
-<argument name="loopcount" alias="lc" required="yes" datatype="integer">
-How many times system should loop on the market data and perform trading, 0 means infinite.
-</argument>
-<argument name="loopgap" alias="lg" required="yes" datatype="integer">
-How many seconds should syste sleep before goes to next loop.
-</argument>
 <documentation>
+There are some policies like loop count and loop gap are defined in policy polvar = LOOP-PARAM.
 </documentation>
 </command>

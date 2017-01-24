@@ -1,2 +1,2 @@
 task_id,role_id,name,task_typ,cmd_line,run_dir,log_file,restart,auto_start,start_delay,grp_nam
-HUOBI_TRADER_RUNNER,*,Huo Bi trading task,T,"com.sam.deal.api.util.HuoBiTraderTask -k CHN -t btc -c 0 -g 60",,$LESDIR/log/huobitrader.log,0,1,0,huobi_data
+HUOBI_TRADER_RUNNER,*,Huo Bi trading task,T,"com.sam.deal.api.util.HuoBiTraderTask -k CHN -t btc ",,$LESDIR/log/huobitrader.log,0,1,0,huobi_data

@@ -48,13 +48,14 @@ public class HuoBiTradeStrategyImp extends BaseTradeStrategyImp {
     @Override
     public boolean beforeTrade(IStock s) {
         log.info("run HuoBiTradeStrategyImp beforeTrade, loadMarketData.");
-        hbs.loadMarketData(market, coinType);
+        hbs.loadMarketData();
         return true;
     }
     
     @Override
     public boolean afterTrade(IStock s) {
         log.info("run HuoBiTradeStrategyImp afterTrade, clearMarketData.");
+        hbs.dumpDatatoDB();
         hbs.clearMarketData();
         try {
             MocaContext _moca = MocaUtils.currentContext();

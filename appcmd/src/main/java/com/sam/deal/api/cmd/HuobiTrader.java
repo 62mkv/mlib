@@ -115,7 +115,7 @@ public class HuobiTrader {
         
         mc = MocaUtils.currentContext();
         HuobiTrader s = new HuobiTrader(mc);
-        s.performTrade("chn", "btc", 10, 2);
+        s.performTrade("chn", "btc");
     }
     
     /**
@@ -126,22 +126,37 @@ public class HuobiTrader {
      */
     @SuppressWarnings("static-access")
     public void performTrade(String market,
-                             String coinType,
-                             Integer loopCount,
-                             Integer loopGap) throws MocaException {
+                             String coinType) throws MocaException {
         _logger.info("Now performTrade");
         HBBPS1 buypointselector = new HBBPS1();
         HBSPS1 sellpointselector1 = new HBSPS1();
-        HuoBiCashAcnt huobicashacnt = new HuoBiCashAcnt();
-        HuoBiStock huobistock = new HuoBiStock(100);
+        HuoBiCashAcnt huobicashacnt = new HuoBiCashAcnt(market, coinType);
+        HuoBiStock huobistock = new HuoBiStock(market, coinType);
         hbts = new HuoBiTradeStrategyImp(market, coinType, huobistock, buypointselector, sellpointselector1, huobicashacnt);
         
-        boolean doInfiniteLoop = (loopCount == 0);
-        int lg = loopGap;
+        boolean doInfiniteLoop = false;
+        int lc = 0;
+        int lg = 0;
+        String polvar = (coinType.equalsIgnoreCase("btc") ? "BTC" : "LTC");
+        
+        try {
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '"
+                                                  + polvar + "' and polval = 'LOOP-PARAM' and grp_id = '----'");
+            rs.next();
+            lc = rs.getInt("rtnum1");
+            lg = rs.getInt("rtnum2");
+            doInfiniteLoop= (lc == 0);
+        }
+        catch (MocaException e) {
+            e.printStackTrace();
+            _logger.error(e.getMessage());
+            _logger.info("Reading policy LOOP-PARAM error, use default value 9999 for loop count and 60 seconds for loop gap.");
+            lc = 9999;
+            lg = 60;
+        }
         
         if (doInfiniteLoop) {
             while (true) {
-                
                 try {
                     Thread.currentThread().sleep(lg*1000);
                 } catch (InterruptedException e) {
@@ -155,7 +170,7 @@ public class HuobiTrader {
         }
         else {
             _logger.info("Go to sleep for " + lg + " seconds.");
-            for (int i = 0; i < loopCount; i++) {
+            for (int i = 0; i < lc; i++) {
                 //_moca.executeCommand("go to sleep where time = " + lg);
                 try {
                     Thread.currentThread().sleep(lg*1000);

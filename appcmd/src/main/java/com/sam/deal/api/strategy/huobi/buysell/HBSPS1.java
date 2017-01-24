@@ -29,13 +29,17 @@ public class HBSPS1 implements ISellPointSelector {
 	public boolean isGoodSellPoint(IStock s, ICashAccount ac) {
         if (s instanceof HuoBiStock) {
             HuoBiStock hs = (HuoBiStock) s;
-            eSTOCKTREND et = hs.getStockTrend();
-            if (et == eSTOCKTREND.CDOWN || et == eSTOCKTREND.DOWN) {
-                log.info("Stock trend goes CDOWN or DOWN, HBSPS1 return true.");
+            //eSTOCKTREND et = hs.getStockTrend();
+            if (hs.isLstPriTurnaround(false) && hs.isLstPriAboveWaterLevel(0.8)) {
+                log.info("Stock trend truns down at 0.8 level, HBSPS1 return true.");
                 return true;
             }
             else {
-                log.info("Stock trend goes:" + et + ", HBSPS1 return false.");
+//                if (hs.isLstPriBreakUpBorder()) {
+//                    log.info("Last price is breaking up border, HBSPS1 return true");
+//                    return true;
+//                }
+                log.info("HBSPS1 return false.");
                 return false;
             }
         }

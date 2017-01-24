@@ -54,11 +54,6 @@ public class HuoBiTraderTask implements Runnable {
         args[1] = "CHN";
         args[2] = "-t";
         args[3] = "btc";
-        args[4] = "-c";
-        args[5] = "99999";
-        args[6] = "-g";
-        args[7] = "30";
-        
         try {
             ServerUtils.setupDaemonContext("HuoBiTraderTaskTest", true);
         }
@@ -82,12 +77,10 @@ public class HuoBiTraderTask implements Runnable {
 //            _log.info("arg"+i+":" + args[i]);
 //        }
         moca = MocaUtils.currentContext();
-        Options opt = Options.parse("k:t:c:g:", args);
+        Options opt = Options.parse("k:t:", args);
         _market = opt.getArgument('k');
         _coinType = opt.getArgument('t');
-        _loopCount = Integer.parseInt(opt.getArgument('c'));
-        _loopGap = Integer.parseInt(opt.getArgument('g'));
-        _log.info("_market:" + _market + "\n_coinType:" + _coinType + "\n _loopCount:" + _loopCount + "\n _loopGap:" + _loopGap);
+        _log.info("_market:" + _market + "\n_coinType:" + _coinType);
     }
 
     @Override
@@ -95,9 +88,7 @@ public class HuoBiTraderTask implements Runnable {
         _log.info("Start running task HuoBiTraderTask...");
         try {
             moca.executeCommand("process huobi trade where mk = '" + _market + "'" +
-                                "  and ct ='" + _coinType + "'" +
-                                "  and lc =" + _loopCount +
-                                "  and lg = " + _loopGap);
+                                "  and ct ='" + _coinType + "'");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -110,7 +101,5 @@ public class HuoBiTraderTask implements Runnable {
     private MocaContext moca = null;
     private final String _market;
     private final String _coinType;
-    private final int _loopCount;
-    private final int _loopGap;
     private final static Logger _log = LogManager.getLogger(HuoBiTraderTask.class); 
 }

@@ -30,9 +30,9 @@ public class HBBPS1 implements IBuyPointSelector {
         catch(SystemConfigurationException e) {
             e.printStackTrace();
         }
-        HuoBiStock hs = new HuoBiStock(100);
-        hs.loadMarketData("CHN", "BTC");
-        HuoBiCashAcnt hac = new HuoBiCashAcnt();
+        HuoBiStock hs = new HuoBiStock("CHN", "BTC");
+        hs.loadMarketData();
+        HuoBiCashAcnt hac = new HuoBiCashAcnt("CHN", "BTC");
         HBBPS1 bp = new HBBPS1();
         bp.buyStock(hs, hac);
     }
@@ -47,13 +47,17 @@ public class HBBPS1 implements IBuyPointSelector {
 	public boolean isGoodBuyPoint(IStock s, ICashAccount ac) {
 	    if (s instanceof HuoBiStock) {
 	        HuoBiStock hs = (HuoBiStock) s;
-	        eSTOCKTREND et = hs.getStockTrend();
-	        if (et == eSTOCKTREND.CUP || et == eSTOCKTREND.UP) {
-	            log.info("Stock trend goes CUP or UP, HBBPS1 return true.");
+	        //eSTOCKTREND et = hs.getStockTrend();
+	        if (hs.isLstPriTurnaround(true) && hs.isLstPriUnderWaterLevel(0.1)) {
+	            log.info("Stock trend turn up and at low 0.1 level, HBBPS1 return true.");
 	            return true;
 	        }
 	        else {
-	            log.info("Stock trend goes:" + et + ", HBBPS1 return false.");
+//                if (hs.isLstPriBreakButtomBorder()) {
+//                    log.info("Last price is breaking bottom border, HBBPS1 return true");
+//                    return true;
+//                }
+	            log.info("HBBPS1 return false.");
 	            return false;
 	        }
 	    }
