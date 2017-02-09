@@ -1,6 +1,7 @@
 <command>
 <name>create buy order</name>
 <description>This command will create a buy order.</description>
+<transaction>new</transaction>
 <type>Java Method</type>
 <class>HuobiCmd</class>
 <method>createBuyOrder</method>

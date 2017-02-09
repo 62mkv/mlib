@@ -19,8 +19,10 @@ public class HuoBiCashAcnt implements ICashAccount {
 	private String actId;
 	private String mk;
 	private String ct;
-	private double mnyPerDeal;
+	private double minMnyPerDeal;
+	private double maxMnyPerDeal;
 	private double total;
+	private double priGap;
 	private double net_asset;
 	private double available_cny_display;
 	private double available_ltc_display;
@@ -57,7 +59,8 @@ public class HuoBiCashAcnt implements ICashAccount {
         _manager = MocaUtils.crudManager(_moca);
         
 	    actId = "HuoBiAccount";
-	    mnyPerDeal = 100;
+	    minMnyPerDeal = maxMnyPerDeal = 100;
+	    priGap = 0;
 	    mk = market;
 	    ct = coinType;
 	    loadAccount();
@@ -93,17 +96,27 @@ public class HuoBiCashAcnt implements ICashAccount {
             rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
                                + "' and polval ='MNYPERDEAL' and grp_id = '----'");
             rs.next();
-            mnyPerDeal = rs.getInt("rtflt1");
-            _logger.info("got policy, MNYPERDEAL:" + mnyPerDeal);
+            minMnyPerDeal = rs.getInt("rtflt1");
+            maxMnyPerDeal = rs.getInt("rtflt2");
+            _logger.info("got policy, minMnyPerDeal:" + minMnyPerDeal + ", maxMnyPerDeal:" + maxMnyPerDeal);
         } catch (MocaException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.error(e.getMessage());
             _logger.info("Get policy MNYPERDEAL error, use default value 1000.");
-            mnyPerDeal = 1000;
+            minMnyPerDeal = 1000;
+            maxMnyPerDeal = 1000;
         }
         
         return true;
+	}
+	
+	public String getMarket() {
+	    return mk;
+	}
+	
+	public String getCoinType() {
+	    return ct;
 	}
 	
 	public double getAvaQty(String coinType) {
@@ -143,6 +156,99 @@ public class HuoBiCashAcnt implements ICashAccount {
 	        return loan_btc_display;
 	    }
 	 }
+	
+	/*
+	 * This function will calcluate the count
+	 * of latest trade record to the market price.
+	 */
+	public int getLastBuySellGapCnt(String coinType, boolean forBuy) {
+	    
+	    MocaResults rs = null;
+	    int bscnt = 0;
+	    String type = "";
+	    double lstDealPri = 0;
+        try {
+            rs = _moca.executeCommand("[select processed_price lstDealPri,                              " +
+                                      "        type                                                     " +
+                                      "   from hb_buysell_data                                          " +
+                                      "  where id = (select max (id) from hb_buysell_data)              " +
+                                      "    and ins_dt > sysdate - 12/24.0]            ");//if trade within 12 hours.
+            rs.next();
+            lstDealPri = rs.getDouble("lstDealPri");
+            type = rs.getString("type");
+            _logger.info("got lstDealPri:" + lstDealPri + ", type:" + type);
+            
+            if (priGap <= 0) {
+                String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
+                try {
+                    rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+                                       + "' and polval ='LAST_PRICE_BOX_GAP' and grp_id = '----'");
+                    rs.next();
+                
+                    priGap = rs.getDouble("rtflt2");
+                    _logger.info("got policy, LAST_PRICE_BOX_GAP_MAX:" + priGap);
+                } catch (MocaException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    _logger.error(e.getMessage());
+                    if (polvar.equalsIgnoreCase("BTC")) {
+                        priGap = 100;
+                        _logger.info("get policy error, use default LAST_PRICE_BOX_GAP_MAX:" + priGap);
+                    }
+                    else {
+                        priGap = 0.5;
+                        _logger.info("get policy error, use default LAST_PRICE_BOX_GAP_MAX:" + priGap);
+                    }
+                }
+            }
+            
+            double mrkLstPri = lstDealPri;
+            try {
+                rs = _moca.executeCommand(
+                        "get real time trade record where mk ='" + mk + "'" +
+                        "  and ct = '" + ct + "'" +
+                        "   and sdf = 0");
+                
+                rs.next();
+                mrkLstPri = rs.getDouble("last");
+            }
+            catch (MocaException e) {
+                e.printStackTrace();
+                _logger.debug("Exception:" + e.getMessage());;
+            }
+            
+            _logger.info("\ntype:" + type +
+                         "\nforBuy:" + forBuy +
+                         "\nmrkLstPri:" + mrkLstPri +
+                         "\nlstDealPri:" + lstDealPri +
+                         "\npriGap:" + priGap);
+            //want buy
+            if (forBuy) {
+                if (mrkLstPri >= lstDealPri) {
+                    bscnt = 0;
+                }
+                else {
+                    bscnt = (int)((lstDealPri - mrkLstPri) / priGap);
+                }
+            }
+            else if (!forBuy) {
+                if (mrkLstPri <= lstDealPri) {
+                    bscnt = 0;
+                }
+                else {
+                    bscnt = (int)((mrkLstPri - lstDealPri) / priGap);
+                }
+            }
+        } catch (MocaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            _logger.error(e.getMessage());
+            _logger.info("no buysell data found, use 0.");
+        }
+        
+        _logger.info("return bscnt:" + bscnt);
+        return bscnt;
+	}
 
 	@Override
     public String getAccountID() {
@@ -158,11 +264,52 @@ public class HuoBiCashAcnt implements ICashAccount {
     @Override
     public double getBuyableMny() {
         loadAccount();
-        if (available_cny_display > mnyPerDeal) {
-            return mnyPerDeal;
+        if (available_cny_display > minMnyPerDeal) {
+            int cnt = getLastBuySellGapCnt(ct, true);
+            double buyableMny = minMnyPerDeal;
+            int maxCnt = 3;
+            
+            if (cnt > maxCnt) {
+                _logger.info("getLastBuySellGapCnt return > maxCnt:" + maxCnt + ", use it as max.");
+                cnt = maxCnt;
+            }
+            
+            double det = (maxMnyPerDeal - minMnyPerDeal) / maxCnt;
+            _logger.info("\navailable_cny_display:" + available_cny_display +
+                         "\n minMnyPerDeal:" + minMnyPerDeal +
+                         "\n cnt:" + cnt +
+                         "\n (maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + det +
+                         "\n cnt * ((maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + cnt * det);
+            buyableMny = minMnyPerDeal + cnt * det;
+            buyableMny = (buyableMny > available_cny_display ? available_cny_display : buyableMny);
+            return buyableMny;
         } else {
+            _logger.info("available_cny_display less than minMnyPerDeal, use available_cny_display:" + available_cny_display);
             return available_cny_display;
         }
+    }
+    
+    @Override
+    public double getSellableMny() {
+        loadAccount();
+
+        int cnt = getLastBuySellGapCnt(ct, false);
+        double sellableMny = minMnyPerDeal;
+        int maxCnt = 3;
+        
+        if (cnt > maxCnt) {
+            _logger.info("getLastBuySellGapCnt return > maxCnt:" + maxCnt + ", use it as max.");
+            cnt = maxCnt;
+        }
+        
+        double det = (maxMnyPerDeal - minMnyPerDeal) / maxCnt;
+        
+        _logger.info("\n minMnyPerDeal:" + minMnyPerDeal +
+                     "\n cnt:" + cnt +
+                     "\n (maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + det +
+                     "\n cnt * ((maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + cnt * det);
+        sellableMny = minMnyPerDeal + cnt * det;
+        return sellableMny;
     }
     
     @Override
@@ -174,7 +321,8 @@ public class HuoBiCashAcnt implements ICashAccount {
     @Override
     public void printAcntInfo() {
         _logger.info("AccountID:" + actId);
-        _logger.info("mnyPerDeal:" + mnyPerDeal);
+        _logger.info("minMnyPerDeal:" + minMnyPerDeal);
+        _logger.info("maxMnyPerDeal:" + maxMnyPerDeal);
         _logger.info("total:" + total);
         _logger.info("net_asset:" + net_asset);
         _logger.info("available_cny_display:" + available_cny_display);

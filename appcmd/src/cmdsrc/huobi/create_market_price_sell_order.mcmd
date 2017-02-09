@@ -1,6 +1,7 @@
 <command>
 <name>create market price sell order</name>
 <description>This command will create a sell order with market price.</description>
+<transaction>new</transaction>
 <type>Java Method</type>
 <class>HuobiCmd</class>
 <method>createSellOrderWithMarketPrice</method>

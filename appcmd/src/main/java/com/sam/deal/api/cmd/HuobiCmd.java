@@ -520,27 +520,57 @@ public class HuobiCmd {
         }
         HuobiService service = new HuobiService();
         String resultStr = "";
+        JSONObject body = null;
+        MocaResults rs = null;
         try {
             // 提交限价单接口 1btc 2ltc
             resultStr = service.buy(ct, price.toString(), amount.toString(),
                     tradePassword, tradeid, BUY);
 
-            JSONObject body = new JSONObject(resultStr);
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
-            EditableResults res = new SimpleResults();
-            res.addColumn("result", MocaType.STRING);
-            res.addColumn("id", MocaType.INTEGER);
-            res.addRow();
-            res.setStringValue("result", msg);
-            res.setIntValue("id", code);
-            return res;
+            body = new JSONObject(resultStr);
+            String orderid = body.getString("id");
+            String result = body.getString("result");
+            
+            rs = _moca.executeCommand("get order info where coinType = '"
+                    + coinType + "' and id = '" + orderid + "'");
+            
+            rs.next();
+            
+            String oid = rs.getString("id");
+            String type = rs.getString("type");
+            double order_price = rs.getDouble("order_price");
+            double order_amount = rs.getDouble("order_amount");
+            double processed_price = rs.getDouble("processed_price");
+            double processed_amount = rs.getDouble("processed_amount");
+            double vot = rs.getDouble("vot");
+            double fee = rs.getDouble("fee");
+            double total = rs.getDouble("total");
+            int status = rs.getInt("status");
+            
+            _moca.executeCommand("publish data "
+                               + "  where id = '" + oid + "'"
+                               + "    and type = '" + type + "'"
+                               + "    and order_price =" + order_price
+                               + "    and order_amount =" + order_amount
+                               + "    and processed_price =" + processed_price
+                               + "    and processed_amount =" + processed_amount
+                               + "    and vot =" + vot
+                               + "    and fee =" + fee
+                               + "    and total =" + total
+                               + "    and status =" + status
+                               + "    and ins_dt = sysdate "
+                               + "| "
+                               + "create record where table_name = 'hb_buysell_data' and @*");
+            rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            throw new MocaException(-1403, e.getMessage());
+            int code = body.getInt("code");
+            String msg = body.getString("msg");
+            throw new MocaException(code, msg);
         }
+        return rs;
     }
 
     /**
@@ -632,26 +662,56 @@ public class HuobiCmd {
         }
         HuobiService service = new HuobiService();
         String resultStr = "";
+        JSONObject body = null;
+        MocaResults rs = null;
         try {
             // 提交限价单接口 1btc 2ltc
             resultStr = service.sell(ct, price.toString(), amount.toString(),
                     tradePassword, tradeid, SELL);
-            JSONObject body = new JSONObject(resultStr);
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
-            EditableResults res = new SimpleResults();
-            res.addColumn("result", MocaType.STRING);
-            res.addColumn("id", MocaType.INTEGER);
-            res.addRow();
-            res.setStringValue("result", msg);
-            res.setIntValue("id", code);
-            return res;
+            body = new JSONObject(resultStr);
+            String orderid = body.getString("id");
+            String result = body.getString("result");
+            
+            rs = _moca.executeCommand("get order info where coinType = '"
+                    + coinType + "' and id = '" + orderid + "'");
+            
+            rs.next();
+            
+            String oid = rs.getString("id");
+            String type = rs.getString("type");
+            double order_price = rs.getDouble("order_price");
+            double order_amount = rs.getDouble("order_amount");
+            double processed_price = rs.getDouble("processed_price");
+            double processed_amount = rs.getDouble("processed_amount");
+            double vot = rs.getDouble("vot");
+            double fee = rs.getDouble("fee");
+            double total = rs.getDouble("total");
+            int status = rs.getInt("status");
+            
+            _moca.executeCommand("publish data "
+                               + "  where id = '" + oid + "'"
+                               + "    and type = '" + type + "'"
+                               + "    and order_price =" + order_price
+                               + "    and order_amount =" + order_amount
+                               + "    and processed_price =" + processed_price
+                               + "    and processed_amount =" + processed_amount
+                               + "    and vot =" + vot
+                               + "    and fee =" + fee
+                               + "    and total =" + total
+                               + "    and status =" + status
+                               + "    and ins_dt = sysdate "
+                               + "| "
+                               + "create record where table_name = 'hb_buysell_data' and @*");
+            rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            throw new MocaException(-1403, e.getMessage());
+            int code = body.getInt("code");
+            String msg = body.getString("msg");
+            throw new MocaException(code, msg);
         }
+        return rs;
     }
 
     /**

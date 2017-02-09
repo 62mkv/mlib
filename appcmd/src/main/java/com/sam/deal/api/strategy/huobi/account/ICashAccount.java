@@ -22,6 +22,7 @@ public interface ICashAccount {
     public String getAccountID();
     public double getMaxAvaMny();
     public double getBuyableMny();
+    public double getSellableMny();
     public double getUsedMny();
     public void printAcntInfo();
 }

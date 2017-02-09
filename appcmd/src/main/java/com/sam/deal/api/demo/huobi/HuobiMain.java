@@ -42,9 +42,9 @@ public class HuobiMain {
             // 获取订单详情
   //          System.out.println(service.getOrderInfo(1, 3864086067L, ORDER_INFO));
             // 市价卖出
-//            System.out.println(service.sell(1, "2555.52", "0.1", null, null, SELL));
+            System.out.println(service.sell(1, "7555.52", "0.001", null, null, SELL));
 //            // 市价卖出
-            System.out.println(service.sellMarket(1, "0.001", null, null, SELL_MARKET));
+//            System.out.println(service.sellMarket(1, "0.001", null, null, SELL_MARKET));
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
