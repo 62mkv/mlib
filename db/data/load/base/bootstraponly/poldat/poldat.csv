@@ -1,10 +1,10 @@
 polcod,polvar,polval,srtseq,rtstr1,rtstr2,rtnum1,rtnum2,rtflt1,rtflt2,moddte,mod_usr_id,grp_id
 HUOBI,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
 HUOBI,BTC,MNYPERDEAL,0,,,0,0,2000,5000,sysdate,Install,----
-HUOBI,BTC,PRICE_DIFF,0,,,0,0,0.5,5,sysdate,Install,----
+HUOBI,BTC,PRICE_DIFF,0,,,0,0,5,10,sysdate,Install,----
 HUOBI,BTC,STOCK_QUEUE_SIZE,0,,,1440,0,0,0,sysdate,Install,----
 HUOBI,BTC,STEP_FOR_CAL_TREND,0,,,1,0,0,0,sysdate,Install,----
-HUOBI,BTC,LAST_PRICE_BOX_GAP,0,,,0,0,60,100,sysdate,Install,----
+HUOBI,BTC,LAST_PRICE_BOX_GAP,0,,,0,0,100,140,sysdate,Install,----
 HUOBI,BTC,LAST_PRICE_BOX_GAP_RATIO,0,,,0,0,1.5,0,sysdate,Install,----
 HUOBI,BTC,FIRST_SHARPMODE_BUYSELL_RATIO,0,,,0,0,0.5,1,sysdate,Install,----
 HUOBI,LTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
@@ -15,3 +15,11 @@ HUOBI,LTC,STEP_FOR_CAL_TREND,0,,,1,0,0,0,sysdate,Install,----
 HUOBI,LTC,LAST_PRICE_BOX_GAP,0,,,0,0,0.5,1,sysdate,Install,----
 HUOBI,LTC,LAST_PRICE_BOX_GAP_RATIO,0,,,0,0,1.5,0,sysdate,Install,----
 HUOBI,LTC,FIRST_SHARPMODE_BUYSELL_RATIO,0,,,0,0,0.5,1,sysdate,Install,----
+OKCOIN,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
+OKCOIN,BTC,MNYPERDEAL,0,,,0,0,2,5,sysdate,Install,----
+OKCOIN,BTC,PRICE_DIFF,0,,,0,0,0.1,1,sysdate,Install,----
+OKCOIN,BTC,STOCK_QUEUE_SIZE,0,,,1440,0,0,0,sysdate,Install,----
+OKCOIN,BTC,STEP_FOR_CAL_TREND,0,,,1,0,0,0,sysdate,Install,----
+OKCOIN,BTC,LAST_PRICE_BOX_GAP,0,,,0,0,10,20,sysdate,Install,----
+OKCOIN,BTC,LAST_PRICE_BOX_GAP_RATIO,0,,,0,0,1.5,0,sysdate,Install,----
+OKCOIN,BTC,FIRST_SHARPMODE_BUYSELL_RATIO,0,,,0,0,0.5,1,sysdate,Install,----

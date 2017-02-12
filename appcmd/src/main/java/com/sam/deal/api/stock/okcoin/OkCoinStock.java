@@ -1,4 +1,4 @@
-package com.sam.deal.api.stock.huobi;
+package com.sam.deal.api.stock.okcoin;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,9 +18,9 @@ import com.sam.moca.server.ServerUtils;
 import com.sam.moca.server.SystemConfigurationException;
 import com.sam.moca.util.MocaUtils;
 
-public class HuoBiStock implements IStock{
+public class OkCoinStock implements IStock{
 
-    private Logger _logger = LogManager.getLogger(HuoBiStock.class);
+    private Logger _logger = LogManager.getLogger(OkCoinStock.class);
     
 
 
@@ -81,26 +81,19 @@ public class HuoBiStock implements IStock{
     
     public class Top10Data{
         public String symbol = null;
-        public List<String> time_st =  null;
+        public List<String> time_lst =  null;
         public ArrayList<BoundArrayList<Double>> b_amt_lst = null;
         public ArrayList<BoundArrayList<Double>> b_pri_lst = null;
         
         public ArrayList<BoundArrayList<Double>> s_amt_lst = null;
         public ArrayList<BoundArrayList<Double>> s_pri_lst = null;
         
-        public List<Double> p_new_lst = null;
-        public List<Double> p_last_lst = null;
-        public List<Double> p_low_lst = null;
-        public List<Double> p_open_lst = null;
-        public List<Double> p_high_lst = null;
-        public List<Double> total_lst = null;
-        
         public void setSymbol(String syb) {
             symbol = syb;
         }
         
         Top10Data() {
-            time_st = new BoundArrayList<String>(MAX_SZ);
+            time_lst = new BoundArrayList<String>(MAX_SZ);
             
             b_amt_lst = new ArrayList<BoundArrayList<Double>>();
             b_pri_lst = new ArrayList<BoundArrayList<Double>>();
@@ -114,21 +107,14 @@ public class HuoBiStock implements IStock{
                 s_amt_lst.add(new BoundArrayList<Double>(MAX_SZ));
                 s_pri_lst.add(new BoundArrayList<Double>(MAX_SZ));
             }
-            
-            p_new_lst  = new BoundArrayList<Double>(MAX_SZ);
-            p_last_lst = new BoundArrayList<Double>(MAX_SZ);
-            p_low_lst  = new BoundArrayList<Double>(MAX_SZ);
-            p_open_lst = new BoundArrayList<Double>(MAX_SZ);
-            p_high_lst = new BoundArrayList<Double>(MAX_SZ);
-            total_lst  = new BoundArrayList<Double>(MAX_SZ);
         }
         
         public boolean dumpDatatoDB() {
             try {
-                int sz = time_st.size();
+                int sz = time_lst.size();
                 for (int i = 0; i < sz; i++) {
                 _moca.executeCommand("publish data " + " where symbol = '"
-                        + symbol + "'" + "   and time = '" + time_st.get(i) + "'"
+                        + symbol + "'" + "   and time = '" + time_lst.get(i) + "'"
                         + "   and b_amt1 = " + b_amt_lst.get(0).get(i)
                         + "   and b_pri1 = " + b_pri_lst.get(0).get(i)
                         + "   and b_amt2 = " + b_amt_lst.get(1).get(i)
@@ -169,12 +155,8 @@ public class HuoBiStock implements IStock{
                         + "   and s_pri9 = " + s_pri_lst.get(8).get(i)
                         + "   and s_amt10 = " + s_amt_lst.get(9).get(i)
                         + "   and s_pri10 = " + s_pri_lst.get(9).get(i)
-                        + "   and p_new = " + p_new_lst.get(i) + "   and p_last = "
-                        + p_last_lst.get(i) + "   and p_low = " + p_low_lst.get(i)
-                        + "   and p_open = " + p_open_lst.get(i) + "   and p_high = "
-                        + p_high_lst.get(i) + "   and total = " + total_lst.get(i)
                         + "   and ins_dt = sysdate " + "|"
-                        + "create record where table_name = 'hb_top10_data' and @* ");
+                        + "create record where table_name = 'oc_top10_data' and @* ");
                 }
             } catch (MocaException e) {
                 // TODO Auto-generated catch block
@@ -188,31 +170,34 @@ public class HuoBiStock implements IStock{
     }
     
     public class TradeData{
-        public List<String> symbol_st =  null;
-        public List<String> time_st =  null;
+        public List<String> symbol_lst =  null;
+        public List<String> time_lst =  null;
         public List<Double> amount_lst = null;
         public List<Double> price_lst = null;
-        public List<String> type_st =  null;
+        public List<String> tid_lst = null;
+        public List<String> type_lst =  null;
         
         TradeData() {
-            symbol_st = new BoundArrayList<String>(MAX_SZ * 60);
-            time_st = new BoundArrayList<String>(MAX_SZ * 60);
+            symbol_lst = new BoundArrayList<String>(MAX_SZ * 60);
+            time_lst = new BoundArrayList<String>(MAX_SZ * 60);
+            tid_lst = new BoundArrayList<String>(MAX_SZ * 60);            
             amount_lst = new BoundArrayList<Double>(MAX_SZ * 60);
             price_lst  = new BoundArrayList<Double>(MAX_SZ * 60);
-            type_st = new BoundArrayList<String>(MAX_SZ * 60);
+            type_lst = new BoundArrayList<String>(MAX_SZ * 60);
         }
         public boolean dumpDatatoDB() {
             try {
-                int sz = symbol_st.size();
+                int sz = symbol_lst.size();
                 for (int i = 0; i < sz; i++) {
                     _moca.executeCommand("publish data "
-                        + " where symbol = '" + symbol_st.get(i) + "'"
-                        + "   and time = '" + time_st.get(i) + "'"
+                        + " where symbol = '" + symbol_lst.get(i) + "'"
+                        + "   and time = '" + time_lst.get(i) + "'"
                         + "   and amount = " + amount_lst.get(i)
                         + "   and price = " + price_lst.get(i)
-                        + "   and type = '" + type_st.get(i) + "'"
+                        + "   and type = '" + type_lst.get(i) + "'"
+                        + "   and tid = '" + tid_lst.get(i) + "'"
                         + "   and ins_dt = sysdate " + "|"
-                        + "create record where table_name = 'hb_trade_data' and @* ");}
+                        + "create record where table_name = 'oc_trade_data' and @* ");}
             } catch (MocaException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -225,39 +210,36 @@ public class HuoBiStock implements IStock{
     }
     
     public class TickerData{
-        public List<String> symbol_st =  null;
-        public List<String> time_st =  null;
+        public List<String> symbol_lst =  null;
+        public List<String> time_lst =  null;
         public List<Double> vol_lst = null;
         public List<Double> high_lst = null;
         public List<Double> low_lst = null;
         public List<Double> buy_lst = null;
         public List<Double> sell_lst = null;
         public List<Double> last_lst = null;
-        public List<Double> open_lst = null;
         
         TickerData() {
-            symbol_st = new BoundArrayList<String>(MAX_SZ);
-            time_st = new BoundArrayList<String>(MAX_SZ);
+            symbol_lst = new BoundArrayList<String>(MAX_SZ);
+            time_lst = new BoundArrayList<String>(MAX_SZ);
             vol_lst = new BoundArrayList<Double>(MAX_SZ);
             high_lst  = new BoundArrayList<Double>(MAX_SZ);
             low_lst  = new BoundArrayList<Double>(MAX_SZ);
             buy_lst  = new BoundArrayList<Double>(MAX_SZ);
             sell_lst  = new BoundArrayList<Double>(MAX_SZ);
             last_lst  = new BoundArrayList<Double>(MAX_SZ);
-            open_lst  = new BoundArrayList<Double>(MAX_SZ);
         }
         public boolean dumpDatatoDB() {
             try {
-                int sz = symbol_st.size();
+                int sz = symbol_lst.size();
                 for (int i = 0; i < sz; i++) {
                     _moca.executeCommand("publish data where symbol = '"
-                            + symbol_st.get(i) + "'" + "   and time = '" + time_st.get(i) + "'"
+                            + symbol_lst.get(i) + "'" + "   and time = '" + time_lst.get(i) + "'"
                             + "   and high = " + high_lst.get(i) + "   and low = " + low_lst.get(i)
                             + "   and vol = " + vol_lst.get(i) + "   and buy = " + buy_lst.get(i)
                             + "   and sell = " + sell_lst.get(i) + "   and last = " + last_lst.get(i)
-                            + "   and first = " + open_lst.get(i)
                             + "   and ins_dt = sysdate " + "|"
-                            + "create record where table_name = 'hb_real_data' and @* ");
+                            + "create record where table_name = 'oc_ticker_data' and @* ");
                     }
             } catch (MocaException e) {
                 // TODO Auto-generated catch block
@@ -278,11 +260,11 @@ public class HuoBiStock implements IStock{
         catch(SystemConfigurationException e) {
             e.printStackTrace();
         }
-        HuoBiStock s = new HuoBiStock("chn", "btc");
+        OkCoinStock s = new OkCoinStock("chn", "btc");
         s.loadMarketData();
     }
     
-    public HuoBiStock(String market, String coinType)
+    public OkCoinStock(String market, String coinType)
     {
         _moca = MocaUtils.currentContext();
         _manager = MocaUtils.crudManager(_moca);
@@ -294,7 +276,7 @@ public class HuoBiStock implements IStock{
     public void init() {
         String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
         try {
-            MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                + "' and polval ='STOCK_QUEUE_SIZE' and grp_id = '----'");
             rs.next();
             MAX_SZ = rs.getInt("rtnum1");
@@ -308,7 +290,7 @@ public class HuoBiStock implements IStock{
         }
         
         try {
-            MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                + "' and polval ='PRICE_DIFF' and grp_id = '----'");
             rs.next();
             SMALL_PRICE_DIFF = rs.getDouble("rtflt1");
@@ -334,7 +316,7 @@ public class HuoBiStock implements IStock{
         }
         
         try {
-            MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                + "' and polval ='STEP_FOR_CAL_TREND' and grp_id = '----'");
             rs.next();
             STEP_FOR_CAL_TREND = rs.getInt("rtnum1");
@@ -348,7 +330,7 @@ public class HuoBiStock implements IStock{
         }
         
         try {
-            MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                + "' and polval ='LAST_PRICE_BOX_GAP' and grp_id = '----'");
             rs.next();
             LAST_PRICE_BOX_GAP_MIN = rs.getInt("rtflt1");
@@ -371,7 +353,7 @@ public class HuoBiStock implements IStock{
         }
         
         try {
-            MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                + "' and polval ='LAST_PRICE_BOX_GAP_RATIO' and grp_id = '----'");
             rs.next();
             LAST_PRICE_BOX_GAP_MAX_RATIO = rs.getDouble("rtflt1");
@@ -420,14 +402,14 @@ public class HuoBiStock implements IStock{
         MocaResults rs = null;
         try {
             rs = _moca.executeCommand(
-                    "get top10 data where mk ='" + mk + "'" +
+                    "get top10 data for oc where mk ='" + mk + "'" +
                     "  and ct = '" + ct + "'" +
-                    "   and sdf = 0 and rtdf = 0");
+                    "   and sdf = 0");
             
             rs.next();
             this.symbol = rs.getString("symbol");
             top10.setSymbol(symbol);
-            top10.time_st.add(rs.getString("time"));
+            top10.time_lst.add(rs.getString("time"));
             top10.b_amt_lst.get(0).add(rs.getDouble("b_amt1"));
             top10.b_amt_lst.get(1).add(rs.getDouble("b_amt2"));
             top10.b_amt_lst.get(2).add(rs.getDouble("b_amt3"));
@@ -469,13 +451,6 @@ public class HuoBiStock implements IStock{
             top10.s_pri_lst.get(7).add(rs.getDouble("s_pri8"));
             top10.s_pri_lst.get(8).add(rs.getDouble("s_pri9"));
             top10.s_pri_lst.get(9).add(rs.getDouble("s_pri10"));
-
-            top10.p_new_lst.add(rs.getDouble("p_new"));
-            top10.p_last_lst.add(rs.getDouble("p_last"));
-            top10.p_low_lst.add(rs.getDouble("p_low"));
-            top10.p_open_lst.add(rs.getDouble("p_open"));
-            top10.p_high_lst.add(rs.getDouble("p_high"));
-            top10.total_lst.add(rs.getDouble("total"));
         }
         catch (MocaException e) {
             e.printStackTrace();
@@ -484,7 +459,7 @@ public class HuoBiStock implements IStock{
     }
     
     private void clearTop10Data() {
-            top10.time_st.clear();
+            top10.time_lst.clear();
             top10.b_amt_lst.get(0).clear();
             top10.b_amt_lst.get(1).clear();
             top10.b_amt_lst.get(2).clear();
@@ -527,29 +502,24 @@ public class HuoBiStock implements IStock{
             top10.s_pri_lst.get(8).clear();
             top10.s_pri_lst.get(9).clear();
             
-            top10.p_new_lst.clear();
-            top10.p_last_lst.clear();
-            top10.p_low_lst.clear();
-            top10.p_open_lst.clear();
-            top10.p_high_lst.clear();
-            top10.total_lst.clear();
-            
             _logger.debug("Top10 data cleared!");;
     }
     
     private void loadTradeData() {
         MocaResults rs = null;
+        
+        String ctv = (ct.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
         try {
             rs = _moca.executeCommand(
-                    "get top10 data where mk ='" + mk + "'" +
+                    "get trade data for oc where mk ='" + mk + "'" +
                     "  and ct = '" + ct + "'" +
-                    "   and sdf = 0 and rtdf = 1");
+                    "   and sdf = 0");
             rs.next();
-            trd.symbol_st.add(rs.getString("symbol"));
-            trd.time_st.add(rs.getString("time"));
+            trd.symbol_lst.add(ctv);
+            trd.time_lst.add(rs.getString("time"));
             trd.amount_lst.add(rs.getDouble("amount"));
             trd.price_lst.add(rs.getDouble("price"));
-            trd.type_st.add(rs.getString("type"));
+            trd.type_lst.add(rs.getString("type"));
         }
         catch (MocaException e) {
             e.printStackTrace();
@@ -558,11 +528,11 @@ public class HuoBiStock implements IStock{
     }
     
     private void clearTradeData() {
-        trd.symbol_st.clear();
-        trd.time_st.clear();
+        trd.symbol_lst.clear();
+        trd.time_lst.clear();
         trd.amount_lst.clear();
         trd.price_lst.clear();
-        trd.type_st.clear();
+        trd.type_lst.clear();
         _logger.debug("TradeData cleared!");
     }
     
@@ -570,20 +540,19 @@ public class HuoBiStock implements IStock{
         MocaResults rs = null;
         try {
             rs = _moca.executeCommand(
-                    "get real time trade record where mk ='" + mk + "'" +
+                    "get ticker data for oc where mk ='" + mk + "'" +
                     "  and ct = '" + ct + "'" +
                     "   and sdf = 0");
             
             rs.next();
-            tid.symbol_st.add(rs.getString("symbol"));
-            tid.time_st.add(rs.getString("time"));
+            tid.symbol_lst.add(rs.getString("symbol"));
+            tid.time_lst.add(rs.getString("time"));
             tid.vol_lst.add(rs.getDouble("vol"));
             tid.high_lst.add(rs.getDouble("high"));
             tid.low_lst.add(rs.getDouble("low"));
             tid.buy_lst.add(rs.getDouble("buy"));
             tid.sell_lst.add(rs.getDouble("sell"));
             tid.last_lst.add(rs.getDouble("last"));
-            tid.open_lst.add(rs.getDouble("first"));
         }
         catch (MocaException e) {
             e.printStackTrace();
@@ -592,15 +561,14 @@ public class HuoBiStock implements IStock{
     }
     
     private void clearTickerData() {
-            tid.symbol_st.clear();
-            tid.time_st.clear();
+            tid.symbol_lst.clear();
+            tid.time_lst.clear();
             tid.vol_lst.clear();
             tid.high_lst.clear();
             tid.low_lst.clear();
             tid.buy_lst.clear();
             tid.sell_lst.clear();
             tid.last_lst.clear();
-            tid.open_lst.clear();
             _logger.debug("TickerData cleared!");
     }
     
@@ -611,7 +579,7 @@ public class HuoBiStock implements IStock{
         if (SECONDS_AS_LOOP_GAP == 0) {
             String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
             try {
-                MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '"
+                MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '"
                                                       + polvar + "' and polval = 'LOOP-PARAM' and grp_id = '----'");
                 rs.next();
                 SECONDS_AS_LOOP_GAP = rs.getInt("rtnum2");
@@ -624,8 +592,8 @@ public class HuoBiStock implements IStock{
             }
         }
         
-        //take 5 minute for cal avg pri.
-        int lenForAvg = 60 * 5 / SECONDS_AS_LOOP_GAP;
+        //take 1 minute for cal avg pri.
+        int lenForAvg = 60 / SECONDS_AS_LOOP_GAP;
         
         if (!isMinMaxLstPriMatchBoxGap(inc_flg) || sz < 3 * lenForAvg) {
             _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap or sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");
@@ -801,11 +769,11 @@ public class HuoBiStock implements IStock{
         String type = "";
         MocaResults rs = null;
         try {
-            rs = _moca.executeCommand("[select processed_price lstDealPri,                              " +
+            rs = _moca.executeCommand("[select avg_price lstDealPri,                              " +
                                       "        type                                                     " +
-                                      "   from hb_buysell_data                                          " +
-                                      "  where id = (select max (id) from hb_buysell_data)              " +
-                                      "    and type in ('1','2')                                        " +
+                                      "   from oc_buysell_data                                          " +
+                                      "  where id = (select max (id) from oc_buysell_data)              " +
+                                      "    and type in ('sell','buy')                                        " +
                                       "    and ins_dt > sysdate - 12/24.0]            ");//if trade within 12 hours.
             rs.next();
             lstDealPri = rs.getDouble("lstDealPri");
@@ -844,7 +812,6 @@ public class HuoBiStock implements IStock{
             _logger.info("lstDealPri is 0, min/max price matches expVal:" + expVal + ", return true");
             return true;
         }
-        
         _logger.info("min/max/lstDealPri price DOES NOT matche expVal:" + expVal + ", return false");
         return false;
     }
@@ -896,13 +863,7 @@ public class HuoBiStock implements IStock{
     
     @Override
     public Double getOpenPri() {
-        int sz = tid.open_lst.size();
-        if (sz > 0) {
-            return tid.open_lst.get(sz - 1);
-        }
-        else {
-            return null;
-        }
+        return null;
     }
     
     @Override
@@ -1021,7 +982,7 @@ public class HuoBiStock implements IStock{
                     st = eSTOCKTREND.SUP;
                     IS_IN_UNSTABLE_MODE = true;
                 }
-                else if (!IS_IN_UNSTABLE_MODE && DetPri <= -LAST_PRICE_BOX_GAP_MAX) {
+                else if (!IS_IN_UNSTABLE_MODE && DetPri <= -2 * LAST_PRICE_BOX_GAP_MAX) {
                     _logger.info("stock trend set to SDOWN, and IS_IN_UNSTABLE_MODE to true!");
                     st = eSTOCKTREND.SDOWN;
                     IS_IN_UNSTABLE_MODE = true;

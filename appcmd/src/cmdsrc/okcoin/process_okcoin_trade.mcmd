@@ -1,0 +1,16 @@
+<command>
+<name>process okcoin trade</name>
+<description>Main entry point of tradeing huobi.</description>
+<type>Java Method</type>
+<class>OkCoinTrader</class>
+<method>performTrade</method>
+<argument name="market" alias="mk" required="yes" datatype="string">
+'US' or 'CHN'
+</argument>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+'btc' or 'ltc'
+</argument>
+<documentation>
+There are some policies like loop count and loop gap are defined in policy polvar = LOOP-PARAM.
+</documentation>
+</command>

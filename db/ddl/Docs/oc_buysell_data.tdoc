@@ -1,0 +1,17 @@
+mset command on
+
+create db documentation
+  where table = 'oc_buysell_data'
+    and table_comment = "This table contains the buy/sell record for OkCoin."
+    and id = "Order ID."
+    and type = "trade type."
+    and symbol = "btc_usd or ltc_usd."
+    and price = "order price."
+    and amount = "order amount."
+    and avg_price = "processed price for order."
+    and deal_amount = "processed money for order."
+    and status = "status for the trade."
+    and ins_dt = "record insert time."
+/
+
+mset command off 

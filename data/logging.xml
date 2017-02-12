@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration packages="com.sam.moca.server.log" monitorInterval="30">
+<configuration packages="com.sam" monitorInterval="30">
   <appenders>
     <Console name="Console" target="SYSTEM_OUT">
       <!-- %T is a custom pattern converter which prints the thread id instead

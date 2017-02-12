@@ -38,6 +38,8 @@ import org.apache.logging.log4j.Logger;
 import com.sam.moca.SimpleResults;
 import com.sam.deal.api.cmd.HuobiCmd;
 import com.sam.deal.api.huobi.HuobiService;
+import com.sam.deal.api.okcoin.rest.stock.IStockRestApi;
+import com.sam.deal.api.okcoin.rest.stock.impl.StockRestApi;
 import com.sam.moca.EditableResults;
 import com.sam.moca.MocaArgument;
 import com.sam.moca.MocaContext;
@@ -80,7 +82,7 @@ import org.json.JSONObject;
  * @author Sam
  * @version $Revision$
  */
-public class HuobiCmd {
+public class OkCoinCmd {
 
     /**
      * Creates a new HuoBiService class
@@ -89,7 +91,7 @@ public class HuobiCmd {
      *            The MOCA context
      * @throws MocaException
      */
-    public HuobiCmd(MocaContext mocaCtx) throws MocaException {
+    public OkCoinCmd(MocaContext mocaCtx) throws MocaException {
         _moca = mocaCtx;
         _manager = MocaUtils.crudManager(_moca);
     }
@@ -100,76 +102,59 @@ public class HuobiCmd {
      * @param coinType:
      *            'btc','ltc'
      */
-    public MocaResults getRealTimeRecord(String market, String coinType,
+    public MocaResults getTickerRecord(String market, String coinType,
             Boolean save_db_flag) throws MocaException {
 
         /*
-         * {"time":"1378137600","ticker":{"high":86.48,"low":79.75,"symbol":
-         * "btccny","last":83.9,"vol":2239560.1752883,"buy":83.88,"sell":83.9}}
-         * 报价：最高价，最低价，当前价，成交量，买1，卖1
+         * {"date":"1486790201","ticker":{"buy":"989.0","high":"990.0","last":"989.0","low":"920.0","sell":"990.0","vol":"2934.4551"}}
          */
 
         String url_key = market + "|" + coinType + "|" + URL_TYPE1;
-        String marketDataUrl = URLs.get(url_key);
-        if (marketDataUrl == null || marketDataUrl.isEmpty()) {
+        IStockRestApi stockGet = URLs.get(url_key);
+        if (stockGet == null) {
             if ("US".equalsIgnoreCase(market)) {
-                marketDataUrl = "http://api.huobi.com/usdmarket/ticker_btc_json.js";
+                stockGet = new StockRestApi("https://www.okcoin.com");
             } else if ("CHN".equalsIgnoreCase(market)) {
-                if ("BTC".equalsIgnoreCase(coinType)) {
-                    marketDataUrl = "http://api.huobi.com/staticmarket/ticker_btc_json.js";
-                } else {
-                    marketDataUrl = "http://api.huobi.com/staticmarket/ticker_ltc_json.js";
-                }
+                stockGet = new StockRestApi("https://www.okcoin.cn");
             }
-            URLs.put(url_key, marketDataUrl);
+            URLs.put(url_key, stockGet);
         }
 
-        String cmd = "do http request where url = '" + marketDataUrl + "'";
-        MocaResults rs = null;
+        String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
+        MocaResults rs;
         try {
-            rs = _moca.executeCommand(cmd);
-            if (rs.next()) {
-                String text = rs.getString("body");
+                String text = stockGet.ticker(ct);
                 _logger.debug("body:" + text);
                 JSONObject body = new JSONObject(text);
-                String time = body.getString("time");
+                String date = body.getString("date");
                 JSONObject ticker = body.getJSONObject("ticker");
                 double high = ticker.getDouble("high");
                 double low = ticker.getDouble("low");
-                String symbol = ticker.getString("symbol");
                 double vol = ticker.getDouble("vol");
                 double buy = ticker.getDouble("buy");
                 double sell = ticker.getDouble("sell");
                 double last = ticker.getDouble("last");
-                double first = ticker.getDouble("open");
-                _logger.info("time:" + time);
+                _logger.info("date:" + date);
                 _logger.info("high:" + high);
                 _logger.info("low:" + low);
-                _logger.info("symbol:" + symbol);
                 _logger.info("vol:" + vol);
                 _logger.info("buy:" + buy);
                 _logger.info("sell:" + sell);
                 _logger.info("last:" + last);
-                _logger.info("first:" + first);
 
                 if (save_db_flag != null && save_db_flag.equals(Boolean.TRUE)) {
-                    _moca.executeCommand("publish data where symbol = '"
-                            + symbol + "'" + "   and time = '" + time + "'"
+                    _moca.executeCommand("publish data where symbol = '" + ct + "' and time = '" + date + "'"
                             + "   and high = " + high + "   and low = " + low
                             + "   and vol = " + vol + "   and buy = " + buy
                             + "   and sell = " + sell + "   and last = " + last
-                            + "   and first = " + first
                             + "   and ins_dt = sysdate " + "|"
-                            + "create record where table_name = 'hb_real_data' and @* ");
+                            + "create record where table_name = 'oc_ticker_data' and @* ");
                 }
-                rs = _moca.executeCommand("publish data " + " where symbol = '"
-                        + symbol + "'" + "   and time = '" + time + "'"
+                rs = _moca.executeCommand("publish data where symbol = '" + ct + "' and time = '" + date + "'"
                         + "   and high = " + high + "   and low = " + low
                         + "   and vol = " + vol + "   and buy = " + buy
                         + "   and sell = " + sell + "   and last = " + last
-                        + "   and first = " + first
                         + "   and ins_dt = sysdate ");
-            }
         } catch (Exception e) {
             e.printStackTrace();
             _logger.debug("getRealTimeRecord Exception:" + e.getMessage());
@@ -178,70 +163,219 @@ public class HuobiCmd {
 
         return rs;
     }
+    
+    /* In max return 600 rows most recent records.
+     * 
+     */
+    public MocaResults getTradeRecords(String market, String coinType,
+            String ordid_since,
+            Boolean save_db_flag) throws MocaException {
+
+        /*
+         * {"date":"1486790201","ticker":{"buy":"989.0","high":"990.0","last":"989.0","low":"920.0","sell":"990.0","vol":"2934.4551"}}
+         */
+
+        String url_key = market + "|" + coinType + "|" + URL_GETTRADERECORDS;
+        IStockRestApi stockGet = URLs.get(url_key);
+        if (stockGet == null) {
+            if ("US".equalsIgnoreCase(market)) {
+                stockGet = new StockRestApi("https://www.okcoin.com");
+            } else if ("CHN".equalsIgnoreCase(market)) {
+                stockGet = new StockRestApi("https://www.okcoin.cn");
+            }
+            URLs.put(url_key, stockGet);
+        }
+        
+        if (ordid_since == null || ordid_since.isEmpty()) {
+            ordid_since = "1";
+        }
+
+        String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
+        EditableResults res = new SimpleResults();
+        res.addColumn("symbol", MocaType.STRING);
+        res.addColumn("time", MocaType.STRING);
+        res.addColumn("type", MocaType.STRING);
+        res.addColumn("price", MocaType.DOUBLE);
+        res.addColumn("amount", MocaType.DOUBLE);
+        res.addColumn("tid", MocaType.STRING);
+            
+        try {
+                String text = stockGet.trades(ct, ordid_since);
+                _logger.debug("body:" + text);
+                JSONArray trades = new JSONArray(text);
+                /*
+                 * [
+                 *    {
+                 *        "date": "1367130137",
+                 *        "date_ms": "1367130137000",
+                 *        "price": 787.71,
+                 *        "amount": 0.003,
+                 *        "tid": "230433",
+                 *        "type": "sell"
+                 *    },
+                 *    {
+                 *        "date": "1367130137",
+                 *        "date_ms": "1367130137000",
+                 *        "price": 787.65,
+                 *        "amount": 0.001,
+                 *        "tid": "230434",
+                 *        "type": "sell"
+                 *    },
+                 *    {
+                 *        "date": "1367130137",
+                 *        "date_ms": "1367130137000",
+                 *        "price": 787.5,
+                 *        "amount": 0.091,
+                 *        "tid": "230435",
+                 *        "type": "sell"
+                 *    }
+                 *]
+                 */
+                int sz = trades.length();
+                for (int i = 0; i < sz; i++) {
+                    if (ordid_since.equals("1") && i >= 1) {
+                        _logger.info("only return last 1 trade since ordid_since is not passed.");
+                        break;
+                    }
+                    JSONObject trade = trades.getJSONObject(sz - 1 - i);
+                    String date = trade.getString("date");
+                    double price = trade.getDouble("price");
+                    double amount = trade.getDouble("amount");
+                    String tid = trade.getString("tid");
+                    String type = trade.getString("type");
+                    _logger.info("date:" + date);
+                    _logger.info("price:" + price);
+                    _logger.info("amount:" + amount);
+                    _logger.info("tid:" + tid);
+                    _logger.info("type:" + type);
+                    
+                    if (save_db_flag != null && save_db_flag.equals(Boolean.TRUE)) {
+                        _moca.executeCommand("publish data where symbol = '" + ct + "' and time = '" + date + "'"
+                                + "   and price = " + price + "   and amount = " + amount
+                                + "   and tid = " + tid + "   and type = '" + type
+                                + "'   and ins_dt = sysdate " + "|"
+                                + "create record where table_name = 'oc_trade_data' and @* ");
+                    }
+                    res.addRow();
+                    res.setStringValue("symbol", ct);
+                    res.setStringValue("time", date);
+                    res.setStringValue("type", type);
+                    res.setDoubleValue("price", price);
+                    res.setDoubleValue("amount", amount);
+                    res.setStringValue("tid", tid);
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+            _logger.debug("getTradeRecords Exception:" + e.getMessage());
+            throw new MocaException(-1403, e.getMessage());
+        }
+
+        return res;
+    }
 
     /**
      * @param coinType:
      *            1 'btc', 2 'ltc'
+     *            {
+     *             "result": true,
+     *             "orders": [
+     *                 {
+     *                     "amount": 0.1,
+     *                     "avg_price": 0,
+     *                     "create_date": 1418008467000,
+     *                     "deal_amount": 0,
+     *                     "order_id": 10000591,
+     *                     "orders_id": 10000591,
+     *                     "price": 500,
+     *                     "status": 0,
+     *                     "symbol": "btc_usd",
+     *                     "type": "sell"
+     *                 },
+     *                 {
+     *                     "amount": 0.2,
+     *                     "avg_price": 0,
+     *                     "create_date": 1417417957000,
+     *                     "deal_amount": 0,
+     *                     "order_id": 10000724,
+     *                     "orders_id": 10000724,
+     *                     "price": 0.1,
+     *                     "status": 0,
+     *                     "symbol": "btc_usd",
+     *                     "type": "buy"
+     *                 }
+     *             ]
+     *            }
      */
-    public MocaResults getOrderInfo(String coinType, String id)
+    public MocaResults getOrderInfo(String market, String coinType, String id)
             throws MocaException {
 
-        int ct = 0;
-        if ("btc".equalsIgnoreCase(coinType)) {
-            ct = 1;
-        } else {
-            ct = 2;
+        String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
+        
+        String url_key = market + "|" + URL_GETORDERINFO;
+        
+        IStockRestApi stockPost = URLs.get(url_key);
+        if (stockPost == null) {
+            if ("US".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.com", null, null);
+            } else if ("CHN".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.cn", null, null);
+            }
+            URLs.put(url_key, stockPost);
         }
-        HuobiService service = new HuobiService();
+        
         String resultStr = "";
         EditableResults res = new SimpleResults();
         JSONObject body = null;
         _logger.info("id:" + id);
         try {
             // 提交限价单接口 1btc 2ltc
-            resultStr = service.getOrderInfo(ct, Long.valueOf(id), ORDER_INFO);
+            resultStr = stockPost.order_info(ct, id);
             body = new JSONObject(resultStr);
             
-            String oid = body.getString("id");
-            String type = body.getString("type");
-            double order_price = body.getDouble("order_price");
-            double order_amount = body.getDouble("order_amount");
-            double processed_price = body.getDouble("processed_price");
-            double processed_amount = body.getDouble("processed_amount");
-            double vot = body.getDouble("vot");
-            double fee = body.getDouble("fee");
-            double total = body.getDouble("total");
-            int status = body.getInt("status");
+            JSONArray orders = body.getJSONArray("orders");
+            JSONObject order = orders.getJSONObject(0);
+            String oid = order.getString("order_id");
+            String type = order.getString("type");
+            double price = order.getDouble("price");
+            double amount = order.getDouble("amount");
+            double avg_price = order.getDouble("avg_price");
+            double deal_amount = order.getDouble("deal_amount");
+            int status = order.getInt("status");
+            String symbol = order.getString("symbol");
+            String create_date = order.getString("create_date");
             
             res.addColumn("id", MocaType.STRING);
+            res.addColumn("symbol", MocaType.STRING);
             res.addColumn("type", MocaType.STRING);
-            res.addColumn("order_price", MocaType.DOUBLE);
-            res.addColumn("order_amount", MocaType.DOUBLE);
-            res.addColumn("processed_price", MocaType.DOUBLE);
-            res.addColumn("processed_amount", MocaType.DOUBLE);
-            res.addColumn("vot", MocaType.DOUBLE);
-            res.addColumn("fee", MocaType.DOUBLE);
-            res.addColumn("total", MocaType.DOUBLE);
+            res.addColumn("price", MocaType.DOUBLE);
+            res.addColumn("amount", MocaType.DOUBLE);
+            res.addColumn("avg_price", MocaType.DOUBLE);
+            res.addColumn("deal_amount", MocaType.DOUBLE);
             res.addColumn("status", MocaType.INTEGER);
+            res.addColumn("create_date", MocaType.STRING);
             
             res.addRow();
             res.setStringValue("id", oid);
+            res.setStringValue("symbol", symbol);
             res.setStringValue("type", type);
-            res.setDoubleValue("order_price", order_price);
-            res.setDoubleValue("order_amount", order_amount);
-            res.setDoubleValue("processed_price", processed_price);
-            res.setDoubleValue("processed_amount", processed_amount);
-            res.setDoubleValue("vot", vot);
-            res.setDoubleValue("fee", fee);
-            res.setDoubleValue("total", total);
+            res.setDoubleValue("price", price);
+            res.setDoubleValue("amount", amount);
+            res.setDoubleValue("avg_price", avg_price);
+            res.setDoubleValue("deal_amount", deal_amount);
             res.setIntValue("status", status);
+            res.setStringValue("create_date", create_date);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
-            throw new MocaException(code, msg);
+            int code = 0;
+            try {
+                 code = body.getInt("error_code");
+            }
+            catch(Exception ee) {
+                ee.printStackTrace();
+            }
+            throw new MocaException(code);
         }
         return res;
     }
@@ -398,62 +532,83 @@ public class HuobiCmd {
      * "frozen_cny_display":"0.00", "frozen_btc_display":"0.0000",
      * "frozen_ltc_display":"0.0000", "loan_cny_display":"0.00",
      * "loan_btc_display":"0.0000", "loan_ltc_display":"0.0000"}
-     */
-    public MocaResults getAccountInfo(String hak, String hsk)
-            throws MocaException {
+     * 
+     * {"info":
+     *  {"funds":
+     *      {"asset":
+     *          {"net":"0","total":"0"},
+     *        "free":
+     *          {"btc":"0","ltc":"0","usd":"0"},
+     *        "freezed":
+     *          {"btc":"0","ltc":"0","usd":"0"}
+     *      }
+     *  },
+     *  "result":true
+     * }
 
-        HuobiService service = new HuobiService();
+     */
+    public MocaResults getAccountInfo(String market, String hak, String hsk)
+            throws MocaException {
+        
+        String url_key = market + "|" + URL_GETACCOUNTINFO;
+        
+        IStockRestApi stockPost = URLs.get(url_key);
+        if (stockPost == null) {
+            if ("US".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.com", hak, hsk);
+            } else if ("CHN".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.cn", hak, hsk);
+            }
+            URLs.put(url_key, stockPost);
+        }
+        
         String resultStr = "";
         try {
             // 提交限价单接口 1btc 2ltc
-            resultStr = service.getAccountInfo(ACCOUNT_INFO, hak, hsk);
+            resultStr = stockPost.userinfo();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
         }
+        System.out.print(resultStr);
         _logger.info("resultStr:" + resultStr);
         
         JSONObject body = null;
-        System.out.println("Here is resultStr:" + resultStr);
         try {
             body = new JSONObject(resultStr);
-            double total = body.getDouble("total");
-            double net_asset = body.getDouble("net_asset");
-            double available_cny_display = body.getDouble("available_cny_display");
-            double available_ltc_display = body.getDouble("available_ltc_display");
-            double available_btc_display = body.getDouble("available_btc_display");
-            double frozen_cny_display = body.getDouble("frozen_cny_display");
-            double frozen_btc_display = body.getDouble("frozen_btc_display");
-            double frozen_ltc_display = body.getDouble("frozen_ltc_display");
-            double loan_cny_display = body.getDouble("loan_cny_display");
-            double loan_btc_display = body.getDouble("loan_btc_display");
-            double loan_ltc_display = body.getDouble("loan_ltc_display");
+            JSONObject info = body.getJSONObject("info");
+            JSONObject funds = info.getJSONObject("funds");
+            JSONObject asset = funds.getJSONObject("asset");
+            JSONObject free = funds.getJSONObject("free");
+            JSONObject freezed = funds.getJSONObject("freezed");
+            double total = asset.getDouble("total");
+            double net = asset.getDouble("net");
+            double free_usd = free.getDouble("usd");
+            double free_ltc = free.getDouble("ltc");
+            double free_btc = free.getDouble("btc");
+            double freezed_usd = freezed.getDouble("usd");
+            double freezed_btc = freezed.getDouble("btc");
+            double freezed_ltc = freezed.getDouble("ltc");
 
             EditableResults res = new SimpleResults();
             res.addColumn("total", MocaType.DOUBLE);
-            res.addColumn("net_asset", MocaType.DOUBLE);
-            res.addColumn("available_cny_display", MocaType.DOUBLE);
-            res.addColumn("available_ltc_display", MocaType.DOUBLE);
-            res.addColumn("available_btc_display", MocaType.DOUBLE);
-            res.addColumn("frozen_cny_display", MocaType.DOUBLE);
-            res.addColumn("frozen_btc_display", MocaType.DOUBLE);
-            res.addColumn("frozen_ltc_display", MocaType.DOUBLE);
-            res.addColumn("loan_cny_display", MocaType.DOUBLE);
-            res.addColumn("loan_btc_display", MocaType.DOUBLE);
-            res.addColumn("loan_ltc_display", MocaType.DOUBLE);
+            res.addColumn("net", MocaType.DOUBLE);
+            res.addColumn("free_usd", MocaType.DOUBLE);
+            res.addColumn("free_ltc", MocaType.DOUBLE);
+            res.addColumn("free_btc", MocaType.DOUBLE);
+            res.addColumn("freezed_usd", MocaType.DOUBLE);
+            res.addColumn("freezed_btc", MocaType.DOUBLE);
+            res.addColumn("freezed_ltc", MocaType.DOUBLE);
             res.addRow();
             res.setDoubleValue("total", total);
-            res.setDoubleValue("net_asset", net_asset);
-            res.setDoubleValue("available_cny_display", available_cny_display);
-            res.setDoubleValue("available_ltc_display", available_ltc_display);
-            res.setDoubleValue("available_btc_display", available_btc_display);
-            res.setDoubleValue("frozen_cny_display", frozen_cny_display);
-            res.setDoubleValue("frozen_btc_display", frozen_btc_display);
-            res.setDoubleValue("frozen_ltc_display", frozen_ltc_display);
-            res.setDoubleValue("loan_cny_display", loan_cny_display);
-            res.setDoubleValue("loan_btc_display", loan_btc_display);
-            res.setDoubleValue("loan_ltc_display", loan_ltc_display);
+            res.setDoubleValue("net", net);
+            res.setDoubleValue("free_usd", free_usd);
+            res.setDoubleValue("free_ltc", free_ltc);
+            res.setDoubleValue("free_btc", free_btc);
+            res.setDoubleValue("freezed_usd", freezed_usd);
+            res.setDoubleValue("freezed_btc", freezed_btc);
+            res.setDoubleValue("freezed_ltc", freezed_ltc);
             return res;
         }
         catch (JSONException e) {
@@ -512,63 +667,69 @@ public class HuobiCmd {
             Double price, Double amount, String tradePassword, Integer tradeid)
             throws MocaException {
 
-        int ct = 0;
-        if ("btc".equalsIgnoreCase(coinType)) {
-            ct = 1;
-        } else {
-            ct = 2;
+        String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
+        
+        String url_key = market + "|" + URL_CREATEBUYORDER;
+        
+        IStockRestApi stockPost = URLs.get(url_key);
+        if (stockPost == null) {
+            if ("US".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.com", null, null);
+            } else if ("CHN".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.cn", null, null);
+            }
+            URLs.put(url_key, stockPost);
         }
-        HuobiService service = new HuobiService();
+        
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;
         try {
-            // 提交限价单接口 1btc 2ltc
-            resultStr = service.buy(ct, price.toString(), amount.toString(),
-                    tradePassword, tradeid, BUY);
+            resultStr = stockPost.trade(ct, "buy", String.valueOf(price), String.valueOf(amount));
 
             body = new JSONObject(resultStr);
-            String orderid = body.getString("id");
+            String orderid = body.getString("order_id");
             String result = body.getString("result");
             
-            rs = _moca.executeCommand("get order info where coinType = '"
+            rs = _moca.executeCommand("get order info where market = '" + market + "' and coinType = '"
                     + coinType + "' and id = '" + orderid + "'");
             
             rs.next();
             
             String oid = rs.getString("id");
             String type = rs.getString("type");
-            double order_price = rs.getDouble("order_price");
-            double order_amount = rs.getDouble("order_amount");
-            double processed_price = rs.getDouble("processed_price");
-            double processed_amount = rs.getDouble("processed_amount");
-            double vot = rs.getDouble("vot");
-            double fee = rs.getDouble("fee");
-            double total = rs.getDouble("total");
+            String symbol = rs.getString("symbol");
+            double order_price = rs.getDouble("price");
+            double order_amount = rs.getDouble("amount");
+            double avg_price = rs.getDouble("avg_price");
+            double deal_amount = rs.getDouble("deal_amount");
             int status = rs.getInt("status");
             
             _moca.executeCommand("publish data "
                                + "  where id = '" + oid + "'"
                                + "    and type = '" + type + "'"
+                               + "    and symbol = '" + symbol + "'"
                                + "    and order_price =" + order_price
                                + "    and order_amount =" + order_amount
-                               + "    and processed_price =" + processed_price
-                               + "    and processed_amount =" + processed_amount
-                               + "    and vot =" + vot
-                               + "    and fee =" + fee
-                               + "    and total =" + total
+                               + "    and avg_price =" + avg_price
+                               + "    and deal_amount =" + deal_amount
                                + "    and status =" + status
                                + "    and ins_dt = sysdate "
                                + "| "
-                               + "create record where table_name = 'hb_buysell_data' and @*");
+                               + "create record where table_name = 'oc_buysell_data' and @*");
             rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
-            throw new MocaException(code, msg);
+            int code = 0;
+            try {
+                code = body.getInt("error_code");
+            }
+            catch (Exception ee) {
+                ee.printStackTrace();
+            }
+            throw new MocaException(code);
         }
         return rs;
     }
@@ -654,62 +815,69 @@ public class HuobiCmd {
             Double price, Double amount, String tradePassword, Integer tradeid)
             throws MocaException {
 
-        int ct = 0;
-        if ("btc".equalsIgnoreCase(coinType)) {
-            ct = 1;
-        } else {
-            ct = 2;
+        String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
+        
+        String url_key = market + "|" + URL_CREATEBUYORDER;
+        
+        IStockRestApi stockPost = URLs.get(url_key);
+        if (stockPost == null) {
+            if ("US".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.com", null, null);
+            } else if ("CHN".equalsIgnoreCase(market)) {
+                stockPost = new StockRestApi("https://www.okcoin.cn", null, null);
+            }
+            URLs.put(url_key, stockPost);
         }
-        HuobiService service = new HuobiService();
+        
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;
         try {
-            // 提交限价单接口 1btc 2ltc
-            resultStr = service.sell(ct, price.toString(), amount.toString(),
-                    tradePassword, tradeid, SELL);
+            resultStr = stockPost.trade(ct, "sell", String.valueOf(price), String.valueOf(amount));
+
             body = new JSONObject(resultStr);
-            String orderid = body.getString("id");
+            String orderid = body.getString("order_id");
             String result = body.getString("result");
             
-            rs = _moca.executeCommand("get order info where coinType = '"
+            rs = _moca.executeCommand("get order info where market = '" + market + "' and coinType = '"
                     + coinType + "' and id = '" + orderid + "'");
             
             rs.next();
             
             String oid = rs.getString("id");
             String type = rs.getString("type");
-            double order_price = rs.getDouble("order_price");
-            double order_amount = rs.getDouble("order_amount");
-            double processed_price = rs.getDouble("processed_price");
-            double processed_amount = rs.getDouble("processed_amount");
-            double vot = rs.getDouble("vot");
-            double fee = rs.getDouble("fee");
-            double total = rs.getDouble("total");
+            String symbol = rs.getString("symbol");
+            double order_price = rs.getDouble("price");
+            double order_amount = rs.getDouble("amount");
+            double avg_price = rs.getDouble("avg_price");
+            double deal_amount = rs.getDouble("deal_amount");
             int status = rs.getInt("status");
             
             _moca.executeCommand("publish data "
                                + "  where id = '" + oid + "'"
                                + "    and type = '" + type + "'"
+                               + "    and symbol = '" + symbol + "'"
                                + "    and order_price =" + order_price
                                + "    and order_amount =" + order_amount
-                               + "    and processed_price =" + processed_price
-                               + "    and processed_amount =" + processed_amount
-                               + "    and vot =" + vot
-                               + "    and fee =" + fee
-                               + "    and total =" + total
+                               + "    and avg_price =" + avg_price
+                               + "    and deal_amount =" + deal_amount
                                + "    and status =" + status
                                + "    and ins_dt = sysdate "
                                + "| "
-                               + "create record where table_name = 'hb_buysell_data' and @*");
+                               + "create record where table_name = 'oc_buysell_data' and @*");
             rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.debug(e.getMessage());
-            int code = body.getInt("code");
-            String msg = body.getString("msg");
-            throw new MocaException(code, msg);
+            int code = 0;
+            try {
+                code = body.getInt("error_code");
+            }
+            catch (Exception ee) {
+                ee.printStackTrace();
+            }
+            throw new MocaException(code);
         }
         return rs;
     }
@@ -793,211 +961,59 @@ public class HuobiCmd {
      *            'btc','ltc'
      */
     public MocaResults getTop10Data(String market, String coinType,
-            Boolean save_db_flag, Boolean rtn_trade_data_flg)
+            Boolean save_db_flag)
             throws MocaException {
         /*
-         * {"symbol":"btccny", "amount":456675,
-         * "buys":[{"amount":0.8203,"level":1,"price":6136.79},
-         * {"amount":1,"level":1,"price":6136.49},
-         * {"amount":2.06,"level":1,"price":6136.24},
-         * {"amount":1.88,"level":1,"price":6136.23},
-         * {"amount":0.024,"level":1,"price":6136.2},
-         * {"amount":0.126,"level":1,"price":6136.13},
-         * {"amount":0.375,"level":1,"price":6136.12},
-         * {"amount":0.12,"level":1,"price":6136.06},
-         * {"amount":0.12,"level":1,"price":6136.04},
-         * {"amount":0.002,"level":1,"price":6136.02}], "amp":0, "level":6136,
-         * "sells":[{"amount":0.156,"level":1,"price":6137.02},
-         * {"amount":1.82,"level":1,"price":6137.3},
-         * {"amount":0.071,"level":1,"price":6137.35},
-         * {"amount":0.03,"level":1,"price":6137.51},
-         * {"amount":0.03,"level":1,"price":6137.63},
-         * {"amount":0.6,"level":1,"price":6137.78},
-         * {"amount":0.03,"level":1,"price":6137.88},
-         * {"amount":0.165,"level":1,"price":6137.95},
-         * {"amount":0.002,"level":1,"price":6138.02},
-         * {"amount":0.261,"level":1,"price":6138.1}], "p_new":6136.23,
-         * "p_last":6138.64,
-         * "trades":[{"amount":0.01,"price":6136.23,"time":"10:48:09","en_type":
-         * "ask","type":"卖出"},
-         * {"amount":0.0209,"price":6137.04,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.09,"price":6137,"time":"10:48:08","en_type":"bid","type":
-         * "买入"},
-         * {"amount":0.003,"price":6136.69,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.261,"price":6136.56,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.245,"price":6136.56,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.2511,"price":6136.49,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.11,"price":6136.49,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.0129,"price":6136.49,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.064,"price":6136.49,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.003,"price":6136.49,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.034,"price":6136.49,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.124,"price":6137.48,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.02,"price":6137.47,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.03,"price":6137.34,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.03,"price":6137.25,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.06,"price":6136.83,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.2198,"price":6136.13,"time":"10:48:08","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.3802,"price":6136.56,"time":"10:48:08","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.06,"price":6136.83,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.076,"price":6136.83,"time":"10:48:08","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.03,"price":6136.83,"time":"10:48:07","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.02,"price":6136.83,"time":"10:48:07","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.1098,"price":6136.56,"time":"10:48:07","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.0099,"price":6137.05,"time":"10:48:07","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.01,"price":6136.56,"time":"10:48:07","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":1.619,"price":6137.39,"time":"10:48:07","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.03,"price":6137.28,"time":"10:48:07","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.371,"price":6136.06,"time":"10:48:07","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.124,"price":6136.06,"time":"10:48:07","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.013,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.03,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.534,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.089,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.328,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.095,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.199,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.3,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.5,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.01,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.5,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.2,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.5,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.091,"price":6136.06,"time":"10:48:06","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":1.599,"price":6136.11,"time":"10:48:06","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.2,"price":6136.35,"time":"10:48:06","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.0747,"price":6136.35,"time":"10:48:06","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.5,"price":6136.56,"time":"10:48:06","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.1243,"price":6136.35,"time":"10:48:05","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.0374,"price":6136.35,"time":"10:48:05","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.1,"price":6137.2,"time":"10:48:05","en_type":"bid","type"
-         * :"买入"},
-         * {"amount":0.208,"price":6137.2,"time":"10:48:05","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.169,"price":6137.2,"time":"10:48:05","en_type":"bid",
-         * "type":"买入"},
-         * {"amount":0.4276,"price":6136.35,"time":"10:48:05","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.5,"price":6136.56,"time":"10:48:05","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.089,"price":6136.65,"time":"10:48:05","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.1,"price":6137.2,"time":"10:48:05","en_type":"bid","type"
-         * :"买入"},
-         * {"amount":0.431,"price":6136.65,"time":"10:48:05","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.169,"price":6137.29,"time":"10:48:05","en_type":"ask",
-         * "type":"卖出"},
-         * {"amount":0.494,"price":6137.83,"time":"10:48:05","en_type":"bid",
-         * "type":"买入"}],
-         * "top_buy":[{"amount":0.8203,"level":1,"price":6136.79,"accu":0.8203},
-         * {"amount":1,"level":1,"price":6136.49,"accu":1.8203},
-         * {"amount":2.06,"level":1,"price":6136.24,"accu":3.8803},
-         * {"amount":1.88,"level":1,"price":6136.23,"accu":5.7603},
-         * {"amount":0.024,"level":1,"price":6136.2,"accu":5.7843}],
-         * "total":2780156825.8904, "p_low":6042, "p_open":6048.96,
-         * "top_sell":[{"amount":0.156,"level":1,"price":6137.02,"accu":0.156},
-         * {"amount":1.82,"level":1,"price":6137.3,"accu":1.976},
-         * {"amount":0.071,"level":1,"price":6137.35,"accu":2.047},
-         * {"amount":0.03,"level":1,"price":6137.51,"accu":2.077},
-         * {"amount":0.03,"level":1,"price":6137.63,"accu":2.107}],
-         * "p_high":6334}
+         * {"asks":[[1306.8,93.5],
+         *         [1298,1],
+         *         [1296.9,93],
+         *         [1287,92.5],
+         *         [1281,0.17],
+         *         [1277.1,92],
+         *         [1270,1],
+         *         ...
+         *  "bids":[[989,0.189],
+         *         [988.4,13.313],
+         *         [988.37,0.163],
+         *         [987.96,0.24],
+         *         [987.92,0.149],
+         *         [987.88,0.303],
+         *         [987.83,0.155],
+         *         [987.82,0.026],
+         *         ...
          */
         String url_key = market + "|" + coinType + "|" + URL_TYPE2;
-        String marketDataUrl = URLs.get(url_key);
-        if (marketDataUrl == null || marketDataUrl.isEmpty()) {
+        String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
+        
+        IStockRestApi stockGet = URLs.get(url_key);
+        if (stockGet == null) {
             if ("US".equalsIgnoreCase(market)) {
-                marketDataUrl = "http://api.huobi.com/usdmarket/detail_btc_json.js";
+                stockGet = new StockRestApi("https://www.okcoin.com");
             } else if ("CHN".equalsIgnoreCase(market)) {
-                if ("BTC".equalsIgnoreCase(coinType)) {
-                    marketDataUrl = "http://api.huobi.com/staticmarket/detail_btc_json.js";
-                } else {
-                    marketDataUrl = "http://api.huobi.com/staticmarket/detail_ltc_json.js";
-                }
+                stockGet = new StockRestApi("https://www.okcoin.cn");
             }
-            URLs.put(url_key, marketDataUrl);
+            URLs.put(url_key, stockGet);
         }
-
-        String cmd = "do http request where url = '" + marketDataUrl + "'";
+        
+        
         MocaResults rs = null;
         try {
-            rs = _moca.executeCommand(cmd);
-            if (rs.next()) {
-                String text = rs.getString("body");
+                String text = stockGet.depth(ct);
                 _logger.debug("body:" + text);
                 JSONObject body = new JSONObject(text);
-                JSONArray buys = body.getJSONArray("buys");
-                JSONArray sells = body.getJSONArray("sells");
-                JSONArray trades = body.getJSONArray("trades");
-                double[] buy_amounts = new double[buys.length()];
-                double[] buy_prices = new double[buys.length()];
-                double[] sell_amounts = new double[buys.length()];
-                double[] sell_prices = new double[buys.length()];
-                for (int i = 0; i < buys.length(); i++) {
-                    buy_amounts[i] = ((JSONObject) buys.get(i))
-                            .getDouble("amount");
-                    buy_prices[i] = ((JSONObject) buys.get(i))
-                            .getDouble("price");
-                    sell_amounts[i] = ((JSONObject) sells.get(i))
-                            .getDouble("amount");
-                    sell_prices[i] = ((JSONObject) sells.get(i))
-                            .getDouble("price");
+                JSONArray buys = body.getJSONArray("bids");
+                JSONArray sells = body.getJSONArray("asks");
+                double[] buy_amounts = new double[10];
+                double[] buy_prices = new double[10];
+                double[] sell_amounts = new double[10];
+                double[] sell_prices = new double[10];
+                int sz = sells.length();
+                for (int i = 0; i < 10; i++) {
+                    buy_amounts[i] = ((JSONArray) buys.get(i)).getDouble(1);
+                    buy_prices[i] = ((JSONArray) buys.get(i)).getDouble(0);
+                    sell_amounts[i] = ((JSONArray) sells.get(sz- 1 - i)).getDouble(1);
+                    sell_prices[i] = ((JSONArray) sells.get(sz - 1 - i)).getDouble(0);
                 }
-                String symbol = body.getString("symbol");
-                double p_new = body.getDouble("p_new");
-                double p_last = body.getDouble("p_last");
-                double p_low = body.getDouble("p_low");
-                double p_open = body.getDouble("p_open");
-                double p_high = body.getDouble("p_high");
-                double total = body.getDouble("total");
 
                 MocaResults rs2 = null;
                 rs2 = _moca.executeCommand(
@@ -1008,7 +1024,7 @@ public class HuobiCmd {
 
                 if (save_db_flag != null && save_db_flag.equals(Boolean.TRUE)) {
                     _moca.executeCommand("publish data " + " where symbol = '"
-                            + symbol + "'" + "   and time = '" + time + "'"
+                            + ct + "'" + "   and time = '" + time + "'"
                             + "   and b_amt1 = " + buy_amounts[0]
                             + "   and b_pri1 = " + buy_prices[0]
                             + "   and b_amt2 = " + buy_amounts[1]
@@ -1049,58 +1065,11 @@ public class HuobiCmd {
                             + "   and s_pri9 = " + sell_prices[8]
                             + "   and s_amt10 = " + sell_amounts[9]
                             + "   and s_pri10 = " + sell_prices[9]
-                            + "   and p_new = " + p_new + "   and p_last = "
-                            + p_last + "   and p_low = " + p_low
-                            + "   and p_open = " + p_open + "   and p_high = "
-                            + p_high + "   and total = " + total
                             + "   and ins_dt = sysdate " + "|"
-                            + "create record where table_name = 'hb_top10_data' and @* ");
-
-                    for (int i = 0; i < trades.length(); i++) {
-                        double trade_amt = ((JSONObject) trades.get(i))
-                                .getDouble("amount");
-                        double trade_price = ((JSONObject) trades.get(i))
-                                .getDouble("price");
-                        String trade_type = ((JSONObject) trades.get(i))
-                                .getString("en_type");
-                        _moca.executeCommand("publish data "
-                                + " where symbol = '" + symbol + "'"
-                                + "   and time = '" + time + "'"
-                                + "   and amount = " + trade_amt
-                                + "   and price = " + trade_price
-                                + "   and type = '" + trade_type + "'"
-                                + "   and ins_dt = sysdate " + "|"
-                                + "create record where table_name = 'hb_trade_data' and @* ");
-                    }
+                            + "create record where table_name = 'oc_top10_data' and @* ");
                 }
-                if (rtn_trade_data_flg != null
-                        && rtn_trade_data_flg.equals(Boolean.TRUE)) {
-
-                    EditableResults res = new SimpleResults();
-                    res.addColumn("symbol", MocaType.STRING);
-                    res.addColumn("time", MocaType.STRING);
-                    res.addColumn("amount", MocaType.DOUBLE);
-                    res.addColumn("price", MocaType.DOUBLE);
-                    res.addColumn("type", MocaType.STRING);
-
-                    for (int i = 0; i < trades.length(); i++) {
-                        double trade_amt = ((JSONObject) trades.get(i))
-                                .getDouble("amount");
-                        double trade_price = ((JSONObject) trades.get(i))
-                                .getDouble("price");
-                        String trade_type = ((JSONObject) trades.get(i))
-                                .getString("en_type");
-                        res.addRow();
-                        res.setStringValue("symbol", symbol);
-                        res.setStringValue("time", time);
-                        res.setDoubleValue("amount", trade_amt);
-                        res.setDoubleValue("price", trade_price);
-                        res.setStringValue("type", trade_type);
-                    }
-                    rs = res;
-                } else {
                     rs = _moca.executeCommand("publish data "
-                            + " where symbol = '" + symbol + "'"
+                            + " where symbol = '" + ct + "'"
                             + "   and time = '" + time + "'"
                             + "   and b_amt1 = " + buy_amounts[0]
                             + "   and b_pri1 = " + buy_prices[0]
@@ -1142,12 +1111,7 @@ public class HuobiCmd {
                             + "   and s_pri9 = " + sell_prices[8]
                             + "   and s_amt10 = " + sell_amounts[9]
                             + "   and s_pri10 = " + sell_prices[9]
-                            + "   and p_new = " + p_new + "   and p_last = "
-                            + p_last + "   and p_low = " + p_low
-                            + "   and p_open = " + p_open + "   and p_high = "
-                            + p_high + "   and total = " + total);
-                }
-            }
+                            + "   and ins_dt = sysdate ");
         } catch (Exception e) {
             e.printStackTrace();
             _logger.debug(e.getMessage());
@@ -1159,8 +1123,12 @@ public class HuobiCmd {
     // Private fields
     private final MocaContext _moca;
     private final CrudManager _manager;
-    private final String URL_TYPE1 = "getRealTimeRecord";
+    private final String URL_TYPE1 = "getTickerRecord";
     private final String URL_TYPE2 = "getTop10Data";
+    private final String URL_GETACCOUNTINFO = "getAccountInfo";
+    private final String URL_GETORDERINFO = "getOrderInfo";
+    private final String URL_CREATEBUYORDER = "createBuyOrder";
+    private final String URL_GETTRADERECORDS = "getTradeRecords";
     private static String BUY = "buy";
     private static String BUY_MARKET = "buy_market";
     private static String CANCEL_ORDER = "cancel_order";
@@ -1171,6 +1139,6 @@ public class HuobiCmd {
     private static String ORDER_INFO = "order_info";
     private static String SELL = "sell";
     private static String SELL_MARKET = "sell_market";
-    static Map<String, String> URLs = new HashMap<String, String>();
-    private Logger _logger = LogManager.getLogger(HuobiCmd.class);
+    static Map<String, IStockRestApi> URLs = new HashMap<String, IStockRestApi>();
+    private Logger _logger = LogManager.getLogger(OkCoinCmd.class);
 }

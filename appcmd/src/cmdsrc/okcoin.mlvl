@@ -1,0 +1,6 @@
+<component-level>
+<name>OkCoin</name>
+<description>OkCoin Components</description>
+<package>com.sam.deal.api.cmd</package>
+<sort-sequence>100</sort-sequence>
+</component-level>

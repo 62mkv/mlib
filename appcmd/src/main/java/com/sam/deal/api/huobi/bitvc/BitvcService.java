@@ -3,13 +3,13 @@
  *Copyright (c) 2014 火币天下网络技术有限公司.
  *All Rights Reserved
  */
-package com.sam.deal.api.demo.bitvc;
+package com.sam.deal.api.huobi.bitvc;
 
 import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.sam.deal.api.demo.huobi.Base;
+import com.sam.deal.api.huobi.Base;
 
 /**
  * @author yanjg 2014年11月22日

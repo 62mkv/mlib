@@ -1,0 +1,12 @@
+#include <../../../include/mocaddl.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_PK_CONSTRAINT_BEGIN(oc_buysell_data, oc_buysell_data_pk)
+(
+    id
+)
+CREATE_PK_CONSTRAINT_USING_INDEX
+CREATE_PK_CONSTRAINT_TABLESPACE(OC_BUYSELL_DATA_PK_TBLSPC, OC_BUYSELL_DATA_PK_STORAGE)
+CREATE_PK_CONSTRAINT_END
+RUN_DDL

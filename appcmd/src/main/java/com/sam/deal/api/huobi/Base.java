@@ -1,4 +1,4 @@
-package com.sam.deal.api.demo.bityes;
+package com.sam.deal.api.huobi;
 
 import java.io.IOException;
 import java.util.Map;
@@ -12,7 +12,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sam.deal.api.demo.bityes.Base;
+import com.sam.deal.api.huobi.Base;
 import com.sam.deal.api.util.EncryptUtil;
 import com.sam.deal.api.util.HttpUtil;
 
@@ -23,10 +23,14 @@ import com.sam.deal.api.util.HttpUtil;
 public abstract class Base {
 	
 	private Logger logger = LoggerFactory.getLogger(Base.class);
-	//BitYes现货配置信息
-	public static String BITYES_ACCESS_KEY = "";
-	public static String BITYES_SECRET_KEY = "";
-	public static String BITYES_API_URL = "https://api.bityes.com/apiv2";
+	//火币现货配置信息
+	public static String HUOBI_ACCESS_KEY = "a4379746-a122fb6b-0a8eba26-63f47";
+	public static String HUOBI_SECRET_KEY = "d85c11ec-856a9e77-15061294-c63bb";
+	public static String HUOBI_API_URL = "https://api.huobi.com/apiv3";
+	
+	//bitvc现货，期货共用accessKey,secretKey配置信息
+	public static String BITVC_ACCESS_KEY = "a4379746-a122fb6b-0a8eba26-63f47";
+	public static String BITVC_SECRET_KEY = "d85c11ec-856a9e77-15061294-c63bb";
     
     
 	

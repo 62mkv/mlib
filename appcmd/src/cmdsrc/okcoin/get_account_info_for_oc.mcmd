@@ -1,0 +1,18 @@
+<command>
+<name>get account info for oc</name>
+<description>Return account information for giving HUOBI_ACCESS_KEY and HUOBI_SECRET_KEY from OkCoin platform.</description>
+<type>Java Method</type>
+<class>OkCoinCmd</class>
+<method>getAccountInfo</method>
+<argument name="market" required="no" datatype="string">
+US, or CHN
+</argument>
+<argument name="hak" required="no" datatype="string">
+HUOBI_ACCESS_KEY
+</argument>
+<argument name="hsk" required="no" datatype="string">
+HUOBI_SECRET_KEY
+</argument>
+<documentation>
+</documentation>
+</command>

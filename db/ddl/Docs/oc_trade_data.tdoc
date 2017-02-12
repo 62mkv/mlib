@@ -1,0 +1,15 @@
+mset command on
+
+create db documentation
+  where table = 'oc_trade_data'
+    and table_comment = "This table contains the data of top10 trading data from OkCoin net."
+    and symbol = "btccyn."
+    and time = "timestamp with string format."
+    and amount  = "Trading amount."
+    and price  = "Trading price."
+    and type = "Buy or Sell."
+    and tid = "Trade Id."
+    and ins_dt = "Record insert time."
+/
+
+mset command off

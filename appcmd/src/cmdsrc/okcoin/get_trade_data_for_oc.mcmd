@@ -1,0 +1,21 @@
+<command>
+<name>get trade data for oc</name>
+<description>Return trade information for since ordid_since from OkCoin platform.</description>
+<type>Java Method</type>
+<class>OkCoinCmd</class>
+<method>getTradeRecords</method>
+<argument name="market" required="yes" alias="mk" datatype="string">
+US, or CHN
+</argument>
+<argument name="coinType" required="yes" alias="ct" datatype="string">
+BTC, or LTC
+</argument>
+<argument name="ordid_since" required="no" datatype="string">
+return trades since after ordid_since, if not passed, return 1 row.
+</argument>
+<argument name="save_db_flg" alias="sdf" required="no" datatype="flag" default="false">
+If true, the value will be save to table oc_top10_data and hb_trade_data as well.
+</argument>
+<documentation>
+</documentation>
+</command>

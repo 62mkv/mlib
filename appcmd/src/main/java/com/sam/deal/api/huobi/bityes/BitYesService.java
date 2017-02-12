@@ -1,20 +1,20 @@
 /*
- * Huobi.com Inc.
+ * BitYes.com Inc.
  *Copyright (c) 2014 火币天下网络技术有限公司.
  *All Rights Reserved
  */
-package com.sam.deal.api.demo.huobi;
+package com.sam.deal.api.huobi.bityes;
 
 import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.sam.deal.api.demo.huobi.Base;
+import com.sam.deal.api.huobi.bityes.Base;
 
 /**
  * @author yanjg 2014年11月22日
  */
-public class HuobiService extends Base {
+public class BitYesService extends Base {
 
     /**
      * 下单接口
@@ -23,18 +23,16 @@ public class HuobiService extends Base {
      * @param price
      * @param amount
      * @param tradePassword
-     * @param tradeid
      * @param method
      * @return
      * @throws Exception
      */
-    public String buy(int coinType, String price, String amount, String tradePassword, Integer tradeid, String method)
-            throws Exception {
+    public String buy(int coinType, String price, String amount, String tradePassword, String method) throws Exception {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         paraMap.put("price", price);
         paraMap.put("amount", amount);
@@ -44,10 +42,7 @@ public class HuobiService extends Base {
         if (StringUtils.isNotEmpty(tradePassword)) {
             paraMap.put("trade_password", tradePassword);
         }
-        if (null != tradeid) {
-            paraMap.put("trade_id", tradeid);
-        }
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
     /**
@@ -56,20 +51,16 @@ public class HuobiService extends Base {
      * @param coinType
      * @param amount
      * @param tradePassword
-     * @param tradeid
      * @param method
      * @return
      * @throws Exception
      */
-    public String buyMarket(int coinType, String amount, String tradePassword, Integer tradeid, String method)
-            throws Exception {
+    public String buyMarket(int coinType, String amount, String tradePassword, String method) throws Exception {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        System.out.println("HUOBI_ACCESS_KEY:" + HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
-        System.out.println("HUOBI_SECRET_KEY:" + HUOBI_SECRET_KEY);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         paraMap.put("amount", amount);
         String md5 = sign(paraMap);
@@ -78,10 +69,7 @@ public class HuobiService extends Base {
         if (StringUtils.isNotEmpty(tradePassword)) {
             paraMap.put("trade_password", tradePassword);
         }
-        if (null != tradeid) {
-            paraMap.put("trade_id", tradeid);
-        }
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
     /**
@@ -97,14 +85,14 @@ public class HuobiService extends Base {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         paraMap.put("id", id);
         String md5 = sign(paraMap);
         paraMap.remove("secret_key");
         paraMap.put("sign", md5);
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
     /**
@@ -114,62 +102,16 @@ public class HuobiService extends Base {
      * @return
      * @throws Exception
      */
-    public String getAccountInfo(String method, String HAK, String HSK) throws Exception {
-        String k1 = (HAK == null || HAK.isEmpty()) ? HUOBI_ACCESS_KEY : HAK;
-        String k2 = (HSK == null || HSK.isEmpty()) ? HUOBI_SECRET_KEY : HAK;
+    public String getAccountInfo(String method) throws Exception {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", k1);
-        paraMap.put("secret_key", k2);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         String md5 = sign(paraMap);
         paraMap.remove("secret_key");
         paraMap.put("sign", md5);
-        return post(paraMap, HUOBI_API_URL);
-    }
-
-    /**
-     * 查询个人最新10条成交订单
-     * 
-     * @param coinType
-     * @param method
-     * @return
-     * @throws Exception
-     */
-    public String getNewDealOrders(int coinType, String method) throws Exception {
-        TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
-        paraMap.put("method", method);
-        paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
-        paraMap.put("coin_type", coinType);
-        String md5 = sign(paraMap);
-        paraMap.remove("secret_key");
-        paraMap.put("sign", md5);
-        return post(paraMap, HUOBI_API_URL);
-    }
-
-    /**
-     * 根据trade_id查询oder_id
-     * 
-     * @param coinType
-     * @param tradeid
-     * @param method
-     * @return
-     * @throws Exception
-     */
-    public String getOrderIdByTradeId(int coinType, long tradeid, String method) throws Exception {
-        TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
-        paraMap.put("method", method);
-        paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
-        paraMap.put("coin_type", coinType);
-        paraMap.put("trade_id", tradeid);
-        String md5 = sign(paraMap);
-        paraMap.remove("secret_key");
-        paraMap.put("sign", md5);
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
     /**
@@ -184,13 +126,13 @@ public class HuobiService extends Base {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         String md5 = sign(paraMap);
         paraMap.remove("secret_key");
         paraMap.put("sign", md5);
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
     /**
@@ -206,14 +148,14 @@ public class HuobiService extends Base {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         paraMap.put("id", id);
         String md5 = sign(paraMap);
         paraMap.remove("secret_key");
         paraMap.put("sign", md5);
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
     /**
@@ -223,18 +165,16 @@ public class HuobiService extends Base {
      * @param price
      * @param amount
      * @param tradePassword
-     * @param tradeid
      * @param method
      * @return
      * @throws Exception
      */
-    public String sell(int coinType, String price, String amount, String tradePassword, Integer tradeid, String method)
-            throws Exception {
+    public String sell(int coinType, String price, String amount, String tradePassword, String method) throws Exception {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         paraMap.put("price", price);
         paraMap.put("amount", amount);
@@ -244,10 +184,7 @@ public class HuobiService extends Base {
         if (StringUtils.isNotEmpty(tradePassword)) {
             paraMap.put("trade_password", tradePassword);
         }
-        if (null != tradeid) {
-            paraMap.put("trade_id", tradeid);
-        }
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
     /**
@@ -256,18 +193,16 @@ public class HuobiService extends Base {
      * @param coinType
      * @param amount
      * @param tradePassword
-     * @param tradeid
      * @param method
      * @return
      * @throws Exception
      */
-    public String sellMarket(int coinType, String amount, String tradePassword, Integer tradeid, String method)
-            throws Exception {
+    public String sellMarket(int coinType, String amount, String tradePassword, String method) throws Exception {
         TreeMap<String, Object> paraMap = new TreeMap<String, Object>();
         paraMap.put("method", method);
         paraMap.put("created", getTimestamp());
-        paraMap.put("access_key", HUOBI_ACCESS_KEY);
-        paraMap.put("secret_key", HUOBI_SECRET_KEY);
+        paraMap.put("access_key", BITYES_ACCESS_KEY);
+        paraMap.put("secret_key", BITYES_SECRET_KEY);
         paraMap.put("coin_type", coinType);
         paraMap.put("amount", amount);
         String md5 = sign(paraMap);
@@ -276,10 +211,7 @@ public class HuobiService extends Base {
         if (StringUtils.isNotEmpty(tradePassword)) {
             paraMap.put("trade_password", tradePassword);
         }
-        if (null != tradeid) {
-            paraMap.put("trade_id", tradeid);
-        }
-        return post(paraMap, HUOBI_API_URL);
+        return post(paraMap, BITYES_API_URL);
     }
 
 }

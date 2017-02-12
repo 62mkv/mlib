@@ -3,9 +3,9 @@
  *Copyright (c) 2014 火币天下网络技术有限公司. 
  *All Rights Reserved
  */
-package com.sam.deal.api.demo.bityes;
+package com.sam.deal.api.huobi.bityes;
 
-import com.sam.deal.api.demo.bityes.BitYesService;
+import com.sam.deal.api.huobi.bityes.BitYesService;
 
 /**
  * @author yanjg 2014年11月22日

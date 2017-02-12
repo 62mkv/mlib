@@ -1,0 +1,30 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef OC_TICKER_DATA_TBL
+#define OC_TICKER_DATA_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define OC_TICKER_DATA_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define OC_TICKER_DATA_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define OC_TICKER_DATA_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define OC_TICKER_DATA_TBL
+#endif
+
+CREATE_TABLE(oc_ticker_data)
+(
+    symbol STRING_TY(10) not null,
+    time STRING_TY(20) not null,
+    high FLOAT_TY,
+    low FLOAT_TY,
+    vol FLOAT_TY,
+    buy FLOAT_TY,
+    sell FLOAT_TY,
+    last FLOAT_TY,
+    ins_dt DATE_TY
+)
+CREATE_TABLE_TABLESPACE(OC_TICKER_DATA_TBL_TBLSPC, OC_TICKER_DATA_TBL_STORAGE)
+RUN_DDL
+
+#include <oc_ticker_data_pk.idx>
+#include <oc_ticker_data.tdoc>

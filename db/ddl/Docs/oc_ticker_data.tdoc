@@ -1,0 +1,17 @@
+mset command on
+
+create db documentation
+  where table = 'oc_ticker_data'
+    and table_comment = "This table contains the data of ticker from okcoin net."
+    and symbol = "btc_usd or ltc_usd."
+    and time = "server passed timestamp."
+    and high = "high price."
+    and low = "low price."
+    and vol = "trading volume."
+    and buy = "buy price."
+    and sell = "sell price."
+    and last = "last deal price."
+    and ins_dt = "record insert time."
+/
+
+mset command off 

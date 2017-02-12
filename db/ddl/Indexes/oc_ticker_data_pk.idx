@@ -1,0 +1,13 @@
+#include <../../../include/mocaddl.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_PK_CONSTRAINT_BEGIN(oc_ticker_data, oc_ticker_data_pk)
+(
+    symbol,
+    date
+)
+CREATE_PK_CONSTRAINT_USING_INDEX
+CREATE_PK_CONSTRAINT_TABLESPACE(OC_TICKER_DATA_PK_TBLSPC, OC_TICKER_DATA_PK_STORAGE)
+CREATE_PK_CONSTRAINT_END
+RUN_DDL

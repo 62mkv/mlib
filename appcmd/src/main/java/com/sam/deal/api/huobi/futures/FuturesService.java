@@ -3,12 +3,12 @@
  *Copyright (c) 2014 火币天下网络技术有限公司.
  *All Rights Reserved
  */
-package com.sam.deal.api.demo.futures;
+package com.sam.deal.api.huobi.futures;
 
 import java.math.BigDecimal;
 import java.util.TreeMap;
 
-import com.sam.deal.api.demo.huobi.Base;
+import com.sam.deal.api.huobi.Base;
 
 /**
  * @author yanjg 2014年11月22日

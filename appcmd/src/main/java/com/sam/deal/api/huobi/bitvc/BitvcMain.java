@@ -3,9 +3,9 @@
  *Copyright (c) 2014 火币天下网络技术有限公司. 
  *All Rights Reserved
  */
-package com.sam.deal.api.demo.bitvc;
+package com.sam.deal.api.huobi.bitvc;
 
-import com.sam.deal.api.demo.bitvc.BitvcService;
+import com.sam.deal.api.huobi.bitvc.BitvcService;
 
 /**
  * bitvc现货

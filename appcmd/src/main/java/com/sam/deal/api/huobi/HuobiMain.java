@@ -3,9 +3,9 @@
  *Copyright (c) 2014 火币天下网络技术有限公司. 
  *All Rights Reserved
  */
-package com.sam.deal.api.demo.huobi;
+package com.sam.deal.api.huobi;
 
-import com.sam.deal.api.demo.huobi.HuobiService;
+import com.sam.deal.api.huobi.HuobiService;
 
 /**
  * @author yanjg 2014年11月22日

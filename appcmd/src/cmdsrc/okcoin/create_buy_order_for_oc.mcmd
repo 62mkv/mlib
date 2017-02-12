@@ -1,0 +1,32 @@
+<command>
+<name>create buy order for oc</name>
+<description>This command will create a buy order from OkCoin.</description>
+<transaction>new</transaction>
+<type>Java Method</type>
+<class>OkCoinCmd</class>
+<method>createBuyOrder</method>
+<argument name="market" alias="mk" required="no" datatype="string" default="cny">
+交易市场(cny:人民币交易市场，usd:美元交易市场，默认是cny)
+</argument>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+币种: btc 比特币  ltc 莱特币
+</argument>
+<argument name="price" required="yes" datatype="float">
+buy price
+</argument>
+<argument name="amount" required="yes" datatype="float">
+buy amount
+</argument>
+<argument name="tradePassword" required="no" datatype="string">
+如果开启下单时输入资金密码，必须传此参数
+此项不参与sign签名过程
+</argument>
+<argument name="tradeid" required="no" datatype="int">
+用户自定义订单号为数字(最多15位，唯一值)
+此项不参与sign签名过程
+</argument>
+<documentation>
+<retcol name="result" type="COMTYP_CHAR"> 成功状态 success </retcol>
+<retcol name="id" type="COMTYP_CHAR"> 委托id </retcol>
+</documentation>
+</command>

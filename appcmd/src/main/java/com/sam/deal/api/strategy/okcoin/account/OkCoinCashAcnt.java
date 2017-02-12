@@ -1,9 +1,8 @@
-package com.sam.deal.api.strategy.huobi.account;
+package com.sam.deal.api.strategy.okcoin.account;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.sam.deal.api.strategy.huobi.account.HuoBiCashAcnt;
 import com.sam.deal.api.strategy.huobi.account.ICashAccount;
 import com.sam.moca.MocaContext;
 import com.sam.moca.MocaException;
@@ -13,9 +12,9 @@ import com.sam.moca.server.ServerUtils;
 import com.sam.moca.server.SystemConfigurationException;
 import com.sam.moca.util.MocaUtils;
 
-public class HuoBiCashAcnt implements ICashAccount {
+public class OkCoinCashAcnt implements ICashAccount {
 
-	static Logger _logger = LogManager.getLogger(HuoBiCashAcnt.class);
+	static Logger _logger = LogManager.getLogger(OkCoinCashAcnt.class);
 	private String actId;
 	private String mk;
 	private String ct;
@@ -23,16 +22,13 @@ public class HuoBiCashAcnt implements ICashAccount {
 	private double maxMnyPerDeal;
 	private double total;
 	private double priGap;
-	private double net_asset;
-	private double available_cny_display;
-	private double available_ltc_display;
-	private double available_btc_display;
-	private double frozen_cny_display;
-	private double frozen_btc_display;
-	private double frozen_ltc_display;
-	private double loan_cny_display;
-	private double loan_btc_display;
-	private double loan_ltc_display;
+	private double net;
+	private double free_usd;
+	private double free_ltc;
+	private double free_btc;
+	private double freezed_usd;
+	private double freezed_ltc;
+	private double freezed_btc;
 	
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -44,21 +40,21 @@ public class HuoBiCashAcnt implements ICashAccount {
 		// TODO Auto-generated method stub
 
         try {
-            ServerUtils.setupDaemonContext("HuoBiAccountTest", true);
+            ServerUtils.setupDaemonContext("OkCoinAccountTest", true);
         }
         catch(SystemConfigurationException e) {
             e.printStackTrace();
         }
         
-	    HuoBiCashAcnt acnt = new HuoBiCashAcnt("chn", "btc");
+	    OkCoinCashAcnt acnt = new OkCoinCashAcnt("chn", "btc");
 	}
 
-	public HuoBiCashAcnt(String market, String coinType) {
+	public OkCoinCashAcnt(String market, String coinType) {
 
         _moca = MocaUtils.currentContext();
         _manager = MocaUtils.crudManager(_moca);
         
-	    actId = "HuoBiAccount";
+	    actId = "OkCoinAccount";
 	    minMnyPerDeal = maxMnyPerDeal = 100;
 	    priGap = 0;
 	    mk = market;
@@ -70,20 +66,17 @@ public class HuoBiCashAcnt implements ICashAccount {
 	private boolean loadAccount() {
         MocaResults rs = null;
         try {
-            rs = _moca.executeCommand("get account info ");
+            rs = _moca.executeCommand("get account info for oc where market = '" + mk + "' and coinType = '" + ct + "'");
             
             rs.next();
             total = rs.getDouble("total");
-            net_asset = rs.getDouble("net_asset");
-            available_cny_display = rs.getDouble("available_cny_display");
-            available_ltc_display = rs.getDouble("available_ltc_display");
-            available_btc_display = rs.getDouble("available_btc_display");
-            frozen_cny_display = rs.getDouble("frozen_cny_display");
-            frozen_btc_display = rs.getDouble("frozen_btc_display");
-            frozen_ltc_display = rs.getDouble("frozen_ltc_display");
-            loan_cny_display = rs.getDouble("loan_cny_display");
-            loan_btc_display = rs.getDouble("loan_btc_display");
-            loan_ltc_display = rs.getDouble("loan_ltc_display");
+            net = rs.getDouble("net");
+            free_usd = rs.getDouble("free_usd");
+            free_ltc = rs.getDouble("free_ltc");
+            free_btc = rs.getDouble("free_btc");
+            freezed_usd = rs.getDouble("freezed_usd");
+            freezed_btc = rs.getDouble("freezed_btc");
+            freezed_ltc = rs.getDouble("freezed_ltc");
             
         }
         catch (MocaException e) {
@@ -93,7 +86,7 @@ public class HuoBiCashAcnt implements ICashAccount {
         
         String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
         try {
-            rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+            rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                + "' and polval ='MNYPERDEAL' and grp_id = '----'");
             rs.next();
             minMnyPerDeal = rs.getInt("rtflt1");
@@ -122,38 +115,38 @@ public class HuoBiCashAcnt implements ICashAccount {
 	public double getAvaQty(String coinType) {
 	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
-	        return available_cny_display;
+	        return free_usd;
 	    }
 	    else if (coinType.equalsIgnoreCase("ltc")) {
-	        return available_ltc_display;
+	        return free_ltc;
 	    }
 	    else {
-	        return available_btc_display;
+	        return free_btc;
 	    }
 	}
 	
 	public double getFznQty(String coinType) {
 	    loadAccount();
 	     if (coinType.equalsIgnoreCase("cny")) {
-	         return frozen_cny_display;
+	         return freezed_usd;
 	     }
 	     else if (coinType.equalsIgnoreCase("ltc")) {
-	         return frozen_ltc_display;
+	         return freezed_ltc;
 	     }
 	     else {
-	         return frozen_btc_display;
+	         return freezed_btc;
 	     }
 	 }
 	public double getLoanQty(String coinType) {
 	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
-	        return loan_cny_display;
+	        return 0;
 	    }
 	    else if (coinType.equalsIgnoreCase("ltc")) {
-	        return loan_ltc_display;
+	        return 0;
 	    }
 	    else {
-	        return loan_btc_display;
+	        return 0;
 	    }
 	 }
 	
@@ -168,10 +161,10 @@ public class HuoBiCashAcnt implements ICashAccount {
 	    String type = "";
 	    double lstDealPri = 0;
         try {
-            rs = _moca.executeCommand("[select processed_price lstDealPri,                              " +
+            rs = _moca.executeCommand("[select avg_price lstDealPri,                              " +
                                       "        type                                                     " +
-                                      "   from hb_buysell_data                                          " +
-                                      "  where id = (select max (id) from hb_buysell_data)              " +
+                                      "   from oc_buysell_data                                          " +
+                                      "  where id = (select max (id) from oc_buysell_data)              " +
                                       "    and ins_dt > sysdate - 12/24.0]            ");//if trade within 12 hours.
             rs.next();
             lstDealPri = rs.getDouble("lstDealPri");
@@ -181,7 +174,7 @@ public class HuoBiCashAcnt implements ICashAccount {
             if (priGap <= 0) {
                 String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
                 try {
-                    rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+                    rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                        + "' and polval ='LAST_PRICE_BOX_GAP' and grp_id = '----'");
                     rs.next();
                 
@@ -205,12 +198,12 @@ public class HuoBiCashAcnt implements ICashAccount {
             double mrkLstPri = lstDealPri;
             try {
                 rs = _moca.executeCommand(
-                        "get real time trade record where mk ='" + mk + "'" +
+                        "get trade data for oc where mk ='" + mk + "'" +
                         "  and ct = '" + ct + "'" +
                         "   and sdf = 0");
                 
                 rs.next();
-                mrkLstPri = rs.getDouble("last");
+                mrkLstPri = rs.getDouble("price");
             }
             catch (MocaException e) {
                 e.printStackTrace();
@@ -241,6 +234,7 @@ public class HuoBiCashAcnt implements ICashAccount {
             }
         } catch (MocaException e) {
             // TODO Auto-generated catch block
+            e.printStackTrace();
             _logger.error(e.getMessage());
             _logger.info("no buysell data found, use 0.");
         }
@@ -257,13 +251,13 @@ public class HuoBiCashAcnt implements ICashAccount {
     @Override
     public double getMaxAvaMny() {
         loadAccount();
-        return available_cny_display;
+        return free_usd;
     }
     
     @Override
     public double getBuyableMny() {
         loadAccount();
-        if (available_cny_display > minMnyPerDeal) {
+        if (free_usd > minMnyPerDeal) {
             int cnt = getLastBuySellGapCnt(ct, true);
             double buyableMny = minMnyPerDeal;
             int maxCnt = 3;
@@ -274,17 +268,17 @@ public class HuoBiCashAcnt implements ICashAccount {
             }
             
             double det = (maxMnyPerDeal - minMnyPerDeal) / maxCnt;
-            _logger.info("\navailable_cny_display:" + available_cny_display +
+            _logger.info("\n free_usd:" + free_usd +
                          "\n minMnyPerDeal:" + minMnyPerDeal +
                          "\n cnt:" + cnt +
                          "\n (maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + det +
                          "\n cnt * ((maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + cnt * det);
             buyableMny = minMnyPerDeal + cnt * det;
-            buyableMny = (buyableMny > available_cny_display ? available_cny_display : buyableMny);
+            buyableMny = (buyableMny > free_usd ? free_usd : buyableMny);
             return buyableMny;
         } else {
-            _logger.info("available_cny_display less than minMnyPerDeal, use available_cny_display:" + available_cny_display);
-            return available_cny_display;
+            _logger.info("free_usd less than minMnyPerDeal, use free_usd:" + free_usd);
+            return free_usd;
         }
     }
     
@@ -314,7 +308,7 @@ public class HuoBiCashAcnt implements ICashAccount {
     @Override
     public double getUsedMny() {
         loadAccount();
-        return frozen_cny_display;
+        return freezed_usd;
     }
     
     @Override
@@ -323,15 +317,12 @@ public class HuoBiCashAcnt implements ICashAccount {
         _logger.info("minMnyPerDeal:" + minMnyPerDeal);
         _logger.info("maxMnyPerDeal:" + maxMnyPerDeal);
         _logger.info("total:" + total);
-        _logger.info("net_asset:" + net_asset);
-        _logger.info("available_cny_display:" + available_cny_display);
-        _logger.info("available_ltc_display:" + available_ltc_display);
-        _logger.info("available_btc_display:" + available_btc_display);
-        _logger.info("frozen_cny_display:" + frozen_cny_display);
-        _logger.info("frozen_btc_display:" + frozen_btc_display);
-        _logger.info("frozen_ltc_display:" + frozen_ltc_display);
-        _logger.info("loan_cny_display:" + loan_cny_display);
-        _logger.info("loan_btc_display:" + loan_btc_display);
-        _logger.info("loan_ltc_display:" + loan_ltc_display);
+        _logger.info("net:" + net);
+        _logger.info("free_usd:" + free_usd);
+        _logger.info("free_ltc:" + free_ltc);
+        _logger.info("free_btc:" + free_btc);
+        _logger.info("freezed_usd:" + freezed_usd);
+        _logger.info("freezed_btc:" + freezed_btc);
+        _logger.info("freezed_ltc:" + freezed_ltc);
     }
 }

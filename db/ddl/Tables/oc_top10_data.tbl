@@ -1,0 +1,64 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef OC_TOP10_DATA_TBL
+#define OC_TOP10_DATA_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define OC_TOP10_DATA_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define OC_TOP10_DATA_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define OC_TOP10_DATA_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define OC_TOP10_DATA_TBL
+#endif
+
+CREATE_TABLE(oc_top10_data)
+(
+    symbol STRING_TY(10) not null,
+    time STRING_TY(20) not null,
+    b_amt1 FLOAT_TY,
+    b_pri1 FLOAT_TY,
+    b_amt2 FLOAT_TY,
+    b_pri2 FLOAT_TY,
+    b_amt3 FLOAT_TY,
+    b_pri3 FLOAT_TY,
+    b_amt4 FLOAT_TY,
+    b_pri4 FLOAT_TY,
+    b_amt5 FLOAT_TY,
+    b_pri5 FLOAT_TY,
+    b_amt6 FLOAT_TY,
+    b_pri6 FLOAT_TY,
+    b_amt7 FLOAT_TY,
+    b_pri7 FLOAT_TY,
+    b_amt8 FLOAT_TY,
+    b_pri8 FLOAT_TY,
+    b_amt9 FLOAT_TY,
+    b_pri9 FLOAT_TY,
+    b_amt10 FLOAT_TY,
+    b_pri10 FLOAT_TY,
+    s_amt1 FLOAT_TY,
+    s_pri1 FLOAT_TY,
+    s_amt2 FLOAT_TY,
+    s_pri2 FLOAT_TY,
+    s_amt3 FLOAT_TY,
+    s_pri3 FLOAT_TY,
+    s_amt4 FLOAT_TY,
+    s_pri4 FLOAT_TY,
+    s_amt5 FLOAT_TY,
+    s_pri5 FLOAT_TY,
+    s_amt6 FLOAT_TY,
+    s_pri6 FLOAT_TY,
+    s_amt7 FLOAT_TY,
+    s_pri7 FLOAT_TY,
+    s_amt8 FLOAT_TY,
+    s_pri8 FLOAT_TY,
+    s_amt9 FLOAT_TY,
+    s_pri9 FLOAT_TY,
+    s_amt10 FLOAT_TY,
+    s_pri10 FLOAT_TY,
+    ins_dt DATE_TY
+)
+CREATE_TABLE_TABLESPACE(OC_TOP10_DATA_TBL_TBLSPC, OC_TOP10_DATA_TBL_STORAGE)
+RUN_DDL
+
+#include <oc_top10_data_pk.idx>
+#include <oc_top10_data.tdoc>

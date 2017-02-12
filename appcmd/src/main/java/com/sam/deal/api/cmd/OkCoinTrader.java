@@ -37,13 +37,18 @@ import org.apache.logging.log4j.Logger;
 
 import com.sam.moca.SimpleResults;
 import com.sam.deal.api.cmd.HuobiCmd;
-import com.sam.deal.api.cmd.HuobiTrader;
+import com.sam.deal.api.cmd.OkCoinTrader;
 import com.sam.deal.api.huobi.HuobiService;
 import com.sam.deal.api.stock.huobi.HuoBiStock;
+import com.sam.deal.api.stock.okcoin.OkCoinStock;
 import com.sam.deal.api.strategy.huobi.HuoBiTradeStrategyImp;
 import com.sam.deal.api.strategy.huobi.account.HuoBiCashAcnt;
 import com.sam.deal.api.strategy.huobi.buysell.HBBPS1;
 import com.sam.deal.api.strategy.huobi.buysell.HBSPS1;
+import com.sam.deal.api.strategy.okcoin.OkCoinTradeStrategyImp;
+import com.sam.deal.api.strategy.okcoin.account.OkCoinCashAcnt;
+import com.sam.deal.api.strategy.okcoin.buysell.OCBPS1;
+import com.sam.deal.api.strategy.okcoin.buysell.OCSPS1;
 import com.sam.moca.EditableResults;
 import com.sam.moca.MocaArgument;
 import com.sam.moca.MocaContext;
@@ -87,9 +92,9 @@ import org.json.JSONObject;
  * @author Sam
  * @version $Revision$
  */
-public class HuobiTrader {
+public class OkCoinTrader {
 
-    static HuoBiTradeStrategyImp hbts= null;
+    static OkCoinTradeStrategyImp hbts= null;
     /**
      * Creates a new HuoBiService class
      * 
@@ -97,7 +102,7 @@ public class HuobiTrader {
      *            The MOCA context
      * @throws MocaException
      */
-    public HuobiTrader(MocaContext mocaCtx) throws MocaException {
+    public OkCoinTrader(MocaContext mocaCtx) throws MocaException {
         _moca = mocaCtx;
         _manager = MocaUtils.crudManager(_moca);
     }
@@ -114,8 +119,8 @@ public class HuobiTrader {
         }
         
         mc = MocaUtils.currentContext();
-        HuobiTrader s = new HuobiTrader(mc);
-        s.performTrade("chn", "btc");
+        OkCoinTrader s = new OkCoinTrader(mc);
+        s.performTrade("US", "btc");
     }
     
     /**
@@ -128,11 +133,11 @@ public class HuobiTrader {
     public void performTrade(String market,
                              String coinType) throws MocaException {
         _logger.info("Now performTrade");
-        HBBPS1 buypointselector = new HBBPS1();
-        HBSPS1 sellpointselector1 = new HBSPS1();
-        HuoBiCashAcnt huobicashacnt = new HuoBiCashAcnt(market, coinType);
-        HuoBiStock huobistock = new HuoBiStock(market, coinType);
-        hbts = new HuoBiTradeStrategyImp(market, coinType, huobistock, buypointselector, sellpointselector1, huobicashacnt);
+        OCBPS1 buypointselector = new OCBPS1();
+        OCSPS1 sellpointselector1 = new OCSPS1();
+        OkCoinCashAcnt huobicashacnt = new OkCoinCashAcnt(market, coinType);
+        OkCoinStock huobistock = new OkCoinStock(market, coinType);
+        hbts = new OkCoinTradeStrategyImp(market, coinType, huobistock, buypointselector, sellpointselector1, huobicashacnt);
         
         boolean doInfiniteLoop = false;
         int lc = 0;
@@ -140,7 +145,7 @@ public class HuobiTrader {
         String polvar = (coinType.equalsIgnoreCase("btc") ? "BTC" : "LTC");
         
         try {
-            MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '"
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '"
                                                   + polvar + "' and polval = 'LOOP-PARAM' and grp_id = '----'");
             rs.next();
             lc = rs.getInt("rtnum1");
@@ -187,5 +192,5 @@ public class HuobiTrader {
     // Private fields
     private final MocaContext _moca;
     private final CrudManager _manager;
-    private Logger _logger = LogManager.getLogger(HuobiTrader.class);
+    private Logger _logger = LogManager.getLogger(OkCoinTrader.class);
 }
