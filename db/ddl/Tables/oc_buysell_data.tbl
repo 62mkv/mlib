@@ -14,8 +14,8 @@
 CREATE_TABLE(oc_buysell_data)
 (
     id STRING_TY(12) not null,
-    type STRING_TY(2) not null,
-    symbol STRING_TY(2) not null,
+    type STRING_TY(10) not null,
+    symbol STRING_TY(20) not null,
     price FLOAT_TY,
     amount FLOAT_TY,
     avg_price FLOAT_TY,

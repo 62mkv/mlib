@@ -117,6 +117,12 @@ public class HBSPS1 implements ISellPointSelector {
             String ct = hs.getSymbol().substring(0, 3);
             double sellableQty = getSellQty(s, ac);
             boolean soldComplete = false;
+            
+            if (sellableQty < soldQty + 0.001) {
+            	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");
+            	soldQty = 0;
+            }
+            
             if (sellableQty > 0) {
                 TickerData tid = hs.geTickerData();
                 int sz = tid.last_lst.size();
@@ -193,7 +199,7 @@ public class HBSPS1 implements ISellPointSelector {
                         }
                         soldQty += sellAmt;
                         
-                        if (soldQty >= sellableQty) {
+                        if (soldQty + 0.001 >= sellableQty) {
                             log.info("sold Qty:" + soldQty + " success, which is bigger then sellableQty:" + sellableQty + " return true.");
                             soldComplete = true;
                             soldQty = 0;

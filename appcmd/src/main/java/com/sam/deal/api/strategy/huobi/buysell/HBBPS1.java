@@ -136,6 +136,12 @@ public class HBBPS1 implements IBuyPointSelector {
                 wasStockInUnstableMode = false;
             }
             boolean boughtComplete = false;
+            
+            if (buyableMny < boughtMny + 1) {
+            	log.info("Already bought:" + boughtMny + " + 1 > buyableMny:" + buyableMny + " reset boughtMny to 0.");
+            	boughtMny = 0;
+            }
+            
             if (buyableMny > 1) {
                 TickerData tid = hs.geTickerData();
                 int sz = tid.last_lst.size();
@@ -213,7 +219,7 @@ public class HBBPS1 implements IBuyPointSelector {
                         }
                         boughtMny += buyAmt * sellPri;
                         
-                        if (boughtMny >= buyableMny) {
+                        if (boughtMny + 1 >= buyableMny) {
                             log.info("bought money:" + boughtMny + " success, which is bigger then buyableMny:" + buyableMny + " return true.");
                             boughtComplete = true;
                             boughtMny = 0;

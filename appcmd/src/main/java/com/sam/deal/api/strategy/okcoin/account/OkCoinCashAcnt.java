@@ -18,8 +18,8 @@ public class OkCoinCashAcnt implements ICashAccount {
 	private String actId;
 	private String mk;
 	private String ct;
-	private double minMnyPerDeal;
-	private double maxMnyPerDeal;
+	private double minMnyPerDeal = 0;
+	private double maxMnyPerDeal = 0;
 	private double total;
 	private double priGap;
 	private double net;
@@ -55,7 +55,7 @@ public class OkCoinCashAcnt implements ICashAccount {
         _manager = MocaUtils.crudManager(_moca);
         
 	    actId = "OkCoinAccount";
-	    minMnyPerDeal = maxMnyPerDeal = 100;
+	    minMnyPerDeal = maxMnyPerDeal = 0;
 	    priGap = 0;
 	    mk = market;
 	    ct = coinType;
@@ -85,20 +85,22 @@ public class OkCoinCashAcnt implements ICashAccount {
         }
         
         String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
-        try {
-            rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
-                               + "' and polval ='MNYPERDEAL' and grp_id = '----'");
-            rs.next();
-            minMnyPerDeal = rs.getInt("rtflt1");
-            maxMnyPerDeal = rs.getInt("rtflt2");
-            _logger.info("got policy, minMnyPerDeal:" + minMnyPerDeal + ", maxMnyPerDeal:" + maxMnyPerDeal);
-        } catch (MocaException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            _logger.error(e.getMessage());
-            _logger.info("Get policy MNYPERDEAL error, use default value 1000.");
-            minMnyPerDeal = 1000;
-            maxMnyPerDeal = 1000;
+        if (maxMnyPerDeal <= 0) {
+            try {
+                rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
+                                   + "' and polval ='MNYPERDEAL' and grp_id = '----'");
+                rs.next();
+                minMnyPerDeal = rs.getInt("rtflt1");
+                maxMnyPerDeal = rs.getInt("rtflt2");
+                _logger.info("got policy, minMnyPerDeal:" + minMnyPerDeal + ", maxMnyPerDeal:" + maxMnyPerDeal);
+            } catch (MocaException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                _logger.error(e.getMessage());
+                _logger.info("Get policy MNYPERDEAL error, use default value.");
+                minMnyPerDeal = 200;
+                maxMnyPerDeal = 500;
+            }
         }
         
         return true;
@@ -152,89 +154,50 @@ public class OkCoinCashAcnt implements ICashAccount {
 	
 	/*
 	 * This function will calcluate the count
-	 * of latest trade record to the market price.
+	 * of latest trade records.
 	 */
 	public int getLastBuySellGapCnt(String coinType, boolean forBuy) {
 	    
 	    MocaResults rs = null;
 	    int bscnt = 0;
 	    String type = "";
-	    double lstDealPri = 0;
         try {
-            rs = _moca.executeCommand("[select avg_price lstDealPri,                              " +
-                                      "        type                                                     " +
-                                      "   from oc_buysell_data                                          " +
-                                      "  where id = (select max (id) from oc_buysell_data)              " +
-                                      "    and ins_dt > sysdate - 12/24.0]            ");//if trade within 12 hours.
+            rs = _moca.executeCommand("[select count(id) cnt,                              " +
+                                      "        type                                        " +
+                                      "   from oc_buysell_data                             " +
+                                      "  where id >= (select min(t1.id) " +
+                                      "                 from oc_buysell_data t1 " +
+                                      "                where t1.type = (select t2.type " +
+                                      "                                   from oc_buysell_data t2 " +
+                                      "                                  where t2.id = (select max(t3.id) " +
+                                      "                                                   from oc_buysell_data t3)" +
+                                      "                                ) " +
+                                      "                  and not exists (select 'x' " +
+                                      "                                    from oc_buysell_data t4 " +
+                                      "                                   where t4.id > t1.id " +
+                                      "                                     and t4.type <> t1.type) " +
+                                      "               ) " +
+                                      "    and ins_dt > sysdate - 12/24.0 " +//if trade within 12 hours.
+                                      "  group by type]");
             rs.next();
-            lstDealPri = rs.getDouble("lstDealPri");
             type = rs.getString("type");
-            _logger.info("got lstDealPri:" + lstDealPri + ", type:" + type);
-            
-            if (priGap <= 0) {
-                String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
-                try {
-                    rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
-                                       + "' and polval ='LAST_PRICE_BOX_GAP' and grp_id = '----'");
-                    rs.next();
-                
-                    priGap = rs.getDouble("rtflt2");
-                    _logger.info("got policy, LAST_PRICE_BOX_GAP_MAX:" + priGap);
-                } catch (MocaException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    _logger.error(e.getMessage());
-                    if (polvar.equalsIgnoreCase("BTC")) {
-                        priGap = 100;
-                        _logger.info("get policy error, use default LAST_PRICE_BOX_GAP_MAX:" + priGap);
-                    }
-                    else {
-                        priGap = 0.5;
-                        _logger.info("get policy error, use default LAST_PRICE_BOX_GAP_MAX:" + priGap);
-                    }
-                }
-            }
-            
-            double mrkLstPri = lstDealPri;
-            try {
-                rs = _moca.executeCommand(
-                        "get trade data for oc where mk ='" + mk + "'" +
-                        "  and ct = '" + ct + "'" +
-                        "   and sdf = 0");
-                
-                rs.next();
-                mrkLstPri = rs.getDouble("price");
-            }
-            catch (MocaException e) {
-                e.printStackTrace();
-                _logger.debug("Exception:" + e.getMessage());;
-            }
+            bscnt = rs.getInt("cnt");
+            _logger.info("got cnt:" + bscnt + ", type:" + type);
             
             _logger.info("\ntype:" + type +
                          "\nforBuy:" + forBuy +
-                         "\nmrkLstPri:" + mrkLstPri +
-                         "\nlstDealPri:" + lstDealPri +
-                         "\npriGap:" + priGap);
-            //want buy
-            if (forBuy) {
-                if (mrkLstPri >= lstDealPri) {
-                    bscnt = 0;
-                }
-                else {
-                    bscnt = (int)((lstDealPri - mrkLstPri) / priGap);
-                }
+                         "\ncnt:" + bscnt);
+            //want buy again
+            if (forBuy && !type.equals("buy")) {
+            	_logger.info("reset bscnt to 0 as forBuy, but type is not buy");
+            	bscnt = 0;
             }
-            else if (!forBuy) {
-                if (mrkLstPri <= lstDealPri) {
-                    bscnt = 0;
-                }
-                else {
-                    bscnt = (int)((mrkLstPri - lstDealPri) / priGap);
-                }
+            else if (!forBuy && !type.equals("sell")) {
+            	_logger.info("reset bscnt to 0 as forSell, but type is not sell");
+            	bscnt = 0;
             }
         } catch (MocaException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
             _logger.error(e.getMessage());
             _logger.info("no buysell data found, use 0.");
         }

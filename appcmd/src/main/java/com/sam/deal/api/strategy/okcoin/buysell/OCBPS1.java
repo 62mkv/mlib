@@ -135,15 +135,21 @@ public class OCBPS1 implements IBuyPointSelector {
                 wasStockInUnstableMode = false;
             }
             boolean boughtComplete = false;
+            
+            if (buyableMny < boughtMny + 1) {
+            	log.info("Already bought:" + boughtMny + " + 1 > buyableMny:" + buyableMny + " reset boughtMny to 0.");
+            	boughtMny = 0;
+            }
+            
             if (buyableMny > 1) {
                 TickerData tid = hs.geTickerData();
                 int sz = tid.last_lst.size();
                 double lstPri = tid.last_lst.get(sz - 1);
                 try {
                     MocaResults rs = _moca.executeCommand(
-                            "get top10 data where mk ='" + hac.getMarket() + "'" +
+                            "get top10 data for oc where mk ='" + hac.getMarket() + "'" +
                             "  and ct = '" + hac.getCoinType() + "'" +
-                            "   and sdf = 0 and rtdf = 0");
+                            "   and sdf = 0");
                     
                     rs.next();
                     
@@ -199,7 +205,7 @@ public class OCBPS1 implements IBuyPointSelector {
                         try {
                         _moca.executeCommand("[select round(" + buyAmt + ", 4) buyAmt, round(" + (sellPri + 0.1) + ", 2) price  from dual]"
                                            + "|"
-                                           + "create buy order"
+                                           + "create buy order for oc "
                                            + " where market = '" + hac.getMarket() + "'"
                                            + "   and coinType ='" + hac.getCoinType() + "'"
                                            + "   and amount = @buyAmt "
@@ -212,7 +218,7 @@ public class OCBPS1 implements IBuyPointSelector {
                         }
                         boughtMny += buyAmt * sellPri;
                         
-                        if (boughtMny >= buyableMny) {
+                        if (boughtMny + 1 >= buyableMny) {
                             log.info("bought money:" + boughtMny + " success, which is bigger then buyableMny:" + buyableMny + " return true.");
                             boughtComplete = true;
                             boughtMny = 0;

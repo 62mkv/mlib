@@ -116,15 +116,21 @@ public class OCSPS1 implements ISellPointSelector {
             String ct = hs.getSymbol().substring(0, 3);
             double sellableQty = getSellQty(s, ac);
             boolean soldComplete = false;
+            
+            if (sellableQty < soldQty + 0.001) {
+            	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");
+            	soldQty = 0;
+            }
+            
             if (sellableQty > 0) {
                 TickerData tid = hs.geTickerData();
                 int sz = tid.last_lst.size();
                 double lstPri = tid.last_lst.get(sz - 1);
                 try {
                     MocaResults rs = _moca.executeCommand(
-                            "get top10 data where mk ='" + hac.getMarket() + "'" +
+                            "get top10 data for oc where mk ='" + hac.getMarket() + "'" +
                             "  and ct = '" + hac.getCoinType() + "'" +
-                            "   and sdf = 0 and rtdf = 0");
+                            "   and sdf = 0");
                     
                     rs.next();
                     
@@ -179,7 +185,7 @@ public class OCSPS1 implements ISellPointSelector {
                         try {
                         _moca.executeCommand("[select round(" + sellAmt + ", 4) sellAmt, round(" + (buyPri - 0.1) + ", 2) price from dual]"
                                            + "|"
-                                           + "create sell order"
+                                           + "create sell order for oc"
                                            + " where market = '" + hac.getMarket() + "'"
                                            + "   and coinType ='" + hac.getCoinType() + "'"
                                            + "   and amount = @sellAmt "
@@ -192,7 +198,7 @@ public class OCSPS1 implements ISellPointSelector {
                         }
                         soldQty += sellAmt;
                         
-                        if (soldQty >= sellableQty) {
+                        if (soldQty + 0.001 >= sellableQty) {
                             log.info("sold Qty:" + soldQty + " success, which is bigger then sellableQty:" + sellableQty + " return true.");
                             soldComplete = true;
                             soldQty = 0;

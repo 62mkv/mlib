@@ -311,7 +311,7 @@ public class OkCoinCmd {
 
         String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
         
-        String url_key = market + "|" + URL_GETORDERINFO;
+        String url_key = market + "|" + ct + "|" + URL_GETORDERINFO;
         
         IStockRestApi stockPost = URLs.get(url_key);
         if (stockPost == null) {
@@ -669,7 +669,7 @@ public class OkCoinCmd {
 
         String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
         
-        String url_key = market + "|" + URL_CREATEBUYORDER;
+        String url_key = market + "|" + ct + "|" + URL_CREATEBUYORDER;
         
         IStockRestApi stockPost = URLs.get(url_key);
         if (stockPost == null) {
@@ -691,7 +691,7 @@ public class OkCoinCmd {
             String orderid = body.getString("order_id");
             String result = body.getString("result");
             
-            rs = _moca.executeCommand("get order info where market = '" + market + "' and coinType = '"
+            rs = _moca.executeCommand("get order info for oc where market = '" + market + "' and coinType = '"
                     + coinType + "' and id = '" + orderid + "'");
             
             rs.next();
@@ -709,8 +709,8 @@ public class OkCoinCmd {
                                + "  where id = '" + oid + "'"
                                + "    and type = '" + type + "'"
                                + "    and symbol = '" + symbol + "'"
-                               + "    and order_price =" + order_price
-                               + "    and order_amount =" + order_amount
+                               + "    and price =" + order_price
+                               + "    and amount =" + order_amount
                                + "    and avg_price =" + avg_price
                                + "    and deal_amount =" + deal_amount
                                + "    and status =" + status
@@ -763,7 +763,7 @@ public class OkCoinCmd {
             String orderid = body.getString("id");
             String result = body.getString("result");
             
-            rs = _moca.executeCommand("get order info where coinType = '"
+            rs = _moca.executeCommand("get order info for oc where coinType = '"
                     + coinType + "' and id = '" + orderid + "'");
             
             rs.next();
@@ -817,7 +817,7 @@ public class OkCoinCmd {
 
         String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
         
-        String url_key = market + "|" + URL_CREATEBUYORDER;
+        String url_key = market + "|" + ct + "|" + URL_CREATEBUYORDER;
         
         IStockRestApi stockPost = URLs.get(url_key);
         if (stockPost == null) {
@@ -839,7 +839,7 @@ public class OkCoinCmd {
             String orderid = body.getString("order_id");
             String result = body.getString("result");
             
-            rs = _moca.executeCommand("get order info where market = '" + market + "' and coinType = '"
+            rs = _moca.executeCommand("get order info for oc where market = '" + market + "' and coinType = '"
                     + coinType + "' and id = '" + orderid + "'");
             
             rs.next();
@@ -857,8 +857,8 @@ public class OkCoinCmd {
                                + "  where id = '" + oid + "'"
                                + "    and type = '" + type + "'"
                                + "    and symbol = '" + symbol + "'"
-                               + "    and order_price =" + order_price
-                               + "    and order_amount =" + order_amount
+                               + "    and price =" + order_price
+                               + "    and amount =" + order_amount
                                + "    and avg_price =" + avg_price
                                + "    and deal_amount =" + deal_amount
                                + "    and status =" + status
@@ -912,7 +912,7 @@ public class OkCoinCmd {
             String orderid = body.getString("id");
             String result = body.getString("result");
             
-            rs = _moca.executeCommand("get order info where coinType = '"
+            rs = _moca.executeCommand("get order info for oc where coinType = '"
                     + coinType + "' and id = '" + orderid + "'");
             
             rs.next();

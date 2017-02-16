@@ -624,8 +624,8 @@ public class HuoBiStock implements IStock{
             }
         }
         
-        //take 5 minute for cal avg pri.
-        int lenForAvg = 60 * 5 / SECONDS_AS_LOOP_GAP;
+        //take 2 minute for cal avg pri.
+        int lenForAvg = 60 * 2 / SECONDS_AS_LOOP_GAP;
         
         if (!isMinMaxLstPriMatchBoxGap(inc_flg) || sz < 3 * lenForAvg) {
             _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap or sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");
@@ -950,32 +950,10 @@ public class HuoBiStock implements IStock{
             _logger.info("middle:" + middle);
             _logger.info("last:" + last);
             
-            _logger.info("first + SMALL_PRICE_DIFF:" + (first + SMALL_PRICE_DIFF));
-            _logger.info("middle + SMALL_PRICE_DIFF:" + (middle + SMALL_PRICE_DIFF));
-            _logger.info("last + SMALL_PRICE_DIFF:" + (last + SMALL_PRICE_DIFF));
-            
-            _logger.info("first + BIG_PRICE_DIFF:" + (first + BIG_PRICE_DIFF));
-            _logger.info("middle + BIG_PRICE_DIFF:" + (middle + BIG_PRICE_DIFF));
-            _logger.info("last + BIG_PRICE_DIFF:" + (last + BIG_PRICE_DIFF));
-            
-            if (first + SMALL_PRICE_DIFF < middle && middle + SMALL_PRICE_DIFF < last) {
-                st = eSTOCKTREND.UP;
-            }
-            else if (first > middle + SMALL_PRICE_DIFF && middle > last + SMALL_PRICE_DIFF) {
-                st = eSTOCKTREND.DOWN;
-            }
-            else if (first + SMALL_PRICE_DIFF < middle && middle > last + BIG_PRICE_DIFF) {
-                st = eSTOCKTREND.CDOWN;
-            }
-            else if (first > middle + SMALL_PRICE_DIFF && middle + BIG_PRICE_DIFF < last) {
-                st = eSTOCKTREND.CUP;
-            }
-            else {
-                st = eSTOCKTREND.EQUAL;
-            }
-            
-            //take 5 minute for cal avg gap.
-            int lenForGap = 60 * 5 / SECONDS_AS_LOOP_GAP;
+            st = eSTOCKTREND.NA;
+                        
+            //take 1 minute for cal avg gap.
+            int lenForGap = 60 * 1 / SECONDS_AS_LOOP_GAP;
             
             //take 1 minute for cal ava pri.
             int lenForAvg = 60 / SECONDS_AS_LOOP_GAP;
@@ -1013,15 +991,15 @@ public class HuoBiStock implements IStock{
                              "\n DetPri is:" + DetPri +
                              "\n lstDetPri is:" + lstDetPri +
                              "\n midDetPri is:" + midDetPri +
-                             "\n LAST_PRICE_BOX_GAP_MAX:" + LAST_PRICE_BOX_GAP_MAX +
-                             "\n LAST_PRICE_BOX_GAP_MAX * 2:" + LAST_PRICE_BOX_GAP_MAX * 2 +
+                             "\n LAST_PRICE_BOX_GAP_MIN:" + LAST_PRICE_BOX_GAP_MIN +
+                             "\n BIG_PRICE_DIFF:" + BIG_PRICE_DIFF +
                              "\n LAST_PRICE_BOX_GAP_MIN / 6:" + LAST_PRICE_BOX_GAP_MIN / 6);
-                if (!IS_IN_UNSTABLE_MODE && DetPri >= LAST_PRICE_BOX_GAP_MAX) {
+                if (!IS_IN_UNSTABLE_MODE && DetPri >= LAST_PRICE_BOX_GAP_MIN && lstDetPri > midDetPri + BIG_PRICE_DIFF) {
                     _logger.info("stock trend set to SUP, and IS_IN_UNSTABLE_MODE to true!");
                     st = eSTOCKTREND.SUP;
                     IS_IN_UNSTABLE_MODE = true;
                 }
-                else if (!IS_IN_UNSTABLE_MODE && DetPri <= -LAST_PRICE_BOX_GAP_MAX) {
+                else if (!IS_IN_UNSTABLE_MODE && DetPri <= -LAST_PRICE_BOX_GAP_MIN && lstDetPri + BIG_PRICE_DIFF < midDetPri) {
                     _logger.info("stock trend set to SDOWN, and IS_IN_UNSTABLE_MODE to true!");
                     st = eSTOCKTREND.SDOWN;
                     IS_IN_UNSTABLE_MODE = true;
