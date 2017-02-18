@@ -29,6 +29,8 @@ public class OkCoinCashAcnt implements ICashAccount {
 	private double freezed_usd;
 	private double freezed_ltc;
 	private double freezed_btc;
+	private double maxStockPct = 0.0;
+	private double minStockPct = 0.0;
 	
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -287,5 +289,39 @@ public class OkCoinCashAcnt implements ICashAccount {
         _logger.info("freezed_usd:" + freezed_usd);
         _logger.info("freezed_btc:" + freezed_btc);
         _logger.info("freezed_ltc:" + freezed_ltc);
+    }
+    
+    @Override
+    public double getMaxStockPct() {
+        // TODO Auto-generated method stub
+        if (maxStockPct <= 0) {
+            MocaResults rs = null;
+            String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
+            try {
+                rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
+                                   + "' and polval ='STOCKPCTLVL' and grp_id = '----'");
+                rs.next();
+                minStockPct = rs.getInt("rtflt1");
+                maxStockPct = rs.getInt("rtflt2");
+                _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct);
+            } catch (MocaException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                _logger.error(e.getMessage());
+                _logger.info("Get policy STOCKPCTLVL error, use default value 0.2 and 0.8.");
+                minStockPct = 0.2;
+                maxStockPct = 0.8;
+            }
+        }
+        return maxStockPct;
+    }
+
+    @Override
+    public double getMinStockPct() {
+        // TODO Auto-generated method stub
+        if (maxStockPct <= 0) {
+            getMaxStockPct();
+        }
+        return minStockPct;
     }
 }

@@ -118,12 +118,27 @@ public class HBSPS1 implements ISellPointSelector {
             double sellableQty = getSellQty(s, ac);
             boolean soldComplete = false;
             
+	    if (!firstGoToStockInUnstableMode) {
+                double minPct = ac.getMinStockPct();
+                double stockMny = hac.getAvaQty(hac.getCoinType()) * hs.getLastPri();
+                double avaMny = hac.getMaxAvaMny();
+                double totalAsset = stockMny + avaMny;
+                
+                double avaPct = (stockMny / totalAsset) - minPct;
+                log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
+                double sellableQty2 = avaPct * totalAsset / hs.getLastPri();
+                log.info("sellableQty:" + sellableQty + ", stock ctl sellableQty2:" + sellableQty2);
+                if (sellableQty > sellableQty2) {
+                    sellableQty = sellableQty2;
+                }
+	    }
+            
             if (sellableQty < soldQty + 0.001) {
             	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");
             	soldQty = 0;
             }
             
-            if (sellableQty > 0) {
+            if (sellableQty > 0.001) {
                 TickerData tid = hs.geTickerData();
                 int sz = tid.last_lst.size();
                 double lstPri = tid.last_lst.get(sz - 1);

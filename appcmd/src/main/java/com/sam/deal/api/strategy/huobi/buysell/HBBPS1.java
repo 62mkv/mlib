@@ -103,7 +103,18 @@ public class HBBPS1 implements IBuyPointSelector {
             String ct = hs.getSymbol().substring(0, 3);
             //double buyqty = getBuyQty(s, ac);
             double buyableMny = ac.getBuyableMny();
+            double maxPct = ac.getMaxStockPct();
+            double stockMny = hac.getAvaQty(hac.getCoinType()) * hs.getLastPri();
+            double avaMny = hac.getMaxAvaMny();
+            double totalAsset = stockMny + avaMny;
             
+            double avaPct = maxPct - (stockMny / totalAsset);
+            log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
+            double buyableMny2 = avaPct * totalAsset;
+            log.info("buyableMny:" + buyableMny + ", stock ctl buyableMny2:" + buyableMny2);
+            if (buyableMny > buyableMny2) {
+                buyableMny = buyableMny2;
+            }
             if (FIRST_SHARPMODE_BUY_RATIO < 0) {
                 String polvar = (hac.getCoinType().equalsIgnoreCase("btc") ? "BTC" : "LTC");
                 try {

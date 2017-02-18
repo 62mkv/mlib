@@ -24,5 +24,7 @@ public interface ICashAccount {
     public double getBuyableMny();
     public double getSellableMny();
     public double getUsedMny();
+    public double getMaxStockPct();
+    public double getMinStockPct();
     public void printAcntInfo();
 }

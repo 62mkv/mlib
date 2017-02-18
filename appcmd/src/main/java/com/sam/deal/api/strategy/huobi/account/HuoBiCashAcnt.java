@@ -33,6 +33,8 @@ public class HuoBiCashAcnt implements ICashAccount {
 	private double loan_cny_display;
 	private double loan_btc_display;
 	private double loan_ltc_display;
+	private double maxStockPct = 0.0;
+	private double minStockPct = 0.0;
 	
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -295,5 +297,39 @@ public class HuoBiCashAcnt implements ICashAccount {
         _logger.info("loan_cny_display:" + loan_cny_display);
         _logger.info("loan_btc_display:" + loan_btc_display);
         _logger.info("loan_ltc_display:" + loan_ltc_display);
+    }
+
+    @Override
+    public double getMaxStockPct() {
+        // TODO Auto-generated method stub
+        if (maxStockPct <= 0) {
+            MocaResults rs = null;
+            String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
+            try {
+                rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+                                   + "' and polval ='STOCKPCTLVL' and grp_id = '----'");
+                rs.next();
+                minStockPct = rs.getInt("rtflt1");
+                maxStockPct = rs.getInt("rtflt2");
+                _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct);
+            } catch (MocaException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                _logger.error(e.getMessage());
+                _logger.info("Get policy STOCKPCTLVL error, use default value 0.2 and 0.8.");
+                minStockPct = 0.2;
+                maxStockPct = 0.8;
+            }
+        }
+        return maxStockPct;
+    }
+
+    @Override
+    public double getMinStockPct() {
+        // TODO Auto-generated method stub
+        if (maxStockPct <= 0) {
+            getMaxStockPct();
+        }
+        return minStockPct;
     }
 }
