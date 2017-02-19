@@ -92,8 +92,8 @@ public class OkCoinCashAcnt implements ICashAccount {
                 rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                    + "' and polval ='MNYPERDEAL' and grp_id = '----'");
                 rs.next();
-                minMnyPerDeal = rs.getInt("rtflt1");
-                maxMnyPerDeal = rs.getInt("rtflt2");
+                minMnyPerDeal = rs.getDouble("rtflt1");
+                maxMnyPerDeal = rs.getDouble("rtflt2");
                 _logger.info("got policy, minMnyPerDeal:" + minMnyPerDeal + ", maxMnyPerDeal:" + maxMnyPerDeal);
             } catch (MocaException e) {
                 // TODO Auto-generated catch block
@@ -225,20 +225,12 @@ public class OkCoinCashAcnt implements ICashAccount {
         if (free_usd > minMnyPerDeal) {
             int cnt = getLastBuySellGapCnt(ct, true);
             double buyableMny = minMnyPerDeal;
-            int maxCnt = 3;
             
-            if (cnt > maxCnt) {
-                _logger.info("getLastBuySellGapCnt return > maxCnt:" + maxCnt + ", use it as max.");
-                cnt = maxCnt;
-            }
-            
-            double det = (maxMnyPerDeal - minMnyPerDeal) / maxCnt;
             _logger.info("\n free_usd:" + free_usd +
                          "\n minMnyPerDeal:" + minMnyPerDeal +
                          "\n cnt:" + cnt +
-                         "\n (maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + det +
-                         "\n cnt * ((maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + cnt * det);
-            buyableMny = minMnyPerDeal + cnt * det;
+                         "\n cnt * minMnyPerDeal:" + cnt * minMnyPerDeal);
+            buyableMny = minMnyPerDeal + cnt * minMnyPerDeal;
             buyableMny = (buyableMny > free_usd ? free_usd : buyableMny);
             return buyableMny;
         } else {
@@ -301,8 +293,8 @@ public class OkCoinCashAcnt implements ICashAccount {
                 rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
                                    + "' and polval ='STOCKPCTLVL' and grp_id = '----'");
                 rs.next();
-                minStockPct = rs.getInt("rtflt1");
-                maxStockPct = rs.getInt("rtflt2");
+                minStockPct = rs.getDouble("rtflt1");
+                maxStockPct = rs.getDouble("rtflt2");
                 _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct);
             } catch (MocaException e) {
                 // TODO Auto-generated catch block

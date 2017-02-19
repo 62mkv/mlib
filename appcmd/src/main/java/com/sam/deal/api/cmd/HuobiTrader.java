@@ -128,10 +128,10 @@ public class HuobiTrader {
     public void performTrade(String market,
                              String coinType) throws MocaException {
         _logger.info("Now performTrade");
-        HBBPS1 buypointselector = new HBBPS1();
-        HBSPS1 sellpointselector1 = new HBSPS1();
         HuoBiCashAcnt huobicashacnt = new HuoBiCashAcnt(market, coinType);
         HuoBiStock huobistock = new HuoBiStock(market, coinType);
+        HBBPS1 buypointselector = new HBBPS1(huobistock, huobicashacnt);
+        HBSPS1 sellpointselector1 = new HBSPS1(huobistock, huobicashacnt);
         hbts = new HuoBiTradeStrategyImp(market, coinType, huobistock, buypointselector, sellpointselector1, huobicashacnt);
         
         boolean doInfiniteLoop = false;

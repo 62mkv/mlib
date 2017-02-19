@@ -661,7 +661,7 @@ public class HuoBiStock implements IStock{
         
         _logger.info("lstDetPri is:" + lstDetPri + " >= SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF + "?");
         _logger.info("midDetPri is:" + midDetPri + " >= SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF + "?");
-        if (lstDetPri >= SMALL_PRICE_DIFF && midDetPri >= SMALL_PRICE_DIFF) {
+        if (lstDetPri >= SMALL_PRICE_DIFF /*&& midDetPri >= SMALL_PRICE_DIFF */) {
             _logger.info("isLstPriTurnaround return true.");
             return true;
         }
@@ -835,7 +835,7 @@ public class HuoBiStock implements IStock{
                 "\n lstDealPri - minpri:" + (lstDealPri - minpri) + (forBuy ? (" should > expVal:" + expVal + " to buy") : ""));
 
         if (lstDealPri > 0) {
-            if (((!forBuy && (maxpri - lstDealPri) >= expVal) || (forBuy && (lstDealPri - minpri) >= expVal)) && maxpri - minpri >= expVal) {
+            if (((!forBuy && (maxpri - lstDealPri) >= expVal) || (forBuy && (lstDealPri - minpri) >= expVal)) && maxpri - minpri >= BIG_PRICE_DIFF) {
                 _logger.info("min/max/lstDealPri price matches expVal:" + expVal + ", return true");
                 return true;
             }

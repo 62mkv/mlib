@@ -133,10 +133,10 @@ public class OkCoinTrader {
     public void performTrade(String market,
                              String coinType) throws MocaException {
         _logger.info("Now performTrade");
-        OCBPS1 buypointselector = new OCBPS1();
-        OCSPS1 sellpointselector1 = new OCSPS1();
         OkCoinCashAcnt huobicashacnt = new OkCoinCashAcnt(market, coinType);
         OkCoinStock huobistock = new OkCoinStock(market, coinType);
+        OCBPS1 buypointselector = new OCBPS1(huobistock, huobicashacnt);
+        OCSPS1 sellpointselector1 = new OCSPS1(huobistock, huobicashacnt);
         hbts = new OkCoinTradeStrategyImp(market, coinType, huobistock, buypointselector, sellpointselector1, huobicashacnt);
         
         boolean doInfiniteLoop = false;

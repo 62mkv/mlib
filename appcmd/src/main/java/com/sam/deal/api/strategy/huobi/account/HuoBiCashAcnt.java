@@ -98,16 +98,16 @@ public class HuoBiCashAcnt implements ICashAccount {
             rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
                                + "' and polval ='MNYPERDEAL' and grp_id = '----'");
             rs.next();
-            minMnyPerDeal = rs.getInt("rtflt1");
-            maxMnyPerDeal = rs.getInt("rtflt2");
+            minMnyPerDeal = rs.getDouble("rtflt1");
+            maxMnyPerDeal = rs.getDouble("rtflt2");
             _logger.info("got policy, minMnyPerDeal:" + minMnyPerDeal + ", maxMnyPerDeal:" + maxMnyPerDeal);
         } catch (MocaException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             _logger.error(e.getMessage());
-            _logger.info("Get policy MNYPERDEAL error, use default value 1000.");
-            minMnyPerDeal = 1000;
-            maxMnyPerDeal = 1000;
+            _logger.info("Get policy MNYPERDEAL error, use default value.");
+            minMnyPerDeal = 2000;
+            maxMnyPerDeal = 8000;
         }
         
         return true;
@@ -230,20 +230,12 @@ public class HuoBiCashAcnt implements ICashAccount {
         if (available_cny_display > minMnyPerDeal) {
             int cnt = getLastBuySellGapCnt(ct, true);
             double buyableMny = minMnyPerDeal;
-            int maxCnt = 3;
             
-            if (cnt > maxCnt) {
-                _logger.info("getLastBuySellGapCnt return > maxCnt:" + maxCnt + ", use it as max.");
-                cnt = maxCnt;
-            }
-            
-            double det = (maxMnyPerDeal - minMnyPerDeal) / maxCnt;
             _logger.info("\navailable_cny_display:" + available_cny_display +
                          "\n minMnyPerDeal:" + minMnyPerDeal +
                          "\n cnt:" + cnt +
-                         "\n (maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + det +
-                         "\n cnt * ((maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + cnt * det);
-            buyableMny = minMnyPerDeal + cnt * det;
+                         "\n cnt * minMnyPerDeal:" + cnt * minMnyPerDeal);
+            buyableMny = minMnyPerDeal + cnt * minMnyPerDeal;
             buyableMny = (buyableMny > available_cny_display ? available_cny_display : buyableMny);
             return buyableMny;
         } else {
@@ -309,8 +301,8 @@ public class HuoBiCashAcnt implements ICashAccount {
                 rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
                                    + "' and polval ='STOCKPCTLVL' and grp_id = '----'");
                 rs.next();
-                minStockPct = rs.getInt("rtflt1");
-                maxStockPct = rs.getInt("rtflt2");
+                minStockPct = rs.getDouble("rtflt1");
+                maxStockPct = rs.getDouble("rtflt2");
                 _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct);
             } catch (MocaException e) {
                 // TODO Auto-generated catch block

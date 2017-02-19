@@ -13,7 +13,7 @@ public interface ISellPointSelector {
     /**
      * @param args
      */
-    public boolean isGoodSellPoint(IStock s, ICashAccount ac);
-    public double getSellQty(IStock s, ICashAccount ac);
-    public boolean sellStock(IStock s, ICashAccount ac);
+    public boolean isGoodSellPoint();
+    public double getSellQty();
+    public boolean sellStock();
 }

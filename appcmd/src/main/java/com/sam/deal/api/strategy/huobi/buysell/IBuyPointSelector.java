@@ -13,7 +13,7 @@ public interface IBuyPointSelector {
     /**
      * @param args
      */
-    public boolean isGoodBuyPoint(IStock s, ICashAccount ac);
-    public double getBuyQty(IStock s, ICashAccount ac);
-    public boolean buyStock(IStock s, ICashAccount ac);
+    public boolean isGoodBuyPoint();
+    public double getBuyQty();
+    public boolean buyStock();
 }

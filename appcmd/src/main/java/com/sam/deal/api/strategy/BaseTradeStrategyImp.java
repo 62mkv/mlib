@@ -24,9 +24,9 @@ public abstract class BaseTradeStrategyImp implements ITradeStrategy {
         cash_account =ca;
     }
     public boolean sellStock(IStock s) {
-        if (sellpoint_selector.isGoodSellPoint(s, cash_account)) {
+        if (sellpoint_selector.isGoodSellPoint()) {
             if (beforeSell(s)) {
-                boolean sell_success = sellpoint_selector.sellStock(s, cash_account);
+                boolean sell_success = sellpoint_selector.sellStock();
                 if (sell_success) {
                     return afterSell(s);
                 }
@@ -36,9 +36,9 @@ public abstract class BaseTradeStrategyImp implements ITradeStrategy {
         return false;
     }
     public boolean buyStock(IStock s) {
-        if (buypoint_selector.isGoodBuyPoint(s, cash_account)) {
+        if (buypoint_selector.isGoodBuyPoint()) {
             if (beforeBuy(s)) {
-                boolean buy_success = buypoint_selector.buyStock(s, cash_account);
+                boolean buy_success = buypoint_selector.buyStock();
                 if (buy_success) {
                     return afterBuy(s);
                 }

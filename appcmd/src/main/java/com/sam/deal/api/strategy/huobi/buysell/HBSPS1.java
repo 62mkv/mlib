@@ -26,107 +26,115 @@ public class HBSPS1 implements ISellPointSelector {
     private boolean wasStockInUnstableMode = false;
     private boolean firstGoToStockInUnstableMode = false;
     private double FIRST_SHARPMODE_SELL_RATIO = -1;
+    private double maxWaterLvl = 0.0;
+    private HuoBiStock stock = null;
+    private HuoBiCashAcnt account = null;
 
-    public HBSPS1()
+    public HBSPS1(HuoBiStock s, HuoBiCashAcnt ac)
     {
         _moca = MocaUtils.currentContext();
         _manager = MocaUtils.crudManager(_moca);
-    }
-    
-	public boolean isGoodSellPoint(IStock s, ICashAccount ac) {
-        if (s instanceof HuoBiStock) {
-            HuoBiStock hs = (HuoBiStock) s;
-            //eSTOCKTREND et = hs.getStockTrend();
-            if (hs.isLstPriTurnaround(false) && hs.isLstPriAboveWaterLevel(0.8)) {
-                log.info("Stock trend truns down at 0.8 level, HBSPS1 return true.");
-                return true;
+        stock = s;
+        account = ac;
+        
+        if (FIRST_SHARPMODE_SELL_RATIO < 0) {
+            String polvar = (account.getCoinType().equalsIgnoreCase("btc") ? "BTC" : "LTC");
+            try {
+                MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+                        + "' and polval ='FIRST_SHARPMODE_BUYSELL_RATIO' and grp_id = '----'");
+                
+                rs.next();
+                
+                FIRST_SHARPMODE_SELL_RATIO = rs.getDouble("rtflt2");
+                log.info("got FIRST_SHARPMODE_SELL_RATIO:" + FIRST_SHARPMODE_SELL_RATIO);
             }
-            else {
-                if (hs.getStockTrend() == eSTOCKTREND.SDOWN) {
-                    log.info("Price trend is SDOWN, HBSPS1 return true!");
-                    return true;
-                }
-                log.info("HBSPS1 return false.");
-                return false;
+            catch(Exception e) {
+                log.debug(e.getMessage());
+                FIRST_SHARPMODE_SELL_RATIO = 1;
+                log.info("got FIRST_SHARPMODE_SELL_RATIO default to 1");
             }
         }
+        
+        if (maxWaterLvl <= 0) {
+            String polvar = (account.getCoinType().equalsIgnoreCase("btc") ? "BTC" : "LTC");
+            try {
+                MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+                        + "' and polval ='DEALWATERLVL' and grp_id = '----'");
+                
+                rs.next();
+                
+                maxWaterLvl = rs.getDouble("rtflt2");
+                log.info("got maxWaterLvl:" + maxWaterLvl);
+            }
+            catch(Exception e) {
+                log.debug(e.getMessage());
+                maxWaterLvl = 0.8;
+                log.info("set maxWaterLvl default to 0.8");
+            }
+        }
+    }
+    
+	public boolean isGoodSellPoint() {
+        if (stock.isLstPriTurnaround(false) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
+            log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
+            return true;
+        }
         else {
-            log.info("IStock is not HuoBiStock, return false.");
+            if (stock.getStockTrend() == eSTOCKTREND.SDOWN) {
+                log.info("Price trend is SDOWN, HBSPS1 return true!");
+                return true;
+            }
+            log.info("HBSPS1 return false.");
             return false;
         }
 	}
 
 	@Override
-	public double getSellQty(IStock s, ICashAccount ac) {
-	    if (ac instanceof HuoBiCashAcnt && s instanceof HuoBiStock) {
-	        HuoBiStock hs = (HuoBiStock)s;
-	        HuoBiCashAcnt hac = (HuoBiCashAcnt) ac;
-	        String ct = hs.getSymbol().substring(0, 3);
-	        double avaStock = hac.getAvaQty(ct);
-	        double sellableAmt = 0;
-	        
-            if (FIRST_SHARPMODE_SELL_RATIO < 0) {
-                String polvar = (hac.getCoinType().equalsIgnoreCase("btc") ? "BTC" : "LTC");
-                try {
-                    MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
-                            + "' and polval ='FIRST_SHARPMODE_BUYSELL_RATIO' and grp_id = '----'");
-                    
-                    rs.next();
-                    
-                    FIRST_SHARPMODE_SELL_RATIO = rs.getDouble("rtflt2");
-                    log.info("got FIRST_SHARPMODE_SELL_RATIO:" + FIRST_SHARPMODE_SELL_RATIO);
-                }
-                catch(Exception e) {
-                    log.debug(e.getMessage());
-                    FIRST_SHARPMODE_SELL_RATIO = 1;
-                    log.info("got FIRST_SHARPMODE_SELL_RATIO default to 1");
-                }
-            }
+	public double getSellQty() {
+	    String ct = stock.getSymbol().substring(0, 3);
+	    double avaStock = account.getAvaQty(ct);
+	    double sellableAmt = 0;
+	    
+        
+        firstGoToStockInUnstableMode = false;
+        if (stock.isStockUnstableMode() && !wasStockInUnstableMode) {
             
-            firstGoToStockInUnstableMode = false;
-            if (hs.isStockUnstableMode() && !wasStockInUnstableMode) {
-                
-                log.info("stock first goes into SDOWN mode, sell with stocks!");
-                wasStockInUnstableMode = true;
-                firstGoToStockInUnstableMode = true;
-                sellableAmt = avaStock * FIRST_SHARPMODE_SELL_RATIO;
-                log.info("got sellableAmt:" + sellableAmt + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_SELL_RATIO + " * ava stock:" + avaStock);
-                return sellableAmt;
-            }
-            else if (!hs.isStockUnstableMode() && wasStockInUnstableMode) {
-                log.info("reset wasStockInUnstableMode to false.");
-                wasStockInUnstableMode = false;
-            }
-	        
-            double sellabeleMny = hac.getSellableMny();
-	        double lstPri = hs.getLastPri();
-	        sellableAmt = ((sellabeleMny / lstPri) > avaStock ? avaStock : (sellabeleMny / lstPri));
-	        log.info("avaStock:" + avaStock + ", sellableMny:" + sellabeleMny +
-	                ", lstPri:" + lstPri + ", sellableMny / lstPri:" + sellabeleMny / lstPri +
-	                ", return sellableAmt:" + sellableAmt);
-	        return sellableAmt;
-	    }
-	    return 0;
+            log.info("stock first goes into SDOWN mode, sell with stocks!");
+            wasStockInUnstableMode = true;
+            firstGoToStockInUnstableMode = true;
+            sellableAmt = avaStock * FIRST_SHARPMODE_SELL_RATIO;
+            log.info("got sellableAmt:" + sellableAmt + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_SELL_RATIO + " * ava stock:" + avaStock);
+            return sellableAmt;
+        }
+        else if (!stock.isStockUnstableMode() && wasStockInUnstableMode) {
+            log.info("reset wasStockInUnstableMode to false.");
+            wasStockInUnstableMode = false;
+        }
+	    
+        double sellabeleMny = account.getSellableMny();
+	    double lstPri = stock.getLastPri();
+	    sellableAmt = ((sellabeleMny / lstPri) > avaStock ? avaStock : (sellabeleMny / lstPri));
+	    log.info("avaStock:" + avaStock + ", sellableMny:" + sellabeleMny +
+	            ", lstPri:" + lstPri + ", sellableMny / lstPri:" + sellabeleMny / lstPri +
+	            ", return sellableAmt:" + sellableAmt);
+	    return sellableAmt;
 	}
 	
 	@Override
-	public boolean sellStock(IStock s, ICashAccount ac) {
-        if (s instanceof HuoBiStock && ac instanceof HuoBiCashAcnt) {
-            HuoBiStock hs = (HuoBiStock)s;
-            HuoBiCashAcnt hac = (HuoBiCashAcnt) ac;
-            String ct = hs.getSymbol().substring(0, 3);
-            double sellableQty = getSellQty(s, ac);
-            boolean soldComplete = false;
+	public boolean sellStock() {
+        String ct = stock.getSymbol().substring(0, 3);
+        double sellableQty = getSellQty();
+        boolean soldComplete = false;
             
 	    if (!firstGoToStockInUnstableMode) {
-                double minPct = ac.getMinStockPct();
-                double stockMny = hac.getAvaQty(hac.getCoinType()) * hs.getLastPri();
-                double avaMny = hac.getMaxAvaMny();
+                double minPct = account.getMinStockPct();
+                double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
+                double avaMny = account.getMaxAvaMny();
                 double totalAsset = stockMny + avaMny;
                 
                 double avaPct = (stockMny / totalAsset) - minPct;
                 log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
-                double sellableQty2 = avaPct * totalAsset / hs.getLastPri();
+                double sellableQty2 = avaPct * totalAsset / stock.getLastPri();
                 log.info("sellableQty:" + sellableQty + ", stock ctl sellableQty2:" + sellableQty2);
                 if (sellableQty > sellableQty2) {
                     sellableQty = sellableQty2;
@@ -139,13 +147,13 @@ public class HBSPS1 implements ISellPointSelector {
             }
             
             if (sellableQty > 0.001) {
-                TickerData tid = hs.geTickerData();
+                TickerData tid = stock.geTickerData();
                 int sz = tid.last_lst.size();
                 double lstPri = tid.last_lst.get(sz - 1);
                 try {
                     MocaResults rs = _moca.executeCommand(
-                            "get top10 data where mk ='" + hac.getMarket() + "'" +
-                            "  and ct = '" + hac.getCoinType() + "'" +
+                            "get top10 data where mk ='" + account.getMarket() + "'" +
+                            "  and ct = '" + account.getCoinType() + "'" +
                             "   and sdf = 0 and rtdf = 0");
                     
                     rs.next();
@@ -174,7 +182,7 @@ public class HBSPS1 implements ISellPointSelector {
                     top10BuyPri[8] = rs.getDouble("b_pri9");
                     top10BuyPri[9] = rs.getDouble("b_pri10");
                     
-                    double bpg = hs.getBigPriceDiff();
+                    double bpg = stock.getBigPriceDiff();
                     
                     if (soldQty > 0 && Math.abs(soldLstPri - lstPri) > bpg) {
                         log.info("Already soldQty:" + soldQty + ", reset to 0 as gap between soldLstPri:" + soldLstPri + " and lstPri:" + lstPri + "> bpg:" + bpg);
@@ -202,8 +210,8 @@ public class HBSPS1 implements ISellPointSelector {
                         _moca.executeCommand("[select round(" + sellAmt + ", 4) sellAmt, round(" + (buyPri - 0.1) + ", 2) price from dual]"
                                            + "|"
                                            + "create sell order"
-                                           + " where market = '" + hac.getMarket() + "'"
-                                           + "   and coinType ='" + hac.getCoinType() + "'"
+                                           + " where market = '" + account.getMarket() + "'"
+                                           + "   and coinType ='" + account.getCoinType() + "'"
                                            + "   and amount = @sellAmt "
                                            + "   and price = @price");
                         }
@@ -231,24 +239,10 @@ public class HBSPS1 implements ISellPointSelector {
                     log.debug(e.getMessage());
                 }
                 return soldComplete;
-//                try {
-//                    _moca.executeCommand("create market price sell order"
-//                                       + " where market = 'CHN'"
-//                                       + "   and coinType ='" + ct + "'"
-//                                       + "   and amount = " + sellqty);
-//                }
-//                catch(Exception e) {
-//                    log.debug(e.getMessage());
-//                    return false;
-//                }
-//                return true;
             }
             else {
                 log.info("sellqty is 0, can not sell:" + sellableQty);
                 return false;
             }
-        }
-        log.info("IStock is not HuoBiStock(or HuoBiCashAcnt), can not sell huobi!");
-        return false;
     }
 }
