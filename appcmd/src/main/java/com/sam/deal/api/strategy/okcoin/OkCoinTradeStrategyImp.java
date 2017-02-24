@@ -51,6 +51,7 @@ public class OkCoinTradeStrategyImp extends BaseTradeStrategyImp {
     @Override
     public boolean beforeTrade(IStock s) {
         log.info("run OkCoinTradeStrategyImp beforeTrade, loadMarketData.");
+        super.beforeTrade(s);
         hbs.loadMarketData();
         return true;
     }

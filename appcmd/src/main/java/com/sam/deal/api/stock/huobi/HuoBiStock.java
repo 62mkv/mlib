@@ -681,10 +681,10 @@ public class HuoBiStock implements IStock{
         _logger.info("maxPri:" + maxpri + "\n minPri:" + minpri + "\n lstPri:" + lstPri);
         
         if ((lstPri - minpri) / (maxpri - minpri) >= topPct) {
-            _logger.info("lstPri is " + (topPct*100) + "% above:[" + minpri+"," + maxpri + "], return true");
+            _logger.info("lstPri:" + lstPri + " is " + (topPct*100) + "% above:[" + minpri+"," + maxpri + "], return true");
             return true;
         }
-        _logger.info("lstPri is not " + (topPct*100 ) + "% above:[" + minpri+"," + maxpri + "], return false");
+        _logger.info("lstPri:" + lstPri + " is not " + (topPct*100 ) + "% above:[" + minpri+"," + maxpri + "], return false");
         return false;
     }
     

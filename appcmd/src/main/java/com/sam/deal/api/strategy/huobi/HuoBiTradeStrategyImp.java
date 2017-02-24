@@ -48,6 +48,7 @@ public class HuoBiTradeStrategyImp extends BaseTradeStrategyImp {
     @Override
     public boolean beforeTrade(IStock s) {
         log.info("run HuoBiTradeStrategyImp beforeTrade, loadMarketData.");
+        super.beforeTrade(s);
         hbs.loadMarketData();
         return true;
     }

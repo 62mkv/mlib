@@ -122,7 +122,6 @@ public class HuoBiCashAcnt implements ICashAccount {
 	}
 	
 	public double getAvaQty(String coinType) {
-	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
 	        return available_cny_display;
 	    }
@@ -135,7 +134,6 @@ public class HuoBiCashAcnt implements ICashAccount {
 	}
 	
 	public double getFznQty(String coinType) {
-	    loadAccount();
 	     if (coinType.equalsIgnoreCase("cny")) {
 	         return frozen_cny_display;
 	     }
@@ -147,7 +145,6 @@ public class HuoBiCashAcnt implements ICashAccount {
 	     }
 	 }
 	public double getLoanQty(String coinType) {
-	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
 	        return loan_cny_display;
 	    }
@@ -220,13 +217,11 @@ public class HuoBiCashAcnt implements ICashAccount {
     
     @Override
     public double getMaxAvaMny() {
-        loadAccount();
         return available_cny_display;
     }
     
     @Override
     public double getBuyableMny() {
-        loadAccount();
         if (available_cny_display > minMnyPerDeal) {
             int cnt = getLastBuySellGapCnt(ct, true);
             double buyableMny = minMnyPerDeal;
@@ -246,7 +241,6 @@ public class HuoBiCashAcnt implements ICashAccount {
     
     @Override
     public double getSellableMny() {
-        loadAccount();
 
         int cnt = getLastBuySellGapCnt(ct, false);
         double sellableMny = minMnyPerDeal;
@@ -269,8 +263,12 @@ public class HuoBiCashAcnt implements ICashAccount {
     
     @Override
     public double getUsedMny() {
-        loadAccount();
         return frozen_cny_display;
+    }
+    
+    @Override
+    public void refreshAccount() {
+        loadAccount();
     }
     
     @Override

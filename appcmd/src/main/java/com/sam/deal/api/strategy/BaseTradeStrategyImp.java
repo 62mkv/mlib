@@ -71,7 +71,8 @@ public abstract class BaseTradeStrategyImp implements ITradeStrategy {
     }
     
     public boolean beforeTrade(IStock s) {
-        log.info("run default beforeTrade, return true.");
+        log.info("run default beforeTrade, refresh account.");
+        cash_account.refreshAccount();
         return true;
     }
     

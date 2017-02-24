@@ -26,5 +26,6 @@ public interface ICashAccount {
     public double getUsedMny();
     public double getMaxStockPct();
     public double getMinStockPct();
+    public void refreshAccount();
     public void printAcntInfo();
 }

@@ -684,10 +684,10 @@ public class OkCoinStock implements IStock{
         _logger.info("maxPri:" + maxpri + "\n minPri:" + minpri + "\n lstPri:" + lstPri);
         
         if ((lstPri - minpri) / (maxpri - minpri) <= bottomPct) {
-            _logger.info("lstPri is " + (bottomPct*100) + "% under:[" + minpri+"," + maxpri + "], return true");
+            _logger.info("lstPri:" + lstPri + " is " + (bottomPct*100) + "% under:[" + minpri+"," + maxpri + "], return true");
             return true;
         }
-        _logger.info("lstPri is not " + (bottomPct*100 ) + "% under:[" + minpri+"," + maxpri + "], return false");
+        _logger.info("lstPri:" + lstPri + " is not " + (bottomPct*100 ) + "% under:[" + minpri+"," + maxpri + "], return false");
         return false;
     }
     

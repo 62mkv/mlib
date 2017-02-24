@@ -117,7 +117,6 @@ public class OkCoinCashAcnt implements ICashAccount {
 	}
 	
 	public double getAvaQty(String coinType) {
-	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
 	        return free_usd;
 	    }
@@ -130,7 +129,6 @@ public class OkCoinCashAcnt implements ICashAccount {
 	}
 	
 	public double getFznQty(String coinType) {
-	    loadAccount();
 	     if (coinType.equalsIgnoreCase("cny")) {
 	         return freezed_usd;
 	     }
@@ -142,7 +140,6 @@ public class OkCoinCashAcnt implements ICashAccount {
 	     }
 	 }
 	public double getLoanQty(String coinType) {
-	    loadAccount();
 	    if (coinType.equalsIgnoreCase("cny")) {
 	        return 0;
 	    }
@@ -215,13 +212,11 @@ public class OkCoinCashAcnt implements ICashAccount {
     
     @Override
     public double getMaxAvaMny() {
-        loadAccount();
         return free_usd;
     }
     
     @Override
     public double getBuyableMny() {
-        loadAccount();
         if (free_usd > minMnyPerDeal) {
             int cnt = getLastBuySellGapCnt(ct, true);
             double buyableMny = minMnyPerDeal;
@@ -241,7 +236,6 @@ public class OkCoinCashAcnt implements ICashAccount {
     
     @Override
     public double getSellableMny() {
-        loadAccount();
 
         int cnt = getLastBuySellGapCnt(ct, false);
         double sellableMny = minMnyPerDeal;
@@ -264,8 +258,12 @@ public class OkCoinCashAcnt implements ICashAccount {
     
     @Override
     public double getUsedMny() {
-        loadAccount();
         return freezed_usd;
+    }
+    
+    @Override
+    public void refreshAccount() {
+        loadAccount();
     }
     
     @Override
