@@ -769,13 +769,37 @@ public class OkCoinStock implements IStock{
         double lstDealPri = 0.0;
         String type = "";
         MocaResults rs = null;
+        String cls = "";
+        
+        //Only get last trade price when we have btc or ltc availalbe.
+        //When it sold out, ignore the last deal price.
+        if (forBuy) {
+            if (ct.equalsIgnoreCase("btc")) {
+                cls = " (@free_btc > 0.001)";
+            }
+            else {
+                cls = " (@free_ltc > 0.001)";
+            }
+        }
+        else {
+            // when all money used, and try to sell, ignore last deal price.
+             cls = " (@free_usd > 0.1)";
+        }
         try {
-            rs = _moca.executeCommand("[select avg_price lstDealPri,                              " +
-                                      "        type                                                     " +
-                                      "   from oc_buysell_data                                          " +
-                                      "  where id = (select max (id) from oc_buysell_data)              " +
-                                      "    and type in ('sell','buy')                                        " +
-                                      "    and ins_dt > sysdate - 12/24.0]            ");//if trade within 12 hours.
+            rs = _moca.executeCommand(" get account info for oc where market = '" + mk + "' " +
+                                      "|" +
+                                      " if " + cls +
+                                      " {" +
+                                      "     [select avg_price lstDealPri,                              " +
+                                      "             type                                               " +
+                                      "        from oc_buysell_data                                    " +
+                                      "       where id = (select max (id) from oc_buysell_data)        " +
+                                      "         and type in ('sell','buy')                             " +
+                                      "         and ins_dt > sysdate - 12/24.0]            " + //if trade within 12 hours.
+                                      "} " +
+                                      "else {" +
+                                      "    publish data where lstDealPri = 0 " +
+                                      "}");
             rs.next();
             lstDealPri = rs.getDouble("lstDealPri");
             type = rs.getString("type");
