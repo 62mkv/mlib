@@ -161,7 +161,7 @@ public class OkCoinCashAcnt implements ICashAccount {
 	    int bscnt = 0;
 	    String type = "";
         try {
-            rs = _moca.executeCommand("[select count(id) cnt,                              " +
+            rs = _moca.executeCommand("[select count(distinct round(round(avg_price)/10)) cnt,                              " +
                                       "        type                                        " +
                                       "   from oc_buysell_data                             " +
                                       "  where id >= (select min(t1.id) " +
@@ -221,12 +221,17 @@ public class OkCoinCashAcnt implements ICashAccount {
             int cnt = getLastBuySellGapCnt(ct, true);
             double buyableMny = minMnyPerDeal;
             
-            _logger.info("\n free_usd:" + free_usd +
-                         "\n minMnyPerDeal:" + minMnyPerDeal +
-                         "\n cnt:" + cnt +
-                         "\n cnt * minMnyPerDeal:" + cnt * minMnyPerDeal);
             buyableMny = minMnyPerDeal + cnt * minMnyPerDeal;
             buyableMny = (buyableMny > free_usd ? free_usd : buyableMny);
+            buyableMny = (buyableMny > maxMnyPerDeal ? maxMnyPerDeal : buyableMny);
+            
+            _logger.info("\n free_usd:" + free_usd +
+                    "\n minMnyPerDeal:" + minMnyPerDeal +
+                    "\n maxMnyPerDeal:" + maxMnyPerDeal +
+                    "\n cnt:" + cnt +
+                    "\n cnt * minMnyPerDeal:" + cnt * minMnyPerDeal +
+                    "\n buyableMny:" + buyableMny);
+            
             return buyableMny;
         } else {
             _logger.info("free_usd less than minMnyPerDeal, use free_usd:" + free_usd);
@@ -239,20 +244,15 @@ public class OkCoinCashAcnt implements ICashAccount {
 
         int cnt = getLastBuySellGapCnt(ct, false);
         double sellableMny = minMnyPerDeal;
-        int maxCnt = 3;
         
-        if (cnt > maxCnt) {
-            _logger.info("getLastBuySellGapCnt return > maxCnt:" + maxCnt + ", use it as max.");
-            cnt = maxCnt;
-        }
-        
-        double det = (maxMnyPerDeal - minMnyPerDeal) / maxCnt;
+        sellableMny = minMnyPerDeal + cnt * minMnyPerDeal;
+        sellableMny = (sellableMny > maxMnyPerDeal ? maxMnyPerDeal : sellableMny);
         
         _logger.info("\n minMnyPerDeal:" + minMnyPerDeal +
-                     "\n cnt:" + cnt +
-                     "\n (maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + det +
-                     "\n cnt * ((maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + cnt * det);
-        sellableMny = minMnyPerDeal + cnt * det;
+                "\n cnt:" + cnt +
+                "\n maxMnyPerDeal: " + maxMnyPerDeal +
+                "\n cnt * minMnyPerDeal:" + cnt * minMnyPerDeal);
+        
         return sellableMny;
     }
     

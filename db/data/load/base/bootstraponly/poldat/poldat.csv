@@ -20,12 +20,12 @@ HUOBI,LTC,LAST_PRICE_BOX_GAP,0,,,0,0,0.5,1,sysdate,Install,----
 HUOBI,LTC,LAST_PRICE_BOX_GAP_RATIO,0,,,0,0,1.2,0,sysdate,Install,----
 HUOBI,LTC,FIRST_SHARPMODE_BUYSELL_RATIO,0,,,0,0,0.5,1,sysdate,Install,----
 OKCOIN,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
-OKCOIN,BTC,MNYPERDEAL,0,,,0,0,15,29,sysdate,Install,----
-OKCOIN,BTC,STOCKPCTLVL,0,,,0,0,0.0,1,sysdate,Install,----
+OKCOIN,BTC,MNYPERDEAL,0,,,0,0,100,300,sysdate,Install,----
+OKCOIN,BTC,STOCKPCTLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
 OKCOIN,BTC,DEALWATERLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
 OKCOIN,BTC,PRICE_DIFF,0,,,0,0,0.1,1,sysdate,Install,----
 OKCOIN,BTC,STOCK_QUEUE_SIZE,0,,,1440,0,0,0,sysdate,Install,----
 OKCOIN,BTC,STEP_FOR_CAL_TREND,0,,,1,0,0,0,sysdate,Install,----
-OKCOIN,BTC,LAST_PRICE_BOX_GAP,0,,,0,0,10,12,sysdate,Install,----
+OKCOIN,BTC,LAST_PRICE_BOX_GAP,0,,,0,0,10,20,sysdate,Install,----
 OKCOIN,BTC,LAST_PRICE_BOX_GAP_RATIO,0,,,0,0,1.2,0,sysdate,Install,----
 OKCOIN,BTC,FIRST_SHARPMODE_BUYSELL_RATIO,0,,,0,0,0.5,1,sysdate,Install,----

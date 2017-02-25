@@ -166,7 +166,7 @@ public class HuoBiCashAcnt implements ICashAccount {
 	    int bscnt = 0;
 	    String type = "";
         try {
-            rs = _moca.executeCommand("[select count(id) cnt,                              " +
+            rs = _moca.executeCommand("[select count(distinct round(round(processed_price)/10)) cnt,                              " +
                                       "        type                                        " +
                                       "   from hb_buysell_data                             " +
                                       "  where id >= (select min(t1.id) " +
@@ -232,6 +232,7 @@ public class HuoBiCashAcnt implements ICashAccount {
                          "\n cnt * minMnyPerDeal:" + cnt * minMnyPerDeal);
             buyableMny = minMnyPerDeal + cnt * minMnyPerDeal;
             buyableMny = (buyableMny > available_cny_display ? available_cny_display : buyableMny);
+            buyableMny = (buyableMny > maxMnyPerDeal ? maxMnyPerDeal : buyableMny);
             return buyableMny;
         } else {
             _logger.info("available_cny_display less than minMnyPerDeal, use available_cny_display:" + available_cny_display);
@@ -244,20 +245,16 @@ public class HuoBiCashAcnt implements ICashAccount {
 
         int cnt = getLastBuySellGapCnt(ct, false);
         double sellableMny = minMnyPerDeal;
-        int maxCnt = 3;
         
-        if (cnt > maxCnt) {
-            _logger.info("getLastBuySellGapCnt return > maxCnt:" + maxCnt + ", use it as max.");
-            cnt = maxCnt;
-        }
-        
-        double det = (maxMnyPerDeal - minMnyPerDeal) / maxCnt;
+        sellableMny = minMnyPerDeal + cnt * minMnyPerDeal;
+        sellableMny = (sellableMny > maxMnyPerDeal ? maxMnyPerDeal : sellableMny);
         
         _logger.info("\n minMnyPerDeal:" + minMnyPerDeal +
+        		     "\n maxMnyPerDeal:" + maxMnyPerDeal +
                      "\n cnt:" + cnt +
-                     "\n (maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + det +
-                     "\n cnt * ((maxMnyPerDeal - minMnyPerDeal) / " + maxCnt + ":" + cnt * det);
-        sellableMny = minMnyPerDeal + cnt * det;
+                     "\n cnt * minMnyPerDeal:" + cnt * minMnyPerDeal +
+                     "\n sellableMny:" + sellableMny);
+        
         return sellableMny;
     }
     
