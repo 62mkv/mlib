@@ -42,6 +42,8 @@ public class HuoBiStock implements IStock{
     private double LAST_PRICE_BOX_GAP_MAX = 0;
     private double LAST_PRICE_BOX_GAP_MAX_RATIO = 1.5;
     private boolean IS_IN_UNSTABLE_MODE = false;
+    private BoundArrayList<Double> det_buy_turnaround = new BoundArrayList<Double>(3);
+    private BoundArrayList<Double> det_sell_turnaround = new BoundArrayList<Double>(3);
     private int loadCount = 0;
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -629,6 +631,12 @@ public class HuoBiStock implements IStock{
         
         if (!isMinMaxLstPriMatchBoxGap(inc_flg) || sz < 3 * lenForAvg) {
             _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap or sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");
+            if (inc_flg) {
+                det_buy_turnaround.clear();
+            }
+            else {
+                det_sell_turnaround.clear();
+            }
             return false;
         }
         
@@ -648,27 +656,50 @@ public class HuoBiStock implements IStock{
         
         midAvgPri = midAvgPri / lenForAvg;
         
-        double fstAvgPri = 0;
-        for (int i = 0; i < lenForAvg; i++) {
-            fstAvgPri += tid.last_lst.get(sz - 1 -i - 2 * lenForAvg);
-        }
-        
-        fstAvgPri = fstAvgPri / lenForAvg;
-        
-        _logger.info("lstAvgPri:" + lstAvgPri + "\nmidAvgPri:" + midAvgPri + "\nfstAvgPri:" + fstAvgPri);
+        _logger.info("lstAvgPri:" + lstAvgPri + "\nmidAvgPri:" + midAvgPri);
         double lstDetPri = (inc_flg ? (lstAvgPri - midAvgPri) : (midAvgPri - lstAvgPri));
-        double midDetPri = (inc_flg ? (fstAvgPri - midAvgPri) : (midAvgPri - fstAvgPri));
-        
-        _logger.info("lstDetPri is:" + lstDetPri + " >= SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF + "?");
-        _logger.info("midDetPri is:" + midDetPri + " >= SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF + "?");
-        if (lstDetPri >= SMALL_PRICE_DIFF /*&& midDetPri >= SMALL_PRICE_DIFF */) {
-            _logger.info("isLstPriTurnaround return true.");
-            return true;
+
+        if (inc_flg) {
+            det_buy_turnaround.add(lstDetPri);
+            int szb = det_buy_turnaround.size();
+            if (szb >= 3) {
+                double b0 = det_buy_turnaround.get(0);
+                double b1 = det_buy_turnaround.get(1);
+                double b2 = det_buy_turnaround.get(2);
+                _logger.info("det_buy_turnaround sz:" + szb + ", b0:" + b0 + ", b1:" + b1 + ", b2:" + b2 +
+                        ", b0 - b1 = " + (b0 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                        ", b2 - b1 = " + (b2 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                if ((b0 - b1) > SMALL_PRICE_DIFF &&
+                    (b2 - b1) > SMALL_PRICE_DIFF) {
+                    _logger.info("isLstPriTurnaround return true for buy.");
+                    return true;
+                }
+            }
+            else {
+                _logger.info("for buy sz is less than 3:" + szb + ", isLstPriTurnaround return false");
+            }
         }
         else {
-            _logger.info("isLstPriTurnaround return false.");
-            return false;
+            det_sell_turnaround.add(lstDetPri);
+            int szs = det_sell_turnaround.size();
+            if (szs >= 3) {
+                double s0 = det_sell_turnaround.get(0);
+                double s1 = det_sell_turnaround.get(1);
+                double s2 = det_sell_turnaround.get(2);
+                _logger.info("det_sell_turnaround sz:" + szs + ", s0:" + s0 + ", s1:" + s1 + ", s2:" + s2 +
+                        ", s1 - s0 = " + (s1 - s0) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                        ", s1 - s2 = " + (s1 - s2) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                if ((s1 - s0) > SMALL_PRICE_DIFF &&
+                    (s1 - s2) > SMALL_PRICE_DIFF) {
+                    _logger.info("isLstPriTurnaround return true for sell.");
+                    return true;
+                }
+            }
+            else {
+                _logger.info("for sell sz is less than 3:" + szs + ", isLstPriTurnaround return false");
+            }
         }
+        return false;
     }
     
     public boolean isLstPriAboveWaterLevel(double topPct) {
@@ -715,10 +746,10 @@ public class HuoBiStock implements IStock{
         _logger.info("maxPri:" + maxpri + "\n minPri:" + minpri + "\n lstPri:" + lstPri);
         
         if ((lstPri - minpri) / (maxpri - minpri) <= bottomPct) {
-            _logger.info("lstPri is " + (bottomPct*100) + "% under:[" + minpri+"," + maxpri + "], return true");
+            _logger.info("lstPri:" + lstPri + " is " + (bottomPct*100) + "% under:[" + minpri+"," + maxpri + "], return true");
             return true;
         }
-        _logger.info("lstPri is not " + (bottomPct*100 ) + "% under:[" + minpri+"," + maxpri + "], return false");
+        _logger.info("lstPri:" + lstPri + " is not " + (bottomPct*100 ) + "% under:[" + minpri+"," + maxpri + "], return false");
         return false;
     }
     
