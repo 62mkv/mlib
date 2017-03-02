@@ -8,14 +8,62 @@ package com.sam.deal.api.huobi;
 import java.util.TreeMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.sam.deal.api.huobi.Base;
+import com.sam.deal.api.okcoin.rest.stock.impl.StockRestApi;
+import com.sam.moca.MocaContext;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaResults;
+import com.sam.moca.crud.CrudManager;
+import com.sam.moca.util.MocaUtils;
 
 /**
  * @author yanjg 2014年11月22日
  */
 public class HuobiService extends Base {
 
+    private MocaContext _moca = null;
+    private CrudManager _manager = null;
+    private Logger _logger = LogManager.getLogger(HuobiService.class);
+    
+    public HuobiService() {
+        HUOBI_ACCESS_KEY = "a4379746-a122fb6b-0a8eba26-63f47";
+        HUOBI_SECRET_KEY = "d85c11ec-856a9e77-15061294-c63bb";
+    }
+    
+    public HuobiService(MocaContext mocaCtx) {
+        
+        if (mocaCtx != null) {
+            _moca = mocaCtx;
+            _manager = MocaUtils.crudManager(_moca);
+            
+            if (HUOBI_ACCESS_KEY.isEmpty()) {
+                MocaResults rs = null;
+                try {
+                    rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = 'TRADE' and polval ='ACCESS-SECRET' and grp_id = '----'");
+                    rs.next();
+                    HUOBI_ACCESS_KEY = rs.getString("rtstr1");
+                    HUOBI_SECRET_KEY = rs.getString("rtstr2");
+                    _logger.info("got policy ACCESS-SECRET, HUOBI_ACCESS_KEY:" + HUOBI_ACCESS_KEY + ", HUOBI_SECRET_KEY:" + HUOBI_SECRET_KEY);
+                } catch (MocaException e) {
+                    // TODO Auto-generated catch block
+                    _logger.error(e.getMessage());
+                    HUOBI_ACCESS_KEY = "a4379746-a122fb6b-0a8eba26-63f47";
+                    HUOBI_SECRET_KEY = "d85c11ec-856a9e77-15061294-c63bb";
+                    _logger.info("Get policy ACCESS-SECRET error, use default value, HUOBI_ACCESS_KEY:" + HUOBI_ACCESS_KEY + ", HUOBI_SECRET_KEY:" + HUOBI_SECRET_KEY);
+                }
+            }
+            else {
+                _logger.info("Using existing HUOBI_ACCESS_KEY:" + HUOBI_ACCESS_KEY + ", HUOBI_SECRET_KEY:" + HUOBI_SECRET_KEY);
+            }
+        }
+        else {
+            HUOBI_ACCESS_KEY = "a4379746-a122fb6b-0a8eba26-63f47";
+            HUOBI_SECRET_KEY = "d85c11ec-856a9e77-15061294-c63bb";
+        }
+    }
     /**
      * 下单接口
      * 

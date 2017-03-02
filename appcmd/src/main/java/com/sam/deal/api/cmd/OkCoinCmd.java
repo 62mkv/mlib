@@ -113,9 +113,9 @@ public class OkCoinCmd {
         IStockRestApi stockGet = URLs.get(url_key);
         if (stockGet == null) {
             if ("US".equalsIgnoreCase(market)) {
-                stockGet = new StockRestApi("https://www.okcoin.com");
+                stockGet = new StockRestApi("https://www.okcoin.com", _moca);
             } else if ("CHN".equalsIgnoreCase(market)) {
-                stockGet = new StockRestApi("https://www.okcoin.cn");
+                stockGet = new StockRestApi("https://www.okcoin.cn", _moca);
             }
             URLs.put(url_key, stockGet);
         }
@@ -179,9 +179,9 @@ public class OkCoinCmd {
         IStockRestApi stockGet = URLs.get(url_key);
         if (stockGet == null) {
             if ("US".equalsIgnoreCase(market)) {
-                stockGet = new StockRestApi("https://www.okcoin.com");
+                stockGet = new StockRestApi("https://www.okcoin.com", _moca);
             } else if ("CHN".equalsIgnoreCase(market)) {
-                stockGet = new StockRestApi("https://www.okcoin.cn");
+                stockGet = new StockRestApi("https://www.okcoin.cn", _moca);
             }
             URLs.put(url_key, stockGet);
         }
@@ -316,9 +316,9 @@ public class OkCoinCmd {
         IStockRestApi stockPost = URLs.get(url_key);
         if (stockPost == null) {
             if ("US".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.com", null, null);
+                stockPost = new StockRestApi("https://www.okcoin.com", _moca);
             } else if ("CHN".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.cn", null, null);
+                stockPost = new StockRestApi("https://www.okcoin.cn", _moca);
             }
             URLs.put(url_key, stockPost);
         }
@@ -392,7 +392,7 @@ public class OkCoinCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         EditableResults res = new SimpleResults();
 
@@ -462,7 +462,7 @@ public class OkCoinCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         EditableResults res = new SimpleResults();
         res.addColumn("result", MocaType.STRING);
@@ -500,7 +500,7 @@ public class OkCoinCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         EditableResults res = new SimpleResults();
         res.addColumn("result", MocaType.STRING);
@@ -555,9 +555,9 @@ public class OkCoinCmd {
         IStockRestApi stockPost = URLs.get(url_key);
         if (stockPost == null) {
             if ("US".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.com", hak, hsk);
+                stockPost = new StockRestApi("https://www.okcoin.com", _moca);
             } else if ("CHN".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.cn", hak, hsk);
+                stockPost = new StockRestApi("https://www.okcoin.cn", _moca);
             }
             URLs.put(url_key, stockPost);
         }
@@ -633,7 +633,7 @@ public class OkCoinCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         try {
             // 提交限价单接口 1btc 2ltc
@@ -674,9 +674,9 @@ public class OkCoinCmd {
         IStockRestApi stockPost = URLs.get(url_key);
         if (stockPost == null) {
             if ("US".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.com", null, null);
+                stockPost = new StockRestApi("https://www.okcoin.com", _moca);
             } else if ("CHN".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.cn", null, null);
+                stockPost = new StockRestApi("https://www.okcoin.cn", _moca);
             }
             URLs.put(url_key, stockPost);
         }
@@ -750,7 +750,7 @@ public class OkCoinCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;
@@ -822,9 +822,9 @@ public class OkCoinCmd {
         IStockRestApi stockPost = URLs.get(url_key);
         if (stockPost == null) {
             if ("US".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.com", null, null);
+                stockPost = new StockRestApi("https://www.okcoin.com", _moca);
             } else if ("CHN".equalsIgnoreCase(market)) {
-                stockPost = new StockRestApi("https://www.okcoin.cn", null, null);
+                stockPost = new StockRestApi("https://www.okcoin.cn", _moca);
             }
             URLs.put(url_key, stockPost);
         }
@@ -898,7 +898,7 @@ public class OkCoinCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;
@@ -988,9 +988,9 @@ public class OkCoinCmd {
         IStockRestApi stockGet = URLs.get(url_key);
         if (stockGet == null) {
             if ("US".equalsIgnoreCase(market)) {
-                stockGet = new StockRestApi("https://www.okcoin.com");
+                stockGet = new StockRestApi("https://www.okcoin.com", _moca);
             } else if ("CHN".equalsIgnoreCase(market)) {
-                stockGet = new StockRestApi("https://www.okcoin.cn");
+                stockGet = new StockRestApi("https://www.okcoin.cn", _moca);
             }
             URLs.put(url_key, stockGet);
         }

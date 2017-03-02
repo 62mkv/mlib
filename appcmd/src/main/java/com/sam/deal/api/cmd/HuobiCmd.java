@@ -192,7 +192,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         EditableResults res = new SimpleResults();
         JSONObject body = null;
@@ -258,7 +258,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         EditableResults res = new SimpleResults();
 
@@ -328,7 +328,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         EditableResults res = new SimpleResults();
         res.addColumn("result", MocaType.STRING);
@@ -366,7 +366,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         EditableResults res = new SimpleResults();
         res.addColumn("result", MocaType.STRING);
@@ -402,7 +402,7 @@ public class HuobiCmd {
     public MocaResults getAccountInfo(String hak, String hsk)
             throws MocaException {
 
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         try {
             // 提交限价单接口 1btc 2ltc
@@ -478,7 +478,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         try {
             // 提交限价单接口 1btc 2ltc
@@ -518,7 +518,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;
@@ -589,7 +589,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;
@@ -660,7 +660,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;
@@ -730,7 +730,7 @@ public class HuobiCmd {
         } else {
             ct = 2;
         }
-        HuobiService service = new HuobiService();
+        HuobiService service = new HuobiService(_moca);
         String resultStr = "";
         JSONObject body = null;
         MocaResults rs = null;

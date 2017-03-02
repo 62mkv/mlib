@@ -5,32 +5,59 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-
+import com.sam.deal.api.cmd.OkCoinCmd;
 import com.sam.deal.api.okcoin.rest.HttpUtilManager;
 import com.sam.deal.api.okcoin.rest.MD5Util;
 import com.sam.deal.api.okcoin.rest.StringUtil;
 import com.sam.deal.api.okcoin.rest.stock.IStockRestApi;
+import com.sam.moca.MocaContext;
+import com.sam.moca.MocaException;
+import com.sam.moca.MocaResults;
+import com.sam.moca.crud.CrudManager;
+import com.sam.moca.util.MocaUtils;
 
 
 public class StockRestApi implements IStockRestApi{
 
-	private String secret_key;
-	
-	private String api_key;
-	
+    private static String secret_key = "";
+    private static String api_key = "";
 	private String url_prex;
 	
-	private String dft_api_key = "ab4089d3-0917-4a9d-b461-9ef9554f13cf";  //OKCoin申请的apiKey
-    private String dft_secret_key = "82DCE35C15F34F9008D0CB07394BFBC0";  //OKCoin 申请的secret_key
-	
-	public StockRestApi(String url_prex,String api_key,String secret_key){
-		this.api_key = (api_key == null || api_key.isEmpty()) ? dft_api_key : api_key;
-		this.secret_key = (secret_key == null || secret_key.isEmpty()) ? dft_secret_key : secret_key;
-		this.url_prex = url_prex;
-	}
-	
-	public StockRestApi(String url_prex){
+    private MocaContext _moca = null;
+    private CrudManager _manager = null;
+    private Logger _logger = LogManager.getLogger(StockRestApi.class);
+    
+	public StockRestApi(String url_prex,
+	    MocaContext mocaCtx){
+	    
+	    if (mocaCtx != null) {
+	        _moca = mocaCtx;
+	        _manager = MocaUtils.crudManager(_moca);
+	        
+	        if (secret_key.isEmpty()) {
+	            MocaResults rs = null;
+	            try {
+	                rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = 'TRADE' and polval ='ACCESS-SECRET' and grp_id = '----'");
+	                rs.next();
+	                api_key = rs.getString("rtstr1");
+	                secret_key = rs.getString("rtstr2");
+	                _logger.info("got policy ACCESS-SECRET, api_key:" + api_key + ", secret_key:" + secret_key);
+	            } catch (MocaException e) {
+	                // TODO Auto-generated catch block
+	                _logger.error(e.getMessage());
+	                api_key = "ab4089d3-0917-4a9d-b461-9ef9554f13cf";
+	                secret_key = "82DCE35C15F34F9008D0CB07394BFBC0";
+	                _logger.info("Get policy ACCESS-SECRET error, use default value, api_key:" + api_key + ", secret_key:" + secret_key);
+	            }
+	        }
+	    }
+	    else {
+            api_key = "ab4089d3-0917-4a9d-b461-9ef9554f13cf";
+            secret_key = "82DCE35C15F34F9008D0CB07394BFBC0";
+	    }
 		this.url_prex = url_prex;
 	}
 	
