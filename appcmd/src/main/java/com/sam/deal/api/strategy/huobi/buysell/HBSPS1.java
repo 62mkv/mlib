@@ -25,6 +25,7 @@ public class HBSPS1 implements ISellPointSelector {
     private double soldLstPri = 0;
     private boolean wasStockInUnstableMode = false;
     private boolean firstGoToStockInUnstableMode = false;
+    private boolean shortCrossLongMode = false;
     private double FIRST_SHARPMODE_SELL_RATIO = -1;
     private double maxWaterLvl = 0.0;
     private HuoBiStock stock = null;
@@ -74,6 +75,24 @@ public class HBSPS1 implements ISellPointSelector {
         }
     }
     
+    private boolean reachedMaxStockInhandLevel () {
+        double maxPct = account.getMaxStockPct();
+        double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
+        double avaMny = account.getMaxAvaMny();
+        double totalAsset = stockMny + avaMny;
+        
+        double actPct = stockMny / totalAsset;
+        
+        log.info("actual stock inhand level:" + actPct + ", maxPct:" + maxPct);
+        if (Math.abs(actPct - maxPct) < 0.01) {
+            log.info("Stock inhand level reached max value, return true");
+            return true;
+        }
+        
+        log.info("Stock inhand level NOT reached max value, return false");
+        return false;
+    }
+    
 	public boolean isGoodSellPoint() {
         if (stock.isLstPriTurnaround(false) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
             log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
@@ -82,6 +101,11 @@ public class HBSPS1 implements ISellPointSelector {
         else {
             if (stock.getStockTrend() == eSTOCKTREND.SDOWN) {
                 log.info("Price trend is SDOWN, HBSPS1 return true!");
+                return true;
+            }
+            else if (stock.isShortCrossLong(false) && reachedMaxStockInhandLevel()) {
+                log.info("Short term is dead cross long term and reached max inhand stock level, HBSPS1 return true!");
+                shortCrossLongMode = true;
                 return true;
             }
             log.info("HBSPS1 return false.");
@@ -109,6 +133,13 @@ public class HBSPS1 implements ISellPointSelector {
         else if (!stock.isStockUnstableMode() && wasStockInUnstableMode) {
             log.info("reset wasStockInUnstableMode to false.");
             wasStockInUnstableMode = false;
+        }
+        else if (shortCrossLongMode) {
+            log.info("stock dead cross and reached max stock level, sell with ratio ava money");
+            shortCrossLongMode = false;
+            sellableAmt = avaStock * FIRST_SHARPMODE_SELL_RATIO;
+            log.info("got sellableAmt:" + sellableAmt + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_SELL_RATIO + " * ava stock:" + avaStock);
+            return sellableAmt;
         }
 	    
         double sellabeleMny = account.getSellableMny();

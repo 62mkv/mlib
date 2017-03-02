@@ -33,6 +33,7 @@ public class OCBPS1 implements IBuyPointSelector {
     private double boughtLstPri = 0;
     private boolean wasStockInUnstableMode = false;
     private boolean firstGoToStockInUnstableMode = false;
+    private boolean shortCrossLongMode = false;
     private double FIRST_SHARPMODE_BUY_RATIO = -1;
     private double minWaterLvl = 0.0;
     private OkCoinStock stock = null;
@@ -97,6 +98,24 @@ public class OCBPS1 implements IBuyPointSelector {
         }
     }
     
+    private boolean reachedMinStockInhandLevel () {
+        double minPct = account.getMinStockPct();
+        double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
+        double avaMny = account.getMaxAvaMny();
+        double totalAsset = stockMny + avaMny;
+        
+        double actPct = stockMny / totalAsset;
+        
+        log.info("actual stock inhand level:" + actPct + ", minPct:" + minPct);
+        if (Math.abs(actPct - minPct) < 0.01) {
+            log.info("Stock inhand level reached min value, return true");
+            return true;
+        }
+        
+        log.info("Stock inhand level NOT reached min value, return false");
+        return false;
+    }
+    
 	@Override
 	public boolean isGoodBuyPoint() {
 	    if (stock.isLstPriTurnaround(true) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
@@ -106,6 +125,11 @@ public class OCBPS1 implements IBuyPointSelector {
 	    else {
             if (stock.getStockTrend() == eSTOCKTREND.SUP) {
                 log.info("Price trend is SUP, HBBPS1 return true!");
+                return true;
+            }
+            else if (stock.isShortCrossLong(true) && reachedMinStockInhandLevel()) {
+                log.info("Short term is golden cross long term and reached min inhand stock level, OCBPS1 return true!");
+                shortCrossLongMode = true;
                 return true;
             }
 	        log.info("OCBPS1 return false.");
@@ -153,6 +177,12 @@ public class OCBPS1 implements IBuyPointSelector {
         else if (!stock.isStockUnstableMode() && wasStockInUnstableMode) {
             log.info("reset wasStockInUnstableMode to false.");
             wasStockInUnstableMode = false;
+        }
+        else if (shortCrossLongMode) {
+            log.info("stock golden cross and reached min stock level, buy with ratio ava money");
+            buyableMny = account.getMaxAvaMny() * FIRST_SHARPMODE_BUY_RATIO;
+            shortCrossLongMode = false;
+            log.info("got buyablemny:" + buyableMny + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_BUY_RATIO + " * ava mny:" + account.getMaxAvaMny());
         }
         boolean boughtComplete = false;
         

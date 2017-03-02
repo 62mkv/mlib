@@ -1,5 +1,6 @@
 polcod,polvar,polval,srtseq,rtstr1,rtstr2,rtnum1,rtnum2,rtflt1,rtflt2,moddte,mod_usr_id,grp_id
 HUOBI,TRADE,ACCESS-SECRET,0,a4379746-a122fb6b-0a8eba26-63f47,d85c11ec-856a9e77-15061294-c63bb,0,0,0,0,sysdate,Install,----
+HUOBI,BTC,SHORT_LONG_TERM,0,,,180,960,0,0,sysdate,Install,----
 HUOBI,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
 HUOBI,BTC,MNYPERDEAL,0,,,0,0,3000,10000,sysdate,Install,----
 HUOBI,BTC,STOCKPCTLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
@@ -11,6 +12,7 @@ HUOBI,BTC,LAST_PRICE_BOX_GAP,0,,,0,0,70,100,sysdate,Install,----
 HUOBI,BTC,LAST_PRICE_BOX_GAP_RATIO,0,,,0,0,1.2,0,sysdate,Install,----
 HUOBI,BTC,FIRST_SHARPMODE_BUYSELL_RATIO,0,,,0,0,0.5,1,sysdate,Install,----
 HUOBI,LTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
+HUOBI,LTC,SHORT_LONG_TERM,0,,,180,960,0,0,sysdate,Install,----
 HUOBI,LTC,MNYPERDEAL,0,,,0,0,1000,0,sysdate,Install,----
 HUOBI,LTC,STOCKPCTLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
 HUOBI,LTC,DEALWATERLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
@@ -21,6 +23,7 @@ HUOBI,LTC,LAST_PRICE_BOX_GAP,0,,,0,0,0.5,1,sysdate,Install,----
 HUOBI,LTC,LAST_PRICE_BOX_GAP_RATIO,0,,,0,0,1.2,0,sysdate,Install,----
 HUOBI,LTC,FIRST_SHARPMODE_BUYSELL_RATIO,0,,,0,0,0.5,1,sysdate,Install,----
 OKCOIN,TRADE,ACCESS-SECRET,0,ab4089d3-0917-4a9d-b461-9ef9554f13cf,82DCE35C15F34F9008D0CB07394BFBC0,0,0,0,0,sysdate,Install,----
+OKCOIN,BTC,SHORT_LONG_TERM,0,,,180,960,0,0,sysdate,Install,----
 OKCOIN,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
 OKCOIN,BTC,MNYPERDEAL,0,,,0,0,100,300,sysdate,Install,----
 OKCOIN,BTC,STOCKPCTLVL,0,,,0,0,0.2,0.8,sysdate,Install,----

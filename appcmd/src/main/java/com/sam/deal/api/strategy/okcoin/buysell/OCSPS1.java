@@ -26,6 +26,7 @@ public class OCSPS1 implements ISellPointSelector {
     private double soldLstPri = 0;
     private boolean wasStockInUnstableMode = false;
     private boolean firstGoToStockInUnstableMode = false;
+    private boolean shortCrossLongMode = false;
     private double FIRST_SHARPMODE_SELL_RATIO = -1;
     private double maxWaterLvl = 0.0;
     private OkCoinStock stock = null;
@@ -75,6 +76,24 @@ public class OCSPS1 implements ISellPointSelector {
         }
     }
     
+    private boolean reachedMaxStockInhandLevel () {
+        double maxPct = account.getMaxStockPct();
+        double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
+        double avaMny = account.getMaxAvaMny();
+        double totalAsset = stockMny + avaMny;
+        
+        double actPct = stockMny / totalAsset;
+        
+        log.info("actual stock inhand level:" + actPct + ", maxPct:" + maxPct);
+        if (Math.abs(actPct - maxPct) < 0.01) {
+            log.info("Stock inhand level reached max value, return true");
+            return true;
+        }
+        
+        log.info("Stock inhand level NOT reached max value, return false");
+        return false;
+    }
+    
 	public boolean isGoodSellPoint() {
         if (stock.isLstPriTurnaround(false) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
             log.info("Stock trend truns down at "+ maxWaterLvl + " level, OCSPS1 return true.");
@@ -83,6 +102,11 @@ public class OCSPS1 implements ISellPointSelector {
         else {
             if (stock.getStockTrend() == eSTOCKTREND.SDOWN) {
                 log.info("Price trend is SDOWN, OCSPS1 return true!");
+                return true;
+            }
+            else if (stock.isShortCrossLong(false) && reachedMaxStockInhandLevel()) {
+                log.info("Short term is dead cross long term and reached max inhand stock level, OCSPS1 return true!");
+                shortCrossLongMode = true;
                 return true;
             }
             log.info("OCSPS1 return false.");
@@ -110,6 +134,13 @@ public class OCSPS1 implements ISellPointSelector {
             log.info("reset wasStockInUnstableMode to false.");
             wasStockInUnstableMode = false;
         }
+        else if (shortCrossLongMode) {
+            log.info("stock dead cross and reached max stock level, sell with ratio ava money");
+            shortCrossLongMode = false;
+            sellableAmt = avaStock * FIRST_SHARPMODE_SELL_RATIO;
+            log.info("got sellableAmt:" + sellableAmt + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_SELL_RATIO + " * ava stock:" + avaStock);
+            return sellableAmt;
+        }
 	    
         double sellabeleMny = account.getSellableMny();
 	    double lstPri = stock.getLastPri();
@@ -126,18 +157,20 @@ public class OCSPS1 implements ISellPointSelector {
         double sellableQty = getSellQty();
         boolean soldComplete = false;
         
-        double minPct = account.getMinStockPct();
-        double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
-        double avaMny = account.getMaxAvaMny();
-        double totalAsset = stockMny + avaMny;
-        
-        double avaPct = (stockMny / totalAsset) - minPct;
-        log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
-        double sellableQty2 = avaPct * totalAsset / stock.getLastPri();
-        log.info("sellableQty:" + sellableQty + ", stock ctl sellableQty2:" + sellableQty2);
-        if (sellableQty > sellableQty2) {
-            sellableQty = sellableQty2;
-        }
+	    if (!firstGoToStockInUnstableMode) {
+            double minPct = account.getMinStockPct();
+            double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
+            double avaMny = account.getMaxAvaMny();
+            double totalAsset = stockMny + avaMny;
+            
+            double avaPct = (stockMny / totalAsset) - minPct;
+            log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
+            double sellableQty2 = avaPct * totalAsset / stock.getLastPri();
+            log.info("sellableQty:" + sellableQty + ", stock ctl sellableQty2:" + sellableQty2);
+            if (sellableQty > sellableQty2) {
+                sellableQty = sellableQty2;
+            }
+	    }
         
         if (sellableQty < soldQty + 0.001) {
         	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");

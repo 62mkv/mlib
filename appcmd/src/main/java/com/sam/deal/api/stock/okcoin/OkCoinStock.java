@@ -44,6 +44,10 @@ public class OkCoinStock implements IStock{
     private boolean IS_IN_UNSTABLE_MODE = false;
     private BoundArrayList<Double> det_buy_turnaround = new BoundArrayList<Double>(3);
     private BoundArrayList<Double> det_sell_turnaround = new BoundArrayList<Double>(3);
+    private BoundArrayList<Double> short_term_price = null;
+    private BoundArrayList<Double> long_term_price = null;
+    private int SHORT_TERM = 0;
+    private int LONG_TERM = 0;
     private int loadCount = 0;
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -52,6 +56,8 @@ public class OkCoinStock implements IStock{
     double minpri = 100000;
     double history_maxpri = 0;
     double history_minpri = 100000;
+    double pre_longAvgPri = 0;
+    double pre_shortAvgPri = 0;
     
     public double getSmallPriceDiff() {
         return SMALL_PRICE_DIFF;
@@ -374,6 +380,30 @@ public class OkCoinStock implements IStock{
             }
         }
         
+        try {
+            MocaResults rs = _moca.executeCommand("list policies where polcod ='OKCOIN' and polvar = '" + polvar
+                               + "' and polval ='SHORT_LONG_TERM' and grp_id = '----'");
+            rs.next();
+            SHORT_TERM = rs.getInt("rtnum1");
+            LONG_TERM = rs.getInt("rtnum2");
+            _logger.info("got policy, SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
+        } catch (MocaException e) {
+            _logger.error(e.getMessage());
+            if (polvar.equalsIgnoreCase("BTC")) {
+                SHORT_TERM = 12 * 10; //10 minutes since 5 seconds per fetch
+                LONG_TERM = 12 * 10 * 6; //1 hour
+                _logger.info("got policy error, use default SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
+            }
+            else {
+                SHORT_TERM = 12 * 10; //10 minutes since 5 seconds per fetch
+                LONG_TERM = 12 * 10 * 6; //1 hour
+                _logger.info("got policy error, use default SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
+           }
+        }
+        
+        short_term_price = new BoundArrayList<Double>(SHORT_TERM);
+        long_term_price = new BoundArrayList<Double>(LONG_TERM);
+        
         top10 = new Top10Data();
         trd = new TradeData();
         tid = new TickerData();
@@ -384,6 +414,9 @@ public class OkCoinStock implements IStock{
         loadTradeData();
         loadTickerData();
         calStockTrend();
+        int sz = trd.price_lst.size();
+        short_term_price.add(trd.price_lst.get(sz -1));
+        long_term_price.add(trd.price_lst.get(sz -1));
         loadCount++;
     }
     
@@ -391,6 +424,8 @@ public class OkCoinStock implements IStock{
         clearTop10Data();
         clearTradeData();
         clearTickerData();
+        short_term_price.clear();
+        long_term_price.clear();
         this.calStockTrend();
         loadCount = 0;
         history_maxpri = maxpri;
@@ -877,6 +912,67 @@ public class OkCoinStock implements IStock{
         boolean t2 = this.trd.dumpDatatoDB();
         boolean t3 = this.tid.dumpDatatoDB();
         return t1 && t2 && t3;
+    }
+    
+    @Override
+    public boolean isShortCrossLong(boolean gloden_flag) {
+        int ssz = short_term_price.size();
+        int lsz = long_term_price.size();
+        if (lsz < LONG_TERM || ssz < SHORT_TERM) {
+            _logger.info("long term size is not enough lsz:" + lsz + ", ssz:" + ssz + ", return false");
+            return false;
+        }
+        
+        boolean result = false;
+        int i;
+        double longAvgPri = 0;
+        for (i = 0; i < lsz; i++) {
+            longAvgPri += long_term_price.get(i);
+        }
+        
+        longAvgPri = longAvgPri / lsz;
+        
+        double shortAvgPri = 0;
+        for (i = 0; i < ssz; i++) {
+            shortAvgPri += short_term_price.get(i);
+        }
+        
+        shortAvgPri = shortAvgPri / ssz;
+        
+        _logger.info("longAvgPri:" + longAvgPri + ", shortAvgPri:" + shortAvgPri + ", pre_longAvgPri:" + pre_longAvgPri + ", pre_shortAvgPri:" + pre_shortAvgPri);
+        _logger.info("shortAvgPri - longAvgPri" + (shortAvgPri - longAvgPri) + "pre_shortAvgPri - pre_longAvgPri:" + (pre_shortAvgPri - pre_longAvgPri));
+
+        if (pre_longAvgPri == 0 || pre_shortAvgPri == 0) {
+            pre_longAvgPri = longAvgPri;
+            pre_shortAvgPri = shortAvgPri;
+            _logger.info("no previous long/short term price, set and return false");
+            return false;
+        }
+        
+        if (gloden_flag) {
+            if (pre_shortAvgPri + 0.01 <= pre_longAvgPri &&
+                shortAvgPri >= longAvgPri + 0.01) {
+                _logger.info("gloden cross return TRUE");
+                result = true;
+            }
+	    else {
+                _logger.info("gloden cross return FALSE.");
+	    }
+        }
+        else {
+            if (pre_shortAvgPri >= pre_longAvgPri + 0.01 &&
+                shortAvgPri + 0.01 <= longAvgPri ) {
+                    _logger.info("dead cross return TRUE.");
+                    result = true;
+                }
+	    else {
+                _logger.info("dead cross return FALSE.");
+	    }
+        }
+        
+        pre_shortAvgPri = shortAvgPri;
+        pre_longAvgPri = longAvgPri;
+        return result;
     }
     
     @Override

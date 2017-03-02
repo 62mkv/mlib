@@ -11,6 +11,7 @@ public interface IStock {
     public Double getOpenPri();
     public Double getLastPri();
     public Double getVolume();
+    public boolean isShortCrossLong(boolean gloden_flag);
     
     public eSTOCKTREND getStockTrend();
     public eSTOCKTREND calStockTrend();
