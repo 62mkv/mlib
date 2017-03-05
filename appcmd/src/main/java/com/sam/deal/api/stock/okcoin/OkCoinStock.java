@@ -44,6 +44,8 @@ public class OkCoinStock implements IStock{
     private boolean IS_IN_UNSTABLE_MODE = false;
     private BoundArrayList<Double> det_buy_turnaround = new BoundArrayList<Double>(3);
     private BoundArrayList<Double> det_sell_turnaround = new BoundArrayList<Double>(3);
+    private BoundArrayList<Double> det_buy_plusback = new BoundArrayList<Double>(3);
+    private BoundArrayList<Double> det_sell_plusback = new BoundArrayList<Double>(3);
     private BoundArrayList<Double> short_term_price = null;
     private BoundArrayList<Double> long_term_price = null;
     private int SHORT_TERM = 0;
@@ -390,13 +392,13 @@ public class OkCoinStock implements IStock{
         } catch (MocaException e) {
             _logger.error(e.getMessage());
             if (polvar.equalsIgnoreCase("BTC")) {
-                SHORT_TERM = 12 * 10; //10 minutes since 5 seconds per fetch
-                LONG_TERM = 12 * 10 * 6; //1 hour
+                SHORT_TERM = 12 * 60 * 5; //5 hours since 5 seconds per fetch
+                LONG_TERM = 12 * 60 * 10; //10 hour
                 _logger.info("got policy error, use default SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
             }
             else {
-                SHORT_TERM = 12 * 10; //10 minutes since 5 seconds per fetch
-                LONG_TERM = 12 * 10 * 6; //1 hour
+                SHORT_TERM = 12 * 60 * 5;
+                LONG_TERM = 12 * 60 * 10;
                 _logger.info("got policy error, use default SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
            }
         }
@@ -644,7 +646,7 @@ public class OkCoinStock implements IStock{
             return false;
         }
         
-        _logger.info("\nsize:" + sz + " inc_flg:" + inc_flg);
+        _logger.info("size:" + sz + " inc_flg:" + inc_flg);
         
         double lstAvgPri = 0;
         for (int i = 0; i < lenForAvg; i++) {
@@ -660,7 +662,7 @@ public class OkCoinStock implements IStock{
         
         midAvgPri = midAvgPri / lenForAvg;
         
-        _logger.info("lstAvgPri:" + lstAvgPri + "\nmidAvgPri:" + midAvgPri);
+        _logger.info("lstAvgPri:" + lstAvgPri + " midAvgPri:" + midAvgPri);
         double lstDetPri = (inc_flg ? (lstAvgPri - midAvgPri) : (midAvgPri - lstAvgPri));
 
         if (inc_flg) {
@@ -670,9 +672,9 @@ public class OkCoinStock implements IStock{
                 double b0 = det_buy_turnaround.get(0);
                 double b1 = det_buy_turnaround.get(1);
                 double b2 = det_buy_turnaround.get(2);
-                _logger.info("det_buy_turnaround sz:" + szb + ", b0:" + b0 + ", b1:" + b1 + ", b2:" + b2 +
-                        ", b0 - b1 = " + (b0 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
-                        ", b2 - b1 = " + (b2 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                _logger.info("det_buy_turnaround sz:" + szb + ", b0:" + b0 + ", b1:" + b1 + ", b2:" + b2);
+                _logger.info("turnaround: b0 - b1 = " + (b0 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", b2 - b1 = " + (b2 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
                 if ((b0 - b1) > SMALL_PRICE_DIFF &&
                     (b2 - b1) > SMALL_PRICE_DIFF) {
                     _logger.info("isLstPriTurnaround return true for buy.");
@@ -690,9 +692,9 @@ public class OkCoinStock implements IStock{
                 double s0 = det_sell_turnaround.get(0);
                 double s1 = det_sell_turnaround.get(1);
                 double s2 = det_sell_turnaround.get(2);
-                _logger.info("det_sell_turnaround sz:" + szs + ", s0:" + s0 + ", s1:" + s1 + ", s2:" + s2 +
-                        ", s1 - s0 = " + (s1 - s0) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
-                        ", s1 - s2 = " + (s1 - s2) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                _logger.info("det_sell_turnaround sz:" + szs + ", s0:" + s0 + ", s1:" + s1 + ", s2:" + s2);
+                _logger.info("turnaround: s1 - s0 = " + (s1 - s0) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", s1 - s2 = " + (s1 - s2) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
                 if ((s1 - s0) > SMALL_PRICE_DIFF &&
                     (s1 - s2) > SMALL_PRICE_DIFF) {
                     _logger.info("isLstPriTurnaround return true for sell.");
@@ -701,6 +703,85 @@ public class OkCoinStock implements IStock{
             }
             else {
                 _logger.info("for sell sz is less than 3:" + szs + ", isLstPriTurnaround return false");
+            }
+        }
+        return false;
+    }
+    
+    public boolean isLstPriPlusBack(boolean inc_flg) {
+
+        int sz = tid.last_lst.size();
+        
+        int lenForAvg = 2;
+        
+        if (sz < 3 * lenForAvg) {
+            _logger.info("last_lst sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");
+            if (inc_flg) {
+                det_buy_plusback.clear();
+            }
+            else {
+                det_sell_plusback.clear();
+            }
+            return false;
+        }
+        
+        _logger.info("plusback size:" + sz + " inc_flg:" + inc_flg);
+        
+        double lstAvgPri = 0;
+        for (int i = 0; i < lenForAvg; i++) {
+            lstAvgPri += tid.last_lst.get(sz - 1 -i);
+        }
+        
+        lstAvgPri = lstAvgPri / lenForAvg;
+        
+        double midAvgPri = 0;
+        for (int i = 0; i < lenForAvg; i++) {
+            midAvgPri += tid.last_lst.get(sz - 1 -i - lenForAvg);
+        }
+        
+        midAvgPri = midAvgPri / lenForAvg;
+        
+        _logger.info("plushback lstAvgPri:" + lstAvgPri + " midAvgPri:" + midAvgPri);
+        double lstDetPri = (inc_flg ? (lstAvgPri - midAvgPri) : (midAvgPri - lstAvgPri));
+
+        if (inc_flg) {
+            det_buy_plusback.add(lstDetPri);
+            int szb = det_buy_plusback.size();
+            if (szb >= 3) {
+                double b0 = det_buy_plusback.get(0);
+                double b1 = det_buy_plusback.get(1);
+                double b2 = det_buy_plusback.get(2);
+                _logger.info("det_buy_plusback sz:" + szb + ", b0:" + b0 + ", b1:" + b1 + ", b2:" + b2);
+                _logger.info("b0 - b1 = " + (b0 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", b2 - b1 = " + (b2 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                if ((b0 - b1) > SMALL_PRICE_DIFF &&
+                    (b2 - b1) > SMALL_PRICE_DIFF) {
+                    _logger.info("isLstPriPlusBack return true for buy.");
+                    return true;
+                }
+            }
+            else {
+                _logger.info("for buy sz is less than 3:" + szb + ", isLstPriPlusBack return false");
+            }
+        }
+        else {
+            det_sell_plusback.add(lstDetPri);
+            int szs = det_sell_plusback.size();
+            if (szs >= 3) {
+                double s0 = det_sell_plusback.get(0);
+                double s1 = det_sell_plusback.get(1);
+                double s2 = det_sell_plusback.get(2);
+                _logger.info("det_sell_plusback sz:" + szs + ", s0:" + s0 + ", s1:" + s1 + ", s2:" + s2);
+                _logger.info("s1 - s0 = " + (s1 - s0) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", s1 - s2 = " + (s1 - s2) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                if ((s1 - s0) > SMALL_PRICE_DIFF &&
+                    (s1 - s2) > SMALL_PRICE_DIFF) {
+                    _logger.info("det_sell_plusback return true for sell.");
+                    return true;
+                }
+            }
+            else {
+                _logger.info("for sell sz is less than 3:" + szs + ", det_sell_plusback return false");
             }
         }
         return false;
@@ -1101,12 +1182,12 @@ public class OkCoinStock implements IStock{
                              "\n LAST_PRICE_BOX_GAP_MAX:" + LAST_PRICE_BOX_GAP_MAX +
                              "\n BIG_PRICE_DIFF:" + BIG_PRICE_DIFF +
                              "\n LAST_PRICE_BOX_GAP_MIN / 6:" + LAST_PRICE_BOX_GAP_MIN / 6);
-                if (!IS_IN_UNSTABLE_MODE && history_maxpri - lstAvgPri >= 4 * LAST_PRICE_BOX_GAP_MAX && lstDetPri > midDetPri + BIG_PRICE_DIFF) {
+                if (history_maxpri - lstAvgPri >= 4 * LAST_PRICE_BOX_GAP_MAX && lstDetPri > midDetPri + BIG_PRICE_DIFF) {
                     _logger.info("stock trend set to SUP, and IS_IN_UNSTABLE_MODE to true!");
                     st = eSTOCKTREND.SUP;
                     IS_IN_UNSTABLE_MODE = true;
                 }
-                else if (!IS_IN_UNSTABLE_MODE && DetPri <= -LAST_PRICE_BOX_GAP_MIN && lstDetPri + BIG_PRICE_DIFF < midDetPri) {
+                else if (DetPri <= -2 * LAST_PRICE_BOX_GAP_MAX && lstDetPri + BIG_PRICE_DIFF < midDetPri) {
                     _logger.info("stock trend set to SDOWN, and IS_IN_UNSTABLE_MODE to true!");
                     st = eSTOCKTREND.SDOWN;
                     IS_IN_UNSTABLE_MODE = true;

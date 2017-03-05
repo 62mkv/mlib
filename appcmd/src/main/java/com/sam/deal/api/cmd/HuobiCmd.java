@@ -179,6 +179,78 @@ public class HuobiCmd {
         return rs;
     }
 
+    public MocaResults getPeriodData(String market, String coinType,
+            String period, int length) throws MocaException {
+
+        /*
+         * [["20170214150000000",6785,6789,6741.5,6768,69.5376],
+         * ["20170214160000000",6768,6860,6766,6840,685.8823],
+         * ["20170214170000000",6840.1,6846,6801.71,6829.05,359.3661],
+         * ["20170214180000000",6835,6836,6806,6807,171.8983],
+         * ["20170214190000000",6808,6814,6667,6680,351.8459],
+         * ["20170214200000000",6700,6750,6680,6714,618.1896], ...
+         */
+
+        String url_key = market + "|" + coinType + "|" + period + "|" + length + "|" + URL_PERIODDATA;
+        String marketDataUrl = URLs.get(url_key);
+        if (marketDataUrl == null || marketDataUrl.isEmpty()) {
+            if ("US".equalsIgnoreCase(market)) {
+                marketDataUrl = "http://api.huobi.com/usdmarket/btc_kline_" + period + "_json.js?length=" + length;
+            } else if ("CHN".equalsIgnoreCase(market)) {
+                if ("BTC".equalsIgnoreCase(coinType)) {
+                    marketDataUrl = "http://api.huobi.com/staticmarket/btc_kline_" + period + "_json.js?length=" + length;
+                } else {
+                    marketDataUrl = "http://api.huobi.com/staticmarket/ltc_kline_" + period + "_json.js?length=" + length;
+                }
+            }
+            URLs.put(url_key, marketDataUrl);
+        }
+
+        String cmd = "do http request where url = '" + marketDataUrl + "'";
+        MocaResults rs = null;
+        EditableResults res = new SimpleResults();
+        res.addColumn("time", MocaType.STRING);
+        res.addColumn("open", MocaType.DOUBLE);
+        res.addColumn("high", MocaType.DOUBLE);
+        res.addColumn("low", MocaType.DOUBLE);
+        res.addColumn("close", MocaType.DOUBLE);
+        res.addColumn("volume", MocaType.DOUBLE);
+        try {
+            rs = _moca.executeCommand(cmd);
+            if (rs.next()) {
+                String text = rs.getString("body");
+                _logger.debug("body:" + text);
+                JSONArray body = new JSONArray(text);
+                String[] time = new String[length];
+                double[] open = new double[length];
+                double[] high = new double[length];
+                double[] low = new double[length];
+                double[] close = new double[length];
+                double[] volume = new double[length];
+                for (int i = 0; i < length; i++) {
+                    time[i] = ((JSONArray) body.get(i)).getString(0);
+                    open[i] = ((JSONArray) body.get(i)).getDouble(1);
+                    high[i] = ((JSONArray) body.get(i)).getDouble(2);
+                    low[i] = ((JSONArray) body.get(i)).getDouble(3);
+                    close[i] = ((JSONArray) body.get(i)).getDouble(4);
+                    volume[i] = ((JSONArray) body.get(i)).getDouble(5);
+                    res.addRow();
+                    res.setStringValue("time", time[i]);
+                    res.setDoubleValue("open", open[i]);
+                    res.setDoubleValue("high", high[i]);
+                    res.setDoubleValue("low", low[i]);
+                    res.setDoubleValue("close", close[i]);
+                    res.setDoubleValue("volume", volume[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            _logger.debug("getPeriodData Exception:" + e.getMessage());
+            throw new MocaException(-1403, e.getMessage());
+        }
+
+        return res;
+    }
     /**
      * @param coinType:
      *            1 'btc', 2 'ltc'
@@ -1160,6 +1232,7 @@ public class HuobiCmd {
     private final MocaContext _moca;
     private final CrudManager _manager;
     private final String URL_TYPE1 = "getRealTimeRecord";
+    private final String URL_PERIODDATA = "getPeriodData";
     private final String URL_TYPE2 = "getTop10Data";
     private static String BUY = "buy";
     private static String BUY_MARKET = "buy_market";

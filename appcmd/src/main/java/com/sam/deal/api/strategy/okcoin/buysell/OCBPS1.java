@@ -33,7 +33,7 @@ public class OCBPS1 implements IBuyPointSelector {
     private double boughtLstPri = 0;
     private boolean wasStockInUnstableMode = false;
     private boolean firstGoToStockInUnstableMode = false;
-    private boolean shortCrossLongMode = false;
+    private boolean replenishStockMode = false;
     private double FIRST_SHARPMODE_BUY_RATIO = -1;
     private double minWaterLvl = 0.0;
     private OkCoinStock stock = null;
@@ -107,7 +107,7 @@ public class OCBPS1 implements IBuyPointSelector {
         double actPct = stockMny / totalAsset;
         
         log.info("actual stock inhand level:" + actPct + ", minPct:" + minPct);
-        if (Math.abs(actPct - minPct) < 0.01) {
+        if (actPct - minPct <= 0.01) {
             log.info("Stock inhand level reached min value, return true");
             return true;
         }
@@ -119,7 +119,7 @@ public class OCBPS1 implements IBuyPointSelector {
 	@Override
 	public boolean isGoodBuyPoint() {
 	    if (stock.isLstPriTurnaround(true) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
-	        log.info("Stock trend turn up and at low 0.1 level, HBBPS1 return true.");
+	        log.info("Stock trend turn up and at low " + minWaterLvl + " level, OCBPS1 return true.");
 	        return true;
 	    }
 	    else {
@@ -127,10 +127,15 @@ public class OCBPS1 implements IBuyPointSelector {
                 log.info("Price trend is SUP, HBBPS1 return true!");
                 return true;
             }
-            else if (stock.isShortCrossLong(true) && reachedMinStockInhandLevel()) {
-                log.info("Short term is golden cross long term and reached min inhand stock level, OCBPS1 return true!");
-                shortCrossLongMode = true;
+            else if (stock.isStockUnstableMode() && reachedMinStockInhandLevel() && stock.isLstPriPlusBack(true)) {
+                log.info("Stock unstale mode and plusback and reached min inhand stock level, OCBPS1 return true!");
+                replenishStockMode = true;
                 return true;
+            }
+            else if (stock.isShortCrossLong(true) || reachedMinStockInhandLevel()) {
+                log.info("Short term is golden cross long term or reached min level, enable replenishStockMode but OCBPS1 return false!");
+                replenishStockMode = true;
+                return false;
             }
 	        log.info("OCBPS1 return false.");
 	        return false;
@@ -178,10 +183,9 @@ public class OCBPS1 implements IBuyPointSelector {
             log.info("reset wasStockInUnstableMode to false.");
             wasStockInUnstableMode = false;
         }
-        else if (shortCrossLongMode) {
-            log.info("stock golden cross and reached min stock level, buy with ratio ava money");
+        else if (replenishStockMode) {
+            log.info("stock replenishStockMode and reached min stock level, buy with ratio ava money");
             buyableMny = account.getMaxAvaMny() * FIRST_SHARPMODE_BUY_RATIO;
-            shortCrossLongMode = false;
             log.info("got buyablemny:" + buyableMny + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_BUY_RATIO + " * ava mny:" + account.getMaxAvaMny());
         }
         boolean boughtComplete = false;
@@ -271,6 +275,7 @@ public class OCBPS1 implements IBuyPointSelector {
                     if (boughtMny + 1 >= buyableMny) {
                         log.info("bought money:" + boughtMny + " success, which is bigger then buyableMny:" + buyableMny + " return true.");
                         boughtComplete = true;
+                        replenishStockMode = false;
                         boughtMny = 0;
                         break;
                     }

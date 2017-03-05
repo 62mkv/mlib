@@ -1,0 +1,29 @@
+<command>
+<name>get period data</name>
+<description>get period statistic data.</description>
+<type>Java Method</type>
+<class>HuobiCmd</class>
+<method>getPeriodData</method>
+<argument name="market" alias="mk" required="yes" datatype="string">
+'US' or 'CHN'
+</argument>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+'btc' or 'ltc'
+</argument>
+<argument name="period" required="yes" datatype="string">
+001     1分钟线
+005     5分钟
+015     15分钟
+030     30分钟
+060     60分钟
+100     日线
+200     周线
+300     月线
+400     年线
+</argument>
+<argument name="length" required="yes" datatype="int">
+The rows returned.
+</argument>
+<documentation>
+</documentation>
+</command>

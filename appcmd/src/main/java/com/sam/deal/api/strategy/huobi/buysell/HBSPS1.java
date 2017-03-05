@@ -25,7 +25,7 @@ public class HBSPS1 implements ISellPointSelector {
     private double soldLstPri = 0;
     private boolean wasStockInUnstableMode = false;
     private boolean firstGoToStockInUnstableMode = false;
-    private boolean shortCrossLongMode = false;
+    private boolean replenishStockMode = false;
     private double FIRST_SHARPMODE_SELL_RATIO = -1;
     private double maxWaterLvl = 0.0;
     private HuoBiStock stock = null;
@@ -84,7 +84,7 @@ public class HBSPS1 implements ISellPointSelector {
         double actPct = stockMny / totalAsset;
         
         log.info("actual stock inhand level:" + actPct + ", maxPct:" + maxPct);
-        if (Math.abs(actPct - maxPct) < 0.01) {
+        if (actPct - maxPct >= 0.01) {
             log.info("Stock inhand level reached max value, return true");
             return true;
         }
@@ -103,10 +103,10 @@ public class HBSPS1 implements ISellPointSelector {
                 log.info("Price trend is SDOWN, HBSPS1 return true!");
                 return true;
             }
-            else if (stock.isShortCrossLong(false) && reachedMaxStockInhandLevel()) {
-                log.info("Short term is dead cross long term and reached max inhand stock level, HBSPS1 return true!");
-                shortCrossLongMode = true;
-                return true;
+            else if (stock.isShortCrossLong(false) || reachedMaxStockInhandLevel()) {
+                log.info("Short term is dead cross long term or reached max level, enable replenishStockMode, but HBSPS1 return false!");
+                replenishStockMode = true;
+                return false;
             }
             log.info("HBSPS1 return false.");
             return false;
@@ -119,7 +119,6 @@ public class HBSPS1 implements ISellPointSelector {
 	    double avaStock = account.getAvaQty(ct);
 	    double sellableAmt = 0;
 	    
-        
         firstGoToStockInUnstableMode = false;
         if (stock.isStockUnstableMode() && !wasStockInUnstableMode) {
             
@@ -134,9 +133,8 @@ public class HBSPS1 implements ISellPointSelector {
             log.info("reset wasStockInUnstableMode to false.");
             wasStockInUnstableMode = false;
         }
-        else if (shortCrossLongMode) {
-            log.info("stock dead cross and reached max stock level, sell with ratio ava money");
-            shortCrossLongMode = false;
+        else if (replenishStockMode) {
+            log.info("stock replenishStockMode and reached max stock level, sell with ratio ava money");
             sellableAmt = avaStock * FIRST_SHARPMODE_SELL_RATIO;
             log.info("got sellableAmt:" + sellableAmt + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_SELL_RATIO + " * ava stock:" + avaStock);
             return sellableAmt;
@@ -220,6 +218,7 @@ public class HBSPS1 implements ISellPointSelector {
                         soldQty = 0;
                     }
                     
+                    boolean sellWithFixedPrice = false;
                     for (int i = 0; i < 10; i++) {
                         double buyAmt = top10BuyAmt[i];
                         double buyPri = top10BuyPri[i];
@@ -227,16 +226,28 @@ public class HBSPS1 implements ISellPointSelector {
                         if (buyPri + bpg < lstPri) {
                             log.info("process buy[" + (i+1) + "], skip sell more as buyPri:" + buyPri + " + BigPriceDiff:" + bpg + " < lstPri:" + lstPri);
                             log.info("check firstGoToStockInUnstableMode:" + firstGoToStockInUnstableMode + " for force sell all...");
-                            if (!firstGoToStockInUnstableMode) {
+                            if (!firstGoToStockInUnstableMode && !replenishStockMode) {
                                 break;
                             }
                             else {
-                                log.info("still sell as stock fist goes to unstable mode.");
+                                if (replenishStockMode) {
+                                    log.info("price is not good, will sell:" + (sellableQty - soldQty) + " with price:" + (lstPri - bpg));
+                                    sellWithFixedPrice = true;
+                                    buyPri = lstPri - bpg;
+                                }
+                                else {
+                                    log.info("sell with whatever price for unstable mode.");
+                                }
                             }
                         }
                         
                         double remainSellQty = sellableQty - soldQty;
                         double sellAmt = (remainSellQty > buyAmt ? buyAmt : remainSellQty);
+                        
+                        if (sellWithFixedPrice) {
+                            sellAmt = remainSellQty;
+                        }
+                        
                         try {
                         _moca.executeCommand("[select round(" + sellAmt + ", 4) sellAmt, round(" + (buyPri - 0.1) + ", 2) price from dual]"
                                            + "|"
@@ -256,6 +267,7 @@ public class HBSPS1 implements ISellPointSelector {
                         if (soldQty + 0.001 >= sellableQty) {
                             log.info("sold Qty:" + soldQty + " success, which is bigger then sellableQty:" + sellableQty + " return true.");
                             soldComplete = true;
+                            replenishStockMode = false;
                             soldQty = 0;
                             break;
                         }

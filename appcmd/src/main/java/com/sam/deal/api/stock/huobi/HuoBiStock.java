@@ -44,10 +44,12 @@ public class HuoBiStock implements IStock{
     private boolean IS_IN_UNSTABLE_MODE = false;
     private BoundArrayList<Double> det_buy_turnaround = new BoundArrayList<Double>(3);
     private BoundArrayList<Double> det_sell_turnaround = new BoundArrayList<Double>(3);
-    private BoundArrayList<Double> short_term_price = null;
-    private BoundArrayList<Double> long_term_price = null;
+    private BoundArrayList<Double> det_buy_plusback = new BoundArrayList<Double>(3);
+    private BoundArrayList<Double> det_sell_plusback = new BoundArrayList<Double>(3);
     private int SHORT_TERM = 0;
     private int LONG_TERM = 0;
+    private String SHORT_PERIOD = "060";
+    private String LONG_PERIOD = "100";
     private int loadCount = 0;
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -56,8 +58,8 @@ public class HuoBiStock implements IStock{
     double minpri = 100000;
     double history_maxpri = 0;
     double history_minpri = 100000;
-    double pre_longAvgPri = 0;
-    double pre_shortAvgPri = 0;
+    String pre_gloden_time ="";
+    String pre_dead_time ="";
     
     public double getSmallPriceDiff() {
         return SMALL_PRICE_DIFF;
@@ -404,23 +406,22 @@ public class HuoBiStock implements IStock{
             rs.next();
             SHORT_TERM = rs.getInt("rtnum1");
             LONG_TERM = rs.getInt("rtnum2");
-            _logger.info("got policy, SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
+            SHORT_PERIOD = rs.getString("rtstr1");
+            LONG_PERIOD = rs.getString("rtstr2");
+            _logger.info("got policy, SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM + ", SHORT_PERIOD:" + SHORT_PERIOD + ", LONG_PERIOD:" + LONG_PERIOD);
         } catch (MocaException e) {
             _logger.error(e.getMessage());
             if (polvar.equalsIgnoreCase("BTC")) {
-                SHORT_TERM = 12 * 10; //10 minutes since 5 seconds per fetch
-                LONG_TERM = 12 * 10 * 6; //1 hour
+                SHORT_TERM = 12 * 60 * 5; //1 hour since 5 seconds per fetch
+                LONG_TERM = 12 * 60 * 10; //10 hour
                 _logger.info("got policy error, use default SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
             }
             else {
-                SHORT_TERM = 12 * 10; //10 minutes since 5 seconds per fetch
-                LONG_TERM = 12 * 10 * 6; //1 hour
+                SHORT_TERM = 12 * 60 * 5;
+                LONG_TERM = 12 * 60 * 10;
                 _logger.info("got policy error, use default SHORT_LONG_TERM, SHORT_TERM:" + SHORT_TERM + ", LONG_TERM:" + LONG_TERM);
            }
         }
-        
-        short_term_price = new BoundArrayList<Double>(SHORT_TERM);
-        long_term_price = new BoundArrayList<Double>(LONG_TERM);
         
         top10 = new Top10Data();
         trd = new TradeData();
@@ -433,8 +434,6 @@ public class HuoBiStock implements IStock{
         loadTickerData();
         calStockTrend();
         int sz = trd.price_lst.size();
-        short_term_price.add(trd.price_lst.get(sz -1));
-        long_term_price.add(trd.price_lst.get(sz -1));
         loadCount++;
     }
     
@@ -442,8 +441,6 @@ public class HuoBiStock implements IStock{
         clearTop10Data();
         clearTradeData();
         clearTickerData();
-        short_term_price.clear();
-        long_term_price.clear();
         this.calStockTrend();
         loadCount = 0;
         history_maxpri = maxpri;
@@ -675,7 +672,7 @@ public class HuoBiStock implements IStock{
             return false;
         }
         
-        _logger.info("\nsize:" + sz + " inc_flg:" + inc_flg);
+        _logger.info(" size:" + sz + " inc_flg:" + inc_flg);
         
         double lstAvgPri = 0;
         for (int i = 0; i < lenForAvg; i++) {
@@ -691,7 +688,7 @@ public class HuoBiStock implements IStock{
         
         midAvgPri = midAvgPri / lenForAvg;
         
-        _logger.info("lstAvgPri:" + lstAvgPri + "\nmidAvgPri:" + midAvgPri);
+        _logger.info("lstAvgPri:" + lstAvgPri + " midAvgPri:" + midAvgPri);
         double lstDetPri = (inc_flg ? (lstAvgPri - midAvgPri) : (midAvgPri - lstAvgPri));
 
         if (inc_flg) {
@@ -701,9 +698,9 @@ public class HuoBiStock implements IStock{
                 double b0 = det_buy_turnaround.get(0);
                 double b1 = det_buy_turnaround.get(1);
                 double b2 = det_buy_turnaround.get(2);
-                _logger.info("det_buy_turnaround sz:" + szb + ", b0:" + b0 + ", b1:" + b1 + ", b2:" + b2 +
-                        ", b0 - b1 = " + (b0 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
-                        ", b2 - b1 = " + (b2 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                _logger.info("det_buy_turnaround sz:" + szb + ", b0:" + b0 + ", b1:" + b1 + ", b2:" + b2);
+                _logger.info("turnaround: b0 - b1 = " + (b0 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", b2 - b1 = " + (b2 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
                 if ((b0 - b1) > SMALL_PRICE_DIFF &&
                     (b2 - b1) > SMALL_PRICE_DIFF) {
                     _logger.info("isLstPriTurnaround return true for buy.");
@@ -721,9 +718,9 @@ public class HuoBiStock implements IStock{
                 double s0 = det_sell_turnaround.get(0);
                 double s1 = det_sell_turnaround.get(1);
                 double s2 = det_sell_turnaround.get(2);
-                _logger.info("det_sell_turnaround sz:" + szs + ", s0:" + s0 + ", s1:" + s1 + ", s2:" + s2 +
-                        ", s1 - s0 = " + (s1 - s0) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
-                        ", s1 - s2 = " + (s1 - s2) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                _logger.info("det_sell_turnaround sz:" + szs + ", s0:" + s0 + ", s1:" + s1 + ", s2:" + s2);
+                _logger.info("turnaround: s1 - s0 = " + (s1 - s0) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", s1 - s2 = " + (s1 - s2) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
                 if ((s1 - s0) > SMALL_PRICE_DIFF &&
                     (s1 - s2) > SMALL_PRICE_DIFF) {
                     _logger.info("isLstPriTurnaround return true for sell.");
@@ -732,6 +729,85 @@ public class HuoBiStock implements IStock{
             }
             else {
                 _logger.info("for sell sz is less than 3:" + szs + ", isLstPriTurnaround return false");
+            }
+        }
+        return false;
+    }
+    
+    public boolean isLstPriPlusBack(boolean inc_flg) {
+
+        int sz = tid.last_lst.size();
+        
+        int lenForAvg = 2;
+        
+        if (sz < 3 * lenForAvg) {
+            _logger.info("last_lst sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");
+            if (inc_flg) {
+                det_buy_plusback.clear();
+            }
+            else {
+                det_sell_plusback.clear();
+            }
+            return false;
+        }
+        
+        _logger.info("plusback size:" + sz + " inc_flg:" + inc_flg);
+        
+        double lstAvgPri = 0;
+        for (int i = 0; i < lenForAvg; i++) {
+            lstAvgPri += tid.last_lst.get(sz - 1 -i);
+        }
+        
+        lstAvgPri = lstAvgPri / lenForAvg;
+        
+        double midAvgPri = 0;
+        for (int i = 0; i < lenForAvg; i++) {
+            midAvgPri += tid.last_lst.get(sz - 1 -i - lenForAvg);
+        }
+        
+        midAvgPri = midAvgPri / lenForAvg;
+        
+        _logger.info("plushback lstAvgPri:" + lstAvgPri + " midAvgPri:" + midAvgPri);
+        double lstDetPri = (inc_flg ? (lstAvgPri - midAvgPri) : (midAvgPri - lstAvgPri));
+
+        if (inc_flg) {
+            det_buy_plusback.add(lstDetPri);
+            int szb = det_buy_plusback.size();
+            if (szb >= 3) {
+                double b0 = det_buy_plusback.get(0);
+                double b1 = det_buy_plusback.get(1);
+                double b2 = det_buy_plusback.get(2);
+                _logger.info("det_buy_plusback sz:" + szb + ", b0:" + b0 + ", b1:" + b1 + ", b2:" + b2);
+                _logger.info("plusback: b0 - b1 = " + (b0 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", b2 - b1 = " + (b2 - b1) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                if ((b0 - b1) > SMALL_PRICE_DIFF &&
+                    (b2 - b1) > SMALL_PRICE_DIFF) {
+                    _logger.info("isLstPriPlusBack return true for buy.");
+                    return true;
+                }
+            }
+            else {
+                _logger.info("for buy sz is less than 3:" + szb + ", isLstPriPlusBack return false");
+            }
+        }
+        else {
+            det_sell_plusback.add(lstDetPri);
+            int szs = det_sell_plusback.size();
+            if (szs >= 3) {
+                double s0 = det_sell_plusback.get(0);
+                double s1 = det_sell_plusback.get(1);
+                double s2 = det_sell_plusback.get(2);
+                _logger.info("det_sell_plusback sz:" + szs + ", s0:" + s0 + ", s1:" + s1 + ", s2:" + s2);
+                _logger.info("plusback: s1 - s0 = " + (s1 - s0) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF +
+                                         ", s1 - s2 = " + (s1 - s2) + " > SMALL_PRICE_DIFF:" + SMALL_PRICE_DIFF);
+                if ((s1 - s0) > SMALL_PRICE_DIFF &&
+                    (s1 - s2) > SMALL_PRICE_DIFF) {
+                    _logger.info("det_sell_plusback return true for sell.");
+                    return true;
+                }
+            }
+            else {
+                _logger.info("for sell sz is less than 3:" + szs + ", det_sell_plusback return false");
             }
         }
         return false;
@@ -947,63 +1023,150 @@ public class HuoBiStock implements IStock{
     
     @Override
     public boolean isShortCrossLong(boolean gloden_flag) {
-        int ssz = short_term_price.size();
-        int lsz = long_term_price.size();
-        if (lsz < LONG_TERM || ssz < SHORT_TERM) {
-            _logger.info("long term size is not enough lsz:" + lsz + ", ssz:" + ssz + ", return false");
-            return false;
-        }
-        
-        boolean result = false;
-        int i;
-        double longAvgPri = 0;
-        for (i = 0; i < lsz; i++) {
-            longAvgPri += long_term_price.get(i);
-        }
-        
-        longAvgPri = longAvgPri / lsz;
-        
+        MocaResults rs = null;
         double shortAvgPri = 0;
-        for (i = 0; i < ssz; i++) {
-            shortAvgPri += short_term_price.get(i);
-        }
-        
-        shortAvgPri = shortAvgPri / ssz;
-        
-        _logger.info("longAvgPri:" + longAvgPri + ", shortAvgPri:" + shortAvgPri + ", pre_longAvgPri:" + pre_longAvgPri + ", pre_shortAvgPri:" + pre_shortAvgPri);
-        _logger.info("shortAvgPri - longAvgPri" + (shortAvgPri - longAvgPri) + "pre_shortAvgPri - pre_longAvgPri:" + (pre_shortAvgPri - pre_longAvgPri));
-
-        if (pre_longAvgPri == 0 || pre_shortAvgPri == 0) {
-            pre_longAvgPri = longAvgPri;
-            pre_shortAvgPri = shortAvgPri;
-            _logger.info("no previous long/short term price, set and return false");
-            return false;
-        }
-        
-        if (gloden_flag) {
-            if (pre_shortAvgPri + 0.01 <= pre_longAvgPri &&
-                shortAvgPri >= longAvgPri + 0.01) {
-                _logger.info("gloden cross return TRUE");
-                result = true;
+        double longAvgPri = 0;
+        double pre_shortAvgPri = 0;
+        double pre_longAvgPri = 0;
+        double shortAvgPri2 = 0;
+        double longAvgPri2 = 0;
+        double pre_shortAvgPri2 = 0;
+        double pre_longAvgPri2 = 0;
+        boolean result = false;
+        boolean result2 = false;
+        String gloden_time = "";
+        String dead_time = "";
+        int cnt = 0;
+        try {
+            rs = _moca.executeCommand(" get period data where market ='" + mk + "' and coinType = '" + ct + "' and period ='" + SHORT_PERIOD + "' and length =" + (LONG_TERM + 1));
+            cnt = 0;
+            while(rs.next()) {
+                if (cnt >= LONG_TERM - SHORT_TERM && cnt < LONG_TERM) {
+                    pre_shortAvgPri += rs.getDouble("close");
+                }
+                if (cnt < LONG_TERM) {
+                    pre_longAvgPri += rs.getDouble("close");
+                }
+                
+                if (cnt > LONG_TERM - SHORT_TERM && cnt <= LONG_TERM) {
+                    shortAvgPri += rs.getDouble("close");
+                }
+                
+                if (cnt > 0 && cnt <= LONG_TERM) {
+                    longAvgPri += rs.getDouble("close");
+                }
+                if (cnt == LONG_TERM) {
+                    gloden_time = rs.getString("time");
+                    dead_time = rs.getString("time");
+                }
+                cnt++;
             }
-	    else {
-                _logger.info("gloden cross return FALSE.");
-	    }
-        }
-        else {
-            if (pre_shortAvgPri >= pre_longAvgPri + 0.01 &&
-                shortAvgPri + 0.01 <= longAvgPri ) {
-                    _logger.info("dead cross return TRUE.");
+            
+            pre_shortAvgPri = pre_shortAvgPri / SHORT_TERM;
+            pre_longAvgPri = pre_longAvgPri / LONG_TERM;
+            
+            shortAvgPri = shortAvgPri / SHORT_TERM;
+            longAvgPri = longAvgPri / LONG_TERM;
+            
+            _logger.info("longAvgPri:" + longAvgPri + ", shortAvgPri:" + shortAvgPri + ", pre_longAvgPri:" + pre_longAvgPri + ", pre_shortAvgPri:" + pre_shortAvgPri);
+            _logger.info("[shortAvgPri - longAvgPri]:" + (shortAvgPri - longAvgPri) + ", [pre_shortAvgPri - pre_longAvgPri]:" + (pre_shortAvgPri - pre_longAvgPri));
+
+            if (gloden_flag) {
+                if (pre_shortAvgPri + 0.01 <= pre_longAvgPri &&
+                    shortAvgPri >= longAvgPri + 0.01) {
+                    _logger.info("gloden cross return TRUE");
                     result = true;
                 }
-	    else {
-                _logger.info("dead cross return FALSE.");
-	    }
+                else {
+                        _logger.info("gloden cross return FALSE.");
+                }
+            }
+            else {
+                if (pre_shortAvgPri >= pre_longAvgPri + 0.01 &&
+                    shortAvgPri + 0.01 <= longAvgPri ) {
+                        _logger.info("dead cross return TRUE.");
+                        result = true;
+                }
+                else {
+                        _logger.info("dead cross return FALSE.");
+                }
+            }
+            
+            rs = _moca.executeCommand(" get period data where market ='" + mk + "' and coinType = '" + ct + "' and period ='" + LONG_PERIOD + "' and length =" + (LONG_TERM + 1));
+            cnt = 0;
+            while(rs.next()) {
+                if (cnt >= LONG_TERM - SHORT_TERM && cnt < LONG_TERM) {
+                    pre_shortAvgPri2 += rs.getDouble("close");
+                }
+                if (cnt < LONG_TERM) {
+                    pre_longAvgPri2 += rs.getDouble("close");
+                }
+                
+                if (cnt > LONG_TERM - SHORT_TERM && cnt <= LONG_TERM) {
+                    shortAvgPri2 += rs.getDouble("close");
+                }
+                
+                if (cnt > 0 && cnt <= LONG_TERM) {
+                    longAvgPri2 += rs.getDouble("close");
+                }
+                cnt++;
+            }
+            
+            pre_shortAvgPri2 = pre_shortAvgPri2 / SHORT_TERM;
+            pre_longAvgPri2 = pre_longAvgPri2 / LONG_TERM;
+            
+            shortAvgPri2 = shortAvgPri2 / SHORT_TERM;
+            longAvgPri2 = longAvgPri2 / LONG_TERM;
+
+            _logger.info("longAvgPri2:" + longAvgPri2 + ", shortAvgPri2:" + shortAvgPri2 + ", pre_longAvgPri2:" + pre_longAvgPri2 + ", pre_shortAvgPri2:" + pre_shortAvgPri2);
+            _logger.info("[shortAvgPri2 - longAvgPri2]:" + (shortAvgPri2 - longAvgPri2) + ", [pre_shortAvgPri2 - pre_longAvgPri2]:" + (pre_shortAvgPri2 - pre_longAvgPri2));
+
+            if (gloden_flag) {
+                if (pre_shortAvgPri2 + 0.01 <= pre_longAvgPri2 &&
+                    shortAvgPri2 >= longAvgPri2 + 0.01) {
+                    _logger.info("gloden2 cross return TRUE");
+                    result2 = true;
+                }
+                else {
+                        _logger.info("gloden2 cross return FALSE.");
+                }
+            }
+            else {
+                if (pre_shortAvgPri2 >= pre_longAvgPri2 + 0.01 &&
+                    shortAvgPri2 + 0.01 <= longAvgPri2 ) {
+                        _logger.info("dead2 cross return TRUE.");
+                        result2 = true;
+                }
+                else {
+                        _logger.info("dead2 cross return FALSE.");
+                }
+            }
+        }
+        catch (Exception e) {
+            _logger.error("Exception happened when check shortCrossLong:" + e.getMessage());
         }
         
-        pre_shortAvgPri = shortAvgPri;
-        pre_longAvgPri = longAvgPri;
-        return result;
+        if (result && result2) {
+            _logger.info("both terms return true: gloden_flg:" + gloden_flag + ", pre_gloden_time:" + pre_gloden_time + ", pre_dead_time:" + pre_dead_time);
+            if (gloden_flag && pre_gloden_time.equals(gloden_time)) {
+                _logger.info("already gloden, reset to false.");
+                result = result2 = false;
+            }
+            else if (!gloden_flag && pre_dead_time.equals(dead_time)) {
+                _logger.info("already dead, reset to false.");
+                result = result2 = false;
+            }
+            else {
+                if (gloden_flag) {
+                    pre_gloden_time = gloden_time;
+                }
+                else {
+                    pre_dead_time = gloden_time;
+                }
+                _logger.info("saved cross time: gloden_flg:" + gloden_flag + ", pre_gloden_time:" + pre_gloden_time + ", pre_dead_time:" + pre_dead_time);
+            }
+        }
+        return result && result2;
     }
     
     @Override
@@ -1145,12 +1308,12 @@ public class HuoBiStock implements IStock{
                              "\n LAST_PRICE_BOX_GAP_MAX:" + LAST_PRICE_BOX_GAP_MAX +
                              "\n BIG_PRICE_DIFF:" + BIG_PRICE_DIFF +
                              "\n LAST_PRICE_BOX_GAP_MIN / 6:" + LAST_PRICE_BOX_GAP_MIN / 6);
-                if (!IS_IN_UNSTABLE_MODE && history_maxpri - lstAvgPri >= 4 * LAST_PRICE_BOX_GAP_MAX && lstDetPri > midDetPri + BIG_PRICE_DIFF) {
+                if (history_maxpri - lstAvgPri >= 4 * LAST_PRICE_BOX_GAP_MAX && lstDetPri > midDetPri + BIG_PRICE_DIFF) {
                     _logger.info("stock trend set to SUP, and IS_IN_UNSTABLE_MODE to true!");
                     st = eSTOCKTREND.SUP;
                     IS_IN_UNSTABLE_MODE = true;
                 }
-                else if (!IS_IN_UNSTABLE_MODE && DetPri <= -LAST_PRICE_BOX_GAP_MIN && lstDetPri + BIG_PRICE_DIFF < midDetPri) {
+                else if (DetPri <= -2 * LAST_PRICE_BOX_GAP_MAX && lstDetPri + BIG_PRICE_DIFF < midDetPri) {
                     _logger.info("stock trend set to SDOWN, and IS_IN_UNSTABLE_MODE to true!");
                     st = eSTOCKTREND.SDOWN;
                     IS_IN_UNSTABLE_MODE = true;
