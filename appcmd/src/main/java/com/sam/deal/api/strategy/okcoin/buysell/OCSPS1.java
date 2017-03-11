@@ -76,21 +76,21 @@ public class OCSPS1 implements ISellPointSelector {
         }
     }
     
-    private boolean overHalfMaxStockInhandLevel () {
-        double maxPct = account.getMaxStockPct();
+    private boolean StockInhandLevelOverExpect() {
         double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
         double avaMny = account.getMaxAvaMny();
         double totalAsset = stockMny + avaMny;
         
         double actPct = stockMny / totalAsset;
+        double expPct = account.getExpStockPct(stock.getLastPri());
         
-        log.info("actual stock inhand level:" + actPct + ", maxPct / 2:" + maxPct / 2);
-        if (actPct - maxPct / 2 >= 0.01) {
-            log.info("Stock inhand level reached max /2 value, return true");
+        log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
+        if (actPct - expPct >= 0.1) {
+            log.info("Stock inhand level 10% over expPct value, return true");
             return true;
         }
         
-        log.info("Stock inhand level NOT reached max /2 value, return false");
+        log.info("Stock inhand level NOT 10% over expPct value, return false");
         return false;
     }
     
@@ -100,17 +100,15 @@ public class OCSPS1 implements ISellPointSelector {
             return true;
         }
         else {
-            if (stock.isStockUnstableMode() &&
-                stock.isLstPriUnderWaterLevel(minWaterLvl) &&
-                overHalfMaxStockInhandLevel()) {
-                log.info("Unstable and half max pct, enable replenishStockMode, HBSPS1 return true!");
+            if (!stock.isStockUnstableMode() && StockInhandLevelOverExpect()) {
+                log.info("Expected stock level control, enable replenishStockMode, HBSPS1 return true!");
                 replenishStockMode = true;
                 return true;
             }
             else if (stock.isShortCrossLong(false)) {
                 log.info("Short term is dead cross long term, enable replenishStockMode but OCSPS1 return false!");
                 replenishStockMode = true;
-                return false;
+                return true;
             }
             log.info("OCSPS1 return false.");
             return false;
@@ -126,21 +124,22 @@ public class OCSPS1 implements ISellPointSelector {
         double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
         double avaMny = account.getMaxAvaMny();
         double totalAsset = stockMny + avaMny;
-        
-        double avaPct = stockMny / totalAsset - minPct;
-        double sellableMny2 = avaPct * totalAsset;
         double sellabeleMny = account.getSellableMny();
         double lstPri = stock.getLastPri();
         
+        double avaPct = stockMny / totalAsset - minPct;
+        double sellableMny2 = avaPct * totalAsset;
+        
         if (replenishStockMode) {
-            log.info("stock replenishStockMode sell with sellableMny2 / 2:" + sellableMny2 / 2);
-            sellabeleMny = sellableMny2 / 2;
+            double expPct = account.getExpStockPct(stock.getLastPri());
+            sellabeleMny = totalAsset * (stockMny / totalAsset - expPct);
+            log.info("stock replenishStockMode, buy with expected stock level expPct:" + expPct + ", sellabeleMny:" + sellabeleMny);
         }
         else if (stock.isStockUnstableMode()) {
             sellabeleMny += sellabeleMny * FIRST_SHARPMODE_SELL_RATIO;
             log.info("stock is in unstable mode, sell with ratio money:" + sellabeleMny);
         }
-        
+
         if (sellabeleMny > sellableMny2) {
             sellabeleMny = sellableMny2;
         }

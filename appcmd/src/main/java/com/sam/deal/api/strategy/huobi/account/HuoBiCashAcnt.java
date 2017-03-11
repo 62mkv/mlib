@@ -310,6 +310,48 @@ public class HuoBiCashAcnt implements ICashAccount {
         }
         return maxStockPct;
     }
+    
+    @Override
+    public double getExpStockPct(double curStockPri) {
+        // TODO Auto-generated method stub
+            MocaResults rs = null;
+            double maxPri = 0.0;
+            double minPri = 0.0;
+            double expPct = 0.5;
+            
+            if (maxStockPct <= 0) {
+            	getMaxStockPct();
+            }
+            double maxExpStockPctVal = maxStockPct / 2.0;
+            double minExpStockPctVal = (maxStockPct / 5.0 > minStockPct) ? (maxStockPct / 5.0) : minStockPct;
+            
+            try {
+                rs = _moca.executeCommand("[select nvl(max(processed_price), 0) maxPri, nvl(min(processed_price), 0) minPri "
+                		                   + "from hb_buysell_data "
+                		                   + "where processed_price > 0 "
+                		                   + "  and ins_dt > sysdate - 7] "); // get 7 days max/min
+                rs.next();
+                minPri = rs.getDouble("minPri");
+                maxPri = rs.getDouble("maxPri");
+                _logger.info("got policy, minPri:" + minPri + ", maxPri:" + maxPri);
+            } catch (MocaException e) {
+                // TODO Auto-generated catch block
+                _logger.error(e.getMessage());
+            }
+            
+            if (minPri > 0 && maxPri > 0) {
+            	expPct = 1.0 - (curStockPri - minPri) / (maxPri - minPri);
+            	expPct = minExpStockPctVal + expPct * (maxExpStockPctVal - minExpStockPctVal);
+            	_logger.info("curStockPri:" + curStockPri + " is " + (curStockPri - minPri) / (maxPri - minPri) + " at:[" + minPri + "," + maxPri + "]");
+            	_logger.info("expPct should be 1 - " + (curStockPri - minPri) / (maxPri - minPri) + ":" + (1 - (curStockPri - minPri) / (maxPri - minPri)) + " at:[" + minExpStockPctVal + "," + maxExpStockPctVal + "]");
+            	_logger.info("got expPct:" + expPct);
+            }
+            else {
+            	expPct = (maxExpStockPctVal + minExpStockPctVal) / 2.0;
+            	_logger.info("use expPct as half of:[" + minExpStockPctVal + "," + maxExpStockPctVal + "]:" + expPct);
+            }
+        return expPct;
+    }
 
     @Override
     public double getMinStockPct() {

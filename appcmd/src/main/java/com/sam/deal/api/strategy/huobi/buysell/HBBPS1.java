@@ -95,21 +95,22 @@ public class HBBPS1 implements IBuyPointSelector {
         }
     }
     
-    private boolean reachedMinStockInhandLevel () {
+    private boolean StockInhandLevelUnderExpect () {
         double minPct = account.getMinStockPct();
         double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
         double avaMny = account.getMaxAvaMny();
         double totalAsset = stockMny + avaMny;
         
         double actPct = stockMny / totalAsset;
+        double expPct = account.getExpStockPct(stock.getLastPri());
         
-        log.info("actual stock inhand level:" + actPct + ", minPct:" + minPct);
-        if (actPct - minPct <= 0.01) {
-            log.info("Stock inhand level reached min value, return true");
+        log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
+        if (actPct + 0.1 < expPct) {
+            log.info("Stock inhand level 10% less expPct value, return true");
             return true;
         }
         
-        log.info("Stock inhand level NOT reached min value, return false");
+        log.info("Stock inhand level NOT 10% less  expPct value, return false");
         return false;
     }
     
@@ -120,15 +121,15 @@ public class HBBPS1 implements IBuyPointSelector {
 	        return true;
 	    }
 	    else {
-            if (reachedMinStockInhandLevel() && !stock.isStockUnstableMode()) {
-                log.info("Min level, enable replenishStockMode but HBBPS1 return true!");
+            if (!stock.isStockUnstableMode() && StockInhandLevelUnderExpect()) {
+                log.info("Min level, enable replenishStockMode HBBPS1 return true!");
                 replenishStockMode = true;
                 return true;
             }
             else if (stock.isShortCrossLong(true)) {
                 log.info("Short term is golden cross long term, enable replenishStockMode but HBBPS1 return false!");
                 replenishStockMode = true;
-                return false;
+                return true;
             }
 	        log.info("HBBPS1 return false.");
 	        return false;
@@ -158,22 +159,22 @@ public class HBBPS1 implements IBuyPointSelector {
         double avaPct = maxPct - (stockMny / totalAsset);
         log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
         double buyableMny2 = avaPct * totalAsset;
-        
+        log.info("buyableMny:" + buyableMny + ", stock ctl buyableMny2:" + buyableMny2);
+
         if (stock.isStockUnstableMode()) {
             buyableMny += buyableMny * FIRST_SHARPMODE_BUY_RATIO;
             log.info("stock is in unstable mode, buy with ratio money:" + buyableMny);
         }
         else if (replenishStockMode) {
-            log.info("stock replenishStockMode, buy with maxPct / 2:" + totalAsset * (maxPct / 2 - (stockMny / totalAsset)));
-            buyableMny = totalAsset * (maxPct / 2 - (stockMny / totalAsset));
+            double expPct = account.getExpStockPct(stock.getLastPri());
+            buyableMny = totalAsset * (expPct - (stockMny / totalAsset));
+            log.info("stock replenishStockMode, buy with expected stock level expPct:" + expPct + ", buyableMny:" + buyableMny);
         }
         
-        log.info("buyableMny:" + buyableMny + ", stock ctl buyableMny2:" + buyableMny2);
         if (buyableMny > buyableMny2) {
             buyableMny = buyableMny2;
         }
         
-
         boolean boughtComplete = false;
         
         if (buyableMny < boughtMny + 1) {
