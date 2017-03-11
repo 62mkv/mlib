@@ -88,7 +88,7 @@ public abstract class BaseTradeStrategyImp implements ITradeStrategy {
     public boolean performTrade(IStock s) {
         boolean trade_result = false;
         if (beforeTrade(s)) {
-            trade_result = buyStock(s) || sellStock(s);
+            trade_result = sellStock(s) || buyStock(s);
             if (trade_result) {
                 afterTrade(s);
             }

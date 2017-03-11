@@ -30,8 +30,6 @@ public class HBBPS1 implements IBuyPointSelector {
     private final CrudManager _manager;
     private double boughtMny = 0;
     private double boughtLstPri = 0;
-    private boolean wasStockInUnstableMode = false;
-    private boolean firstGoToStockInUnstableMode = false;
     private boolean replenishStockMode = false;
     private double FIRST_SHARPMODE_BUY_RATIO = -1;
     private double minWaterLvl = 0.0;
@@ -117,22 +115,18 @@ public class HBBPS1 implements IBuyPointSelector {
     
 	@Override
 	public boolean isGoodBuyPoint() {
-	    if (stock.isLstPriTurnaround(true) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
+	    if ((stock.isLstPriTurnaround(true) || stock.isStockUnstableMode()) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
 	        log.info("Stock trend turn up and at low " + minWaterLvl + " level, HBBPS1 return true.");
 	        return true;
 	    }
 	    else {
-            if (stock.getStockTrend() == eSTOCKTREND.SUP) {
-                log.info("Price trend is SUP, HBBPS1 return true!");
-                return true;
-            }
-            else if (stock.isStockUnstableMode() && reachedMinStockInhandLevel() && stock.isLstPriPlusBack(true)) {
-                log.info("Stock unstale mode and plusback and reached min inhand stock level, HBBPS1 return true!");
+            if (reachedMinStockInhandLevel() && !stock.isStockUnstableMode()) {
+                log.info("Min level, enable replenishStockMode but HBBPS1 return true!");
                 replenishStockMode = true;
                 return true;
             }
-            else if (stock.isShortCrossLong(true) || reachedMinStockInhandLevel()) {
-                log.info("Short term is golden cross long term or reached min level, enable replenishStockMode but HBBPS1 return false!");
+            else if (stock.isShortCrossLong(true)) {
+                log.info("Short term is golden cross long term, enable replenishStockMode but HBBPS1 return false!");
                 replenishStockMode = true;
                 return false;
             }
@@ -164,29 +158,22 @@ public class HBBPS1 implements IBuyPointSelector {
         double avaPct = maxPct - (stockMny / totalAsset);
         log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
         double buyableMny2 = avaPct * totalAsset;
+        
+        if (stock.isStockUnstableMode()) {
+            buyableMny += buyableMny * FIRST_SHARPMODE_BUY_RATIO;
+            log.info("stock is in unstable mode, buy with ratio money:" + buyableMny);
+        }
+        else if (replenishStockMode) {
+            log.info("stock replenishStockMode, buy with maxPct / 2:" + totalAsset * (maxPct / 2 - (stockMny / totalAsset)));
+            buyableMny = totalAsset * (maxPct / 2 - (stockMny / totalAsset));
+        }
+        
         log.info("buyableMny:" + buyableMny + ", stock ctl buyableMny2:" + buyableMny2);
         if (buyableMny > buyableMny2) {
             buyableMny = buyableMny2;
         }
         
-        firstGoToStockInUnstableMode = false;
-        if (stock.isStockUnstableMode() && !wasStockInUnstableMode) {
-            
-            log.info("stock first goes into SUP mode, buy with ratio ava money");
-            wasStockInUnstableMode = true;
-            firstGoToStockInUnstableMode = true;
-            buyableMny = account.getMaxAvaMny() * FIRST_SHARPMODE_BUY_RATIO;
-            log.info("got buyablemny:" + buyableMny + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_BUY_RATIO + " * ava mny:" + account.getMaxAvaMny());
-        }
-        else if (!stock.isStockUnstableMode() && wasStockInUnstableMode) {
-            log.info("reset wasStockInUnstableMode to false.");
-            wasStockInUnstableMode = false;
-        }
-        else if (replenishStockMode) {
-            log.info("stock replenishStockMode and reached min stock level, buy with ratio ava money");
-            buyableMny = account.getMaxAvaMny() * FIRST_SHARPMODE_BUY_RATIO;
-            log.info("got buyablemny:" + buyableMny + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_BUY_RATIO + " * ava mny:" + account.getMaxAvaMny());
-        }
+
         boolean boughtComplete = false;
         
         if (buyableMny < boughtMny + 1) {
@@ -244,11 +231,10 @@ public class HBBPS1 implements IBuyPointSelector {
                     
                     if (sellPri > lstPri + bpg) {
                         log.info("process sell[" + (i+1) + "], skip buy more as sellPri:" + sellPri + "> BigPriceDiff:" + bpg + " + lstPri:" + lstPri);
-                        log.info("check firstGoToStockInUnstableMode:" + firstGoToStockInUnstableMode + " for force buy...");
-                        if (!firstGoToStockInUnstableMode && !replenishStockMode) {
+                        if (!replenishStockMode) {
                             break;
                         }
-                        else {
+                        else if (replenishStockMode){
                             log.info("price is not good, will buy:" + (buyableMny - boughtMny) /sellPri + " with price:" + (lstPri + bpg));
                             buyWithFixedPrice = true;
                             sellPri = lstPri + bpg;

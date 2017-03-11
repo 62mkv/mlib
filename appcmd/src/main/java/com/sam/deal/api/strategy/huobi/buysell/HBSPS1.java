@@ -23,11 +23,10 @@ public class HBSPS1 implements ISellPointSelector {
     private final CrudManager _manager;
     private double soldQty = 0;
     private double soldLstPri = 0;
-    private boolean wasStockInUnstableMode = false;
-    private boolean firstGoToStockInUnstableMode = false;
     private boolean replenishStockMode = false;
     private double FIRST_SHARPMODE_SELL_RATIO = -1;
     private double maxWaterLvl = 0.0;
+    private double minWaterLvl = 0.0;
     private HuoBiStock stock = null;
     private HuoBiCashAcnt account = null;
 
@@ -65,17 +64,19 @@ public class HBSPS1 implements ISellPointSelector {
                 rs.next();
                 
                 maxWaterLvl = rs.getDouble("rtflt2");
-                log.info("got maxWaterLvl:" + maxWaterLvl);
+                minWaterLvl = rs.getDouble("rtflt1");
+                log.info("got maxWaterLvl:" + maxWaterLvl + ", minWaterLvl:" + minWaterLvl);
             }
             catch(Exception e) {
                 log.debug(e.getMessage());
                 maxWaterLvl = 0.8;
+                minWaterLvl = 0.2;
                 log.info("set maxWaterLvl default to 0.8");
             }
         }
     }
     
-    private boolean reachedMaxStockInhandLevel () {
+    private boolean overHalfMaxStockInhandLevel () {
         double maxPct = account.getMaxStockPct();
         double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
         double avaMny = account.getMaxAvaMny();
@@ -83,28 +84,31 @@ public class HBSPS1 implements ISellPointSelector {
         
         double actPct = stockMny / totalAsset;
         
-        log.info("actual stock inhand level:" + actPct + ", maxPct:" + maxPct);
-        if (actPct - maxPct >= 0.01) {
-            log.info("Stock inhand level reached max value, return true");
+        log.info("actual stock inhand level:" + actPct + ", maxPct / 2:" + maxPct / 2);
+        if (actPct - maxPct / 2 >= 0.01) {
+            log.info("Stock inhand level reached max /2 value, return true");
             return true;
         }
         
-        log.info("Stock inhand level NOT reached max value, return false");
+        log.info("Stock inhand level NOT reached max /2 value, return false");
         return false;
     }
     
 	public boolean isGoodSellPoint() {
-        if (stock.isLstPriTurnaround(false) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
+        if ((stock.isLstPriTurnaround(false) || stock.isStockUnstableMode()) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
             log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
             return true;
         }
         else {
-            if (stock.getStockTrend() == eSTOCKTREND.SDOWN) {
-                log.info("Price trend is SDOWN, HBSPS1 return true!");
+            if (stock.isStockUnstableMode() &&
+                stock.isLstPriUnderWaterLevel(minWaterLvl) &&
+                overHalfMaxStockInhandLevel()) {
+                log.info("Unstable and half max pct, enable replenishStockMode, HBSPS1 return true!");
+                replenishStockMode = true;
                 return true;
             }
-            else if (stock.isShortCrossLong(false) || reachedMaxStockInhandLevel()) {
-                log.info("Short term is dead cross long term or reached max level, enable replenishStockMode, but HBSPS1 return false!");
+            else if (stock.isShortCrossLong(false)) {
+                log.info("Short term is dead cross long term, enable replenishStockMode, but HBSPS1 return false!");
                 replenishStockMode = true;
                 return false;
             }
@@ -118,31 +122,30 @@ public class HBSPS1 implements ISellPointSelector {
 	    String ct = stock.getSymbol().substring(0, 3);
 	    double avaStock = account.getAvaQty(ct);
 	    double sellableAmt = 0;
-	    
-        firstGoToStockInUnstableMode = false;
-        if (stock.isStockUnstableMode() && !wasStockInUnstableMode) {
-            
-            log.info("stock first goes into SDOWN mode, sell with stocks!");
-            wasStockInUnstableMode = true;
-            firstGoToStockInUnstableMode = true;
-            sellableAmt = avaStock * FIRST_SHARPMODE_SELL_RATIO;
-            log.info("got sellableAmt:" + sellableAmt + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_SELL_RATIO + " * ava stock:" + avaStock);
-            return sellableAmt;
-        }
-        else if (!stock.isStockUnstableMode() && wasStockInUnstableMode) {
-            log.info("reset wasStockInUnstableMode to false.");
-            wasStockInUnstableMode = false;
-        }
-        else if (replenishStockMode) {
-            log.info("stock replenishStockMode and reached max stock level, sell with ratio ava money");
-            sellableAmt = avaStock * FIRST_SHARPMODE_SELL_RATIO;
-            log.info("got sellableAmt:" + sellableAmt + " with FIRST_SHARPMODE_BUY_RATIO:" + FIRST_SHARPMODE_SELL_RATIO + " * ava stock:" + avaStock);
-            return sellableAmt;
-        }
-	    
+        double minPct = account.getMinStockPct();
+        double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
+        double avaMny = account.getMaxAvaMny();
+        double totalAsset = stockMny + avaMny;
         double sellabeleMny = account.getSellableMny();
-	    double lstPri = stock.getLastPri();
-	    sellableAmt = ((sellabeleMny / lstPri) > avaStock ? avaStock : (sellabeleMny / lstPri));
+        double lstPri = stock.getLastPri();
+        
+        double avaPct = stockMny / totalAsset - minPct;
+        double sellableMny2 = avaPct * totalAsset;
+        
+        if (replenishStockMode) {
+            log.info("stock replenishStockMode sell with sellableMny2 / 2:" + sellableMny2 / 2);
+            sellabeleMny = sellableMny2 / 2;
+        }
+        else if (stock.isStockUnstableMode()) {
+            sellabeleMny += sellabeleMny * FIRST_SHARPMODE_SELL_RATIO;
+            log.info("stock is in unstable mode, sell with ratio money:" + sellabeleMny);
+        }
+
+        if (sellabeleMny > sellableMny2) {
+            sellabeleMny = sellableMny2;
+        }
+	    
+        sellableAmt = ((sellabeleMny / lstPri) > avaStock ? avaStock : (sellabeleMny / lstPri));
 	    log.info("avaStock:" + avaStock + ", sellableMny:" + sellabeleMny +
 	            ", lstPri:" + lstPri + ", sellableMny / lstPri:" + sellabeleMny / lstPri +
 	            ", return sellableAmt:" + sellableAmt);
@@ -154,21 +157,6 @@ public class HBSPS1 implements ISellPointSelector {
         String ct = stock.getSymbol().substring(0, 3);
         double sellableQty = getSellQty();
         boolean soldComplete = false;
-            
-	    if (!firstGoToStockInUnstableMode) {
-                double minPct = account.getMinStockPct();
-                double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
-                double avaMny = account.getMaxAvaMny();
-                double totalAsset = stockMny + avaMny;
-                
-                double avaPct = (stockMny / totalAsset) - minPct;
-                log.info("StockMny:" + stockMny + ", avaMny:" + avaMny + ", totalAsset:" + totalAsset + ", avaPct:" + avaPct);
-                double sellableQty2 = avaPct * totalAsset / stock.getLastPri();
-                log.info("sellableQty:" + sellableQty + ", stock ctl sellableQty2:" + sellableQty2);
-                if (sellableQty > sellableQty2) {
-                    sellableQty = sellableQty2;
-                }
-	    }
             
             if (sellableQty < soldQty + 0.001) {
             	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");
@@ -225,19 +213,13 @@ public class HBSPS1 implements ISellPointSelector {
                         
                         if (buyPri + bpg < lstPri) {
                             log.info("process buy[" + (i+1) + "], skip sell more as buyPri:" + buyPri + " + BigPriceDiff:" + bpg + " < lstPri:" + lstPri);
-                            log.info("check firstGoToStockInUnstableMode:" + firstGoToStockInUnstableMode + " for force sell all...");
-                            if (!firstGoToStockInUnstableMode && !replenishStockMode) {
+                            if (!replenishStockMode) {
                                 break;
                             }
-                            else {
-                                if (replenishStockMode) {
-                                    log.info("price is not good, will sell:" + (sellableQty - soldQty) + " with price:" + (lstPri - bpg));
-                                    sellWithFixedPrice = true;
-                                    buyPri = lstPri - bpg;
-                                }
-                                else {
-                                    log.info("sell with whatever price for unstable mode.");
-                                }
+                            else if (replenishStockMode) {
+                                log.info("price is not good, will sell:" + (sellableQty - soldQty) + " with price:" + (lstPri - bpg));
+                                sellWithFixedPrice = true;
+                                buyPri = lstPri - bpg;
                             }
                         }
                         

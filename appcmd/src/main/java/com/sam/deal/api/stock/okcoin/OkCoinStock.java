@@ -1182,15 +1182,11 @@ public class OkCoinStock implements IStock{
                              "\n LAST_PRICE_BOX_GAP_MAX:" + LAST_PRICE_BOX_GAP_MAX +
                              "\n BIG_PRICE_DIFF:" + BIG_PRICE_DIFF +
                              "\n LAST_PRICE_BOX_GAP_MIN / 6:" + LAST_PRICE_BOX_GAP_MIN / 6);
-                if (history_maxpri - lstAvgPri >= 4 * LAST_PRICE_BOX_GAP_MAX && lstDetPri > midDetPri + BIG_PRICE_DIFF) {
-                    _logger.info("stock trend set to SUP, and IS_IN_UNSTABLE_MODE to true!");
-                    st = eSTOCKTREND.SUP;
-                    IS_IN_UNSTABLE_MODE = true;
-                }
-                else if (DetPri <= -2 * LAST_PRICE_BOX_GAP_MAX && lstDetPri + BIG_PRICE_DIFF < midDetPri) {
-                    _logger.info("stock trend set to SDOWN, and IS_IN_UNSTABLE_MODE to true!");
-                    st = eSTOCKTREND.SDOWN;
-                    IS_IN_UNSTABLE_MODE = true;
+                if (Math.abs(lstDetPri) > LAST_PRICE_BOX_GAP_MAX &&
+                        Math.abs(midDetPri) > LAST_PRICE_BOX_GAP_MAX &&
+                        Math.abs(lstDetPri - midDetPri) > BIG_PRICE_DIFF) {
+                        _logger.info("stock trend set IS_IN_UNSTABLE_MODE to true!");
+                        IS_IN_UNSTABLE_MODE = true;
                 }
                 else if (IS_IN_UNSTABLE_MODE && Math.abs(lstDetPri) < LAST_PRICE_BOX_GAP_MIN / 6 && Math.abs(midDetPri) < LAST_PRICE_BOX_GAP_MIN / 6) {
                     _logger.info("Both lstDetPri/midDetPri < LAST_PRICE_BOX_GAP_MIN / 6, reset IS_IN_UNSTABLE_MODE to false!");
