@@ -1,0 +1,26 @@
+mset command on
+
+create db documentation
+  where table = 'trade_stat_data'
+    and table_comment = "This table contains statistic data for trading."
+    and dealer = "HB or OC"
+    and market = "The trading market"
+    and coinType = "Coin Type for trading"
+    and time = "The timestamp for getting this data"
+    and deal_price = "Real deal price"
+    and buy_high_cnt = "Count for prices higher than deal price for buy"
+    and buy_high_avg_price = "Avg price for prices that higher than deal price for buy"
+    and buy_high_sum_amount = "Total amount which has price higher than deal price for buy"
+    and buy_low_cnt ="Count for prices lower than deal price for buy"
+    and buy_low_avg_price = "Avg price for prices that lower than deal price for buy"
+    and buy_low_sum_amount = "Total amount which has price lower than deal price for buy"
+    and sell_high_cnt = "Count for prices higher than deal price for sell"
+    and sell_high_avg_price = "Avg price for prices that higher than deal price for sell"
+    and sell_high_sum_amount = "Total amount which has price higher than deal price for sell"
+    and sell_low_cnt ="Count for prices lower than deal price for sell"
+    and sell_low_avg_price = "Avg price for prices that lower than deal price for sell"
+    and sell_low_sum_amount = "Total amount which has price lower than deal price for sell"
+    and ins_dt = "The insert date"
+/
+
+mset command off 

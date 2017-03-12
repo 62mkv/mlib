@@ -1,0 +1,361 @@
+<command>
+<name>process trade stat data for hb</name>
+<description>process trade stat data for hb</description>
+<type>local syntax</type>
+<local-syntax>
+<![CDATA[
+publish data 
+    where dealer = 'HB'
+      and market = 'CHN'
+      and coinType = 'BTC'
+|
+get real time trade record
+  where mk = @market
+    and ct = @coinType
+    and sdf = 0
+|
+publish data
+  where deal_price = @last
+    and buy_high_cnt = 0
+    and buy_high_avg_price = 0
+    and buy_high_sum_amount = 0
+    and buy_low_cnt = 0
+    and buy_low_avg_price = 0
+    and buy_low_sum_amount = 0
+    and sell_high_cnt = 0
+    and sell_high_avg_price = 0
+    and sell_high_sum_amount = 0
+    and sell_low_cnt = 0
+    and sell_low_avg_price = 0
+    and sell_low_sum_amount = 0
+|
+get top10 data 
+  where mk = @market
+    and ct = @coinType
+    and sdf = 0
+    and rtdf = 0
+ |
+ if (@b_pri1 > @deal_price)
+ {
+     publish data
+       where buy_high_cnt = @buy_high_cnt + 1
+         and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+         and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+ }
+ else
+ {
+     publish data
+       where buy_low_cnt = @buy_low_cnt + 1
+       and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+       and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+ }
+|
+if (@b_pri2 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri3 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri4 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri5 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri6 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri7 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri8 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri9 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+if (@b_pri10 > @deal_price)
+{
+    publish data
+      where buy_high_cnt = @buy_high_cnt + 1
+        and buy_high_avg_price = @buy_high_avg_price + @b_pri1 * @b_amt1
+        and buy_high_sum_amount = @buy_high_sum_amount + @b_amt1
+}
+else
+{
+    publish data
+      where buy_low_cnt = @buy_low_cnt + 1
+      and buy_low_avg_price = @buy_low_avg_price + @b_pri1 * @b_amt1
+      and buy_low_sum_amount = @buy_low_sum_amount + @b_amt1
+}
+|
+[select decode(@buy_high_sum_amount, 0, 0, @buy_high_avg_price / @buy_high_sum_amount) buy_high_avg_price,
+        decode(@buy_low_sum_amount, 0, 0, @buy_low_avg_price / @buy_low_sum_amount) buy_low_avg_price
+   from dual]
+|
+if (@s_pri1 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri2 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri3 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri4 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri5 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri6 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri7 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri8 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri9 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+if (@s_pri10 > @deal_price)
+{
+    publish data
+      where sell_high_cnt = @sell_high_cnt + 1
+        and sell_high_avg_price = @sell_high_avg_price + @s_pri1 * @s_amt1
+        and sell_high_sum_amount = @sell_high_sum_amount + @s_amt1
+}
+else
+{
+    publish data
+      where sell_low_cnt = @sell_low_cnt + 1
+      and sell_low_avg_price = @sell_low_avg_price + @s_pri1 * @s_amt1
+      and sell_low_sum_amount = @sell_low_sum_amount + @s_amt1
+}
+|
+[select decode(@sell_high_sum_amount, 0, 0, @sell_high_avg_price / @sell_high_sum_amount) sell_high_avg_price,
+        decode(@sell_low_sum_amount, 0, 0, @sell_low_avg_price / @sell_low_sum_amount) sell_low_avg_price
+   from dual]
+|
+[select to_char(sysdate, 'yyyymmddhh24miss') time
+   from dual]
+|
+create record
+where table_name = 'trade_stat_data'
+  and ins_dt = sysdate
+]]>
+</local-syntax>
+<documentation>
+<remarks>
+<![CDATA[
+ This command calculate statistic data for huobi market.
+]]>
+</remarks>
+</documentation>
+</command>

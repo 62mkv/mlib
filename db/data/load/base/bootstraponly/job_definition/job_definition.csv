@@ -2,3 +2,5 @@ job_id,role_id,name,enabled,type,command,log_file,trace_level,overlap,schedule,s
 EMS-SPOOLER,,EMS Alert Spooler,0,timer,"submit ems raised events",,,0,,0,60,moca_data
 PURGE-JOB-EXECUTIONS,,MOCA Job Execution Purger,0,cron,"remove job execution where start_dte < sysdate - 7",,,0,"0 0 3 * * ?",0,,moca_data
 PURGE-TASK-EXECUTIONS,,MOCA Task Execution Purger,0,cron,"remove task execution where start_dte < sysdate - 7",,,0,"0 0 3 * * ?",0,,moca_data
+PROC-HB-STAT,,HUOBI statistic data grabber,1,cron,"process trade stat data for hb",$MLIBDIR/log/trade_stat_hb.log,,0,"*/5 * * * * ?",0,,mlib_data
+PROC-OC-STAT,,OKCOIN statistic data grabber,1,cron,"process trade stat data for oc",$MLIBDIR/log/trade_stat_oc.log,,0,"*/5 * * * * ?",0,,mlib_data

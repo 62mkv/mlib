@@ -1,0 +1,39 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef TRADE_STAT_DATA_TBL
+#define TRADE_STAT_DATA_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define TRADE_STAT_DATA_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define TRADE_STAT_DATA_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define TRADE_STAT_DATA_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define TRADE_STAT_DATA_TBL
+#endif
+
+CREATE_TABLE(TRADE_STAT_DATA)
+(
+    dealer STRING_TY(10) not null,
+    market STRING_TY(10) not null,
+    coinType STRING_TY(10) not null,
+    time STRING_TY(20) not null,
+    deal_price FLOAT_TY,
+    buy_high_cnt FLOAT_TY,
+    buy_high_avg_price FLOAT_TY,
+    buy_high_sum_amount FLOAT_TY,
+    buy_low_cnt FLOAT_TY,
+    buy_low_avg_price FLOAT_TY,
+    buy_low_sum_amount FLOAT_TY,
+    sell_high_cnt FLOAT_TY,
+    sell_high_avg_price FLOAT_TY,
+    sell_high_sum_amount FLOAT_TY,
+    sell_low_cnt FLOAT_TY,
+    sell_low_avg_price FLOAT_TY,
+    sell_low_sum_amount FLOAT_TY,
+    ins_dt DATE_TY
+)
+CREATE_TABLE_TABLESPACE(TRADE_STAT_DATA_TBL_TBLSPC, TRADE_STAT_DATA_TBL_STORAGE)
+RUN_DDL
+
+#include <trade_stat_data_pk.idx>
+#include <trade_stat_data.tdoc>
