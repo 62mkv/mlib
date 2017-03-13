@@ -106,12 +106,12 @@ public class OCBPS1 implements IBuyPointSelector {
         double expPct = account.getExpStockPct(stock.getLastPri());
         
         log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
-        if (actPct + 0.1 < expPct) {
-            log.info("Stock inhand level 10% less expPct value, return true");
+        if (actPct + 0.25 < expPct) {
+            log.info("Stock inhand level 25% less expPct value, return true");
             return true;
         }
         
-        log.info("Stock inhand level NOT 10% less  expPct value, return false");
+        log.info("Stock inhand level NOT 25% less  expPct value, return false");
         return false;
     }
     

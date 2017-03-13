@@ -85,12 +85,12 @@ public class HBSPS1 implements ISellPointSelector {
         double expPct = account.getExpStockPct(stock.getLastPri());
         
         log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
-        if (actPct - expPct >= 0.1) {
-            log.info("Stock inhand level 10% over expPct value, return true");
+        if (actPct - expPct >= 0.25) {
+            log.info("Stock inhand level 25% over expPct value, return true");
             return true;
         }
         
-        log.info("Stock inhand level NOT 10% over expPct value, return false");
+        log.info("Stock inhand level NOT 25% over expPct value, return false");
         return false;
     }
     

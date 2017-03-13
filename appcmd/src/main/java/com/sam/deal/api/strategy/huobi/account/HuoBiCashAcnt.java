@@ -322,8 +322,8 @@ public class HuoBiCashAcnt implements ICashAccount {
             if (maxStockPct <= 0) {
             	getMaxStockPct();
             }
-            double maxExpStockPctVal = maxStockPct / 2.0;
-            double minExpStockPctVal = (maxStockPct / 5.0 > minStockPct) ? (maxStockPct / 5.0) : minStockPct;
+            double maxExpStockPctVal = maxStockPct;
+            double minExpStockPctVal = minStockPct;
             
             try {
                 rs = _moca.executeCommand("[select nvl(max(processed_price), 0) maxPri, nvl(min(processed_price), 0) minPri "
