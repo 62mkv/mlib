@@ -18,33 +18,33 @@ MOCA_ENVNAME=82
 JAVA_HOME=C:\jdk1.7
 JAVA64_HOME=C:\jdk1.8
 
-LESDIR=F:\MFC\mlib
-#MCSDIR=F:\dev\8.2\mcs
-#DCSDIR=F:\dev\8.2\wmd
-#MTFDIR=F:\dev\8.2\mtf
-#MTFCLIENT=F:\dev\8.2\wmd\mtfclient
+LESDIR=D:\MFC\mlib
+#MCSDIR=D:\dev\8.2\mcs
+#DCSDIR=D:\dev\8.2\wmd
+#MTFDIR=D:\dev\8.2\mtf
+#MTFCLIENT=D:\dev\8.2\wmd\mtfclient
 
-MOCADIR=F:\MFC\mlib
-#SALDIR=F:\dev\8.2\sal
-#SLDIR=F:\dev\8.2\seamles
-#REFSDIR=F:\dev\8.2\rpweb
-#RPUXDIR=F:\dev\8.2\rpux
-#REPORTINGDIR=F:\dev\8.2\reporting
-#RPFITDIR=F:\dev\8.2\RPFitNesse
+MOCADIR=D:\MFC\mlib
+#SALDIR=D:\dev\8.2\sal
+#SLDIR=D:\dev\8.2\seamles
+#REFSDIR=D:\dev\8.2\rpweb
+#RPUXDIR=D:\dev\8.2\rpux
+#REPORTINGDIR=D:\dev\8.2\reporting
+#RPFITDIR=D:\dev\8.2\RPFitNesse
 
-DEVTOOLS=F:\dev\devtools\
+DEVTOOLS=D:\dev\devtools\
 
 
 USR_ID=SUPER
-#WAFFLEDIR=F:\dev\8.2\waffle
+#WAFFLEDIR=D:\dev\8.2\waffle
 #DISABLE_CLIENT_DATA_CACHE=1
-#DCSTESTDIR=F:\dev\8.2\wmd-testing
+#DCSTESTDIR=D:\dev\8.2\wmd-testing
 #DCSTESTINGDIR=%DCSTESTDIR%
 #DCS_FITDIR=%DCSTESTDIR%
 HIBERNATE_HOME=%MOCADIR%\javalib
 
 
-PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\bin;%SALDIR%\bin;%SALDIR%\scripts;%DCSDIR%\bin;%DCSDIR%\scripts;%LESDIR%\scripts;%LESDIR%\bin;%MOCADIR%\bin;%MOCADIR%\scripts;%SLDIR%\bin;%SLDIR%\scripts;%MTFDIR%\bin;%MTFDIR%\scripts;%MCSDIR%\bin;%MCSDIR%\client\bin;%MCSDIR%\scripts;%MOCARPTDIR%\scripts;%MOCARPTDIR%\bin;%REFSDIR%\bin;F:\DailyWork\bin;D:\dev\home;%PATH%;
+PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\bin;%SALDIR%\bin;%SALDIR%\scripts;%DCSDIR%\bin;%DCSDIR%\scripts;%LESDIR%\scripts;%LESDIR%\bin;%MOCADIR%\bin;%MOCADIR%\scripts;%SLDIR%\bin;%SLDIR%\scripts;%MTFDIR%\bin;%MTFDIR%\scripts;%MCSDIR%\bin;%MCSDIR%\client\bin;%MCSDIR%\scripts;%MOCARPTDIR%\scripts;%MOCARPTDIR%\bin;%REFSDIR%\bin;D:\DailyWork\bin;D:\dev\home;%PATH%;
 
 #TEST_CLASSPATH=%RPUXDIR%\server\mocarest\domain\build\classes-test\;
 #WEB_CLASSPATH=%RPUXDIR%\server\build\classes\*;%RPUXDIR%\server\artifacts\*;%RPUXDIR%\server\mocarest\domain\build\jar\*;%REFSDIR%\javalib\*;%REFSDIR%
@@ -71,24 +71,93 @@ MOCA_HOST=localhost
 wms-event-url=tcp://localhost:61616
 wms-event-queue=WMS-WMA
 
+#
+#Cluster Section
+#
+#The cluster section is used to configure the server when deployed in a cluster.
+#
+
+[CLUSTER]
+name=lheprod
+jgroups-protocol=tcp-hosts
+jgroups-bind-port=7900
+jgroups-tcp-hosts=localhost[7900]
+roles=SERVER1
+role-check-rate=10
+async-runners=10
+role-manager=PREFERRED
+
+#[CLUSTER]
+#The name of the cluster. Every node in a cluster must use the same name in order to communicate with each other. 
+#name=
+#
+#The name of the JGroups configuration file that must be located in LESDIR/data. 
+#jgroups-xml=
+#
+#Domain name used when setting the domain for the console session cookie. 
+#cookie-domain=
+#
+#Role Manager used to control what node will manage each job and task. Different Role Managers can be defined on each node in the cluster to control what node will manage each job and task; three are provided. These are the valid values: FIXED, PREFERRED (default) and DYNAMIC.
+#role-manager=PREFERRED
+#
+#A comma-separated list of one or more roles of which the Role Manager will use in determining what role(s) a node should assume ownership when it starts. 
+#roles=
+#
+#
+#A comma-separated list of one or more roles of which the Role Manager should never assume ownership when it starts.
+#exclude-roles=
+#
+#The number of seconds that each node will wait between each acquisition of a role. This wait time staggers the assignment of roles, so a single node will not acquire all roles and then lose them as nodes start. 
+#role-check-rate=10
+#
+#The number of thread runners the server will start that can handle incoming asynchronous execution requests. 
+#async-runners=10
+#
+#The maxiumum amount of asynchronous execution requests the node can do at a time. Any attempt to submit more than this number will block the node until a currently submitted request completes. 
+#async-submit-cap=10000
+#
+#The type of protocol used for clustering. These are the valid values: udp or tcp-mcast or tcp-hosts.
+#jgroups-protocol=udp
+#
+#The ip address in which JGroups will bind to. This can be used when a static ip is configured for this adapter.
+#jgroups-bind-addr=
+#
+#The interface in which JGroups will bind to. This is recommended to be used when multiple network adapters are attached to the machine. I.E. eth0
+#jgroups-bind-interface=
+#
+#The port that JGroups will bind to. This value will default to 7800 for tcp-hosts. Others it will use an ephemeral port.
+#jgroups-bind-port=
+#
+#The initial hosts that JGroups should start with in the view when using TCP. This must be set when using tcp-hosts. This should be a comma separated list of hostport (ex. host1[7800],host2[7800])
+#jgroups-tcp-hosts=
+#
+#The option that will enable compression of messages between nodes. To enable, set to true.
+#jgroups-compress=false
+#
+#The option that will specify the multicast address. This is only used when the protocol is udp or tcp-mcast
+#jgroups-mcast-addr=228.6.7.8
+#
+#The option that will specify the mcast bind port. This is only used when the jgroups-protocol is udp or tcp-mcast
+#jgroups-mcast-port=46655
+
 [SERVER]
 test-disable-native=false
 inhibit-tasks=false
 inhibit-jobs=false
 max-async-thread=10
-command-profile=F:\MFC\mlib\data\commandprofile
+command-profile=D:\MFC\mlib\data\commandprofile
 port=%MOCA_PORT%
 prod-dirs=%MOCADIR%;%MOCADIR%\appcmd;
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
-memory-file=F:\MFC\mlib\data\%MOCA_ENVNAME%.mem
+memory-file=D:\MFC\mlib\data\%MOCA_ENVNAME%.mem
 #config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
 #commands-dir=%REPORTINGDIR%\src\cmdsrc;
 #session-idle-timeout=10
 #session-key-idle-timeout=10
 #session-transaction-timeout=10
 #classic-idle-timeout=10
-#trace-file=F:\dev\8.2\les\log\mocaServer.log
+#trace-file=D:\dev\8.2\les\log\mocaServer.log
 trace-level=*
 java-vmargs=-verbose:jni 
 #command-profile=<pathname>         # Default: off
@@ -132,13 +201,13 @@ password=RedPrairie1
 #url=jdbc:sqlserver://localhost;databaseName=%MOCA_ENVNAME%
 #url=jdbc:sqlserver://localhost;databaseName=rpw82
 ###url=jdbc:sqlserver://localhost;databaseName=20141
-#url=jdbc:sqlserver://localhost;databaseName=mlib
+url=jdbc:sqlserver://localhost;databaseName=mlib
 #url=jdbc:sqlserver://localhost;databaseName=fit-8.2
-#driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
-username=sam2
-password=sam2
-url=jdbc:oracle:thin:@localhost:1521:orcl
-driver=oracle.jdbc.OracleDriver
+driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+#username=sam2
+#password=sam2
+#url=jdbc:oracle:thin:@localhost:1521:orcl
+#driver=oracle.jdbc.OracleDriver
 
 
 [EMS]
