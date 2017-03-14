@@ -96,25 +96,6 @@ public class OCBPS1 implements IBuyPointSelector {
         }
     }
     
-    private boolean StockInhandLevelUnderExpect () {
-        double minPct = account.getMinStockPct();
-        double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
-        double avaMny = account.getMaxAvaMny();
-        double totalAsset = stockMny + avaMny;
-        
-        double actPct = stockMny / totalAsset;
-        double expPct = account.getExpStockPct(stock.getLastPri());
-        
-        log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
-        if (actPct + 0.25 < expPct) {
-            log.info("Stock inhand level 25% less expPct value, return true");
-            return true;
-        }
-        
-        log.info("Stock inhand level NOT 25% less  expPct value, return false");
-        return false;
-    }
-    
 	@Override
 	public boolean isGoodBuyPoint() {
 	    if ((stock.isLstPriTurnaround(true) || stock.isStockUnstableMode()) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
@@ -122,8 +103,8 @@ public class OCBPS1 implements IBuyPointSelector {
 	        return true;
 	    }
 	    else {
-            if (!stock.isStockUnstableMode() && StockInhandLevelUnderExpect()) {
-                log.info("Min level, enable replenishStockMode but HBBPS1 return true!");
+            if (!stock.isStockUnstableMode() && account.StockInhandLevelUnderExpect(stock.getLastPri())) {
+                log.info("Min level, enable replenishStockMode HBBPS1 return true!");
                 replenishStockMode = true;
                 return true;
             }
@@ -168,6 +149,10 @@ public class OCBPS1 implements IBuyPointSelector {
         }
         else if (replenishStockMode) {
             double expPct = account.getExpStockPct(stock.getLastPri());
+            if (stockMny / totalAsset < expPct - 1.0 / account.getMoneyLevels()) {
+                log.info("reset expPct by -1.0 / moneyLevels:" + 1.0 / account.getMoneyLevels() + ", expPct:" + expPct);
+                expPct -= 1.0 / account.getMoneyLevels();
+            }
             buyableMny = totalAsset * (expPct - (stockMny / totalAsset));
             log.info("stock replenishStockMode, buy with expected stock level expPct:" + expPct + ", buyableMny:" + buyableMny);
         }

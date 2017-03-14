@@ -3,7 +3,7 @@ HUOBI,TRADE,ACCESS-SECRET,0,a4379746-a122fb6b-0a8eba26-63f47,d85c11ec-856a9e77-1
 HUOBI,BTC,SHORT_LONG_TERM,0,060,100,5,10,0,0,sysdate,Install,----
 HUOBI,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
 HUOBI,BTC,MNYPERDEAL,0,,,0,0,1000,10000,sysdate,Install,----
-HUOBI,BTC,STOCKPCTLVL,0,,,0,0,0,1,sysdate,Install,----
+HUOBI,BTC,STOCKPCTLVL,0,,,4,0,0,1,sysdate,Install,----
 HUOBI,BTC,DEALWATERLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
 HUOBI,BTC,PRICE_DIFF,0,,,0,0,0.1,5,sysdate,Install,----
 HUOBI,BTC,STOCK_QUEUE_SIZE,0,,,1440,0,0,0,sysdate,Install,----
@@ -26,7 +26,7 @@ OKCOIN,TRADE,ACCESS-SECRET,0,ab4089d3-0917-4a9d-b461-9ef9554f13cf,82DCE35C15F34F
 OKCOIN,BTC,SHORT_LONG_TERM,0,,,3600,7200,0,0,sysdate,Install,----
 OKCOIN,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
 OKCOIN,BTC,MNYPERDEAL,0,,,0,0,60,300,sysdate,Install,----
-OKCOIN,BTC,STOCKPCTLVL,0,,,0,0,0,1,sysdate,Install,----
+OKCOIN,BTC,STOCKPCTLVL,0,,,2,0,0,1,sysdate,Install,----
 OKCOIN,BTC,DEALWATERLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
 OKCOIN,BTC,PRICE_DIFF,0,,,0,0,0.05,1,sysdate,Install,----
 OKCOIN,BTC,STOCK_QUEUE_SIZE,0,,,1440,0,0,0,sysdate,Install,----

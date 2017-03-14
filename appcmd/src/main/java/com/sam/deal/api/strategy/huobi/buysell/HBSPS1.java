@@ -76,31 +76,13 @@ public class HBSPS1 implements ISellPointSelector {
         }
     }
     
-    private boolean StockInhandLevelOverExpect() {
-        double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
-        double avaMny = account.getMaxAvaMny();
-        double totalAsset = stockMny + avaMny;
-        
-        double actPct = stockMny / totalAsset;
-        double expPct = account.getExpStockPct(stock.getLastPri());
-        
-        log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
-        if (actPct - expPct >= 0.25) {
-            log.info("Stock inhand level 25% over expPct value, return true");
-            return true;
-        }
-        
-        log.info("Stock inhand level NOT 25% over expPct value, return false");
-        return false;
-    }
-    
 	public boolean isGoodSellPoint() {
         if ((stock.isLstPriTurnaround(false) || stock.isStockUnstableMode()) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
             log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
             return true;
         }
         else {
-            if (!stock.isStockUnstableMode() && StockInhandLevelOverExpect()) {
+            if (!stock.isStockUnstableMode() && account.StockInhandLevelOverExpect(stock.getLastPri())) {
                 log.info("Expected stock level control, enable replenishStockMode, HBSPS1 return true!");
                 replenishStockMode = true;
                 return true;
@@ -132,6 +114,10 @@ public class HBSPS1 implements ISellPointSelector {
         
         if (replenishStockMode) {
             double expPct = account.getExpStockPct(stock.getLastPri());
+            if (stockMny / totalAsset > expPct + 1.0 / account.getMoneyLevels()) {
+                log.info("reset expPct by 1.0 / moneyLevels:" + 1.0 / account.getMoneyLevels() + ", expPct:" + expPct);
+                expPct += 1.0 / account.getMoneyLevels();
+            }
             sellabeleMny = totalAsset * (stockMny / totalAsset - expPct);
             log.info("stock replenishStockMode, buy with expected stock level expPct:" + expPct + ", sellabeleMny:" + sellabeleMny);
         }

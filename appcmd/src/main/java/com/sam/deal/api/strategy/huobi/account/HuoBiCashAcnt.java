@@ -35,6 +35,7 @@ public class HuoBiCashAcnt implements ICashAccount {
 	private double loan_ltc_display;
 	private double maxStockPct = 0.0;
 	private double minStockPct = 0.0;
+	private int moneyLevels = 0;
 	
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -298,17 +299,65 @@ public class HuoBiCashAcnt implements ICashAccount {
                 rs.next();
                 minStockPct = rs.getDouble("rtflt1");
                 maxStockPct = rs.getDouble("rtflt2");
-                _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct);
+                moneyLevels = rs.getInt("rtnum1");
+                _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct + ", moneyLevels:" + moneyLevels);
             } catch (MocaException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 _logger.error(e.getMessage());
-                _logger.info("Get policy STOCKPCTLVL error, use default value 0.2 and 0.8.");
+                _logger.info("Get policy STOCKPCTLVL error, use default value 0.2 and 0.8, and moneyLevels 4.");
                 minStockPct = 0.2;
                 maxStockPct = 0.8;
+                moneyLevels = 4;
             }
         }
         return maxStockPct;
+    }
+    
+    @Override
+    public int getMoneyLevels() {
+        // TODO Auto-generated method stub
+        if (maxStockPct <= 0) {
+            getMaxStockPct();
+        }
+        return moneyLevels;
+    }
+    
+    public boolean StockInhandLevelOverExpect(double stockLstPri) {
+        double stockMny = getAvaQty(getCoinType()) * stockLstPri;
+        double avaMny = getMaxAvaMny();
+        double totalAsset = stockMny + avaMny;
+        
+        double actPct = stockMny / totalAsset;
+        double expPct = getExpStockPct(stockLstPri);
+        
+        log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
+        if (actPct - expPct >= 1.0 / moneyLevels) {
+            log.info("Stock inhand level " + 1.0 / moneyLevels + " over expPct value, return true");
+            return true;
+        }
+        
+        log.info("Stock inhand level NOT " + 1.0 / moneyLevels + " over expPct value, return false");
+        return false;
+    }
+    
+    public boolean StockInhandLevelUnderExpect (double stockLstPri) {
+        double minPct = getMinStockPct();
+        double stockMny = getAvaQty(getCoinType()) * stockLstPri;
+        double avaMny = getMaxAvaMny();
+        double totalAsset = stockMny + avaMny;
+        
+        double actPct = stockMny / totalAsset;
+        double expPct = getExpStockPct(stockLstPri);
+        
+        log.info("actual stock inhand level:" + actPct + ", expPct:" + expPct);
+        if (actPct + 1.0 / moneyLevels < expPct) {
+            log.info("Stock inhand level " + 1.0 / moneyLevels + " less expPct value, return true");
+            return true;
+        }
+        
+        log.info("Stock inhand level NOT " + 1.0 / moneyLevels + " less  expPct value, return false");
+        return false;
     }
     
     @Override
