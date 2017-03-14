@@ -581,7 +581,8 @@ public class HuobiCmd {
      *            1 'btc', 2 'ltc'
      */
     public MocaResults createBuyOrder(String market, String coinType,
-            Double price, Double amount, String tradePassword, Integer tradeid)
+            Double price, Double amount, String tradePassword, Integer tradeid,
+            String reacod)
             throws MocaException {
 
         int ct = 0;
@@ -630,6 +631,7 @@ public class HuobiCmd {
                                + "    and fee =" + fee
                                + "    and total =" + total
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
                                + "create record where table_name = 'hb_buysell_data' and @*");
@@ -653,7 +655,8 @@ public class HuobiCmd {
      */
     public MocaResults createBuyOrderWithMarketPrice(String market,
             String coinType, Double amount, String tradePassword,
-            Integer tradeid) throws MocaException {
+            Integer tradeid,
+            String reacod) throws MocaException {
 
         int ct = 0;
         if ("btc".equalsIgnoreCase(coinType)) {
@@ -701,6 +704,7 @@ public class HuobiCmd {
                                + "    and fee =" + fee
                                + "    and total =" + total
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
                                + "create record where table_name = 'hb_buysell_data' and @*");
@@ -723,7 +727,8 @@ public class HuobiCmd {
      *            1 'btc', 2 'ltc'
      */
     public MocaResults createSellOrder(String market, String coinType,
-            Double price, Double amount, String tradePassword, Integer tradeid)
+            Double price, Double amount, String tradePassword, Integer tradeid,
+            String reacod)
             throws MocaException {
 
         int ct = 0;
@@ -771,6 +776,7 @@ public class HuobiCmd {
                                + "    and fee =" + fee
                                + "    and total =" + total
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
                                + "create record where table_name = 'hb_buysell_data' and @*");
@@ -794,7 +800,8 @@ public class HuobiCmd {
      */
     public MocaResults createSellOrderWithMarketPrice(String market,
             String coinType, Double amount, String tradePassword,
-            Integer tradeid) throws MocaException {
+            Integer tradeid,
+            String reacod) throws MocaException {
 
         int ct = 0;
         if ("btc".equalsIgnoreCase(coinType)) {
@@ -843,6 +850,7 @@ public class HuobiCmd {
                                + "    and fee =" + fee
                                + "    and total =" + total
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
                                + "create record where table_name = 'hb_buysell_data' and @*");

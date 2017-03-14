@@ -25,6 +25,9 @@ buy amount
 用户自定义订单号为数字(最多15位，唯一值)
 此项不参与sign签名过程
 </argument>
+<argument name="reacod" required="yes" datatype="string">
+reacod for buy.
+</argument>
 <documentation>
 <retcol name="result" type="COMTYP_CHAR"> 成功状态 success </retcol>
 <retcol name="id" type="COMTYP_CHAR"> 委托id </retcol>

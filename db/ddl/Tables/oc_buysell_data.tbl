@@ -21,6 +21,7 @@ CREATE_TABLE(oc_buysell_data)
     avg_price FLOAT_TY,
     deal_amount FLOAT_TY,
     status INTEGER_TY,
+    reacod STRING_TY(20),
     ins_dt DATE_TY
 )
 CREATE_TABLE_TABLESPACE(OC_BUYSELL_DATA_TBL_TBLSPC, OC_BUYSELL_DATA_TBL_STORAGE)

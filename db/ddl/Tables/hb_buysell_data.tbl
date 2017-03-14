@@ -11,7 +11,7 @@
 #define HB_BUYSELL_DATA_TBL
 #endif
 
-CREATE_TABLE(hb_BUYSELL_data)
+CREATE_TABLE(hb_buysell_data)
 (
     id STRING_TY(12) not null,
     type STRING_TY(2) not null,
@@ -23,6 +23,7 @@ CREATE_TABLE(hb_BUYSELL_data)
     fee FLOAT_TY,
     total FLOAT_TY,
     status INTEGER_TY,
+    reacod STRING_TY(20),
     ins_dt DATE_TY
 )
 CREATE_TABLE_TABLESPACE(HB_BUYSELL_DATA_TBL_TBLSPC, HB_BUYSELL_DATA_TBL_STORAGE)

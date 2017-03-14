@@ -664,7 +664,8 @@ public class OkCoinCmd {
      *            1 'btc', 2 'ltc'
      */
     public MocaResults createBuyOrder(String market, String coinType,
-            Double price, Double amount, String tradePassword, Integer tradeid)
+            Double price, Double amount, String tradePassword, Integer tradeid,
+            String reacod)
             throws MocaException {
 
         String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
@@ -714,6 +715,7 @@ public class OkCoinCmd {
                                + "    and avg_price =" + avg_price
                                + "    and deal_amount =" + deal_amount
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
                                + "create record where table_name = 'oc_buysell_data' and @*");
@@ -742,7 +744,8 @@ public class OkCoinCmd {
      */
     public MocaResults createBuyOrderWithMarketPrice(String market,
             String coinType, Double amount, String tradePassword,
-            Integer tradeid) throws MocaException {
+            Integer tradeid,
+            String reacod) throws MocaException {
 
         int ct = 0;
         if ("btc".equalsIgnoreCase(coinType)) {
@@ -790,9 +793,10 @@ public class OkCoinCmd {
                                + "    and fee =" + fee
                                + "    and total =" + total
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
-                               + "create record where table_name = 'hb_buysell_data' and @*");
+                               + "create record where table_name = 'oc_buysell_data' and @*");
             rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -812,7 +816,8 @@ public class OkCoinCmd {
      *            1 'btc', 2 'ltc'
      */
     public MocaResults createSellOrder(String market, String coinType,
-            Double price, Double amount, String tradePassword, Integer tradeid)
+            Double price, Double amount, String tradePassword, Integer tradeid,
+            String reacod)
             throws MocaException {
 
         String ct = (coinType.equalsIgnoreCase("BTC") ? "btc_usd" : "ltc_usd");
@@ -862,6 +867,7 @@ public class OkCoinCmd {
                                + "    and avg_price =" + avg_price
                                + "    and deal_amount =" + deal_amount
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
                                + "create record where table_name = 'oc_buysell_data' and @*");
@@ -890,7 +896,8 @@ public class OkCoinCmd {
      */
     public MocaResults createSellOrderWithMarketPrice(String market,
             String coinType, Double amount, String tradePassword,
-            Integer tradeid) throws MocaException {
+            Integer tradeid,
+            String reacod) throws MocaException {
 
         int ct = 0;
         if ("btc".equalsIgnoreCase(coinType)) {
@@ -939,9 +946,10 @@ public class OkCoinCmd {
                                + "    and fee =" + fee
                                + "    and total =" + total
                                + "    and status =" + status
+                               + "    and reacod = '" + reacod + "'"
                                + "    and ins_dt = sysdate "
                                + "| "
-                               + "create record where table_name = 'hb_buysell_data' and @*");
+                               + "create record where table_name = 'oc_buysell_data' and @*");
             rs.reset();
         } catch (Exception e) {
             // TODO Auto-generated catch block

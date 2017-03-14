@@ -940,12 +940,12 @@ public class OkCoinStock implements IStock{
                                       "     [select avg_price lstDealPri,                              " +
                                       "             type                                               " +
                                       "        from oc_buysell_data                                    " +
-                                      "       where id = (select max (id) from oc_buysell_data)        " +
+                                      "       where id = (select max (id) from oc_buysell_data where reacod like 'GoodPrice%')        " +
                                       "         and type in ('sell','buy')                             " +
                                       "         and ins_dt > sysdate - 12/24.0]            " + //if trade within 12 hours.
                                       "} " +
                                       "else {" +
-                                      "    publish data where lstDealPri = 0 " +
+                                      "    publish data where lstDealPri = 0 and type = 'NON'" +
                                       "}");
             rs.next();
             lstDealPri = rs.getDouble("lstDealPri");

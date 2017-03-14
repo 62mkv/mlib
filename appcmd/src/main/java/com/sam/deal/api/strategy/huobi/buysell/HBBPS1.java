@@ -130,7 +130,7 @@ public class HBBPS1 implements IBuyPointSelector {
 	@Override
 	public boolean buyStock() {
         String ct = stock.getSymbol().substring(0, 3);
-        //double buyqty = getBuyQty(s, ac);
+        String reacod = "GoodPrice";
         double buyableMny = account.getBuyableMny();
         double maxPct = account.getMaxStockPct();
         double stockMny = account.getAvaQty(account.getCoinType()) * stock.getLastPri();
@@ -144,6 +144,7 @@ public class HBBPS1 implements IBuyPointSelector {
 
         if (stock.isStockUnstableMode()) {
             buyableMny += buyableMny * FIRST_SHARPMODE_BUY_RATIO;
+            reacod = "GoodPrice-UnstableMode";
             log.info("stock is in unstable mode, buy with ratio money:" + buyableMny);
         }
         else if (replenishStockMode) {
@@ -153,6 +154,7 @@ public class HBBPS1 implements IBuyPointSelector {
                 expPct -= 1.0 / account.getMoneyLevels();
             }
             buyableMny = totalAsset * (expPct - (stockMny / totalAsset));
+            reacod = "ReplenishmentMode";
             log.info("stock replenishStockMode, buy with expected stock level expPct:" + expPct + ", buyableMny:" + buyableMny);
         }
         
@@ -241,6 +243,7 @@ public class HBBPS1 implements IBuyPointSelector {
                                        + "create buy order"
                                        + " where market = '" + account.getMarket() + "'"
                                        + "   and coinType ='" + account.getCoinType() + "'"
+                                       + "   and reacod = '" + reacod + "'"
                                        + "   and amount = @buyAmt "
                                        + "   and price = @price");
                     }

@@ -170,14 +170,18 @@ public class OkCoinCashAcnt implements ICashAccount {
                                       "                where t1.type = (select t2.type " +
                                       "                                   from oc_buysell_data t2 " +
                                       "                                  where t2.id = (select max(t3.id) " +
-                                      "                                                   from oc_buysell_data t3)" +
+                                      "                                                   from oc_buysell_data t3" +
+                                      "                                                    and t3.reacod like 'GoodPrice%')" +
                                       "                                ) " +
                                       "                  and not exists (select 'x' " +
                                       "                                    from oc_buysell_data t4 " +
                                       "                                   where t4.id > t1.id " +
+                                      "                                     and t4.reacod like 'GoodPrice%' " +
                                       "                                     and t4.type <> t1.type) " +
+                                      "                  and t1.reacod like 'GoodPrice%' " +
                                       "               ) " +
                                       "    and ins_dt > sysdate - 12/24.0 " +//if trade within 12 hours.
+                                      "    and reacod like 'GoodPrice%'" +
                                       "  group by type]");
             rs.next();
             type = rs.getString("type");

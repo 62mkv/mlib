@@ -966,12 +966,12 @@ public class HuoBiStock implements IStock{
                                       "    [select processed_price lstDealPri,                              " +
                                       "            type                                                     " +
                                       "       from hb_buysell_data                                          " +
-                                      "      where id = (select max (id) from hb_buysell_data)              " +
+                                      "      where id = (select max (id) from hb_buysell_data where reacod like 'GoodPrice%')              " +
                                       "        and type in ('1','2')                                        " +
                                       "        and ins_dt > sysdate - 12/24.0]            " +//if trade within 12 hours.
                                       "} " +
                                       "else {" +
-                                      "    publish data where lstDealPri = 0 " +
+                                      "    publish data where lstDealPri = 0 and type ='NON' " +
                                       "}");
             rs.next();
             lstDealPri = rs.getDouble("lstDealPri");

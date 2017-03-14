@@ -11,6 +11,7 @@ create db documentation
     and avg_price = "processed price for order."
     and deal_amount = "processed money for order."
     and status = "status for the trade."
+    and reacod = "reason code for deal."
     and ins_dt = "record insert time."
 /
 

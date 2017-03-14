@@ -140,119 +140,128 @@ public class HBSPS1 implements ISellPointSelector {
 	@Override
 	public boolean sellStock() {
         String ct = stock.getSymbol().substring(0, 3);
+        String reacod = "GoodPrice";
         double sellableQty = getSellQty();
         boolean soldComplete = false;
             
-            if (sellableQty < soldQty + 0.001) {
-            	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");
-            	soldQty = 0;
-            }
-            
-            if (sellableQty > 0.001) {
-                TickerData tid = stock.geTickerData();
-                int sz = tid.last_lst.size();
-                double lstPri = tid.last_lst.get(sz - 1);
-                try {
-                    MocaResults rs = _moca.executeCommand(
-                            "get top10 data where mk ='" + account.getMarket() + "'" +
-                            "  and ct = '" + account.getCoinType() + "'" +
-                            "   and sdf = 0 and rtdf = 0");
+        if (replenishStockMode) {
+            reacod = "ReplenishmentMode";
+        }
+        else if (stock.isStockUnstableMode()) {
+            reacod = "GoodPrice-UnstableMode";
+        }
+        
+        if (sellableQty < soldQty + 0.001) {
+        	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");
+        	soldQty = 0;
+        }
+        
+        if (sellableQty > 0.001) {
+            TickerData tid = stock.geTickerData();
+            int sz = tid.last_lst.size();
+            double lstPri = tid.last_lst.get(sz - 1);
+            try {
+                MocaResults rs = _moca.executeCommand(
+                        "get top10 data where mk ='" + account.getMarket() + "'" +
+                        "  and ct = '" + account.getCoinType() + "'" +
+                        "   and sdf = 0 and rtdf = 0");
+                
+                rs.next();
+                
+                double [] top10BuyAmt = new double[10];
+                double [] top10BuyPri = new double[10];
+                top10BuyAmt[0] = rs.getDouble("b_amt1");
+                top10BuyAmt[1] = rs.getDouble("b_amt2");
+                top10BuyAmt[2] = rs.getDouble("b_amt3");
+                top10BuyAmt[3] = rs.getDouble("b_amt4");
+                top10BuyAmt[4] = rs.getDouble("b_amt5");
+                top10BuyAmt[5] = rs.getDouble("b_amt6");
+                top10BuyAmt[6] = rs.getDouble("b_amt7");
+                top10BuyAmt[7] = rs.getDouble("b_amt8");
+                top10BuyAmt[8] = rs.getDouble("b_amt9");
+                top10BuyAmt[9] = rs.getDouble("b_amt10");
+                
+                top10BuyPri[0] = rs.getDouble("b_pri1");
+                top10BuyPri[1] = rs.getDouble("b_pri2");
+                top10BuyPri[2] = rs.getDouble("b_pri3");
+                top10BuyPri[3] = rs.getDouble("b_pri4");
+                top10BuyPri[4] = rs.getDouble("b_pri5");
+                top10BuyPri[5] = rs.getDouble("b_pri6");
+                top10BuyPri[6] = rs.getDouble("b_pri7");
+                top10BuyPri[7] = rs.getDouble("b_pri8");
+                top10BuyPri[8] = rs.getDouble("b_pri9");
+                top10BuyPri[9] = rs.getDouble("b_pri10");
+                
+                double bpg = stock.getBigPriceDiff();
+                
+                if (soldQty > 0 && Math.abs(soldLstPri - lstPri) > bpg) {
+                    log.info("Already soldQty:" + soldQty + ", reset to 0 as gap between soldLstPri:" + soldLstPri + " and lstPri:" + lstPri + "> bpg:" + bpg);
+                    soldQty = 0;
+                }
+                
+                boolean sellWithFixedPrice = false;
+                for (int i = 0; i < 10; i++) {
+                    double buyAmt = top10BuyAmt[i];
+                    double buyPri = top10BuyPri[i];
                     
-                    rs.next();
-                    
-                    double [] top10BuyAmt = new double[10];
-                    double [] top10BuyPri = new double[10];
-                    top10BuyAmt[0] = rs.getDouble("b_amt1");
-                    top10BuyAmt[1] = rs.getDouble("b_amt2");
-                    top10BuyAmt[2] = rs.getDouble("b_amt3");
-                    top10BuyAmt[3] = rs.getDouble("b_amt4");
-                    top10BuyAmt[4] = rs.getDouble("b_amt5");
-                    top10BuyAmt[5] = rs.getDouble("b_amt6");
-                    top10BuyAmt[6] = rs.getDouble("b_amt7");
-                    top10BuyAmt[7] = rs.getDouble("b_amt8");
-                    top10BuyAmt[8] = rs.getDouble("b_amt9");
-                    top10BuyAmt[9] = rs.getDouble("b_amt10");
-                    
-                    top10BuyPri[0] = rs.getDouble("b_pri1");
-                    top10BuyPri[1] = rs.getDouble("b_pri2");
-                    top10BuyPri[2] = rs.getDouble("b_pri3");
-                    top10BuyPri[3] = rs.getDouble("b_pri4");
-                    top10BuyPri[4] = rs.getDouble("b_pri5");
-                    top10BuyPri[5] = rs.getDouble("b_pri6");
-                    top10BuyPri[6] = rs.getDouble("b_pri7");
-                    top10BuyPri[7] = rs.getDouble("b_pri8");
-                    top10BuyPri[8] = rs.getDouble("b_pri9");
-                    top10BuyPri[9] = rs.getDouble("b_pri10");
-                    
-                    double bpg = stock.getBigPriceDiff();
-                    
-                    if (soldQty > 0 && Math.abs(soldLstPri - lstPri) > bpg) {
-                        log.info("Already soldQty:" + soldQty + ", reset to 0 as gap between soldLstPri:" + soldLstPri + " and lstPri:" + lstPri + "> bpg:" + bpg);
-                        soldQty = 0;
-                    }
-                    
-                    boolean sellWithFixedPrice = false;
-                    for (int i = 0; i < 10; i++) {
-                        double buyAmt = top10BuyAmt[i];
-                        double buyPri = top10BuyPri[i];
-                        
-                        if (buyPri + bpg < lstPri) {
-                            log.info("process buy[" + (i+1) + "], skip sell more as buyPri:" + buyPri + " + BigPriceDiff:" + bpg + " < lstPri:" + lstPri);
-                            if (!replenishStockMode) {
-                                break;
-                            }
-                            else if (replenishStockMode) {
-                                log.info("price is not good, will sell:" + (sellableQty - soldQty) + " with price:" + (lstPri - bpg));
-                                sellWithFixedPrice = true;
-                                buyPri = lstPri - bpg;
-                            }
-                        }
-                        
-                        double remainSellQty = sellableQty - soldQty;
-                        double sellAmt = (remainSellQty > buyAmt ? buyAmt : remainSellQty);
-                        
-                        if (sellWithFixedPrice) {
-                            sellAmt = remainSellQty;
-                        }
-                        
-                        try {
-                        _moca.executeCommand("[select round(" + sellAmt + ", 4) sellAmt, round(" + (buyPri - 0.1) + ", 2) price from dual]"
-                                           + "|"
-                                           + "create sell order"
-                                           + " where market = '" + account.getMarket() + "'"
-                                           + "   and coinType ='" + account.getCoinType() + "'"
-                                           + "   and amount = @sellAmt "
-                                           + "   and price = @price");
-                        }
-                        catch(Exception e) {
-                            log.debug(e.getMessage());
-                            log.debug("process selling buy[" + (i + 1) + "] failed, continue next buy.");
-                            continue;
-                        }
-                        soldQty += sellAmt;
-                        
-                        if (soldQty + 0.001 >= sellableQty) {
-                            log.info("sold Qty:" + soldQty + " success, which is bigger then sellableQty:" + sellableQty + " return true.");
-                            soldComplete = true;
-                            replenishStockMode = false;
-                            soldQty = 0;
+                    if (buyPri + bpg < lstPri) {
+                        log.info("process buy[" + (i+1) + "], skip sell more as buyPri:" + buyPri + " + BigPriceDiff:" + bpg + " < lstPri:" + lstPri);
+                        if (!replenishStockMode) {
                             break;
                         }
+                        else if (replenishStockMode) {
+                            log.info("price is not good, will sell:" + (sellableQty - soldQty) + " with price:" + (lstPri - bpg));
+                            sellWithFixedPrice = true;
+                            buyPri = lstPri - bpg;
+                        }
                     }
                     
-                    if (soldQty > 0) {
-                        log.info("save soldLstPri with lstPri:" + lstPri);
-                        soldLstPri = lstPri;
+                    double remainSellQty = sellableQty - soldQty;
+                    double sellAmt = (remainSellQty > buyAmt ? buyAmt : remainSellQty);
+                    
+                    if (sellWithFixedPrice) {
+                        sellAmt = remainSellQty;
+                    }
+                    
+                    try {
+                    _moca.executeCommand("[select round(" + sellAmt + ", 4) sellAmt, round(" + (buyPri - 0.1) + ", 2) price from dual]"
+                                       + "|"
+                                       + "create sell order"
+                                       + " where market = '" + account.getMarket() + "'"
+                                       + "   and coinType ='" + account.getCoinType() + "'"
+                                       + "   and reacod = '" + reacod + "'"
+                                       + "   and amount = @sellAmt "
+                                       + "   and price = @price");
+                    }
+                    catch(Exception e) {
+                        log.debug(e.getMessage());
+                        log.debug("process selling buy[" + (i + 1) + "] failed, continue next buy.");
+                        continue;
+                    }
+                    soldQty += sellAmt;
+                    
+                    if (soldQty + 0.001 >= sellableQty) {
+                        log.info("sold Qty:" + soldQty + " success, which is bigger then sellableQty:" + sellableQty + " return true.");
+                        soldComplete = true;
+                        replenishStockMode = false;
+                        soldQty = 0;
+                        break;
                     }
                 }
-                catch(Exception e) {
-                    log.debug(e.getMessage());
+                
+                if (soldQty > 0) {
+                    log.info("save soldLstPri with lstPri:" + lstPri);
+                    soldLstPri = lstPri;
                 }
-                return soldComplete;
             }
-            else {
-                log.info("sellqty is 0, can not sell:" + sellableQty);
-                return false;
+            catch(Exception e) {
+                log.debug(e.getMessage());
             }
+            return soldComplete;
+        }
+        else {
+            log.info("sellqty is 0, can not sell:" + sellableQty);
+            return false;
+        }
     }
 }

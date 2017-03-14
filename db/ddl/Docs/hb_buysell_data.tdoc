@@ -13,6 +13,7 @@ create db documentation
     and fee = "trade fee."
     and total = "total money used."
     and status = "status for the trade."
+    and reacod = "Reason code for deal."
     and ins_dt = "record insert time."
 /
 

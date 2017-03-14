@@ -140,8 +140,16 @@ public class OCSPS1 implements ISellPointSelector {
 	@Override
 	public boolean sellStock() {
         String ct = stock.getSymbol().substring(0, 3);
+        String reacod = "GoodPrice";
         double sellableQty = getSellQty();
         boolean soldComplete = false;
+        
+        if (replenishStockMode) {
+            reacod = "ReplenishmentMode";
+        }
+        else if (stock.isStockUnstableMode()) {
+            reacod = "GoodPrice-UnstableMode";
+        }
         
         if (sellableQty < soldQty + 0.001) {
         	log.info("Already sold:" + soldQty + " + 0.001 > sellableQty:" + sellableQty + " reset soldQty to 0.");
@@ -221,6 +229,7 @@ public class OCSPS1 implements ISellPointSelector {
                                        + "create sell order for oc"
                                        + " where market = '" + account.getMarket() + "'"
                                        + "   and coinType ='" + account.getCoinType() + "'"
+                                       + "   and reacod = '" + reacod + "'"
                                        + "   and amount = @sellAmt "
                                        + "   and price = @price");
                     }
