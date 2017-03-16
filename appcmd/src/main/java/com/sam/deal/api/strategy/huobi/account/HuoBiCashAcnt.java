@@ -176,7 +176,7 @@ public class HuoBiCashAcnt implements ICashAccount {
                                       "                                   from hb_buysell_data t2 " +
                                       "                                  where t2.id = (select max(t3.id) " +
                                       "                                                   from hb_buysell_data t3" +
-                                      "                                                    and t3.reacod like 'GoodPrice%')" +
+                                      "                                                  where t3.reacod like 'GoodPrice%')" +
                                       "                                ) " +
                                       "                  and not exists (select 'x' " +
                                       "                                    from hb_buysell_data t4 " +

@@ -680,6 +680,10 @@ public class OkCoinStock implements IStock{
                     _logger.info("isLstPriTurnaround return true for buy.");
                     return true;
                 }
+                else if (Math.abs(b0 - b1) < 0.01 && Math.abs(b2 - b1) < 0.01) {
+                    _logger.info("abs match, isLstPriTurnaround return true for buy.");
+                    return true;
+                }
             }
             else {
                 _logger.info("for buy sz is less than 3:" + szb + ", isLstPriTurnaround return false");
@@ -698,6 +702,10 @@ public class OkCoinStock implements IStock{
                 if ((s1 - s0) > SMALL_PRICE_DIFF &&
                     (s1 - s2) > SMALL_PRICE_DIFF) {
                     _logger.info("isLstPriTurnaround return true for sell.");
+                    return true;
+                }
+                else if (Math.abs(s1 - s0) < 0.01 && Math.abs(s1 - s2) < 0.01) {
+                    _logger.info("abs match, isLstPriTurnaround return true for sell.");
                     return true;
                 }
             }
