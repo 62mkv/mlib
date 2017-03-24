@@ -8,6 +8,7 @@ create db documentation
     and coinType = "Coin Type for trading"
     and time = "The timestamp for getting this data"
     and deal_price = "Real deal price"
+    and deal_amount = "Real deal amount for last 24 hours"
     and buy_high_cnt = "Count for prices higher than deal price for buy"
     and buy_high_avg_price = "Avg price for prices that higher than deal price for buy"
     and buy_high_sum_amount = "Total amount which has price higher than deal price for buy"

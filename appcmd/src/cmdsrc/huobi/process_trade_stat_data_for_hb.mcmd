@@ -16,6 +16,7 @@ get real time trade record
 |
 publish data
   where deal_price = @last
+    and deal_amount = @vol
     and buy_high_cnt = 0
     and buy_high_avg_price = 0
     and buy_high_sum_amount = 0

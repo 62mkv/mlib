@@ -18,6 +18,7 @@ CREATE_TABLE(TRADE_STAT_DATA)
     coinType STRING_TY(10) not null,
     time STRING_TY(20) not null,
     deal_price FLOAT_TY,
+    deal_amount FLOAT_TY,
     buy_high_cnt FLOAT_TY,
     buy_high_avg_price FLOAT_TY,
     buy_high_sum_amount FLOAT_TY,

@@ -9,13 +9,14 @@ publish data
       and market = 'US'
       and coinType = 'BTC'
 |
-get trade data for oc
+get ticker data for oc
   where mk = @market
     and ct = @coinType
     and sdf = 0
 |
 publish data
-  where deal_price = @price
+  where deal_price = @last
+    and deal_amount = @vol
     and buy_high_cnt = 0
     and buy_high_avg_price = 0
     and buy_high_sum_amount = 0
