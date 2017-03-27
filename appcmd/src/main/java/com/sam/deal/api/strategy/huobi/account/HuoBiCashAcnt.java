@@ -36,6 +36,7 @@ public class HuoBiCashAcnt implements ICashAccount {
 	private double maxStockPct = 0.0;
 	private double minStockPct = 0.0;
 	private int moneyLevels = 0;
+	private int minMaxDays = 0;
 	
     private final MocaContext _moca;
     private final CrudManager _manager;
@@ -304,7 +305,8 @@ public class HuoBiCashAcnt implements ICashAccount {
                 minStockPct = rs.getDouble("rtflt1");
                 maxStockPct = rs.getDouble("rtflt2");
                 moneyLevels = rs.getInt("rtnum1");
-                _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct + ", moneyLevels:" + moneyLevels);
+                minMaxDays = rs.getInt("rtnum2");
+                _logger.info("got policy, minStockPct:" + minStockPct + ", maxStockPct:" + maxStockPct + ", moneyLevels:" + moneyLevels + ", minMaxDays:" + minMaxDays);
             } catch (MocaException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -313,6 +315,7 @@ public class HuoBiCashAcnt implements ICashAccount {
                 minStockPct = 0.2;
                 maxStockPct = 0.8;
                 moneyLevels = 4;
+                minMaxDays = 30;
             }
         }
         return maxStockPct;
@@ -382,7 +385,7 @@ public class HuoBiCashAcnt implements ICashAccount {
                 rs = _moca.executeCommand("[select nvl(max(processed_price), 0) maxPri, nvl(min(processed_price), 0) minPri "
                 		                   + "from hb_buysell_data "
                 		                   + "where processed_price > 0 "
-                		                   + "  and ins_dt > sysdate - 7] "); // get 7 days max/min
+                		                   + "  and ins_dt > sysdate - " + minMaxDays + "] "); // get minMaxDays days max/min
                 rs.next();
                 minPri = rs.getDouble("minPri");
                 maxPri = rs.getDouble("maxPri");

@@ -971,7 +971,7 @@ public class HuoBiStock implements IStock{
                                       "|" +
                                       " if " + cls +
                                       " {" +
-                                      "    [select processed_price lstDealPri,                              " +
+                                      "    [select decode(processed_price, 0, order_price, processed_price) lstDealPri,                              " +
                                       "            type                                                     " +
                                       "       from hb_buysell_data                                          " +
                                       "      where id = (select max (id) from hb_buysell_data where reacod like 'GoodPrice%')              " +

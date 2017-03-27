@@ -945,7 +945,7 @@ public class OkCoinStock implements IStock{
                                       "|" +
                                       " if " + cls +
                                       " {" +
-                                      "     [select avg_price lstDealPri,                              " +
+                                      "     [select decode(avg_price, 0, price, avg_price) lstDealPri,                              " +
                                       "             type                                               " +
                                       "        from oc_buysell_data                                    " +
                                       "       where id = (select max (id) from oc_buysell_data where reacod like 'GoodPrice%')        " +
