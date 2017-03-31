@@ -1,0 +1,18 @@
+<command>
+<name>process period stat data</name>
+<description>get periods statistic datas.</description>
+<type>Java Method</type>
+<class>HuobiAI</class>
+<method>processPeriodStatData</method>
+<argument name="market" alias="mk" required="yes" datatype="string">
+'US' or 'CHN'
+</argument>
+<argument name="coinType" alias="ct" required="yes" datatype="string">
+'btc' or 'ltc'
+</argument>
+<argument name="dayShift" alias="dysft" required="yes" datatype="int">
+today:0, yesterday -1 etc.
+</argument>
+<documentation>
+</documentation>
+</command>
