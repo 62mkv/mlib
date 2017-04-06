@@ -77,24 +77,28 @@ public class HBSPS1 implements ISellPointSelector {
     }
     
 	public boolean isGoodSellPoint() {
-        if ((stock.isLstPriTurnaround(false) || stock.isStockUnstableMode()) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
-            log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
-            return true;
-        }
-        else {
-            if (!stock.isStockUnstableMode() && account.StockInhandLevelOverExpect(stock.getLastPri())) {
-                log.info("Expected stock level control, enable replenishStockMode, HBSPS1 return true!");
-                replenishStockMode = true;
+	    boolean b1 = stock.isLstPriBreakButtomBorder(3);
+	    boolean b2 = stock.wasClosePriHighLvlAndCross(0.7, 3);
+	    if (b1 && b2) {
+	         log.info("close price at high level, and down breaking last 3 days close prices,  HBSPS1 return true!");
+	         return true;
+	     }
+	    else if (!b2){
+            if ((stock.isLstPriTurnaround(false) || stock.isStockUnstableMode()) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
+                log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
                 return true;
             }
-            else if (stock.isShortCrossLong(false)) {
-                log.info("Short term is dead cross long term, enable replenishStockMode, but HBSPS1 return true!");
-                replenishStockMode = true;
-                return true;
+            else {
+//                if (!stock.isStockUnstableMode() && account.StockInhandLevelOverExpect(stock.getLastPri())) {
+//                    log.info("Expected stock level control, enable replenishStockMode, HBSPS1 return true!");
+//                    replenishStockMode = true;
+//                    return true;
+//                }
+                log.info("HBSPS1 return false.");
+                return false;
             }
-            log.info("HBSPS1 return false.");
-            return false;
-        }
+	    }
+	    return false;
 	}
 
 	@Override

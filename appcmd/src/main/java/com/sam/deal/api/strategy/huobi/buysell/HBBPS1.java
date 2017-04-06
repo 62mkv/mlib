@@ -97,24 +97,28 @@ public class HBBPS1 implements IBuyPointSelector {
     
 	@Override
 	public boolean isGoodBuyPoint() {
-	    if ((stock.isLstPriTurnaround(true) || stock.isStockUnstableMode()) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
-	        log.info("Stock trend turn up and at low " + minWaterLvl + " level, HBBPS1 return true.");
+	    boolean b1 = stock.isLstPriBreakUpBorder(3);
+	    boolean b2 = stock.wasClosePriLowLvlAndCross(0.3, 3);
+	    if (b1 && b2) {
+	        log.info("close price at low level, and breaking last 3 days close prices,  HBBPS1 return true!");
 	        return true;
 	    }
-	    else {
-            if (!stock.isStockUnstableMode() && account.StockInhandLevelUnderExpect(stock.getLastPri())) {
-                log.info("Min level, enable replenishStockMode HBBPS1 return true!");
-                replenishStockMode = true;
-                return true;
-            }
-            else if (stock.isShortCrossLong(true)) {
-                log.info("Short term is golden cross long term, enable replenishStockMode but HBBPS1 return false!");
-                replenishStockMode = true;
-                return true;
-            }
-	        log.info("HBBPS1 return false.");
-	        return false;
+	    else if (!b2){
+	        if ((stock.isLstPriTurnaround(true) || stock.isStockUnstableMode()) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
+	            log.info("Stock trend turn up and at low " + minWaterLvl + " level, HBBPS1 return true.");
+	            return true;
+	        }
+	        else {
+//                if (!stock.isStockUnstableMode() && account.StockInhandLevelUnderExpect(stock.getLastPri())) {
+//                    log.info("Min level, enable replenishStockMode HBBPS1 return true!");
+//                    replenishStockMode = true;
+//                    return true;
+//                }
+	            log.info("HBBPS1 return false.");
+	            return false;
+	        }
 	    }
+	    return false;
 	}
 	
 	@Override

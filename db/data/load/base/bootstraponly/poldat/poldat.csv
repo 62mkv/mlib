@@ -2,7 +2,7 @@ polcod,polvar,polval,srtseq,rtstr1,rtstr2,rtnum1,rtnum2,rtflt1,rtflt2,moddte,mod
 HUOBI,TRADE,ACCESS-SECRET,0,a4379746-a122fb6b-0a8eba26-63f47,d85c11ec-856a9e77-15061294-c63bb,0,0,0,0,sysdate,Install,----
 HUOBI,BTC,SHORT_LONG_TERM,0,060,100,5,10,0,0,sysdate,Install,----
 HUOBI,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
-HUOBI,BTC,MNYPERDEAL,0,,,0,0,3000,10000,sysdate,Install,----
+HUOBI,BTC,MNYPERDEAL,0,,,0,0,7000,10000,sysdate,Install,----
 HUOBI,BTC,STOCKPCTLVL,0,,,3,30,0,1,sysdate,Install,----
 HUOBI,BTC,DEALWATERLVL,0,,,0,0,0.2,0.8,sysdate,Install,----
 HUOBI,BTC,PRICE_DIFF,0,,,0,0,0.1,5,sysdate,Install,----

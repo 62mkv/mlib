@@ -838,20 +838,38 @@ public class HuoBiStock implements IStock{
         return false;
     }
     
-    public boolean isLstPriBreakUpBorder() {
-        if (!isMinMaxLstPriMatchBoxGap(true)) {
-            _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap, isLstPriBreakUpBorder is false.");
-            return false;
-        }
+    public boolean isLstPriBreakUpBorder(int maxDays) {
         int sz = tid.last_lst.size();
         double lstPri = tid.last_lst.get(sz - 1);
-        _logger.info("maxPri:" + maxpri + "\n minPri:" + minpri + "\n lstPri:" + lstPri);
         
-        if (lstPri >= maxpri) {
-            _logger.info("lstPri is breaking above border" + maxpri + ", return true");
-            return true;
+        try {
+            MocaResults rs = _moca.executeCommand("get period data " +
+                                                  "  where mk = '" + mk + "'" +
+                                                  "    and ct = '" + ct + "'" +
+                                                  "    and period = '100' " +
+                                                  "    and length = " + (maxDays + 1));
+            int highCnt = 0;
+            while (rs.next()) {
+                double close_pri = rs.getDouble("close");
+                _logger.info("lstPri:" + lstPri + " > close pri:" + close_pri + "?");
+                if (lstPri > close_pri) {
+                    highCnt++;
+                    continue;
+                }
+                else {
+                    break;
+                }
+            }
+            
+            if (highCnt >= maxDays) {
+                _logger.info("lstPri higher than last " + maxDays + " days close prices, return true");
+                return true;
+            }
+        } catch (MocaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            _logger.error(e.getMessage());
         }
-        _logger.info("lstPri is not breaking above border" + maxpri + ", return false");
         return false;
     }
     
@@ -872,21 +890,107 @@ public class HuoBiStock implements IStock{
         return false;
     }
     
-    public boolean isLstPriBreakButtomBorder() {
+    public boolean isLstPriBreakButtomBorder(int maxDays) {
         int sz = tid.last_lst.size();
-        if (!isMinMaxLstPriMatchBoxGap(false)) {
-            _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap, isLstPriBreakButtomBorder is false.");
-            return false;
-        }
         double lstPri = tid.last_lst.get(sz - 1);
-        _logger.info("maxPri:" + maxpri + "\n minPri:" + minpri + "\n lstPri:" + lstPri);
         
-        if (lstPri <= minpri) {
-            _logger.info("lstPri is breaking bottom border" + minpri + ", return true");
-            return true;
+        try {
+            MocaResults rs = _moca.executeCommand("get period data " +
+                                                  "  where mk = '" + mk + "'" +
+                                                  "    and ct = '" + ct + "'" +
+                                                  "    and period = '100' " +
+                                                  "    and length = " + (maxDays + 1));
+            int lowCnt = 0;
+            while (rs.next()) {
+                double close_pri = rs.getDouble("close");
+                _logger.info("lstPri:" + lstPri + " < close pri:" + close_pri + "?");
+                if (lstPri < close_pri) {
+                    lowCnt++;
+                    continue;
+                }
+                else {
+                    break;
+                }
+            }
+            
+            if (lowCnt >= maxDays) {
+                _logger.info("lstPri lower than last " + maxDays + " days close prices, return true");
+                return true;
+            }
+        } catch (MocaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            _logger.error(e.getMessage());
         }
-        _logger.info("lstPri is breaking bottom border" + minpri + ", return false");
         return false;
+    }
+    
+    public boolean wasClosePriHighLvlAndCross(double highLvl, int maxDays) {
+        
+        boolean atHighLvl = false;
+        boolean isCrossPeriod = false;
+        int dayCnt = 0;
+        try {
+            do {
+                MocaResults rs = _moca.executeCommand("process period stat data " +
+                                                      "  where mk = '" + mk + "'" +
+                                                      "    and ct = '" + ct + "'" +
+                                                      "    and dayShift = " + dayCnt);
+                if (rs.next()) {
+                    double pricePctForDay = rs.getDouble("pricePctForDay");
+                    _logger.info("pricePctForDay:" + pricePctForDay + ", highLvl:" + highLvl);
+                    if (pricePctForDay >= highLvl && !atHighLvl) {
+                        atHighLvl = true;
+                    }
+                    
+                    if (!isCrossPeriod) {
+                        isCrossPeriod = rs.getBoolean("isCrossPeriodForDay");
+                    }
+                }
+                _logger.info("atHighLvl:" + atHighLvl + ", isCrossPeriod:" + isCrossPeriod);
+                dayCnt--;
+            }
+            while (!(atHighLvl && isCrossPeriod) && dayCnt > -maxDays);
+        } catch (MocaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            _logger.error(e.getMessage());
+        }
+        return atHighLvl && isCrossPeriod;
+    }
+    
+    public boolean wasClosePriLowLvlAndCross(double LowLvl, int maxDays) {
+        
+        boolean atLowLvl = false;
+        boolean isCrossPeriod = false;
+        int dayCnt = 0;
+        try {
+            do {
+                MocaResults rs = _moca.executeCommand("process period stat data " +
+                                                      "  where mk = '" + mk + "'" +
+                                                      "    and ct = '" + ct + "'" +
+                                                      "    and dayShift = " + dayCnt);
+                if (rs.next()) {
+                    double pricePctForDay = rs.getDouble("pricePctForDay");
+                    _logger.info("pricePctForDay:" + pricePctForDay + ", atLowLvl:" + atLowLvl);
+                    if (pricePctForDay <= LowLvl && !atLowLvl) {
+                        atLowLvl = true;
+                    }
+                    
+                    if (!isCrossPeriod) {
+                        isCrossPeriod = rs.getBoolean("isCrossPeriodForDay");
+                    }
+                }
+                _logger.info("atLowLvl:" + atLowLvl + ", isCrossPeriod:" + isCrossPeriod);
+                dayCnt--;
+            }
+            while (!(atLowLvl && isCrossPeriod) && dayCnt > -maxDays);
+        } catch (MocaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            _logger.error(e.getMessage());
+        }
+        return atLowLvl && isCrossPeriod;
     }
     
     public boolean isMinMaxLstPriMatchBoxGap(boolean forBuy) {
