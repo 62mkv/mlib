@@ -10,8 +10,18 @@
 <argument name="coinType" alias="ct" required="yes" datatype="string">
 'btc' or 'ltc'
 </argument>
-<argument name="dayShift" alias="dysft" required="yes" datatype="int">
-today:0, yesterday -1 etc.
+<argument name="periodType" alias="pt" required="yes" datatype="string">
+'Y' year,
+'M' month,
+'W' week,
+'D' day
+'H' Hour
+</argument>
+<argument name="periodLength" alias="pl" required="yes" datatype="int">
+length for this period
+</argument>
+<argument name="periodShift" alias="pdsft" required="yes" datatype="int">
+today:0, no shift -1 etc.
 </argument>
 <documentation>
 </documentation>

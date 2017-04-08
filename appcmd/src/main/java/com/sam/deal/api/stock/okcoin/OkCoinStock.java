@@ -632,8 +632,8 @@ public class OkCoinStock implements IStock{
             }
         }
         
-        //take 1 minute for cal avg pri.
-        int lenForAvg = 60 * 1 / SECONDS_AS_LOOP_GAP;
+        //take 5 minute for cal avg pri.
+        int lenForAvg = 60 * 5 / SECONDS_AS_LOOP_GAP;
         
         if (!isMinMaxLstPriMatchBoxGap(inc_flg) || sz < 3 * lenForAvg) {
             _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap or sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");

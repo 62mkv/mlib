@@ -29,6 +29,7 @@ public class HBSPS1 implements ISellPointSelector {
     private double minWaterLvl = 0.0;
     private HuoBiStock stock = null;
     private HuoBiCashAcnt account = null;
+    private String ordid_forskp = null;
 
     public HBSPS1(HuoBiStock s, HuoBiCashAcnt ac)
     {
@@ -77,28 +78,20 @@ public class HBSPS1 implements ISellPointSelector {
     }
     
 	public boolean isGoodSellPoint() {
-	    boolean b1 = stock.isLstPriBreakButtomBorder(3);
-	    boolean b2 = stock.wasClosePriHighLvlAndCross(0.7, 3);
-	    if (b1 && b2) {
-	         log.info("close price at high level, and down breaking last 3 days close prices,  HBSPS1 return true!");
-	         return true;
-	     }
-	    else if (!b2){
-            if ((stock.isLstPriTurnaround(false) || stock.isStockUnstableMode()) && stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
-                log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
-                return true;
-            }
-            else {
-//                if (!stock.isStockUnstableMode() && account.StockInhandLevelOverExpect(stock.getLastPri())) {
-//                    log.info("Expected stock level control, enable replenishStockMode, HBSPS1 return true!");
-//                    replenishStockMode = true;
-//                    return true;
-//                }
-                log.info("HBSPS1 return false.");
-                return false;
-            }
-	    }
-	    return false;
+        if (stock.isMinMaxLstPriMatchBoxGap(false, ordid_forskp) &&
+            (stock.isLstPriTurnaround(false) || stock.isStockUnstableMode()) &&
+            stock.isLstPriAboveWaterLevel(maxWaterLvl)) {
+            log.info("Stock trend truns down at "+ maxWaterLvl + " level, HBSPS1 return true.");
+            return true;
+        }
+        else if (stock.hasGoodPriceInTop10(false)) {
+            log.info("hasGoodPriceInTop10, HBSPS1 return false.");
+            return true;
+        }
+        else {
+            log.info("HBSPS1 return false.");
+            return false;
+        }
 	}
 
 	@Override
@@ -228,7 +221,7 @@ public class HBSPS1 implements ISellPointSelector {
                     }
                     
                     try {
-                    _moca.executeCommand("[select round(" + sellAmt + ", 4) sellAmt, round(" + (buyPri - 0.1) + ", 2) price from dual]"
+                    rs = _moca.executeCommand("[select round(" + sellAmt + ", 4) sellAmt, round(" + (buyPri - 0.1) + ", 2) price from dual]"
                                        + "|"
                                        + "create sell order"
                                        + " where market = '" + account.getMarket() + "'"
@@ -247,9 +240,14 @@ public class HBSPS1 implements ISellPointSelector {
                     if (soldQty + 0.001 >= sellableQty) {
                         log.info("sold Qty:" + soldQty + " success, which is bigger then sellableQty:" + sellableQty + " return true.");
                         soldComplete = true;
+                        ordid_forskp = null;
                         replenishStockMode = false;
                         soldQty = 0;
                         break;
+                    }
+                    else if (ordid_forskp == null || ordid_forskp.isEmpty()){
+                        ordid_forskp = rs.getString("id");
+                        log.info("save sell ordid_forskp as:" + ordid_forskp);
                     }
                 }
                 

@@ -106,71 +106,77 @@ public class HuobiAI {
 
     /* Return:
      */
-    public MocaResults processPeriodStatData(String market, String coinType, int dayShift)
+    public MocaResults processPeriodStatData(String market, String coinType, String periodType, int periodLength, int periodShift)
             throws MocaException {
         
         EditableResults res = new SimpleResults();
-        res.addColumn("isBuyTurnaroundForMonth", MocaType.BOOLEAN);
-        res.addColumn("isSellTurnaroundForMonth", MocaType.BOOLEAN);
-        res.addColumn("isLostPeriodForMonth", MocaType.BOOLEAN);
-        res.addColumn("isCrossPeriodForMonth", MocaType.BOOLEAN);
-        res.addColumn("pricePctForMonth", MocaType.DOUBLE);
-        res.addColumn("volumePctForMonth", MocaType.DOUBLE);
         
-        res.addColumn("isBuyTurnaroundForWeek", MocaType.BOOLEAN);
-        res.addColumn("isSellTurnaroundForWeek", MocaType.BOOLEAN);
-        res.addColumn("isLostPeriodForWeek", MocaType.BOOLEAN);
-        res.addColumn("isCrossPeriodForWeek", MocaType.BOOLEAN);
-        res.addColumn("pricePctForWeek", MocaType.DOUBLE);
-        res.addColumn("volumePctForWeek", MocaType.DOUBLE);
+        if (periodType.equalsIgnoreCase("M")) {
+            res.addColumn("isBuyTurnaroundForMonth", MocaType.BOOLEAN);
+            res.addColumn("isSellTurnaroundForMonth", MocaType.BOOLEAN);
+            res.addColumn("isLostPeriodForMonth", MocaType.BOOLEAN);
+            res.addColumn("isCrossPeriodForMonth", MocaType.BOOLEAN);
+            res.addColumn("pricePctForMonth", MocaType.DOUBLE);
+            res.addColumn("volumePctForMonth", MocaType.DOUBLE);
+            PERIODDATA pdm = getPeriodData(market, coinType, "300", periodLength, periodShift); //month
+            res.addRow();
+            res.setBooleanValue("isBuyTurnaroundForMonth", pdm.isBuyTurnaround);
+            res.setBooleanValue("isSellTurnaroundForMonth", pdm.isSellTurnaround);
+            res.setBooleanValue("isLostPeriodForMonth", pdm.isLostPeriod);
+            res.setBooleanValue("isCrossPeriodForMonth", pdm.isCrossPeriod);
+            res.setDoubleValue("pricePctForMonth", pdm.pricePct);
+            res.setDoubleValue("volumePctForMonth", pdm.volumePct);
+        }
+        else if (periodType.equalsIgnoreCase("W")) {
+            res.addColumn("isBuyTurnaroundForWeek", MocaType.BOOLEAN);
+            res.addColumn("isSellTurnaroundForWeek", MocaType.BOOLEAN);
+            res.addColumn("isLostPeriodForWeek", MocaType.BOOLEAN);
+            res.addColumn("isCrossPeriodForWeek", MocaType.BOOLEAN);
+            res.addColumn("pricePctForWeek", MocaType.DOUBLE);
+            res.addColumn("volumePctForWeek", MocaType.DOUBLE);
+            PERIODDATA pdw = getPeriodData(market, coinType, "200", periodLength, periodShift); //week
+            res.addRow();
+            res.setBooleanValue("isBuyTurnaroundForWeek", pdw.isBuyTurnaround);
+            res.setBooleanValue("isSellTurnaroundForWeek", pdw.isSellTurnaround);
+            res.setBooleanValue("isLostPeriodForWeek", pdw.isLostPeriod);
+            res.setBooleanValue("isCrossPeriodForWeek", pdw.isCrossPeriod);
+            res.setDoubleValue("pricePctForWeek", pdw.pricePct);
+            res.setDoubleValue("volumePctForWeek", pdw.volumePct);
+        }
         
-        res.addColumn("isBuyTurnaroundForDay", MocaType.BOOLEAN);
-        res.addColumn("isSellTurnaroundForDay", MocaType.BOOLEAN);
-        res.addColumn("isLostPeriodForDay", MocaType.BOOLEAN);
-        res.addColumn("isCrossPeriodForDay", MocaType.BOOLEAN);
-        res.addColumn("pricePctForDay", MocaType.DOUBLE);
-        res.addColumn("volumePctForDay", MocaType.DOUBLE);
+        else if (periodType.equalsIgnoreCase("D")) {
+            res.addColumn("isBuyTurnaroundForDay", MocaType.BOOLEAN);
+            res.addColumn("isSellTurnaroundForDay", MocaType.BOOLEAN);
+            res.addColumn("isLostPeriodForDay", MocaType.BOOLEAN);
+            res.addColumn("isCrossPeriodForDay", MocaType.BOOLEAN);
+            res.addColumn("pricePctForDay", MocaType.DOUBLE);
+            res.addColumn("volumePctForDay", MocaType.DOUBLE);
+            PERIODDATA pdd = getPeriodData(market, coinType, "100", periodLength, periodShift); //day
+            res.addRow();
+            res.setBooleanValue("isBuyTurnaroundForDay", pdd.isBuyTurnaround);
+            res.setBooleanValue("isSellTurnaroundForDay", pdd.isSellTurnaround);
+            res.setBooleanValue("isLostPeriodForDay", pdd.isLostPeriod);
+            res.setBooleanValue("isCrossPeriodForDay", pdd.isCrossPeriod);
+            res.setDoubleValue("pricePctForDay", pdd.pricePct);
+            res.setDoubleValue("volumePctForDay", pdd.volumePct);
+        }
         
-        res.addColumn("isBuyTurnaroundForHour", MocaType.BOOLEAN);
-        res.addColumn("isSellTurnaroundForHour", MocaType.BOOLEAN);
-        res.addColumn("isLostPeriodForHour", MocaType.BOOLEAN);
-        res.addColumn("isCrossPeriodForHour", MocaType.BOOLEAN);
-        res.addColumn("pricePctForHour", MocaType.DOUBLE);
-        res.addColumn("volumePctForHour", MocaType.DOUBLE);
-        
-        PERIODDATA pdm = getPeriodData(market, coinType, "300", 6, dayShift); //month
-        PERIODDATA pdw = getPeriodData(market, coinType, "200", 12, dayShift); //week
-        PERIODDATA pdd = getPeriodData(market, coinType, "100", 45, dayShift); //day
-        PERIODDATA pdh = getPeriodData(market, coinType, "060", 72, dayShift); //hour
-        res.addRow();
-        res.setBooleanValue("isBuyTurnaroundForMonth", pdm.isBuyTurnaround);
-        res.setBooleanValue("isSellTurnaroundForMonth", pdm.isSellTurnaround);
-        res.setBooleanValue("isLostPeriodForMonth", pdm.isLostPeriod);
-        res.setBooleanValue("isCrossPeriodForMonth", pdm.isCrossPeriod);
-        res.setDoubleValue("pricePctForMonth", pdm.pricePct);
-        res.setDoubleValue("volumePctForMonth", pdm.volumePct);
-        
-        res.setBooleanValue("isBuyTurnaroundForWeek", pdw.isBuyTurnaround);
-        res.setBooleanValue("isSellTurnaroundForWeek", pdw.isSellTurnaround);
-        res.setBooleanValue("isLostPeriodForWeek", pdw.isLostPeriod);
-        res.setBooleanValue("isCrossPeriodForWeek", pdw.isCrossPeriod);
-        res.setDoubleValue("pricePctForWeek", pdw.pricePct);
-        res.setDoubleValue("volumePctForWeek", pdw.volumePct);
-        
-        res.setBooleanValue("isBuyTurnaroundForDay", pdd.isBuyTurnaround);
-        res.setBooleanValue("isSellTurnaroundForDay", pdd.isSellTurnaround);
-        res.setBooleanValue("isLostPeriodForDay", pdd.isLostPeriod);
-        res.setBooleanValue("isCrossPeriodForDay", pdd.isCrossPeriod);
-        res.setDoubleValue("pricePctForDay", pdd.pricePct);
-        res.setDoubleValue("volumePctForDay", pdd.volumePct);
-        
-        res.setBooleanValue("isBuyTurnaroundForHour", pdh.isBuyTurnaround);
-        res.setBooleanValue("isSellTurnaroundForHour", pdh.isSellTurnaround);
-        res.setBooleanValue("isLostPeriodForHour", pdh.isLostPeriod);
-        res.setBooleanValue("isCrossPeriodForHour", pdh.isCrossPeriod);
-        res.setDoubleValue("pricePctForHour", pdh.pricePct);
-        res.setDoubleValue("volumePctForHour", pdh.volumePct);
-
+        else if (periodType.equalsIgnoreCase("H")) {
+            res.addColumn("isBuyTurnaroundForHour", MocaType.BOOLEAN);
+            res.addColumn("isSellTurnaroundForHour", MocaType.BOOLEAN);
+            res.addColumn("isLostPeriodForHour", MocaType.BOOLEAN);
+            res.addColumn("isCrossPeriodForHour", MocaType.BOOLEAN);
+            res.addColumn("pricePctForHour", MocaType.DOUBLE);
+            res.addColumn("volumePctForHour", MocaType.DOUBLE);
+            PERIODDATA pdh = getPeriodData(market, coinType, "060", periodLength, periodShift); //hour
+            res.addRow();
+            res.setBooleanValue("isBuyTurnaroundForHour", pdh.isBuyTurnaround);
+            res.setBooleanValue("isSellTurnaroundForHour", pdh.isSellTurnaround);
+            res.setBooleanValue("isLostPeriodForHour", pdh.isLostPeriod);
+            res.setBooleanValue("isCrossPeriodForHour", pdh.isCrossPeriod);
+            res.setDoubleValue("pricePctForHour", pdh.pricePct);
+            res.setDoubleValue("volumePctForHour", pdh.volumePct);
+        }
         return res;
     }
     

@@ -1,3 +1,3 @@
 task_id,role_id,name,task_typ,cmd_line,run_dir,log_file,trace_level,restart,auto_start,start_delay,grp_nam
 HUOBI_TRADER_RUNNER,*,Huo Bi trading task,T,"com.sam.deal.api.util.HuoBiTraderTask -k CHN -t btc ",,$LESDIR/log/huobitrader.log,-t INFO,0,1,0,huobi_data
-OKCOIN_TRADER_RUNNER,*,OkCoin trading task,T,"com.sam.deal.api.util.OkCoinTraderTask -k US -t btc ",,$LESDIR/log/okcointrader.log,-t INFO,0,1,0,okcoin_data
+OKCOIN_TRADER_RUNNER,*,OkCoin trading task,T,"com.sam.deal.api.util.OkCoinTraderTask -k CHN -t btc ",,$LESDIR/log/okcointrader.log,-t INFO,0,1,0,okcoin_data

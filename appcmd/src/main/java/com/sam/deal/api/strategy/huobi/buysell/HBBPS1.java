@@ -35,6 +35,7 @@ public class HBBPS1 implements IBuyPointSelector {
     private double minWaterLvl = 0.0;
     private HuoBiStock stock = null;
     private HuoBiCashAcnt account = null;
+    private String ordid_forskp = null;
     
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -97,28 +98,20 @@ public class HBBPS1 implements IBuyPointSelector {
     
 	@Override
 	public boolean isGoodBuyPoint() {
-	    boolean b1 = stock.isLstPriBreakUpBorder(3);
-	    boolean b2 = stock.wasClosePriLowLvlAndCross(0.3, 3);
-	    if (b1 && b2) {
-	        log.info("close price at low level, and breaking last 3 days close prices,  HBBPS1 return true!");
+	    if (stock.isMinMaxLstPriMatchBoxGap(true, ordid_forskp) &&
+	        (stock.isLstPriTurnaround(true) || stock.isStockUnstableMode()) &&
+	        stock.isLstPriUnderWaterLevel(minWaterLvl)) {
+	        log.info("Stock trend turn up and at low " + minWaterLvl + " level, HBBPS1 return true.");
 	        return true;
 	    }
-	    else if (!b2){
-	        if ((stock.isLstPriTurnaround(true) || stock.isStockUnstableMode()) && stock.isLstPriUnderWaterLevel(minWaterLvl)) {
-	            log.info("Stock trend turn up and at low " + minWaterLvl + " level, HBBPS1 return true.");
-	            return true;
-	        }
-	        else {
-//                if (!stock.isStockUnstableMode() && account.StockInhandLevelUnderExpect(stock.getLastPri())) {
-//                    log.info("Min level, enable replenishStockMode HBBPS1 return true!");
-//                    replenishStockMode = true;
-//                    return true;
-//                }
-	            log.info("HBBPS1 return false.");
-	            return false;
-	        }
+	    else if (stock.hasGoodPriceInTop10(true)){
+            log.info("hasGoodPriceInTop10, HBBPS1 return false.");
+            return true;
 	    }
-	    return false;
+	    else {
+	        log.info("HBBPS1 return false.");
+	        return false;
+	    }
 	}
 	
 	@Override
@@ -261,9 +254,14 @@ public class HBBPS1 implements IBuyPointSelector {
                     if (boughtMny + 1 >= buyableMny) {
                         log.info("bought money:" + boughtMny + " success, which is bigger then buyableMny:" + buyableMny + " return true.");
                         boughtComplete = true;
+                        ordid_forskp = null;
                         replenishStockMode = false;
                         boughtMny = 0;
                         break;
+                    }
+                    else if (ordid_forskp == null || ordid_forskp.isEmpty()){
+                        ordid_forskp = rs.getString("id");
+                        log.info("save buy ordid_forskp as:" + ordid_forskp);
                     }
                 }
                 

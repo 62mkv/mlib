@@ -58,6 +58,8 @@ public class HuoBiStock implements IStock{
     double minpri = 100000;
     double history_maxpri = 0;
     double history_minpri = 100000;
+    private double minWaterLvl = 0.0;
+    private double maxWaterLvl = 0.0;
     String pre_gloden_time ="";
     String pre_dead_time ="";
     
@@ -423,6 +425,22 @@ public class HuoBiStock implements IStock{
            }
         }
         
+        if (SECONDS_AS_LOOP_GAP == 0) {
+            polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
+            try {
+                MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '"
+                                                      + polvar + "' and polval = 'LOOP-PARAM' and grp_id = '----'");
+                rs.next();
+                SECONDS_AS_LOOP_GAP = rs.getInt("rtnum2");
+            }
+            catch (MocaException e) {
+                e.printStackTrace();
+                _logger.error(e.getMessage());
+                _logger.info("Reading policy LOOP-PARAM error, use default value 5 seconds for loop gap.");
+                SECONDS_AS_LOOP_GAP = 5;
+            }
+        }
+        
         top10 = new Top10Data();
         trd = new TradeData();
         tid = new TickerData();
@@ -638,31 +656,56 @@ public class HuoBiStock implements IStock{
             _logger.debug("TickerData cleared!");
     }
     
+    public boolean hasGoodPriceInTop10(boolean forBuy) {
+        
+        boolean result = false;
+        double lst_dealpri = tid.last_lst.get(tid.last_lst.size() - 1);
+        _logger.info("hasGoodPriceInTop10 last deal pri:" + lst_dealpri + ", forBuy:" + forBuy);
+        try {
+            MocaResults rs = _moca.executeCommand(
+                    "get top10 data where mk ='" + mk + "'" +
+                    "  and ct = '" + ct + "'" +
+                    "   and sdf = 0 and rtdf = 0" +
+                    "|" +
+                    (forBuy ? (" if (@s_pri1 <= " + lst_dealpri + " - " + LAST_PRICE_BOX_GAP_MAX + ")") : (" if (@b_pri1 >= " + lst_dealpri + " + " + LAST_PRICE_BOX_GAP_MAX + ")")) +
+                    "{" +
+                    "    publish data" +
+                    "      where goodPrice = " + (forBuy ? "@s_pri1" : "@b_pri1") +
+                    "        and goodAmt = " + (forBuy ? "@s_amt1" : "@b_amt1") +
+                    "}" +
+                    "else " +
+                    "{" +
+                    "    publish data" +
+                    "      where goodPrice = -1 " +
+                    "        and goodAmt = -1 " +
+                    "}");
+            rs.next();
+            
+            double gp = rs.getDouble("goodPrice");
+            double gpm = rs.getDouble("goodAmt");
+            
+            _logger.info("goodPrice:" + gp);
+            _logger.info("goodAmt:" + gpm);
+
+            if (gp > 0) {
+                result = true;
+            }
+        }
+        catch(Exception e) {
+            result = false;
+        }
+        _logger.info("hasGoodPriceInTop10 return result:" + result);
+        return result;
+    }
     public boolean isLstPriTurnaround(boolean inc_flg) {
 
         int sz = tid.last_lst.size();
         
-        if (SECONDS_AS_LOOP_GAP == 0) {
-            String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
-            try {
-                MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '"
-                                                      + polvar + "' and polval = 'LOOP-PARAM' and grp_id = '----'");
-                rs.next();
-                SECONDS_AS_LOOP_GAP = rs.getInt("rtnum2");
-            }
-            catch (MocaException e) {
-                e.printStackTrace();
-                _logger.error(e.getMessage());
-                _logger.info("Reading policy LOOP-PARAM error, use default value 5 seconds for loop gap.");
-                SECONDS_AS_LOOP_GAP = 5;
-            }
-        }
+        //take 5 minute for cal avg pri.
+        int lenForAvg = 60 * 5 / SECONDS_AS_LOOP_GAP;
         
-        //take 1 minute for cal avg pri.
-        int lenForAvg = 60 * 1 / SECONDS_AS_LOOP_GAP;
-        
-        if (!isMinMaxLstPriMatchBoxGap(inc_flg) || sz < 3 * lenForAvg) {
-            _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap or sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");
+        if (sz < 3 * lenForAvg) {
+            _logger.info("last_lst sz:" + sz + " is small then 3 * lenForAvg:" + lenForAvg + "? isLstPriTurnaround return false.");
             if (inc_flg) {
                 det_buy_turnaround.clear();
             }
@@ -822,10 +865,6 @@ public class HuoBiStock implements IStock{
     }
     
     public boolean isLstPriAboveWaterLevel(double topPct) {
-        if (!isMinMaxLstPriMatchBoxGap(false)) {
-            _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap, isLstPriAboveWaterLevel is false.");
-            return false;
-        }
         int sz = tid.last_lst.size();
         double lstPri = tid.last_lst.get(sz - 1);
         _logger.info("maxPri:" + maxpri + "\n minPri:" + minpri + "\n lstPri:" + lstPri);
@@ -875,10 +914,6 @@ public class HuoBiStock implements IStock{
     
     public boolean isLstPriUnderWaterLevel(double bottomPct) {
         int sz = tid.last_lst.size();
-        if (!isMinMaxLstPriMatchBoxGap(true)) {
-            _logger.info("last_lst does not match isMinMaxLstPriMatchBoxGap, isLstPriUnderWaterLevel is false.");
-            return false;
-        }
         double lstPri = tid.last_lst.get(sz - 1);
         _logger.info("maxPri:" + maxpri + "\n minPri:" + minpri + "\n lstPri:" + lstPri);
         
@@ -925,7 +960,7 @@ public class HuoBiStock implements IStock{
         return false;
     }
     
-    public boolean wasClosePriHighLvlAndCross(double highLvl, int maxDays) {
+    public boolean wasClosePriHighLvlAndCross(double highLvl, double stopLvl, int periodLen, int maxShftDays) {
         
         boolean atHighLvl = false;
         boolean isCrossPeriod = false;
@@ -935,12 +970,18 @@ public class HuoBiStock implements IStock{
                 MocaResults rs = _moca.executeCommand("process period stat data " +
                                                       "  where mk = '" + mk + "'" +
                                                       "    and ct = '" + ct + "'" +
-                                                      "    and dayShift = " + dayCnt);
+                                                      "    and periodType = 'D' " +
+                                                      "    and periodLength = " + periodLen +
+                                                      "    and periodShift = " + dayCnt);
                 if (rs.next()) {
                     double pricePctForDay = rs.getDouble("pricePctForDay");
                     _logger.info("pricePctForDay:" + pricePctForDay + ", highLvl:" + highLvl);
                     if (pricePctForDay >= highLvl && !atHighLvl) {
                         atHighLvl = true;
+                    }
+                    else if (pricePctForDay <= stopLvl) {
+                        _logger.info("pricePctForDay:" + pricePctForDay + " <= stopLvl:" + stopLvl + " return false.");
+                        return false;
                     }
                     
                     if (!isCrossPeriod) {
@@ -950,7 +991,7 @@ public class HuoBiStock implements IStock{
                 _logger.info("atHighLvl:" + atHighLvl + ", isCrossPeriod:" + isCrossPeriod);
                 dayCnt--;
             }
-            while (!(atHighLvl && isCrossPeriod) && dayCnt > -maxDays);
+            while (!(atHighLvl && isCrossPeriod) && dayCnt > -maxShftDays);
         } catch (MocaException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -959,7 +1000,7 @@ public class HuoBiStock implements IStock{
         return atHighLvl && isCrossPeriod;
     }
     
-    public boolean wasClosePriLowLvlAndCross(double LowLvl, int maxDays) {
+    public boolean wasClosePriLowLvlAndCross(double LowLvl, double stopLvl, int periodLen, int maxShftDays) {
         
         boolean atLowLvl = false;
         boolean isCrossPeriod = false;
@@ -969,12 +1010,18 @@ public class HuoBiStock implements IStock{
                 MocaResults rs = _moca.executeCommand("process period stat data " +
                                                       "  where mk = '" + mk + "'" +
                                                       "    and ct = '" + ct + "'" +
-                                                      "    and dayShift = " + dayCnt);
+                                                      "    and periodType = 'D' " +
+                                                      "    and periodLength = " + periodLen +
+                                                      "    and periodShift = " + dayCnt);
                 if (rs.next()) {
                     double pricePctForDay = rs.getDouble("pricePctForDay");
                     _logger.info("pricePctForDay:" + pricePctForDay + ", atLowLvl:" + atLowLvl);
                     if (pricePctForDay <= LowLvl && !atLowLvl) {
                         atLowLvl = true;
+                    }
+                    else if (pricePctForDay >= stopLvl) {
+                        _logger.info("pricePctForDay:" + pricePctForDay + " >= stopLvl:" + stopLvl + " return false.");
+                        return false;
                     }
                     
                     if (!isCrossPeriod) {
@@ -984,7 +1031,7 @@ public class HuoBiStock implements IStock{
                 _logger.info("atLowLvl:" + atLowLvl + ", isCrossPeriod:" + isCrossPeriod);
                 dayCnt--;
             }
-            while (!(atLowLvl && isCrossPeriod) && dayCnt > -maxDays);
+            while (!(atLowLvl && isCrossPeriod) && dayCnt > -maxShftDays);
         } catch (MocaException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -993,11 +1040,14 @@ public class HuoBiStock implements IStock{
         return atLowLvl && isCrossPeriod;
     }
     
-    public boolean isMinMaxLstPriMatchBoxGap(boolean forBuy) {
+    /*
+     * Return: the min gap value needed for trade.
+     */
+    private double calGapVal(boolean forBuy) {
         int sz = tid.last_lst.size();
         if (sz <= 0) {
-            _logger.info("last price queue is empty, isMinMaxLstPriMatchBoxGap return false");
-            return false;
+            _logger.info("last price queue is empty, return false");
+            return -1;
         }
         
         double queued_maxpri = Integer.MIN_VALUE;
@@ -1043,11 +1093,67 @@ public class HuoBiStock implements IStock{
         // 2. Aged at least once.
         if (act_gap_max >= RATIO_GAP_MIN &&
             act_gap_max <= RATIO_GAP_MAX &&
-            ageVal > act_gap_max &&
-            ageVal == RATIO_GAP_MAX) {
+            ageVal > act_gap_max) {
             expVal = act_gap_max;
         }
 
+        _logger.info(
+                "\n Queue size:" + sz +
+                "\n loadCount:" + loadCount +
+                "\n MAX_SZ:" + MAX_SZ + 
+                "\n RATIO_GAP_MIN:" + RATIO_GAP_MIN +
+                "\n RATIO_GAP_MAX:" + RATIO_GAP_MAX +
+                "\n act_gap_max:" + act_gap_max +
+                "\n Aging Gap value:" + ageVal +
+                "\n Expression Value:" + expVal +
+                "\n maxPri:" + maxpri +
+                "\n minPri:" + minpri +
+                "\n maxpri - minpri:" + (maxpri - minpri));
+        
+        _logger.info("Default Gap Value:" + expVal);;
+
+        if (maxWaterLvl <= 0) {
+            String polvar = (ct.equalsIgnoreCase("btc") ? "BTC" : "LTC");
+            try {
+                MocaResults rs = _moca.executeCommand("list policies where polcod ='HUOBI' and polvar = '" + polvar
+                        + "' and polval ='DEALWATERLVL' and grp_id = '----'");
+                
+                rs.next();
+                
+                maxWaterLvl = rs.getDouble("rtflt2");
+                minWaterLvl = rs.getDouble("rtflt1");
+                _logger.info("got maxWaterLvl:" + maxWaterLvl + ", minWaterLvl:" + minWaterLvl);
+            }
+            catch(Exception e) {
+                _logger.debug(e.getMessage());
+                maxWaterLvl = 0.8;
+                minWaterLvl = 0.2;
+                _logger.info("set maxWaterLvl default to 0.8");
+            }
+        }
+        
+        if (forBuy) {
+            if (isLstPriBreakUpBorder(3) && wasClosePriLowLvlAndCross(minWaterLvl, maxWaterLvl, 45, 3)) {
+                expVal = (expVal / 3 < 50) ? (expVal /3) : 50;
+            }
+            else if (wasClosePriLowLvlAndCross(minWaterLvl + (maxWaterLvl - minWaterLvl) / 2.0, maxWaterLvl, 45, 45)) {
+                expVal = (expVal / 2 < 100) ? (expVal /2) : 100;
+            }
+            _logger.info("forBuy Model, Gap Value:" + expVal);
+        }
+        else if (!forBuy) {
+            if (isLstPriBreakButtomBorder(3) && wasClosePriHighLvlAndCross(maxWaterLvl, minWaterLvl, 45, 3)) {
+                expVal = (expVal / 3 < 50) ? (expVal /3) : 50;
+            }
+            else if (wasClosePriHighLvlAndCross(maxWaterLvl - minWaterLvl, minWaterLvl, 45, 45)) {
+                expVal = (expVal / 2 < 100) ? (expVal /2) : 100;
+            }
+            _logger.info("forSell Model, Gap Value:" + expVal);
+        }
+        _logger.info("calGapVal return Gap Value:" + expVal);
+        return expVal;
+    }
+    public boolean isMinMaxLstPriMatchBoxGap(boolean forBuy, String ordid_forskip) {
         // We get the price of last deal, make sure
         // the gap of top or bottom with last deal price
         // matches the calculate expVal.
@@ -1055,6 +1161,12 @@ public class HuoBiStock implements IStock{
         String type = "";
         MocaResults rs = null;
         String cls = "";
+        
+        double expVal = calGapVal(forBuy);
+        
+        if (expVal < 0) {
+            return false;
+        }
         
         //Only get last trade price when we have btc or ltc availalbe.
         //When it sold out, ignore the last deal price.
@@ -1070,6 +1182,8 @@ public class HuoBiStock implements IStock{
             // when all money used, and try to sell, ignore last deal price.
              cls = " (@available_cny_display > 0.1)";
         }
+        
+        String skpordcls = (ordid_forskip == null || ordid_forskip.isEmpty()) ? "" : " and id < '" + ordid_forskip + "'";
         try {
             rs = _moca.executeCommand(" get account info " +
                                       "|" +
@@ -1078,8 +1192,9 @@ public class HuoBiStock implements IStock{
                                       "    [select decode(processed_price, 0, order_price, processed_price) lstDealPri,                              " +
                                       "            type                                                     " +
                                       "       from hb_buysell_data                                          " +
-                                      "      where id = (select max (id) from hb_buysell_data where reacod like 'GoodPrice%')              " +
+                                      "      where id = (select max (id) from hb_buysell_data where reacod like 'GoodPrice%' " + skpordcls + ")              " +
                                       "        and type in ('1','2')                                        " +
+                                      skpordcls +
                                       "        and ins_dt > sysdate - 12/24.0]            " +//if trade within 12 hours.
                                       "} " +
                                       "else {" +
@@ -1097,17 +1212,6 @@ public class HuoBiStock implements IStock{
         }
         
         _logger.info(
-                "\n Queue size:" + sz +
-                "\n loadCount:" + loadCount +
-                "\n MAX_SZ:" + MAX_SZ + 
-                "\n RATIO_GAP_MIN:" + RATIO_GAP_MIN +
-                "\n RATIO_GAP_MAX:" + RATIO_GAP_MAX +
-                "\n act_gap_max:" + act_gap_max +
-                "\n Aging Gap value:" + ageVal +
-                "\n Expression Value:" + expVal +
-                "\n maxPri:" + maxpri +
-                "\n minPri:" + minpri +
-                "\n maxpri - minpri:" + (maxpri - minpri) +
                 "\n lstDealPri:" + lstDealPri + ", type:" + (type.equals("1") ? " buy" : (type.isEmpty() ? " NoTradeIn12Hrs" : " sell")) +
                 "\n maxpri - lstDealPri:" + (maxpri - lstDealPri) + ((!forBuy) ? (" should > expVal:" + expVal + " to sell") : "") +
                 "\n lstDealPri - minpri:" + (lstDealPri - minpri) + (forBuy ? (" should > expVal:" + expVal + " to buy") : ""));
