@@ -1,5 +1,5 @@
 polcod,polvar,polval,srtseq,rtstr1,rtstr2,rtnum1,rtnum2,rtflt1,rtflt2,moddte,mod_usr_id,grp_id
-HUOBI,TRADE,ACCESS-SECRET,0,a4379746-a122fb6b-0a8eba26-63f47,d85c11ec-856a9e77-15061294-c63bb,0,0,0,0,sysdate,Install,----
+HUOBI,TRADE,ACCESS-SECRET,0,f7030931-e34d0648-6afdf79a-a04a4,bbd26d2c-d22f9c21-7df125d9-11c4d,0,0,0,0,sysdate,Install,----
 HUOBI,BTC,SHORT_LONG_TERM,0,060,100,5,10,0,0,sysdate,Install,----
 HUOBI,BTC,LOOP-PARAM,0,,,0,5,0,0,sysdate,Install,----
 HUOBI,BTC,MNYPERDEAL,0,,,0,0,7000,10000,sysdate,Install,----
