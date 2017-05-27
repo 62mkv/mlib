@@ -1132,24 +1132,24 @@ public class HuoBiStock implements IStock{
             }
         }
         
-        if (forBuy) {
-            if (isLstPriBreakUpBorder(3) && wasClosePriLowLvlAndCross(minWaterLvl, maxWaterLvl, 45, 3)) {
-                expVal = (expVal / 3 < 50) ? (expVal /3) : 50;
-            }
-            else if (wasClosePriLowLvlAndCross(minWaterLvl + (maxWaterLvl - minWaterLvl) / 2.0, maxWaterLvl, 45, 45)) {
-                expVal = (expVal / 2 < 100) ? (expVal /2) : 100;
-            }
-            _logger.info("forBuy Model, Gap Value:" + expVal);
-        }
-        else if (!forBuy) {
-            if (isLstPriBreakButtomBorder(3) && wasClosePriHighLvlAndCross(maxWaterLvl, minWaterLvl, 45, 3)) {
-                expVal = (expVal / 3 < 50) ? (expVal /3) : 50;
-            }
-            else if (wasClosePriHighLvlAndCross(maxWaterLvl - minWaterLvl, minWaterLvl, 45, 45)) {
-                expVal = (expVal / 2 < 100) ? (expVal /2) : 100;
-            }
-            _logger.info("forSell Model, Gap Value:" + expVal);
-        }
+//        if (forBuy) {
+//            if (isLstPriBreakUpBorder(3) && wasClosePriLowLvlAndCross(minWaterLvl, maxWaterLvl, 45, 3)) {
+//                expVal = expVal / 3;
+//            }
+//            else if (wasClosePriLowLvlAndCross(minWaterLvl + (maxWaterLvl - minWaterLvl) / 2.0, maxWaterLvl, 45, 45)) {
+//                expVal = expVal / 2;
+//            }
+//            _logger.info("forBuy Model, Gap Value:" + expVal);
+//        }
+//        else if (!forBuy) {
+//            if (isLstPriBreakButtomBorder(3) && wasClosePriHighLvlAndCross(maxWaterLvl, minWaterLvl, 45, 3)) {
+//                expVal = expVal / 3;
+//            }
+//            else if (wasClosePriHighLvlAndCross(maxWaterLvl - minWaterLvl, minWaterLvl, 45, 45)) {
+//                expVal = expVal / 2;
+//            }
+//            _logger.info("forSell Model, Gap Value:" + expVal);
+//        }
         _logger.info("calGapVal return Gap Value:" + expVal);
         return expVal;
     }
