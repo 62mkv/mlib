@@ -30,6 +30,7 @@ public class HBSPS1 implements ISellPointSelector {
     private HuoBiStock stock = null;
     private HuoBiCashAcnt account = null;
     private String ordid_forskp = null;
+    static public boolean needBuyAll = false;
 
     public HBSPS1(HuoBiStock s, HuoBiCashAcnt ac)
     {
@@ -88,6 +89,10 @@ public class HBSPS1 implements ISellPointSelector {
             log.info("hasGoodPriceInTop10, HBSPS1 return false.");
             return true;
         }
+        else if (HBBPS1.needSellAll) {
+            log.info("HBBPS1.needSellAll is true, HBSPS1 return true.");
+            return true;
+        }
         else {
             log.info("HBSPS1 return false.");
             return false;
@@ -131,6 +136,11 @@ public class HBSPS1 implements ISellPointSelector {
 	    log.info("avaStock:" + avaStock + ", sellableMny:" + sellabeleMny +
 	            ", lstPri:" + lstPri + ", sellableMny / lstPri:" + sellabeleMny / lstPri +
 	            ", return sellableAmt:" + sellableAmt);
+	    
+	    if (HBBPS1.needSellAll) {
+	        sellableAmt = avaStock;
+	        log.info("HBBPS1.needSellAll is true, sellableAmt:" + sellableAmt);
+	    }
 	    return sellableAmt;
 	}
 	
@@ -154,6 +164,7 @@ public class HBSPS1 implements ISellPointSelector {
         }
         
         if (sellableQty > 0.001) {
+            needBuyAll = false;
             TickerData tid = stock.geTickerData();
             int sz = tid.last_lst.size();
             double lstPri = tid.last_lst.get(sz - 1);
@@ -262,7 +273,8 @@ public class HBSPS1 implements ISellPointSelector {
             return soldComplete;
         }
         else {
-            log.info("sellqty is 0, can not sell:" + sellableQty);
+            log.info("sellqty is 0, can not sell:" + sellableQty + " set needBuyAll to true!");
+            needBuyAll = true;
             return false;
         }
     }

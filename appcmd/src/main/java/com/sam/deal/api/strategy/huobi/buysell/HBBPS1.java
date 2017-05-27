@@ -36,6 +36,7 @@ public class HBBPS1 implements IBuyPointSelector {
     private HuoBiStock stock = null;
     private HuoBiCashAcnt account = null;
     private String ordid_forskp = null;
+    static public boolean needSellAll =false;
     
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -108,6 +109,10 @@ public class HBBPS1 implements IBuyPointSelector {
             log.info("hasGoodPriceInTop10, HBBPS1 return false.");
             return true;
 	    }
+	    else if (HBSPS1.needBuyAll) {
+	        log.info("HBBPS1.needBuyAll is true, HBBPS1 return true.");
+	        return true;
+	    }
 	    else {
 	        log.info("HBBPS1 return false.");
 	        return false;
@@ -121,6 +126,11 @@ public class HBBPS1 implements IBuyPointSelector {
         double buyprice = stock.getCurPri();
         log.info("buyablemny:" + buyablemny);
         log.info("buyprice:" + buyprice);
+        
+        if (HBSPS1.needBuyAll) {
+            buyablemny = account.getMaxAvaMny();
+            log.info("HBSPS1.needBuyAll is true, buyablemny:" + buyablemny);
+        }
         return buyablemny / buyprice;
 	}
 	
@@ -167,6 +177,7 @@ public class HBBPS1 implements IBuyPointSelector {
         }
         
         if (buyableMny > 1) {
+            needSellAll = false;
             TickerData tid = stock.geTickerData();
             int sz = tid.last_lst.size();
             double lstPri = tid.last_lst.get(sz - 1);
@@ -277,7 +288,8 @@ public class HBBPS1 implements IBuyPointSelector {
             return boughtComplete;
         }
         else {
-            log.info("buyableMny is less then 1, can not buy:" + buyableMny);
+            log.info("buyableMny is less then 1, can not buy:" + buyableMny + " set needSellAll to true.");
+            needSellAll = true;
             return false;
         }
 	}
