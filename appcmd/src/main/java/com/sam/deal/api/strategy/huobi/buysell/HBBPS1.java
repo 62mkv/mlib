@@ -128,7 +128,7 @@ public class HBBPS1 implements IBuyPointSelector {
         log.info("buyprice:" + buyprice);
         
         if (HBSPS1.needBuyAll) {
-            buyablemny = account.getMaxAvaMny();
+            buyablemny = account.getMaxAvaMny() / 2.0;
             log.info("HBSPS1.needBuyAll is true, buyablemny:" + buyablemny);
         }
         return buyablemny / buyprice;

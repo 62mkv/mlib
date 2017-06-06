@@ -138,7 +138,7 @@ public class HBSPS1 implements ISellPointSelector {
 	            ", return sellableAmt:" + sellableAmt);
 	    
 	    if (HBBPS1.needSellAll) {
-	        sellableAmt = avaStock;
+	        sellableAmt = avaStock / 2.0;
 	        log.info("HBBPS1.needSellAll is true, sellableAmt:" + sellableAmt);
 	    }
 	    return sellableAmt;
