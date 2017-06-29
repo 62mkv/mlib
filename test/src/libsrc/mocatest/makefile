@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 LIBNAME=MOCAtest
 
@@ -31,5 +31,5 @@ OFILES=MOCAlicense.o \
 
 EXTRALIBS=-lm
 
-include $(MOCADIR)/makefiles/Component.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Component.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk

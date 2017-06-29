@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 LIBNAME=MOCAxml
 
@@ -22,5 +22,5 @@ OFILES=MOCAlicense.o \
        mocaStopXMLParser.o \
        mocaWriteXMLFile.o 
 
-include $(MOCADIR)/makefiles/Component.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Component.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk

@@ -8,7 +8,7 @@ nodebug:
 	$(MAKE) DEBUG=-O
 
 hinstall: $(IFILES)
-	@if [ -n "$(IFILES)" ]; then $(INSTALL) $(INCMODE) $(MOCADIR)/include $?; fi
+	@if [ -n "$(IFILES)" ]; then $(INSTALL) $(INCMODE) $(MLIBDIR)/include $?; fi
 
 .SUFFIXES : .cpp
 

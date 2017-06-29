@@ -1,10 +1,10 @@
 
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 APPNAME=wsdeploy
 
 OFILES=wsdeploy.o
 
-include $(MOCADIR)/makefiles/Application.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Application.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk
 

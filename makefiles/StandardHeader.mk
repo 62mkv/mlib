@@ -13,26 +13,26 @@ DEBUG=-g
 ####################################################################
 # Next Section: Directories, scripts, modes...
 ####################################################################
-INSTALL=$(MOCADIR)/makefiles/install.sh
+INSTALL=$(MLIBDIR)/makefiles/install.sh
 
 INCMODE=644
 LIBMODE=755
 APPMODE=755
 
-INCDIR=$(MOCADIR)/include
-LIBDIR=$(MOCADIR)/lib
-BINDIR=$(MOCADIR)/bin
+INCDIR=$(MLIBDIR)/include
+LIBDIR=$(MLIBDIR)/lib
+BINDIR=$(MLIBDIR)/bin
 
 ####################################################################
 # Next Section: Platform specific definitions...
 ####################################################################
 
-include $(MOCADIR)/makefiles/Config.mk
+include $(MLIBDIR)/makefiles/Config.mk
 
-INCLUDES=-I$(MOCADIR)/include
+INCLUDES=-I$(MLIBDIR)/include
 
-LDFLAGS=$(LDOPTS) $(EXTRALDFLAGS) -L$(MOCADIR)/lib 
-SHLDFLAGS=$(SHLDOPTS) $(EXTRALDFLAGS) -L$(MOCADIR)/lib 
+LDFLAGS=$(LDOPTS) $(EXTRALDFLAGS) -L$(MLIBDIR)/lib 
+SHLDFLAGS=$(SHLDOPTS) $(EXTRALDFLAGS) -L$(MLIBDIR)/lib 
 
 CFLAGS=$(WARN) $(DEBUG) $(COPTIONS) $(DEFINES) $(INCLUDES) \
        $(EXTRACFLAGS) $(JAVACFLAGS)

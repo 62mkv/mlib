@@ -1,6 +1,6 @@
-include $(MOCADIR)/makefiles/StandardDirHeader.mk
+include $(MLIBDIR)/makefiles/StandardDirHeader.mk
 
 SUBDIR=mbuildcoverage \
 	   mcoveragereport
 
-include $(MOCADIR)/makefiles/StandardDirFooter.mk
+include $(MLIBDIR)/makefiles/StandardDirFooter.mk

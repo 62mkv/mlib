@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 OFILES=sqlAddColumn.o \
        sqlAddRow.o \
@@ -57,5 +57,5 @@ OFILES=sqlAddColumn.o \
        sql_PromoteDataType.o \
        sql_Set.o 
        
-include $(MOCADIR)/makefiles/Library.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Library.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk

@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 OFILES=osAccess.o \
        osAsyncIO.o \
@@ -47,6 +47,6 @@ OFILES=osAccess.o \
        osVar.o \
        os_MapInfo.o 
 
-include $(MOCADIR)/makefiles/Library.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Library.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk
 

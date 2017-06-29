@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardDirHeader.mk
+include $(MLIBDIR)/makefiles/StandardDirHeader.mk
 
 SUBDIR=dblib \
        evtlib \
@@ -14,4 +14,4 @@ SUBDIR=dblib \
        mocabase \
        mocaxml 
 
-include $(MOCADIR)/makefiles/StandardDirFooter.mk
+include $(MLIBDIR)/makefiles/StandardDirFooter.mk

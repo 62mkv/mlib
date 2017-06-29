@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 OFILES=mxmllib.o \
        mxmlcommon.o \
@@ -6,5 +6,5 @@ OFILES=mxmllib.o \
 
 EXTRACFLAGS=$(JCOPTIONS)
 
-include $(MOCADIR)/makefiles/Library.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Library.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk

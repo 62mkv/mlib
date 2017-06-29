@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/LibraryLibs.mk
+include $(MLIBDIR)/makefiles/LibraryLibs.mk
 
 default: $(PREREQS) $(OFILES) $(LIBNAME)
 
@@ -9,10 +9,10 @@ INSTALL-SOFTWARE:
 	$(INSTALL) $(LIBMODE) $(LIBDIR) $(INSTALL-FILES)
 
 $(LIBDEPEND) dummy::
-	-@for i in `ls $(MOCADIR)/src/libsrc/$@/*.o`; do \
+	-@for i in `ls $(MLIBDIR)/src/libsrc/$@/*.o`; do \
 		rm -f `basename $$i`; \
 	done
-	ln -sf $(MOCADIR)/src/libsrc/$@/*.o .
+	ln -sf $(MLIBDIR)/src/libsrc/$@/*.o .
 
 $(OFILES):
 

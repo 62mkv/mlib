@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/ComponentLibs.mk
+include $(MLIBDIR)/makefiles/ComponentLibs.mk
 
 default: $(LIBNAME)
 

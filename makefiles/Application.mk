@@ -1,6 +1,6 @@
-VPATH=.:$(MOCADIR)/lib
+VPATH=.:$(MLIBDIR)/lib
 
-include $(MOCADIR)/makefiles/ApplicationLibs.mk
+include $(MLIBDIR)/makefiles/ApplicationLibs.mk
 
 default: $(APPNAME)
 

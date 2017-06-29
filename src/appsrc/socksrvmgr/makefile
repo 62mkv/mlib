@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 APPNAME=socksrvmgr
 
@@ -24,5 +24,5 @@ OFILES=cons_Echo.o \
        signal.o \
        socksrvmgr.o 
 
-include $(MOCADIR)/makefiles/Application.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Application.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk

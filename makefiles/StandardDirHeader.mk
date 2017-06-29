@@ -1,1 +1,1 @@
-include $(MOCADIR)/makefiles/Config.mk
+include $(MLIBDIR)/makefiles/Config.mk

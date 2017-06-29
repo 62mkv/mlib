@@ -4,10 +4,10 @@
 #
 ###########################################################################
 
-!include $(MOCADIR)\makefiles\Config.mk
+!include $(MLIBDIR)\makefiles\Config.mk
 
-MOCAOBJDIR = $(MOCADIR)\downloads\components
-COMPCSVDIR = $(MOCADIR)\db\data\load\base\safetoload\comp_ver
+MOCAOBJDIR = $(MLIBDIR)\downloads\components
+COMPCSVDIR = $(MLIBDIR)\db\data\load\base\safetoload\comp_ver
 
 
 !ifndef NODEBUG
@@ -30,7 +30,7 @@ WARNFLAG=-W3
 
 .SUFFIXES : .cpp
 
-CFLAGS=-nologo -GF -MD -DWIN32 -DWIN32_LEAN_AND_MEAN $(JAVACFLAGS) $(WARNFLAG) $(DEBUGFLAG) $(EXTRACFLAGS) -I$(MOCADIR)\include \
+CFLAGS=-nologo -GF -MD -DWIN32 -DWIN32_LEAN_AND_MEAN $(JAVACFLAGS) $(WARNFLAG) $(DEBUGFLAG) $(EXTRACFLAGS) -I$(MLIBDIR)\include \
        
 LINKFLAGS=-incremental:no -fixed:no -MACHINE:X86 $(LINKDEBUG) $(EXTRALINKFLAGS) $(MAPFLAG)
 
@@ -44,8 +44,8 @@ all: $(TARGET).$(TARGETTYPE)
 
 cut:
 !ifdef VERSION_FILE
-	perl $(MOCADIR)\client\scripts\CppSetVersion.pl $(VERSION_FILE) $(MOCAMAJOR) $(MOCAMINOR) $(MOCAREV)
-	perl $(MOCADIR)\client\scripts\CppUpdateProgIdText.pl $(C_RGS_FILE)
+	perl $(MLIBDIR)\client\scripts\CppSetVersion.pl $(VERSION_FILE) $(MOCAMAJOR) $(MOCAMINOR) $(MOCAREV)
+	perl $(MLIBDIR)\client\scripts\CppUpdateProgIdText.pl $(C_RGS_FILE)
 !endif
 
 fix: $(FIXTARGET).$(FIXTARGETTYPE)
@@ -53,8 +53,8 @@ fix: $(FIXTARGET).$(FIXTARGETTYPE)
 $(FIXTARGET).$(FIXTARGETTYPE): $(FIXDEPENDS)
 !ifdef VERSION_FILE
 	echo Updating $(TARGET).$(TARGETTYPE)...
-	@perl $(MOCADIR)\client\scripts\CppBumpver.pl $(VERSION_FILE) 
-	@perl $(MOCADIR)\client\scripts\CppUpdateProgIdText.pl $(C_RGS_FILE)
+	@perl $(MLIBDIR)\client\scripts\CppBumpver.pl $(VERSION_FILE) 
+	@perl $(MLIBDIR)\client\scripts\CppUpdateProgIdText.pl $(C_RGS_FILE)
 !endif
 
 clean:
@@ -70,17 +70,17 @@ install: all hinstall i-install $(POST_INSTALL)
 
 i-install:
 !ifndef NOINSTALL
-	@perl $(MOCADIR)\scripts\install.pl $(TARGET).$(TARGETTYPE) $(MOCADIR)\bin
-	@perl $(MOCADIR)\scripts\install.pl $(TARGET).pdb $(MOCADIR)\bin
+	@perl $(MLIBDIR)\scripts\install.pl $(TARGET).$(TARGETTYPE) $(MLIBDIR)\bin
+	@perl $(MLIBDIR)\scripts\install.pl $(TARGET).pdb $(MLIBDIR)\bin
 !endif
 !if "$(TARGETTYPE)" != "exe"
-	@perl $(MOCADIR)\scripts\install.pl $(TARGET).lib $(MOCADIR)\lib
+	@perl $(MLIBDIR)\scripts\install.pl $(TARGET).lib $(MLIBDIR)\lib
 !if "$(MAKESTATIC)" == "yes"
-	@perl $(MOCADIR)\scripts\install.pl $(TARGET)-static.lib $(MOCADIR)\lib
+	@perl $(MLIBDIR)\scripts\install.pl $(TARGET)-static.lib $(MLIBDIR)\lib
 !endif
 !endif
 !ifdef VERSION_FILE
-	@perl $(MOCADIR)\client\scripts\CppCompver.pl $(VERSION_FILE) $(C_RGS_FILE) $(TARGET) > $(TARGET).csv
+	@perl $(MLIBDIR)\client\scripts\CppCompver.pl $(VERSION_FILE) $(C_RGS_FILE) $(TARGET) > $(TARGET).csv
 	@$(INSTALL) $(TARGET).$(TARGETTYPE) $(MOCAOBJDIR)
 	@$(INSTALL) $(TARGET).csv $(COMPCSVDIR)
 !endif
@@ -89,7 +89,7 @@ i-install:
 
 hinstall: $(IFILES)
 !ifdef IFILES
-	@$(INSTALL) $** $(MOCADIR)\include
+	@$(INSTALL) $** $(MLIBDIR)\include
 !endif
 
 $(TARGET).lib: $(PREREQS) $(OFILES)
@@ -99,14 +99,14 @@ $(TARGET).exe: $(PREREQS) $(OFILES) $(LIBDEPEND) $(VBP) $(FORMS)
 !ifdef VBP
 	vb6 -make -out make.log $(TARGET)
 !else
-	$(CC) $(CFLAGS) $(OFILES) -link -libpath:$(MOCADIR)\lib \
+	$(CC) $(CFLAGS) $(OFILES) -link -libpath:$(MLIBDIR)\lib \
 	$(STDLIBS) $(MOCALIBS) $(EXTRALIBS) $(LINKFLAGS) -out:$@ 
 	mt -nologo -manifest $(TARGET).exe.manifest -outputresource:$(TARGET).exe;#1
 !endif
 
 $(TARGET).dll: $(PREREQS) $(OFILES) $(LIBDEPEND) $(DEFFILE) makestatic
 	$(CC) $(CFLAGS) -LD$(DEBUG) $(DEFFILE) $(OFILES) -link \
-	-libpath:$(MOCADIR)\lib $(STDLIBS) \
+	-libpath:$(MLIBDIR)\lib $(STDLIBS) \
 	$(EXTRALIBS) $(LINKFLAGS) -dll -implib:$*.lib -out:$@
 	mt -nologo -manifest $(TARGET).dll.manifest -outputresource:$(TARGET).dll;#2
 

@@ -1,5 +1,5 @@
-include $(MOCADIR)/makefiles/StandardDirHeader.mk
+include $(MLIBDIR)/makefiles/StandardDirHeader.mk
 
 SUBDIR=incsrc libsrc appsrc
 
-include $(MOCADIR)/makefiles/StandardDirFooter.mk
+include $(MLIBDIR)/makefiles/StandardDirFooter.mk

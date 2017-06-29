@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 OFILES=mad.o \
        mad_msg.o \
@@ -13,5 +13,5 @@ OFILES=mad.o \
        mad_time.o \
        mad_interval.o 
 
-include $(MOCADIR)/makefiles/Library.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Library.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk

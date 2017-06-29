@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 OFILES=srvAddColumn.o \
        srvAddColumnWithValue.o \
@@ -40,6 +40,6 @@ OFILES=srvAddColumn.o \
        srv_FormatCommand.o \
        srvlib.o \
 
-include $(MOCADIR)/makefiles/Library.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Library.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk
 

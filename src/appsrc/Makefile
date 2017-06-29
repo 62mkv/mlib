@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardDirHeader.mk
+include $(MLIBDIR)/makefiles/StandardDirHeader.mk
 
 SUBDIR=createctl \
        dbupgrade \
@@ -17,4 +17,4 @@ SUBDIR=createctl \
        runtask \
        wsdeploy
 
-include $(MOCADIR)/makefiles/StandardDirFooter.mk
+include $(MLIBDIR)/makefiles/StandardDirFooter.mk

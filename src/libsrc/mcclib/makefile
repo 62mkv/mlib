@@ -1,4 +1,4 @@
-include $(MOCADIR)/makefiles/StandardHeader.mk
+include $(MLIBDIR)/makefiles/StandardHeader.mk
 
 OFILES=mccClose.o \
        mccDisableAutoCommit.o \
@@ -11,5 +11,5 @@ OFILES=mccClose.o \
        mccSetApplicationID.o \
        mccSetupEnvironment.o 
 
-include $(MOCADIR)/makefiles/Library.mk
-include $(MOCADIR)/makefiles/StandardFooter.mk
+include $(MLIBDIR)/makefiles/Library.mk
+include $(MLIBDIR)/makefiles/StandardFooter.mk
