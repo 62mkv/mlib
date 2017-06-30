@@ -1,14 +1,14 @@
 /*#START***********************************************************************
  *
- *  $URL: https://athena.redprairie.com/svn/prod/moca/branches/vs2005/config/mocaconfig.h.win32-x86 $
+ *  $URL: https://athena.redprairie.com/svn/prod/moca/branches/vs2005/config/mocaconfig.h.linux-x86 $
  *  $Revision: 120395 $
- *  $Id: mocaconfig.h.win32-x86 120395 2007-02-13 16:03:23Z mlange $
+ *  $Id: mocaconfig.h.linux-x86 120395 2007-02-13 16:03:23Z mlange $
  *
- *  Description: Win32 configuration header file.
+ *  Description: Linux configuration header file.
  *
  *  $Copyright-Start$
  *
- *  Copyright (c) 2002-2007
+ *  Copyright (c) 2007
  *  RedPrairie Corporation
  *  All Rights Reserved
  *
@@ -31,30 +31,113 @@
 #ifndef MOCACONFIG_H
 #define MOCACONFIG_H
 
-#define MOCAEXPORT __stdcall
+#ifndef LINUX
+#define LINUX
+#endif
 
-#define LIBEXPORT  __declspec(dllexport)
-#define LIBIMPORT  __declspec(dllimport)
+#define MOCAEXPORT
+#define LIBEXPORT
+#define LIBIMPORT
 
-#define _USE_RTM_VERSION
-#define _USE_32BIT_TIME_T
+#ifndef HAVE_GETTIMEOFDAY	/**/
+#define HAVE_GETTIMEOFDAY	/**/
+#endif				/**/
+/*#ifndef HAVE_FTIME		  */
+/*#define HAVE_FTIME		  */
+/*#endif			  */
 
-#define _CRT_SECURE_NO_DEPRECATE
-#define _CRT_NONSTDC_NO_DEPRECATE
+#ifndef USE_FCNTL_FOR_ASYNC	/**/
+#define USE_FCNTL_FOR_ASYNC	/**/
+#endif				/**/
+/*#ifndef USE_IOCTL_FOR_ASYNC	*/
+/*#define USE_IOCTL_FOR_ASYNC	*/
+/*#endif			*/
 
-#define HAVE_FTIME
+#ifndef USE_MSGHDR 		/**/
+#define USE_MSGHDR 		/**/
+#endif				/**/
+/*#ifndef USE_NSPIPE 		  */
+/*#define USE_NSPIPE 		  */
+/*#endif			  */
 
-#ifndef HAVE_MALLOC_H  /**/
-#define HAVE_MALLOC_H  /**/
-#endif                 /**/
+/*#ifndef HAVE_MSGHDR_CLASSIC 	  */
+/*#define HAVE_MSGHDR_CLASSIC 	  */
+/*#endif			  */
+#ifndef HAVE_MSGHDR_CMSGHDR 	/**/
+#define HAVE_MSGHDR_CMSGHDR 	/**/
+#endif				/**/
 
-#define PATH_SEPARATOR           '\\'
-#define PATH_SEPARATOR_STR       "\\"
-#define PATH_LIST_SEPARATOR      ';'
-#define PATH_LIST_SEPARATOR_STR  ";"
+#ifndef SELECT_NEEDS_SYS_TIME_H		/**/
+#define SELECT_NEEDS_SYS_TIME_H		/**/
+#endif					/**/
+#ifndef SELECT_NEEDS_SYS_TYPES_H	/**/
+#define SELECT_NEEDS_SYS_TYPES_H	/**/
+#endif					/**/
+/*#ifndef SELECT_NEEDS_SYS_SELECT_H	  */
+/*#define SELECT_NEEDS_SYS_SELECT_H	  */
+/*#endif				  */
+#ifndef SELECT_NEEDS_UNISTD_H		/**/
+#define SELECT_NEEDS_UNISTD_H		/**/
+#endif					/**/
+
+#ifndef MSGHDR_NEEDS_SYS_TYPES_H	/**/
+#define MSGHDR_NEEDS_SYS_TYPES_H	/**/
+#endif					/**/
+
+#ifndef STAT_NEEDS_SYS_TYPES_H	/**/
+#define STAT_NEEDS_SYS_TYPES_H	/**/
+#endif				/**/
+#ifndef STAT_NEEDS_SYS_STAT_H	/**/
+#define STAT_NEEDS_SYS_STAT_H	/**/
+#endif				/**/
+
+#ifndef HAVE_GLOB_H		/**/
+#define HAVE_GLOB_H		/**/
+#endif				/**/
+#ifndef HAVE_SYS_STAT_H		/**/
+#define HAVE_SYS_STAT_H		/**/
+#endif				/**/
+#ifndef HAVE_SYS_TYPES_H	/**/
+#define HAVE_SYS_TYPES_H	/**/
+#endif				/**/
+#ifndef HAVE_SYS_TIME_H		/**/
+#define HAVE_SYS_TIME_H		/**/
+#endif				/**/
+#ifndef HAVE_SYS_UIO_H		/**/
+#define HAVE_SYS_UIO_H		/**/
+#endif				/**/
+#ifndef HAVE_SYS_UTSNAME_H	/**/
+#define HAVE_SYS_UTSNAME_H	/**/
+#endif				/**/
+#ifndef HAVE_SYS_SELECT_H	/**/
+#define HAVE_SYS_SELECT_H	/**/
+#endif				/**/
+/*#ifndef HAVE_SYS_SYSTEMINFO_H   */
+/*#define HAVE_SYS_SYSTEMINFO_H   */
+/*#endif			  */
+
+/*#ifndef HAVE_BROKEN_GLOB_SLASH  */
+/*#define HAVE_BROKEN_GLOB_SLASH  */
+/*#endif                          */
+
+#ifndef HAVE_DLOPEN		/**/
+#define HAVE_DLOPEN		/**/
+#endif				/**/
+/*#ifndef HAVE_SHL_LOAD           */
+/*#define HAVE_SHL_LOAD           */
+/*#endif                          */
+
+#define LPCOMMAND                "/usr/bin/lp -c"
+
+#define PATH_SEPARATOR           '/'
+#define PATH_SEPARATOR_STR       "/"
+#define PATH_LIST_SEPARATOR      ':'
+#define PATH_LIST_SEPARATOR_STR  ":"
 
 #define MOCA_DEBUG_MALLOC
 
-/* #define MOCA_MAX_TRACING  */
+/*#define MOCA_MAX_TRACING 	  */
 
 #endif
+
+

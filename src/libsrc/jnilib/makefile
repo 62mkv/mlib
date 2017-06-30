@@ -24,8 +24,8 @@ native.o: native.c native.h
 
 javalib.o: javalib.c
 
-results.h: $(MLIBDIR)/lib/moca-server.jar
-	$(JAVA_HOME)/bin/javah -classpath "$(MLIBDIR)/build/core/classes:$(MLIBDIR)/build/native/classes:$(MLIBDIR)/build/server/classes:$(MLIBDIR)/lib/moca-core.jar:$(MLIBDIR)/lib/moca-native.jar:$(MLIBDIR)/lib/moca-server.jar" -jni -o results.h com.redprairie.moca.server.legacy.WrappedResults
+results.h: $(MLIBDIR)/target/mlib.jar
+	$(JAVA_HOME)/bin/javah -classpath "$(MLIBDIR)/build/core/classes:$(MLIBDIR)/build/native/classes:$(MLIBDIR)/build/server/classes:$(MLIBDIR)/target/mlib.jar" -jni -o results.h com.sam.moca.server.legacy.WrappedResults
 
-native.h: $(MLIBDIR)/lib/moca-server.jar
-	$(JAVA_HOME)/bin/javah -classpath "$(MLIBDIR)/build/core/classes:$(MLIBDIR)/build/native/classes:$(MLIBDIR)/build/server/classes:$(MLIBDIR)/lib/moca-core.jar:$(MLIBDIR)/lib/moca-native.jar:$(MLIBDIR)/lib/moca-server.jar" -jni -o native.h com.redprairie.moca.server.legacy.InternalNativeProcess
+native.h: $(MLIBDIR)/target/mlib.jar
+	$(JAVA_HOME)/bin/javah -classpath "$(MLIBDIR)/build/core/classes:$(MLIBDIR)/build/native/classes:$(MLIBDIR)/build/server/classes:$(MLIBDIR)/target/mlib.jar" -jni -o native.h com.sam.moca.server.legacy.InternalNativeProcess

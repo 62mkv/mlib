@@ -598,7 +598,8 @@ PACKAGE_VERSION=
 PACKAGE_STRING=
 PACKAGE_BUGREPORT=
 
-ac_unique_file="../build.xml"
+#comment out by Sam Ni
+#ac_unique_file="../build.xml"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
 UNAME_PATH

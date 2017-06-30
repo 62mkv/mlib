@@ -6,6 +6,7 @@ client/src/winmsql.net/bin/*
 client/src/winmsql.net/obj/*
 */*.obj
 *.exe
+*.o
 *.exp
 *.pdb
 *.lib

@@ -1,14 +1,14 @@
 ##START#########################################################################
 #
-# $URL: https://athena.redprairie.com/svn/prod/moca/branches/vs2005/config/Config.mk.win32-x86 $
-# $Revision: 120417 $
+# $URL: https://athena.redprairie.com/svn/prod/moca/branches/vs2005/config/Config.mk.linux-x86 $
+# $Revision: 120395 $
 # $Author: mlange $
 #
 # Description: Configure makefile for MOCA.
 #
 # $Copyright-Start$
 #
-# Copyright (c) 2002-2009
+# Copyright (c) 2007
 # RedPrairie Corporation
 # All Rights Reserved
 #
@@ -27,20 +27,23 @@
 #
 ##END###########################################################################
 
-MOCA_PLATFORM = win32-x86
+MOCA_PLATFORM = linux-x64
 
-#
-# Set the release flag.
-#
+CC         = gcc
+CCC        = g++
+LD         = ld
+WARN       =
+DEFINES    =
+COPTIONS   = -m32 -fPIC
+CCOPTIONS  = -m32 -fPIC
+JCOPTIONS  =
+LIBOPTS    = -ldl -lrt
+LDOPTS     = -melf_i386
+SHLDOPTS   = -melf_i386 -shared -E -lrt
+SHLIBEXT   = .so
 
-RELEASE   = 2013.2.2.15
-MOCAVER   = 20132215
-MOCAREV   = 2
-MOCAMAJOR = 2013
-MOCAMINOR = 2
+ICONVLIB =
 
-#
-# Java Configuration
-#
+RANLIB = ranlib
 
-JAVACFLAGS = "-I$(JAVA_HOME)\include" "-I$(JAVA_HOME)\include\win32"
+JAVACFLAGS = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux
