@@ -201,12 +201,14 @@ password=RedPrairie1
 #url=jdbc:sqlserver://localhost;databaseName=rpw82
 ###url=jdbc:sqlserver://localhost;databaseName=20141
 #url=jdbc:sqlserver://localhost;databaseName=mlib
-#url=jdbc:sqlserver://localhost;databaseName=fit-8.2
-#driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
-username=sam2
-password=sam2
+url=jdbc:sqlserver://localhost;databaseName=rbt
+driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+username=sa
+password=Default,16
 #url=jdbc:oracle:thin:@localhost:1521:orcl
 #driver=oracle.jdbc.OracleDriver
+#url=jdbc:mysql://localhost:3306/rbt
+#driver=com.mysql.jdbc.Driver
 
 
 [EMS]
