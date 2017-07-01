@@ -1,9 +1,8 @@
 include $(MLIBDIR)/makefiles/StandardHeader.mk
 
-APPNAME=mocaserver
+APPNAME=mlibserver
 
-OFILES=mocaserver.o
+OFILES=mlibserver.o
 
 include $(MLIBDIR)/makefiles/Application.mk
 include $(MLIBDIR)/makefiles/StandardFooter.mk
-

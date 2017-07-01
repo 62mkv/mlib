@@ -15,16 +15,15 @@ MTF_PORT=4520
 FIT_WCS_LOCAL_PORT=5300
 FIT_WCS_REMOTE_PORT=5200
 MOCA_ENVNAME=82
-JAVA_HOME=C:\jdk1.7
-JAVA64_HOME=C:\jdk1.8
+JAVA64_HOME=/home/samni/jdk180
 
-LESDIR=E:\MFC\mlib
+LESDIR=/media/samni/96BA0DD5BA0DB333/MFC/mlib
 #MCSDIR=E:\dev\8.2\mcs
 #DCSDIR=E:\dev\8.2\wmd
 #MTFDIR=E:\dev\8.2\mtf
 #MTFCLIENT=E:\dev\8.2\wmd\mtfclient
 
-MOCADIR=E:\MFC\mlib
+MOCADIR=/media/samni/96BA0DD5BA0DB333/MFC/mlib
 #SALDIR=E:\dev\8.2\sal
 #SLDIR=E:\dev\8.2\seamles
 #REFSDIR=E:\dev\8.2\rpweb
@@ -49,7 +48,7 @@ PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\b
 #TEST_CLASSPATH=%RPUXDIR%\server\mocarest\domain\build\classes-test\;
 #WEB_CLASSPATH=%RPUXDIR%\server\build\classes\*;%RPUXDIR%\server\artifacts\*;%RPUXDIR%\server\mocarest\domain\build\jar\*;%REFSDIR%\javalib\*;%REFSDIR%
 #CLASSPATH=%RPFITDIR%\lib\*.jar;%MTFDIR%\build\classes;%MTFDIR%\3rdparty\log4j-1.2.15.jar;%MTFDIR%\lib\*;%MTFDIR%\fitnesse\lib\*;%MTFCLIENT%\lib\*;%MTFDIR%\javalib\*;%MCSDIR%\lib\*;%MOCADIR%\lib\*;%MOCADIR%\javalib\*;%MOCADIR%\test\3rdparty\findbugs\lib\*;%SALDIR%\lib\*;%DCSDIR%\build\classes\;%DCSDIR%\mtfclient\build\classes;%DCSDIR%\lib\*;%DCSDIR%\mtfclient\lib\*;%SLDIR%\lib\*;%SLDIR%\javalib\*;%REPORTINGDIR%\lib\*;%REPORTINGDIR%\javalib\*;%DEVTOOLS%\build\classes;%DEVTOOLS%\lib\*;
-CLASSPATH=%MOCADIR%\lib\*;%MOCADIR%\javalib\*;%MOCADIR%\test\3rdparty\findbugs\lib\*;%MOCADIR%\target\classes;
+CLASSPATH=%MOCADIR%/target/mlib.jar:%MOCADIR%/javalib/*
 
 MTF_CLASSPATH=%MTFDIR%\3rdparty\log4j-1.2.15.jar;%CLASSPATH%
 #CLASSPATH=%MTFDIR%\3rdparty\log4j*.jar;%CLASSPATH%
@@ -145,12 +144,12 @@ test-disable-native=false
 inhibit-tasks=false
 inhibit-jobs=false
 max-async-thread=10
-command-profile=E:\MFC\mlib\data\commandprofile
+command-profile=%MOCADIR%\data\commandprofile
 port=%MOCA_PORT%
-prod-dirs=%MOCADIR%;%MOCADIR%\appcmd;
+prod-dirs=%MOCADIR%:%MOCADIR%/appcmd
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
-memory-file=E:\MFC\mlib\data\%MOCA_ENVNAME%.mem
+memory-file=%MOCADIR%\data\%MOCA_ENVNAME%.mem
 #config-dir=%LESDIR%\data;%DCSDIR%\config;%REPORTINGDIR%\config;
 #commands-dir=%REPORTINGDIR%\src\cmdsrc;
 #session-idle-timeout=10
@@ -206,8 +205,8 @@ password=RedPrairie1
 #driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 username=sam2
 password=sam2
-url=jdbc:oracle:thin:@localhost:1521:orcl
-driver=oracle.jdbc.OracleDriver
+#url=jdbc:oracle:thin:@localhost:1521:orcl
+#driver=oracle.jdbc.OracleDriver
 
 
 [EMS]

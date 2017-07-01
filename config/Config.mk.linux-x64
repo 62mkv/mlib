@@ -38,7 +38,7 @@ COPTIONS   = -m32 -fPIC
 CCOPTIONS  = -m32 -fPIC
 JCOPTIONS  =
 LIBOPTS    = -ldl -lrt
-LDOPTS     = -melf_i386
+#LDOPTS     = -melf_i386
 SHLDOPTS   = -melf_i386 -shared -E -lrt
 SHLIBEXT   = .so
 

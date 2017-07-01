@@ -21,7 +21,6 @@ superclean: clean
 	rm -f bin/*
 	rm -f include/*
 	rm -f lib/*
-	rm -f javalib/*
 
 rebuild: clean install
 
