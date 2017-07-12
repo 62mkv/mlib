@@ -1,0 +1,14 @@
+#include <../../../include/mocaddl.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_PK_CONSTRAINT_BEGIN(var_txt, var_txt_pk)
+(
+    var_id,
+    locale_id,
+    cust_lvl
+)
+CREATE_PK_CONSTRAINT_USING_INDEX
+CREATE_PK_CONSTRAINT_TABLESPACE(VAR_TXT_PK_TBLSPC, VAR_TXT_PK_STORAGE)
+CREATE_PK_CONSTRAINT_END
+RUN_DDL

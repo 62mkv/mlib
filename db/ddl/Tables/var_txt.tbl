@@ -1,0 +1,26 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef VAR_TXT_TBL
+#define VAR_TXT_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define VAR_TXT_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define VAR_TXT_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define VAR_TXT_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define VAR_TXT_TBL
+#endif
+
+CREATE_TABLE(var_txt)
+(
+    var_id STRING_TY(20) not null,
+    locale_id STRING_TY(20) not null,
+    cust_lvl INTEGER_TY not null,
+    var_txt STRING_TY(50),
+    ins_dt DATE_TY
+)
+CREATE_TABLE_TABLESPACE(VAR_TXT_TBL_TBLSPC, VAR_TXT_TBL_STORAGE)
+RUN_DDL
+
+#include <../Indexes/var_txt_pk.idx>
+#include <../Docs/var_txt.tdoc>

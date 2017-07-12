@@ -1,0 +1,13 @@
+mset command on
+
+create db documentation
+  where table = 'var_txt'
+    and table_comment = "This table contains variable translation message."
+    and var_id = "Variable ID."
+    and locale_id = "Locale ID."
+    and cust_lvl = "Customization level."
+    and var_txt = "Translation message text."
+    and ins_dt = "record insert time."
+/
+
+mset command off 
