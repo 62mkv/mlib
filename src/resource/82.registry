@@ -14,16 +14,17 @@ LOCALE_ID=US_ENGLISH
 MTF_PORT=4520
 FIT_WCS_LOCAL_PORT=5300
 FIT_WCS_REMOTE_PORT=5200
-MOCA_ENVNAME=82
-JAVA64_HOME=/home/samni/jdk180
+MOCA_ENVNAME=mlib
+JAVA_HOME=C:\java18_32
+JAVA64_HOME=C:\java18_64
 
-LESDIR=/media/samni/96BA0DD5BA0DB333/MFC/mlib
+LESDIR=D:\github\mlib
 #MCSDIR=E:\dev\8.2\mcs
 #DCSDIR=E:\dev\8.2\wmd
 #MTFDIR=E:\dev\8.2\mtf
 #MTFCLIENT=E:\dev\8.2\wmd\mtfclient
 
-MOCADIR=/media/samni/96BA0DD5BA0DB333/MFC/mlib
+MOCADIR=D:\github\mlib
 #SALDIR=E:\dev\8.2\sal
 #SLDIR=E:\dev\8.2\seamles
 #REFSDIR=E:\dev\8.2\rpweb
@@ -31,7 +32,7 @@ MOCADIR=/media/samni/96BA0DD5BA0DB333/MFC/mlib
 #REPORTINGDIR=E:\dev\8.2\reporting
 #RPFITDIR=E:\dev\8.2\RPFitNesse
 
-DEVTOOLS=E:\dev\devtools\
+DEVTOOLS=D:\dev\devtools\
 
 
 USR_ID=SUPER
@@ -48,7 +49,7 @@ PATH=%DEVTOOLS%\bin;%JAVA_HOME%\jre\bin\client;%JAVA_HOME%\jre\bin;%JAVA_HOME%\b
 #TEST_CLASSPATH=%RPUXDIR%\server\mocarest\domain\build\classes-test\;
 #WEB_CLASSPATH=%RPUXDIR%\server\build\classes\*;%RPUXDIR%\server\artifacts\*;%RPUXDIR%\server\mocarest\domain\build\jar\*;%REFSDIR%\javalib\*;%REFSDIR%
 #CLASSPATH=%RPFITDIR%\lib\*.jar;%MTFDIR%\build\classes;%MTFDIR%\3rdparty\log4j-1.2.15.jar;%MTFDIR%\lib\*;%MTFDIR%\fitnesse\lib\*;%MTFCLIENT%\lib\*;%MTFDIR%\javalib\*;%MCSDIR%\lib\*;%MOCADIR%\lib\*;%MOCADIR%\javalib\*;%MOCADIR%\test\3rdparty\findbugs\lib\*;%SALDIR%\lib\*;%DCSDIR%\build\classes\;%DCSDIR%\mtfclient\build\classes;%DCSDIR%\lib\*;%DCSDIR%\mtfclient\lib\*;%SLDIR%\lib\*;%SLDIR%\javalib\*;%REPORTINGDIR%\lib\*;%REPORTINGDIR%\javalib\*;%DEVTOOLS%\build\classes;%DEVTOOLS%\lib\*;
-CLASSPATH=%MOCADIR%/target/mlib.jar:%MOCADIR%/javalib/*
+CLASSPATH=%MOCADIR%/target/mlib.jar;%MOCADIR%/javalib/*
 
 MTF_CLASSPATH=%MTFDIR%\3rdparty\log4j-1.2.15.jar;%CLASSPATH%
 #CLASSPATH=%MTFDIR%\3rdparty\log4j*.jar;%CLASSPATH%
@@ -146,7 +147,7 @@ inhibit-jobs=false
 max-async-thread=10
 command-profile=%MOCADIR%\data\commandprofile
 port=%MOCA_PORT%
-prod-dirs=%MOCADIR%:%MOCADIR%/appcmd
+prod-dirs=%MOCADIR%;%MOCADIR%/appcmd
 url=http://localhost:%MOCA_PORT%/service
 rmi-port=%RMI_PORT%                         
 memory-file=%MOCADIR%\data\%MOCA_ENVNAME%.mem
@@ -200,8 +201,8 @@ password=RedPrairie1
 #url=jdbc:sqlserver://localhost;databaseName=%MOCA_ENVNAME%
 #url=jdbc:sqlserver://localhost;databaseName=rpw82
 ###url=jdbc:sqlserver://localhost;databaseName=20141
-#url=jdbc:sqlserver://localhost;databaseName=mlib
-url=jdbc:sqlserver://localhost;databaseName=rbt
+url=jdbc:sqlserver://localhost;databaseName=mlib
+#url=jdbc:sqlserver://localhost;databaseName=rbt
 driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
 username=sa
 password=Default,16

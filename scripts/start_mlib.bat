@@ -1,1 +1,1 @@
-java classpath %MLIBDIR%/target/mlib.jar;%MLIBDIR%/javalib/* com.sam.moca.server.MocaServerMain
+java -classpath %MLIBDIR%/target/mlib.jar;%MLIBDIR%/javalib/* com.sam.moca.server.MocaServerMain

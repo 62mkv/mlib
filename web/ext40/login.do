@@ -241,6 +241,7 @@
                                 {
                                     text: '用户维护',
                                     id: 'mntuser',
+                                    width:100,
                                     handler: function(item, evt)
                                     {
                                        // alert(item.text + " clicked!");
@@ -337,6 +338,9 @@
                                title:'WMS系统',
                                id: 'page_panel',
                                bodyPadding:5,
+                               bodyStyle: {
+                                   backgroundColor: 'gray'
+                               },
                                layout:'hbox',
                                    items:[
                                        menuForm,

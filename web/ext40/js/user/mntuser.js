@@ -65,7 +65,7 @@ function mntUser(item, evt)
         var grd_usr = Ext.create('Ext.grid.Panel',
         		{
         	        title: '用户',
-                    width:page_panel.body.el.dom.clientWidth * 2/3,
+                    width:page_panel.body.el.dom.clientWidth,
                     height:page_panel.body.el.dom.clientHeight * 2/3,
                     bodyPadding:5,
         	        columns: modelAndCols.columns,
