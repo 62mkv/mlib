@@ -9,14 +9,18 @@
     <script language="javascript" type="text/javascript" src="ext-debug.js"></script>
     <script language="javascript" type="text/javascript" src="js/global/global.js"></script>
     <script language="javascript" type="text/javascript" src="js/util/util.js"></script>
-    <script language="javascript" type="text/javascript" src="js/user/mntuser.js"></script>
-    <link href="resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript" src="js/user/user.js"></script>
+    <script language="javascript" type="text/javascript" src="js/facility/facility.js"></script>
+    <script language="javascript" type="text/javascript" src="js/facility/wh.js"></script>
+    <script language="javascript" type="text/javascript" src="js/facility/building.js"></script>
+    <script language="javascript" type="text/javascript" src="js/inbound/inbound.js"></script>
+    <script language="javascript" type="text/javascript" src="js/dict/dict.js"></script>
+    <link href="resources/css/ext-all-gray.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
     <script type="text/javascript">
         Ext.onReady(function(){
-            //alert('aaaa');
             var loginForm= Ext.create('Ext.form.Panel',
                        {
                              title:'请登录',
@@ -51,6 +55,7 @@
                                    minLength:4,
                                    maxLength:10,
                                    vtype:'alpha',//alphanum,email,url.
+                                   value:'SUPER',
                                    allowBlank: false
                                },
                                {
@@ -59,6 +64,7 @@
                                      height:25,
                                      inputType:'password',
                                      name: 'pswd',
+                                     value: 'SUPER',
                                    allowBlank: false
                                }
                               ],
@@ -101,6 +107,7 @@
                                            success: function(form, action)
                                            {
                                                   Ext.Msg.alert('Success');
+                                                  loadDictionary();
                                            },
                                            failure: function(form, action)
                                            {
@@ -124,6 +131,7 @@
                                                   //Ext.Msg.alert("Environment:", env);
                                                   loginForm.hide();
                                                   PagePanel.show();
+                                                  loadDictionary();
                                                   //Ext.Msg.alert('failed','bbbb');
                                            },
                                            callback:function(p1,p2,p3)
@@ -232,43 +240,25 @@
                     });
                     commandForm.center();
                     //commandForm.hide();
-                    var usermenu = new Ext.create('Ext.menu.Menu',
-                            {
-                            width: 120,
-                            floating: false,
-                            layout:'vbox',
-                            items: [
-                                {
-                                    text: '用户维护',
-                                    id: 'mntuser',
-                                    width:100,
-                                    handler: function(item, evt)
-                                    {
-                                       // alert(item.text + " clicked!");
-                                    	mntUser(item, evt);
-                                    }
-                                },
-                                //{
-                                //    xtype: 'menuseparator'
-                                //},
-                                {
-                                    text: '权限维护',
-                                    handler: function(item, evt)
-                                    {
-                                        alert(item.text + ' was clicked!');
-                                    }
-                                }
-                            ]});
                     
+                    var scrn_w = document.documentElement.clientWidth;
+                    var scrn_h = document.documentElement.clientHeight;
+                    console.log("screen width:" + scrn_w);
+                    console.log("screen height:" + scrn_h);
+                    
+                    var um = createUserMenu();
+                    var fm = createFacilityMenu();
+                    var im = createInboundMenu();
+                    var dm = createDictionaryMenu();
                     var menuForm= Ext.create('Ext.panel.Panel',
                             {
                                title:'菜单',
                                bodyPadding:5,
-                               width:140,
-                              height:600,
+                               width:200,
+                               height:700,
                                resizable: true,
                                plain: true,
-                               pinned: true,
+                               pinned: false,
                                handles:'e',
                                layout:'accordion',
 //                              layoutConfig:{
@@ -278,61 +268,9 @@
 //                                 titleCollapse: false,
 //                                 animate: false
 //                              },
-                                   items:[
-                                       {
-                                           id:'user',
-                                           xtype: 'panel',
-                                           title: '用户',
-                                           items: [
-                                               usermenu
-                                               ]
-                                       },
-                                       {
-                                           id:'facility',
-                                           title: '设施',
-                                           html:'This area is for executing command...'
-                                       },
-                                       {
-                                           id:'inbound',
-                                           title: '入库',
-                                           html: 'This area is for login...'
-                                       },
-                                       {
-                                           id:'outbound',
-                                           title: '出库',
-                                           html:'This area is for executing command...'
-                                       },
-                                       {
-                                           id:'inventory',
-                                           title: '库存',
-                                           html:'This area is for executing command...'
-                                       },
-                                       {
-                                           id:'count',
-                                           title: '盘点',
-                                           html:'This area is for executing command...'
-                                       },
-                                       {
-                                           id:'command',
-                                           title: '命令',
-                                           html:'This area is for executing command...'
-                                       },
-                                       {
-                                           id:'policy',
-                                           title: '策略',
-                                           html:'This area is for executing command...'
-                                       },
-                                       {
-                                           id:'print',
-                                           title: '打印',
-                                           html:'This area is for executing command...'
-                                       }]
+                                   items: [um, fm, im, dm]
                             });
-
-                    var scrn_w = document.body.style.width;
-                    var scrn_h = document.body.style.height;
-                    console.log("screen width:" + scrn_w);
-                    console.log("screen height:" + scrn_h);
+                    
                     var PagePanel= Ext.create('Ext.panel.Panel',
                             {
                                title:'WMS系统',
@@ -348,7 +286,7 @@
                                            xtype: 'container',
                                            id: 'context_panel',
                                            title: '操作',
-                                           html: 'texting area',
+                                           html: '',
                                            width: '100%',
                                            height: '100%',
                                            items:[]
@@ -359,6 +297,5 @@
                     PagePanel.center();
       });
 </script>
-<div id='resulttext'></div>
 </body>
 </html>

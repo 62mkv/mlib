@@ -1,0 +1,13 @@
+<command>
+  <name>list warehouses</name>
+  <description>List warehouse</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+    [select * from wh where @*]    
+]]>
+  </local-syntax>
+  <documentation>
+      list warehouse record.
+  </documentation>
+</command>

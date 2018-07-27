@@ -1,0 +1,27 @@
+<command>
+  <name>create building</name>
+  <description>Create a building</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'wh_id'
+|
+validate stack variable not null
+where name = 'bldg_id'
+|
+validate stack variable not null
+where name = 'adr_id'
+|
+create record
+ where table_name = 'bldg'
+   and @*
+]]>
+  </local-syntax>
+  <argument name="wh_id" datatype="string"/>
+  <argument name="bldg_id" datatype="string"/>
+  <argument name="adr_id" datatype="string"/>
+  <documentation>
+      create building record.
+  </documentation>
+</command>

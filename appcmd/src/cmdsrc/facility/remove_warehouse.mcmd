@@ -1,0 +1,19 @@
+<command>
+  <name>remove warehouse</name>
+  <description>remove a warehouse</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'wh_id'
+|
+remove record
+ where table_name = 'wh'
+   and @*
+]]>
+  </local-syntax>
+  <argument name="wh_id" datatype="string"/>
+  <documentation>
+      remove warehouse record.
+  </documentation>
+</command>

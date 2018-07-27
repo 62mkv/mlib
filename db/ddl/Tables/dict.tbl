@@ -1,0 +1,31 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef DICT_DATA_TBL
+#define DICT_DATA_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define DICT_DATA_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define DICT_DATA_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define DICT_DATA_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define DICT_DATA_TBL
+#endif
+
+CREATE_TABLE(dict)
+(
+	dict_id    NSTRING_TY(20) not null,    /* PK */
+	locale_id NSTRING_TY(30) not null,    /* PK */
+	frm_id   NSTRING_TY(30) not null,    /* PK */
+	vartn     NSTRING_TY(20) not null,    /* PK */
+	srtseq   INTEGER_TY not null,    /* PK */
+	cust_lvl  INTEGER_TY not null,    /* PK */
+	dict_text  NSTRING_TY(200) not null,
+	grp_nam		NSTRING_TY(50)
+
+)
+CREATE_TABLE_TABLESPACE(DICT_DATA_TBL_TBLSPC, DICT_DATA_TBL_STORAGE)
+RUN_DDL
+
+#include <dict_pk.idx>
+#include <dict.tdoc>
+

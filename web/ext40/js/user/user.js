@@ -1,6 +1,47 @@
 /*
  * Copyright (c) 2016 Sam Corporation, All rights reserved.
  */
+function createUserMenu()
+{
+                    var usermenu = new Ext.create('Ext.menu.Menu',
+                            {
+                            width: '100%',
+                            floating: false,
+                            layout:'vbox',
+                            items: [
+                                {
+                                    text: '用户维护',
+                                    id: 'mntuser',
+                                    width:'100%',
+                                    handler: function(item, evt)
+                                    {
+                                       // alert(item.text + " clicked!");
+                                        mntUser(item, evt);
+                                    }
+                                },
+                                //{
+                                //    xtype: 'menuseparator'
+                                //},
+                                {
+                                    text: '权限维护',
+                                    handler: function(item, evt)
+                                    {
+                                        alert(item.text + ' was clicked!');
+                                    }
+                                }
+                            ]});
+                            
+                           um = {
+                                           id:'user',
+                                           xtype: 'panel',
+                                           title: '用户',
+                                           items: [
+                                               usermenu
+                                               ]
+                                       };
+      return um;
+}
+
 function mntUser(item, evt)
 {
     var arg = arguments;
@@ -41,10 +82,10 @@ function mntUser(item, evt)
 //        			{name:  'super_usr_flg', type: 'int'}
 //        		]
 //                });
-        var modelAndCols = buildModeAndColumnsForCmd("list users", "User");
+        var userModelAndCols = buildModeAndColumnsForCmd("list users", "User");
         var ds_usr = Ext.create('Ext.data.Store',
         		{
-        	        model: modelAndCols.model,
+        	        model: userModelAndCols.model,
         	        proxy: MLIB_XML_PROXY,
         	        autoLoad: false
         		});
@@ -65,18 +106,31 @@ function mntUser(item, evt)
         var grd_usr = Ext.create('Ext.grid.Panel',
         		{
         	        title: '用户',
-                    width:page_panel.body.el.dom.clientWidth,
-                    height:page_panel.body.el.dom.clientHeight * 2/3,
+                    width: page_panel.body.el.dom.clientWidth * 8/10,
+                    height: page_panel.body.el.dom.clientHeight * 2/3,
                     bodyPadding:5,
-        	        columns: modelAndCols.columns,
-        	        store: ds_usr
-        		})
+                    autoScroll: true,
+        	        columns: userModelAndCols.columns,
+        	        store: ds_usr,
+                    listeners:{
+                                   itemdblclick: function(grid, row, e){
+                                        Ext.Msg.alert('rowdblclick');
+                                   },
+                                   itemclick: function(grid, row, e){
+                                       Ext.getCmp("au_name").setValue(row.data["login_id"]);
+                                       Ext.getCmp("au_pswd").setValue(row.data["usr_pswd"]);
+                                       Ext.getCmp("au_pswd2").setValue(row.data["usr_pswd"]);
+                                       Ext.getCmp("sup_usr_flg").setValue(row.data["super_usr_flg"]);
+                                   }
+                             }
+        		});
         au_mntuser = Ext.create('Ext.form.Panel',
                 {
                    title:'用户维护',
                    id: 'au_mntuser',
-                   width:page_panel.body.el.dom.clientWidth,
-                   height:page_panel.body.el.dom.clientHeight,
+                   width:'90%',
+                   height:'100%',
+                   autoScroll: true,
                    layout:'vbox',
                    bodyPadding:5,
                    defaultType: 'textfield',
@@ -120,6 +174,7 @@ function mntUser(item, evt)
                                                {
                                                	clause = " ";
                                                }
+                                               ACTIVE_MODEL = userModelAndCols.model;
                                                ds_usr.load({
                                             			    page: 3,
                                             			    limit: 90,
@@ -130,8 +185,8 @@ function mntUser(item, evt)
                                             		    	//Ext.Msg.alert("callback called");
                                             		        if (success) {
                                             		            var msg = [];
-                                            		            store.each(function (users) {
-                                            		                users.get('column');
+                                            		            ds_usr.each(function (users) {
+                                            		                //users.get('column');
                                             		            });
                                             		        }
                                             		    }
@@ -167,6 +222,7 @@ function mntUser(item, evt)
                                  width:270,
                                  height:25
                                },
+                               {xtype: 'splitter'},
                                grd_usr
                           ],
                    bbar:[
@@ -318,10 +374,20 @@ function mntUser(item, evt)
         });
    	    var savebtn = Ext.getCmp("bbar_save");
 	    savebtn.disable();
+        if (ACTIVE_RIGHT_PANEL != undefined)
+        {
+            ACTIVE_RIGHT_PANEL.hide();
+        }
+        ACTIVE_RIGHT_PANEL = au_mntuser;
         page_panel.add(au_mntuser);
     }
     else {
         console.log("showing already created au_adduser panel...");
+        if (ACTIVE_RIGHT_PANEL != au_mntuser)
+        {
+            ACTIVE_RIGHT_PANEL.hide();
+        }
+        ACTIVE_RIGHT_PANEL = au_mntuser;
         au_mntuser.show();
     }
     page_panel.doLayout();

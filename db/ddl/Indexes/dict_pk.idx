@@ -1,0 +1,19 @@
+#include <../../../include/mocaddl.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+#ifndef DICT_DATA_TBL
+#define DICT_DATA_PK_TBLSPC  MOCA_INDEX_TBS_01
+#define DICT_DATA_PK_STORAGE /* STORAGE (INITIAL 500K) */
+#define DICT_DATA_TBL_TBLSPC  MOCA_DATA_TBS_01
+#define DICT_DATA_TBL_STORAGE /* STORAGE (INITIAL 500K) */
+#define DICT_DATA_TBL
+#endif
+
+CREATE_PK_CONSTRAINT_BEGIN(dict, dict_pk )
+(dict_id, locale_id, frm_id, vartn, srtseq, cust_lvl) 
+CREATE_PK_CONSTRAINT_USING_INDEX
+CREATE_PK_CONSTRAINT_TABLESPACE(DICT_DATA_PK_TBLSPC, DICT_DATA_PK_STORAGE)
+CREATE_PK_CONSTRAINT_END
+RUN_DDL

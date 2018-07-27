@@ -1,0 +1,6 @@
+<component-level>
+<name>Dict</name>
+<description>Dict Components</description>
+<package>com.wms.dict</package>
+<sort-sequence>0</sort-sequence>
+</component-level>

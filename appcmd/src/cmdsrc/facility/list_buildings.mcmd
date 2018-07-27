@@ -1,0 +1,13 @@
+<command>
+  <name>list buildings</name>
+  <description>List buildings</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+    [select * from bldg where @*]    
+]]>
+  </local-syntax>
+  <documentation>
+      list building record.
+  </documentation>
+</command>

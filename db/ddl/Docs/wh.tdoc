@@ -1,0 +1,9 @@
+mset command on
+
+create db documentation
+  where table = 'wh'
+    and table_comment = "This table represents a user."
+    and wh_id= "Warehouse ID"
+    and adr_id = "Warehouse Address."
+/
+mset command off 

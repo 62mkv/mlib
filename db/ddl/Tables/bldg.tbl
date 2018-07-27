@@ -1,0 +1,16 @@
+#include <../../../include/mocaddl.h>
+#include <tablelen.h>
+#include <mocacolwid.h>
+#include <mocatbldef.h>
+#include <sqlDataTypes.h>
+
+CREATE_TABLE(bldg)
+(
+   wh_id        NSTRING_TY(WH_ID_LEN) not null,    /* PK */
+   bldg_id        NSTRING_TY(50) not null,    /* PK */
+   adr_id               NSTRING_TY(ADR_ID_LEN) not null
+)
+RUN_DDL
+
+#include <bldg_pk.idx>
+#include <bldg.tdoc>

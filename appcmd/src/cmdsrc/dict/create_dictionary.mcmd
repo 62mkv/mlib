@@ -1,0 +1,54 @@
+<command>
+  <name>create dictionary</name>
+  <description>Create an dictionary</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'dict_id'
+|
+validate stack variable not null
+where name = 'dict_text'
+|
+publish data where lst_dat = sysdate
+|
+publish data where moddte = sysdate
+|
+if (@locale_id = '')
+{
+    publish data
+     where locale_id ='SIMPLIFIED_CHINESE'
+}
+|
+if (@frm_id = '')
+{
+    publish data where frm_id ='ALL'
+}
+|
+if (@vartn = '')
+{
+    publish data where vartn = 1
+}
+|
+if (@srtseq = '')
+{
+    publish data where srtseq = 1
+}
+|
+create record
+ where table_name = 'dict'
+   and @*
+]]>
+  </local-syntax>
+  <argument name="dict_id" datatype="string"/>
+  <argument name="frm_id" datatype="string"/>
+  <argument name="vartn" datatype="string"/>
+  <argument name="srtseq" datatype="string"/>
+  <documentation>
+  <remarks>
+   This command create an dictionary entry in dict table.
+  </remarks>
+  <retrows>None.  This command just returns a status.</retrows>
+  <exception value="eOK">The command completed successfully.</exception>
+  </documentation>
+</command>

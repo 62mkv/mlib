@@ -1,0 +1,23 @@
+<command>
+  <name>create warehouse</name>
+  <description>Create a warehouse</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'wh_id'
+|
+validate stack variable not null
+where name = 'adr_id'
+|
+create record
+ where table_name = 'wh'
+   and @*
+]]>
+  </local-syntax>
+  <argument name="wh_id" datatype="string"/>
+  <argument name="adr_id" datatype="string"/>
+  <documentation>
+      create warehouse record.
+  </documentation>
+</command>

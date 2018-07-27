@@ -1,0 +1,16 @@
+mset command on
+
+create db documentation
+  where table = 'dict'
+    and table_comment = "This table contains descriptions and text for all displayed messages.  This provides the internationalization and customization of all text output."
+    and dict_id = "The unique identifier"
+    and locale_id = "Part of the unique identifier."
+    and frm_id= "Part of the unique identifier.  Ties this description to a specific form.  The value of ''WMS'' is the default for all forms."
+    and vartn= "Part of the unique identifier.  Used to tie this text to a specific variation.  An example of a variation may be different size RF screens."
+    and srtseq= "Not currently used.  This was intended to be a sort order for finding a message that ''fits'' a certain sized area."
+    and cust_lvl = "Allows different customization levels for customer and project teams."
+    and dict_text= "This is the text that will be displayed."
+    and grp_nam = "Specifies which product group was responsible for loading this data row."
+/
+
+mset command off 

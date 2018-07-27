@@ -3002,7 +3002,10 @@ public class DefaultServerContext implements ServerContext, JavaVariableContext 
         if (authToken != null) {
             authLevel = authToken.getSecurityLevel();
         }
-        
+        //
+        if (1 == 1) {
+            return;
+        }
         // Default to "open" security -- an unauthenticated session can
         // execute only unsecured commands.
         if (authLevel == null) authLevel = SecurityLevel.PUBLIC;

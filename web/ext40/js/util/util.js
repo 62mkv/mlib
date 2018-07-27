@@ -65,13 +65,17 @@ function buildModeAndColumnsForCmd(cmd, modelName)
                      {
                          var col = columns.childNodes[i].attributes.name.value;
                          var type = columns.childNodes[i].attributes.type.value;
+                         var colTxt = DICTMAP.get(col);
+                         if (colTxt === undefined) {
+                            colTxt = col;
+                         }
                          if (type == 'S')
                          {
                         	 if (addedflg == true)
                         	 {
                         		 columnsArrayStr += ",";
                         	 }
-                        	 columnsArrayStr += "{text: '" + col + "', dataIndex: '" + col +"'}";
+                        	 columnsArrayStr += "{text: '" + colTxt + "', dataIndex: '" + col +"'}";
                         	 addedflg = true;
                          }
                          else if (type == 'I')
@@ -80,7 +84,7 @@ function buildModeAndColumnsForCmd(cmd, modelName)
                         	 {
                         		 columnsArrayStr += ",";
                         	 }
-                        	 columnsArrayStr += "{text: '" + col + "', dataIndex: '" + col +"'}";
+                        	 columnsArrayStr += "{text: '" + colTxt + "', dataIndex: '" + col +"'}";
                         	 addedflg = true;
                          }
                          else if (type == 'D')
@@ -89,7 +93,7 @@ function buildModeAndColumnsForCmd(cmd, modelName)
                         	 {
                         		 columnsArrayStr += ",";
                         	 }
-                        	 columnsArrayStr += "{text: '" + col + "', dataIndex: '" + col +"'}";
+                        	 columnsArrayStr += "{text: '" + colTxt + "', dataIndex: '" + col +"'}";
                         	 addedflg = true;
                          }
                       }
@@ -110,7 +114,7 @@ function buildModeAndColumnsForCmd(cmd, modelName)
 
 function extractXmlDataForMlib(root) {
     var me = this,
-        Model   = me.model,
+        Model   = ACTIVE_MODEL,
         length  = root.childNodes.length,
         records = new Array(length),
         convertedValues, node, record, i;
@@ -168,4 +172,99 @@ var MLIB_XML_PROXY = {
 	    	 record:'row',
 	    	 extractData : extractXmlDataForMlib
 	    }
+}
+
+function loadDictionary() {
+    var dictMC = buildModeAndColumnsForCmd("[select * from dict where 1=2]", "Dict");
+    var ds_dictUtil = Ext.create('Ext.data.Store',
+                {
+                    model: dictMC.model,
+                    proxy: MLIB_XML_PROXY,
+                    autoLoad: false
+                });
+    ACTIVE_MODEL = dictMC.model;
+    ds_dictUtil.load({
+                  page: 3,
+                  limit: 90,
+                  params: {
+                       Query: '[select * from dict ]'
+                  },
+                  callback: function (records, operation, success) {
+                           if (success) {
+                                   var msg = [];
+                                   ds_dictUtil.each(function (dict) {
+                                   var dict_id = dict.get('dict_id');
+                                   var locale_id = dict.get('locale_id');
+                                   var frm_id = dict.get('frm_id');
+                                   var vartn = dict.get('vartn');
+                                   var cust_lvl = dict.get('cust_lvl');
+                                   var srtseq = dict.get('srtseq');
+                                   var dict_text = dict.get('dict_text');
+                                   
+                                   var key = dict_id + '|' + locale_id + '|' + frm_id + '|' + vartn + '|' + cust_lvl + '|' + srtseq;
+                                   DICTMAP.set(dict_id, dict_text);
+                           });
+                         }
+                  }
+                  });
+              var res = executeQuery("[select * from dict where 1=1]");
+              for(var i = 0; i < res.rowcount; i++)
+              {
+                 var row = getRow(res, i);
+                /* row.forEach(function (value, key, map)
+                             {
+                                console.log('key:' + key + ', value:' + value);
+                             }
+                 );*/
+                 console.log(row.get('dict_id') + ' is ' + row.get('dict_text'));
+              }
+}
+
+function executeQuery(cmd)
+{
+    var returnData = {};
+    Ext.Ajax.request(
+    {
+           url: HOST_STRING,
+           async: false,
+           params:{
+                   Query: cmd,
+                   ResponseFormat:'json'
+                  },
+           success: function(resp,opts)
+           {
+               var jsonDoc = JSON.parse(resp.responseText);
+               if(jsonDoc!=null)
+               {
+                   if (jsonDoc.values.length > 0)
+                   {
+                      returnData.data = jsonDoc; 
+                      returnData.rowcount = jsonDoc.values.length; 
+                      returnData.status = 0;
+                   }
+                   else
+                   {
+                       returnData.data = jsonDoc;
+                      returnData.rowcount = 0; 
+                       returnData.status = -1403;
+                   }
+               }
+           }
+     });
+     return returnData;
+}
+
+function getRow(returnData, rowIdx)
+{
+   if (returnData.rowcount <= rowIdx)
+   {
+       Ext.Msg.alert('Index overflow for returnData');
+       return null;
+   }
+   var row = new Map();
+   for(var i = 0; i < returnData.data.metadata.length; i++)
+   {
+      row.set(returnData.data.metadata[i][0], returnData.data.values[rowIdx][i]);
+   }
+   return row;
 }

@@ -11,3 +11,6 @@
 #include <../Tables/job_definition.tbl>
 #include <../Tables/job_definition_exec.tbl>
 #include <../Tables/job_env_definition.tbl>
+#include <../Tables/dict.tbl>
+#include <../Tables/wh.tbl>
+#include <../Tables/bldg.tbl>

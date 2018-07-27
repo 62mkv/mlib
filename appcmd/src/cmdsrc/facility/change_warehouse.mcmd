@@ -1,0 +1,23 @@
+<command>
+  <name>change warehouse</name>
+  <description>Change a warehouse</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'wh_id'
+|
+validate stack variable not null
+where name = 'adr_id'
+|
+change record
+ where table_name = 'wh'
+   and @*
+]]>
+  </local-syntax>
+  <argument name="wh_id" datatype="string"/>
+  <argument name="adr_id" datatype="string"/>
+  <documentation>
+      change warehouse record.
+  </documentation>
+</command>

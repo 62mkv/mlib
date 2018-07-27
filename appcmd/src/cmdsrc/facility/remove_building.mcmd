@@ -1,0 +1,23 @@
+<command>
+  <name>remove building</name>
+  <description>remove a building</description>
+  <type>Local Syntax</type>
+  <local-syntax>
+<![CDATA[
+validate stack variable not null
+where name = 'wh_id'
+|
+validate stack variable not null
+where name = 'bldg_id'
+|
+remove record
+ where table_name = 'bldg'
+   and @*
+]]>
+  </local-syntax>
+  <argument name="wh_id" datatype="string"/>
+  <argument name="bldg_id" datatype="string"/>
+  <documentation>
+      remove building record.
+  </documentation>
+</command>

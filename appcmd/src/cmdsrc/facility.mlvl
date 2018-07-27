@@ -1,0 +1,6 @@
+<component-level>
+<name>Facility</name>
+<description>Facility Components</description>
+<package>com.sam.facility</package>
+<sort-sequence>0</sort-sequence>
+</component-level>
